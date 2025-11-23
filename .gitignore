@@ -2,17 +2,18 @@ devel/
 logs/
 build/
 bin/
-lib/
-msg_gen/
-srv_gen/
-msg/*Action.msg
-msg/*ActionFeedback.msg
-msg/*ActionGoal.msg
-msg/*ActionResult.msg
-msg/*Feedback.msg
-msg/*Goal.msg
-msg/*Result.msg
-msg/_*.py
+install/
+#lib/
+#msg_gen/
+#srv_gen/
+#msg/*Action.msg
+#msg/*ActionFeedback.msg
+#msg/*ActionGoal.msg
+#msg/*ActionResult.msg
+#msg/*Feedback.msg
+#msg/*Goal.msg
+#msg/*Result.msg
+#msg/_*.py
 build_isolated/
 devel_isolated/
 
@@ -32,7 +33,7 @@ devel_isolated/
 # qcreator stuff
 CMakeLists.txt.user
 
-srv/_*.py
+#srv/_*.py
 *.pcd
 *.pyc
 qtcreator-*
@@ -42,10 +43,41 @@ qtcreator-*
 /planning/docs
 /planning/src
 
-*~
+#*~
 
 # Emacs
-.#*
+#.#*
+
+#vscode
+*.code-workspace
 
 # Catkin custom files
 CATKIN_IGNORE
+COLCON_IGNORE
+
+
+#video extensions
+
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mpeg
+*.mpg
+*.m4v
+*.ts
+*.m2ts
+*.3gp
+*.3g2
+
+#*.raw
+*.rm
+*.vob
+*.ogv
+*.divx
+*.mts
+*.mxf
+
