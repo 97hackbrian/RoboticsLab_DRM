@@ -1,0 +1,107 @@
+[0.199s] Invoking command in '/ros/UR_ws/build/kuka_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/kuka_robot -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/kuka_robot
+[0.392s] -- The C compiler identification is GNU 13.3.0
+[0.392s] -- The CXX compiler identification is GNU 13.3.0
+[0.392s] -- Detecting C compiler ABI info
+[0.469s] -- Detecting C compiler ABI info - done
+[0.473s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.473s] -- Detecting C compile features
+[0.473s] -- Detecting C compile features - done
+[0.482s] -- Detecting CXX compiler ABI info
+[0.559s] -- Detecting CXX compiler ABI info - done
+[0.575s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.575s] -- Detecting CXX compile features
+[0.576s] -- Detecting CXX compile features - done
+[0.585s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.720s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.864s] -- Found ament_lint_auto: 0.17.3 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[0.982s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.982s] -- Configured 'flake8' exclude dirs and/or files: 
+[0.983s] -- Added test 'lint_cmake' to check CMake code style
+[0.984s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.988s] -- Added test 'xmllint' to check XML markup files
+[0.990s] -- Configuring done (0.8s)
+[0.993s] -- Generating done (0.0s)
+[0.994s] -- Build files have been written to: /ros/UR_ws/build/kuka_robot
+[0.998s] Invoked command in '/ros/UR_ws/build/kuka_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/kuka_robot -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/kuka_robot
+[0.998s] Invoking command in '/ros/UR_ws/build/kuka_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/kuka_robot -- -j12 -l12
+[1.028s] Invoked command in '/ros/UR_ws/build/kuka_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/kuka_robot -- -j12 -l12
+[1.029s] Invoking command in '/ros/UR_ws/build/kuka_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/kuka_robot
+[1.035s] -- Install configuration: ""
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/launch
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/launch/kr6r700_test.launch.py
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/launch/kr6r900_test.launch.py
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/launch/load_kr6r700sixx.launch
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/launch/test_kr6r700sixx.launch
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/visual
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/visual/link_3.dae
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/visual/link_1.dae
+[1.036s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/visual/base_link.dae
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/visual/link_5.dae
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/visual/link_6.dae
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/collision
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/collision/link_3.stl
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/collision/link_5.stl
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/collision/link_6.stl
+[1.037s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/collision/base_link.stl
+[1.038s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6_agilus/collision/link_1.stl
+[1.038s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2
+[1.038s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual
+[1.038s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/link_3.stl
+[1.038s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/link_2.stl
+[1.038s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/link_5.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/link_6.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/link_4.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/base_link.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/visual/link_1.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/link_3.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/link_2.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/link_5.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/link_6.stl
+[1.039s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/link_4.stl
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/base_link.stl
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr10r900_2/collision/link_1.stl
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx/visual
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx/visual/link_4.dae
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx/visual/link_2.dae
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx/collision
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx/collision/link_2.stl
+[1.040s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r900sixx/collision/link_4.stl
+[1.041s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx
+[1.041s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx/visual
+[1.041s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx/visual/link_4.dae
+[1.041s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx/visual/link_2.dae
+[1.041s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx/collision
+[1.041s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx/collision/link_2.stl
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/meshes/kr6r700sixx/collision/link_4.stl
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/rviz
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/rviz/robot_state_visualize.rviz
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/common_constants.xacro
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/kr6r700sixx_macro.xacro
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/kr6r900sixx_macro.xacro
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/common_colours.xacro
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/kr6r900_2.xacro
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/kr6r900sixx.xacro
+[1.042s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/common_materials.xacro
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/kr6r700sixx.xacro
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/urdf/kr6r900_2_macro.xacro
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/ament_index/resource_index/package_run_dependencies/kuka_robot
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/ament_index/resource_index/parent_prefix_path/kuka_robot
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/environment/ament_prefix_path.sh
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/environment/ament_prefix_path.dsv
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/environment/path.sh
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/environment/path.dsv
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/local_setup.bash
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/local_setup.sh
+[1.043s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/local_setup.zsh
+[1.044s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/local_setup.dsv
+[1.044s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/package.dsv
+[1.044s] -- Installing: /ros/UR_ws/install/kuka_robot/share/ament_index/resource_index/packages/kuka_robot
+[1.044s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/cmake/kuka_robotConfig.cmake
+[1.044s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/cmake/kuka_robotConfig-version.cmake
+[1.044s] -- Installing: /ros/UR_ws/install/kuka_robot/share/kuka_robot/package.xml
+[1.045s] Invoked command in '/ros/UR_ws/build/kuka_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/kuka_robot

@@ -1,0 +1,37 @@
+[0.769s] Invoking command in '/ros/UR_ws/src/rrt_motion_planning': PYTHONPATH=/ros/UR_ws/build/rrt_motion_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rrt_motion_planning build --build-base /ros/UR_ws/build/rrt_motion_planning/build install --record /ros/UR_ws/build/rrt_motion_planning/install.log --single-version-externally-managed install_data
+[1.004s] running egg_info
+[1.004s] creating ../../build/rrt_motion_planning/rrt_motion_planning.egg-info
+[1.021s] writing ../../build/rrt_motion_planning/rrt_motion_planning.egg-info/PKG-INFO
+[1.021s] writing dependency_links to ../../build/rrt_motion_planning/rrt_motion_planning.egg-info/dependency_links.txt
+[1.021s] writing entry points to ../../build/rrt_motion_planning/rrt_motion_planning.egg-info/entry_points.txt
+[1.022s] writing requirements to ../../build/rrt_motion_planning/rrt_motion_planning.egg-info/requires.txt
+[1.022s] writing top-level names to ../../build/rrt_motion_planning/rrt_motion_planning.egg-info/top_level.txt
+[1.022s] writing manifest file '../../build/rrt_motion_planning/rrt_motion_planning.egg-info/SOURCES.txt'
+[1.056s] reading manifest file '../../build/rrt_motion_planning/rrt_motion_planning.egg-info/SOURCES.txt'
+[1.057s] writing manifest file '../../build/rrt_motion_planning/rrt_motion_planning.egg-info/SOURCES.txt'
+[1.057s] running build
+[1.057s] running build_py
+[1.057s] creating /ros/UR_ws/build/rrt_motion_planning/build
+[1.057s] creating /ros/UR_ws/build/rrt_motion_planning/build/lib
+[1.057s] creating /ros/UR_ws/build/rrt_motion_planning/build/lib/rrt_motion_planning
+[1.057s] copying rrt_motion_planning/rrt_motion_planning.py -> /ros/UR_ws/build/rrt_motion_planning/build/lib/rrt_motion_planning
+[1.058s] copying rrt_motion_planning/__init__.py -> /ros/UR_ws/build/rrt_motion_planning/build/lib/rrt_motion_planning
+[1.058s] running install
+[1.063s] running install_lib
+[1.080s] creating /ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages/rrt_motion_planning
+[1.081s] copying /ros/UR_ws/build/rrt_motion_planning/build/lib/rrt_motion_planning/rrt_motion_planning.py -> /ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages/rrt_motion_planning
+[1.081s] copying /ros/UR_ws/build/rrt_motion_planning/build/lib/rrt_motion_planning/__init__.py -> /ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages/rrt_motion_planning
+[1.081s] byte-compiling /ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages/rrt_motion_planning/rrt_motion_planning.py to rrt_motion_planning.cpython-312.pyc
+[1.084s] byte-compiling /ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages/rrt_motion_planning/__init__.py to __init__.cpython-312.pyc
+[1.084s] running install_data
+[1.084s] creating /ros/UR_ws/install/rrt_motion_planning/share/ament_index
+[1.084s] creating /ros/UR_ws/install/rrt_motion_planning/share/ament_index/resource_index
+[1.084s] creating /ros/UR_ws/install/rrt_motion_planning/share/ament_index/resource_index/packages
+[1.084s] copying resource/rrt_motion_planning -> /ros/UR_ws/install/rrt_motion_planning/share/ament_index/resource_index/packages
+[1.084s] copying package.xml -> /ros/UR_ws/install/rrt_motion_planning/share/rrt_motion_planning
+[1.084s] running install_egg_info
+[1.102s] Copying ../../build/rrt_motion_planning/rrt_motion_planning.egg-info to /ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages/rrt_motion_planning-0.0.0-py3.12.egg-info
+[1.103s] running install_scripts
+[1.217s] Installing rrt_motion_planning script to /ros/UR_ws/install/rrt_motion_planning/lib/rrt_motion_planning
+[1.217s] writing list of installed files to '/ros/UR_ws/build/rrt_motion_planning/install.log'
+[1.236s] Invoked command in '/ros/UR_ws/src/rrt_motion_planning' returned '0': PYTHONPATH=/ros/UR_ws/build/rrt_motion_planning/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/UR_ws/install/rrt_motion_planning/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/rrt_motion_planning build --build-base /ros/UR_ws/build/rrt_motion_planning/build install --record /ros/UR_ws/build/rrt_motion_planning/install.log --single-version-externally-managed install_data

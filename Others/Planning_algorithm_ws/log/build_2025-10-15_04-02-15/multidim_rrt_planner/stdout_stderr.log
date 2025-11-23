@@ -1,0 +1,28 @@
+running egg_info
+writing ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/PKG-INFO
+writing dependency_links to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/dependency_links.txt
+writing entry points to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/entry_points.txt
+writing requirements to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/requires.txt
+writing top-level names to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/top_level.txt
+reading manifest file '../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/SOURCES.txt'
+running build
+running build_py
+copying multidim_rrt_planner/rrt3D.py -> /root/Shared/build/multidim_rrt_planner/build/lib/multidim_rrt_planner
+running install
+running install_lib
+copying /root/Shared/build/multidim_rrt_planner/build/lib/multidim_rrt_planner/rrt3D.py -> /root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner
+byte-compiling /root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner/rrt3D.py to rrt3D.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner-0.0.7-py3.10.egg-info' (and everything under it)
+Copying ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info to /root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner-0.0.7-py3.10.egg-info
+running install_scripts
+Installing map_frame_pub script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+Installing obstacle_pub_2D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+Installing obstacle_pub_3D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+Installing occupancy_pub script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+Installing rrt2D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+Installing rrt3D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+writing list of installed files to '/root/Shared/build/multidim_rrt_planner/install.log'

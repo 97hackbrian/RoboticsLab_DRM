@@ -1,0 +1,2 @@
+[0.247s] Invoking command in '/root/Shared/build/nav2_rrtstar_planner': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/nav2_rrtstar_planner -- -j12 -l12
+[0.304s] [100%] Built target nav2_rrtstar_planner_plugin

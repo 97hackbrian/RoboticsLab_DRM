@@ -1,0 +1,36 @@
+[0.009s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf
+[0.020s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.204s] -- Found ament_lint_auto: 0.17.3 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[0.311s] -- Added test 'flake8' to check Python code syntax and style conventions
+[0.311s] -- Configured 'flake8' exclude dirs and/or files: 
+[0.312s] -- Added test 'lint_cmake' to check CMake code style
+[0.313s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[0.314s] -- Added test 'xmllint' to check XML markup files
+[0.316s] -- Configuring done (0.3s)
+[0.318s] -- Generating done (0.0s)
+[0.320s] -- Build files have been written to: /ros/UR_ws/build/simple_urdf
+[0.321s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf
+[0.322s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/simple_urdf -- -j12 -l12
+[0.353s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/simple_urdf -- -j12 -l12
+[0.360s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/simple_urdf
+[0.367s] -- Install configuration: ""
+[0.367s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/launch
+[0.367s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/launch/rr_test.launch.py
+[0.367s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/urdf
+[0.367s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/urdf/rr.urdf
+[0.367s] -- Installing: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/package_run_dependencies/simple_urdf
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/parent_prefix_path/simple_urdf
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/ament_prefix_path.sh
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/ament_prefix_path.dsv
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/path.sh
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/path.dsv
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.bash
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.sh
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.zsh
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.dsv
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/package.dsv
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/packages/simple_urdf
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/cmake/simple_urdfConfig.cmake
+[0.368s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/cmake/simple_urdfConfig-version.cmake
+[0.369s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/package.xml
+[0.370s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/simple_urdf

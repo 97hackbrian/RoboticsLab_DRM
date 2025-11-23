@@ -1,0 +1,31 @@
+[0.788s] Invoking command in '/root/Shared/src/Path-Planning-Algorithms': PYTHONPATH=/root/Shared/build/pathplanners/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/pathplanners/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pathplanners build --build-base /root/Shared/build/pathplanners/build install --record /root/Shared/build/pathplanners/install.log --single-version-externally-managed install_data
+[0.988s] running egg_info
+[0.988s] writing ../../build/pathplanners/pathplanners.egg-info/PKG-INFO
+[0.989s] writing dependency_links to ../../build/pathplanners/pathplanners.egg-info/dependency_links.txt
+[0.989s] writing entry points to ../../build/pathplanners/pathplanners.egg-info/entry_points.txt
+[0.989s] writing requirements to ../../build/pathplanners/pathplanners.egg-info/requires.txt
+[0.989s] writing top-level names to ../../build/pathplanners/pathplanners.egg-info/top_level.txt
+[0.990s] reading manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+[0.991s] writing manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+[0.991s] running build
+[0.991s] running build_py
+[0.991s] copying pathplanners/dstart.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+[0.991s] copying pathplanners/astart.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+[0.992s] running install
+[0.992s] running install_lib
+[0.992s] copying /root/Shared/build/pathplanners/build/lib/pathplanners/dstart.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+[0.993s] copying /root/Shared/build/pathplanners/build/lib/pathplanners/astart.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+[0.993s] byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/dstart.py to dstart.cpython-310.pyc
+[0.995s] byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/astart.py to astart.cpython-310.pyc
+[0.996s] running install_data
+[0.996s] running install_egg_info
+[0.997s] removing '/root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners-0.0.0-py3.10.egg-info' (and everything under it)
+[0.997s] Copying ../../build/pathplanners/pathplanners.egg-info to /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners-0.0.0-py3.10.egg-info
+[0.998s] running install_scripts
+[1.018s] Installing astart script to /root/Shared/install/pathplanners/lib/pathplanners
+[1.019s] Installing bfs script to /root/Shared/install/pathplanners/lib/pathplanners
+[1.019s] Installing dijkstra script to /root/Shared/install/pathplanners/lib/pathplanners
+[1.019s] Installing dstart script to /root/Shared/install/pathplanners/lib/pathplanners
+[1.019s] Installing map_node script to /root/Shared/install/pathplanners/lib/pathplanners
+[1.019s] writing list of installed files to '/root/Shared/build/pathplanners/install.log'
+[1.041s] Invoked command in '/root/Shared/src/Path-Planning-Algorithms' returned '0': PYTHONPATH=/root/Shared/build/pathplanners/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/pathplanners/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pathplanners build --build-base /root/Shared/build/pathplanners/build install --record /root/Shared/build/pathplanners/install.log --single-version-externally-managed install_data

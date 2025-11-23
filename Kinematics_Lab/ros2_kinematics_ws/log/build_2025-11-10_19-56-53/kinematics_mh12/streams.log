@@ -1,0 +1,23 @@
+[0.645s] Invoking command in '/ros/Kinematics_Lab/UR_ws/src/kinematics_mh12': PYTHONPATH=/ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/kinematics_mh12 build --build-base /ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/build install --record /ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/install.log --single-version-externally-managed install_data
+[0.873s] running egg_info
+[0.889s] writing ../../build/kinematics_mh12/kinematics_mh12.egg-info/PKG-INFO
+[0.889s] writing dependency_links to ../../build/kinematics_mh12/kinematics_mh12.egg-info/dependency_links.txt
+[0.890s] writing entry points to ../../build/kinematics_mh12/kinematics_mh12.egg-info/entry_points.txt
+[0.890s] writing requirements to ../../build/kinematics_mh12/kinematics_mh12.egg-info/requires.txt
+[0.890s] writing top-level names to ../../build/kinematics_mh12/kinematics_mh12.egg-info/top_level.txt
+[0.923s] reading manifest file '../../build/kinematics_mh12/kinematics_mh12.egg-info/SOURCES.txt'
+[0.924s] writing manifest file '../../build/kinematics_mh12/kinematics_mh12.egg-info/SOURCES.txt'
+[0.924s] running build
+[0.924s] running build_py
+[0.924s] running install
+[0.930s] running install_lib
+[0.947s] running install_data
+[0.947s] copying launch/launch_mode.launch.py -> /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/share/kinematics_mh12/launch
+[0.947s] running install_egg_info
+[0.965s] removing '/ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages/kinematics_mh12-0.0.0-py3.12.egg-info' (and everything under it)
+[0.965s] Copying ../../build/kinematics_mh12/kinematics_mh12.egg-info to /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages/kinematics_mh12-0.0.0-py3.12.egg-info
+[0.966s] running install_scripts
+[1.077s] Installing forward script to /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/kinematics_mh12
+[1.077s] Installing inverse script to /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/kinematics_mh12
+[1.077s] writing list of installed files to '/ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/install.log'
+[1.097s] Invoked command in '/ros/Kinematics_Lab/UR_ws/src/kinematics_mh12' returned '0': PYTHONPATH=/ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/kinematics_mh12 build --build-base /ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/build install --record /ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/install.log --single-version-externally-managed install_data

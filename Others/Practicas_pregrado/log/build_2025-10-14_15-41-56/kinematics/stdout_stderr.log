@@ -1,0 +1,22 @@
+running egg_info
+writing ../../build/kinematics/kinematics.egg-info/PKG-INFO
+writing dependency_links to ../../build/kinematics/kinematics.egg-info/dependency_links.txt
+writing entry points to ../../build/kinematics/kinematics.egg-info/entry_points.txt
+writing requirements to ../../build/kinematics/kinematics.egg-info/requires.txt
+writing top-level names to ../../build/kinematics/kinematics.egg-info/top_level.txt
+reading manifest file '../../build/kinematics/kinematics.egg-info/SOURCES.txt'
+writing manifest file '../../build/kinematics/kinematics.egg-info/SOURCES.txt'
+running build
+running build_py
+copying kinematics/direct_kinematics.py -> /ros/Practicas_pregrado/build/kinematics/build/lib/kinematics
+running install
+running install_lib
+copying /ros/Practicas_pregrado/build/kinematics/build/lib/kinematics/direct_kinematics.py -> /ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages/kinematics
+byte-compiling /ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages/kinematics/direct_kinematics.py to direct_kinematics.cpython-312.pyc
+running install_data
+running install_egg_info
+removing '/ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages/kinematics-0.0.0-py3.12.egg-info' (and everything under it)
+Copying ../../build/kinematics/kinematics.egg-info to /ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages/kinematics-0.0.0-py3.12.egg-info
+running install_scripts
+Installing direct_kinematics script to /ros/Practicas_pregrado/install/kinematics/lib/kinematics
+writing list of installed files to '/ros/Practicas_pregrado/build/kinematics/install.log'

@@ -1,0 +1,23 @@
+running egg_info
+writing ../../build/kinematics_mh12/kinematics_mh12.egg-info/PKG-INFO
+writing dependency_links to ../../build/kinematics_mh12/kinematics_mh12.egg-info/dependency_links.txt
+writing entry points to ../../build/kinematics_mh12/kinematics_mh12.egg-info/entry_points.txt
+writing requirements to ../../build/kinematics_mh12/kinematics_mh12.egg-info/requires.txt
+writing top-level names to ../../build/kinematics_mh12/kinematics_mh12.egg-info/top_level.txt
+reading manifest file '../../build/kinematics_mh12/kinematics_mh12.egg-info/SOURCES.txt'
+writing manifest file '../../build/kinematics_mh12/kinematics_mh12.egg-info/SOURCES.txt'
+running build
+running build_py
+copying kinematics_mh12/inv_kinematics_mh12.py -> /ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/build/lib/kinematics_mh12
+running install
+running install_lib
+copying /ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/build/lib/kinematics_mh12/inv_kinematics_mh12.py -> /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages/kinematics_mh12
+byte-compiling /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages/kinematics_mh12/inv_kinematics_mh12.py to inv_kinematics_mh12.cpython-312.pyc
+running install_data
+running install_egg_info
+removing '/ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages/kinematics_mh12-0.0.0-py3.12.egg-info' (and everything under it)
+Copying ../../build/kinematics_mh12/kinematics_mh12.egg-info to /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/python3.12/site-packages/kinematics_mh12-0.0.0-py3.12.egg-info
+running install_scripts
+Installing forward script to /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/kinematics_mh12
+Installing inverse script to /ros/Kinematics_Lab/UR_ws/install/kinematics_mh12/lib/kinematics_mh12
+writing list of installed files to '/ros/Kinematics_Lab/UR_ws/build/kinematics_mh12/install.log'

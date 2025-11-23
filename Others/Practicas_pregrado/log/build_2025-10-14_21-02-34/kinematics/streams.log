@@ -1,0 +1,21 @@
+[0.723s] Invoking command in '/ros/Practicas_pregrado/src/kinematics': PYTHONPATH=/ros/Practicas_pregrado/build/kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/kinematics build --build-base /ros/Practicas_pregrado/build/kinematics/build install --record /ros/Practicas_pregrado/build/kinematics/install.log --single-version-externally-managed install_data
+[0.960s] running egg_info
+[0.976s] writing ../../build/kinematics/kinematics.egg-info/PKG-INFO
+[0.977s] writing dependency_links to ../../build/kinematics/kinematics.egg-info/dependency_links.txt
+[0.977s] writing entry points to ../../build/kinematics/kinematics.egg-info/entry_points.txt
+[0.977s] writing requirements to ../../build/kinematics/kinematics.egg-info/requires.txt
+[0.978s] writing top-level names to ../../build/kinematics/kinematics.egg-info/top_level.txt
+[1.012s] reading manifest file '../../build/kinematics/kinematics.egg-info/SOURCES.txt'
+[1.012s] writing manifest file '../../build/kinematics/kinematics.egg-info/SOURCES.txt'
+[1.012s] running build
+[1.012s] running build_py
+[1.013s] running install
+[1.018s] running install_lib
+[1.036s] running install_data
+[1.036s] running install_egg_info
+[1.054s] removing '/ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages/kinematics-0.0.0-py3.12.egg-info' (and everything under it)
+[1.054s] Copying ../../build/kinematics/kinematics.egg-info to /ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages/kinematics-0.0.0-py3.12.egg-info
+[1.055s] running install_scripts
+[1.171s] Installing direct_kinematics script to /ros/Practicas_pregrado/install/kinematics/lib/kinematics
+[1.172s] writing list of installed files to '/ros/Practicas_pregrado/build/kinematics/install.log'
+[1.193s] Invoked command in '/ros/Practicas_pregrado/src/kinematics' returned '0': PYTHONPATH=/ros/Practicas_pregrado/build/kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/Practicas_pregrado/install/kinematics/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/kinematics build --build-base /ros/Practicas_pregrado/build/kinematics/build install --record /ros/Practicas_pregrado/build/kinematics/install.log --single-version-externally-managed install_data

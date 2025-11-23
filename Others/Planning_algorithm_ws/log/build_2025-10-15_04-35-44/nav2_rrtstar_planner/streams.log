@@ -1,0 +1,33 @@
+[0.253s] Invoking command in '/root/Shared/build/nav2_rrtstar_planner': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/nav2_rrtstar_planner -- -j12 -l12
+[0.302s] [100%] Built target nav2_rrtstar_planner_plugin
+[0.479s] Invoked command in '/root/Shared/build/nav2_rrtstar_planner' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/nav2_rrtstar_planner -- -j12 -l12
+[0.487s] Invoking command in '/root/Shared/build/nav2_rrtstar_planner': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --install /root/Shared/build/nav2_rrtstar_planner
+[0.496s] -- Install configuration: ""
+[0.496s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/global_planner_plugin.xml
+[0.496s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/lib/libnav2_rrtstar_planner_plugin.so
+[0.496s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/include/
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/include//nav2_rrtstar_planner
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/include//nav2_rrtstar_planner/rrtstar_planner.hpp
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/global_planner_plugin.xml
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/environment/library_path.sh
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/environment/library_path.dsv
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/ament_index/resource_index/package_run_dependencies/nav2_rrtstar_planner
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/ament_index/resource_index/parent_prefix_path/nav2_rrtstar_planner
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/environment/ament_prefix_path.sh
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/environment/ament_prefix_path.dsv
+[0.497s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/environment/path.sh
+[0.498s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/environment/path.dsv
+[0.498s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/local_setup.bash
+[0.498s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/local_setup.sh
+[0.498s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/local_setup.zsh
+[0.498s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/local_setup.dsv
+[0.499s] -- Installing: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.dsv
+[0.499s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/ament_index/resource_index/packages/nav2_rrtstar_planner
+[0.500s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/ament_index/resource_index/nav2_core__pluginlib__plugin/nav2_rrtstar_planner
+[0.500s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.500s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/cmake/ament_cmake_export_libraries-extras.cmake
+[0.500s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.501s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/cmake/nav2_rrtstar_plannerConfig.cmake
+[0.501s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/cmake/nav2_rrtstar_plannerConfig-version.cmake
+[0.501s] -- Up-to-date: /root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.xml
+[0.502s] Invoked command in '/root/Shared/build/nav2_rrtstar_planner' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --install /root/Shared/build/nav2_rrtstar_planner

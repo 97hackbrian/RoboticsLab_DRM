@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<robot name="cylindrical_robot">
+
+  <!-- ==================== -->
+  <!--    LINK BASE FIJA    -->
+  <!-- ==================== -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.7 0.7 0.03"/> <!-- base cuadrada -->
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!-- LINK: CILINDRO ENCIMA DE LA BASE (ROTA) -->
+  <!-- ====================================== -->
+  <link name="base_cylinder_link">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.15" length="0.05"/> 
+      </geometry>
+      <material name="red">
+        <color rgba="0.9 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!--  JOINT 1: REVOLUTE Z (CILINDRO ROTA)  -->
+  <!-- ====================================== -->
+  <joint name="revolute_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="base_cylinder_link"/>
+    <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="5" velocity="2"/>
+  </joint>
+
+  <!-- ====================== -->
+  <!--    LINK: COLUMNA       -->
+  <!-- ====================== -->
+  <link name="column_link">
+    <visual>
+      <origin xyz="0 0 0.35" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.094 0.094 0.70"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0.2 0.4 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!--  JOINT FIJO: CILINDRO -> COLUMNA      -->
+  <!-- ====================================== -->
+  <joint name="cylinder_to_column_joint" type="fixed">
+    <parent link="base_cylinder_link"/>
+    <child link="column_link"/>
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ============================================== -->
+  <!--  JOINT 2: ELEVACIÓN DE LA COLUMNA (PRISMÁTICO) -->
+  <!-- ============================================== -->
+  <joint name="prismatic_z_joint" type="prismatic">
+    <parent link="column_link"/>
+    <child link="arm_support_link"/>
+    <origin xyz="0 0 0.35" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.2" upper="0.225" effort="10" velocity="0.1"/>
+  </joint>
+
+  <!-- =========================== -->
+  <!--    LINK: SOPORTE SUPERIOR   -->
+  <!-- =========================== -->
+  <link name="arm_support_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.7 0.15 0.17"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="green">
+        <color rgba="0.2 0.8 0.4 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ================================================= -->
+  <!--  JOINT 3: MOVIMIENTO HORIZONTAL (PRISMÁTICO X)    -->
+  <!-- ================================================= -->
+  <joint name="prismatic_x_joint" type="prismatic">
+    <parent link="arm_support_link"/>
+    <child link="arm_link"/>
+    <origin xyz="0.1 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0.0" upper="0.25" effort="10" velocity="0.2"/>
+  </joint>
+
+  <!-- ===================== -->
+  <!--    LINK: BRAZO        -->
+  <!-- ===================== -->
+  <link name="arm_link">
+    <visual>
+      <origin xyz="0.15 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.077 0.12"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="red">
+        <color rgba="0.9 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  
+  
+  <!-- ====================== -->
+  <!--    LINK: Efector      -->
+  <!-- ====================== -->
+  <link name="tool_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0.2 0.4 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!--  JOINT efector     -->
+  <!-- ====================================== -->
+  <joint name="tool_joint" type="fixed">
+    <parent link="arm_link"/>
+    <child link="tool_link"/>
+    <origin xyz="0.3 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>
+

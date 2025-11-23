@@ -1,0 +1,69 @@
+[0.009s] Invoking command in '/ros/Practicas_pregrado/build/robots_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake /ros/Practicas_pregrado/src/robots_description -DCMAKE_INSTALL_PREFIX=/ros/Practicas_pregrado/install/robots_description
+[0.051s] -- The C compiler identification is GNU 13.3.0
+[0.093s] -- The CXX compiler identification is GNU 13.3.0
+[0.104s] -- Detecting C compiler ABI info
+[0.165s] -- Detecting C compiler ABI info - done
+[0.173s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.174s] -- Detecting C compile features
+[0.174s] -- Detecting C compile features - done
+[0.181s] -- Detecting CXX compiler ABI info
+[0.255s] -- Detecting CXX compiler ABI info - done
+[0.263s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.263s] -- Detecting CXX compile features
+[0.264s] -- Detecting CXX compile features - done
+[0.268s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.398s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.514s] -- Found xacro: 2.1.1 (/opt/ros/jazzy/share/xacro/cmake)
+[0.518s] -- Found urdf: 2.10.0 (/opt/ros/jazzy/share/urdf/cmake)
+[0.564s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.579s] -- Found robot_state_publisher: 3.3.3 (/opt/ros/jazzy/share/robot_state_publisher/cmake)
+[0.618s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.636s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.657s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.674s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.789s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.794s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.824s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.861s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.864s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.876s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.879s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.886s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.895s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.180s] -- Found ament_lint_auto: 0.17.3 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[1.282s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.282s] -- Configured 'flake8' exclude dirs and/or files: 
+[1.283s] -- Added test 'lint_cmake' to check CMake code style
+[1.284s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.285s] -- Added test 'xmllint' to check XML markup files
+[1.287s] -- Configuring done (1.3s)
+[1.291s] -- Generating done (0.0s)
+[1.293s] -- Build files have been written to: /ros/Practicas_pregrado/build/robots_description
+[1.300s] Invoked command in '/ros/Practicas_pregrado/build/robots_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake /ros/Practicas_pregrado/src/robots_description -DCMAKE_INSTALL_PREFIX=/ros/Practicas_pregrado/install/robots_description
+[1.301s] Invoking command in '/ros/Practicas_pregrado/build/robots_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --build /ros/Practicas_pregrado/build/robots_description -- -j12 -l12
+[1.334s] Invoked command in '/ros/Practicas_pregrado/build/robots_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --build /ros/Practicas_pregrado/build/robots_description -- -j12 -l12
+[1.340s] Invoking command in '/ros/Practicas_pregrado/build/robots_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --install /ros/Practicas_pregrado/build/robots_description
+[1.346s] -- Install configuration: ""
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/launch
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/launch/display_robot.launch.py
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/urdf
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/urdf/cyl_robot.urdf
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/urdf/ang_robot.urdf
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/rviz
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/rviz/urdf.rviz
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/ament_index/resource_index/package_run_dependencies/robots_description
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/ament_index/resource_index/parent_prefix_path/robots_description
+[1.347s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/environment/ament_prefix_path.sh
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/environment/ament_prefix_path.dsv
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/environment/path.sh
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/environment/path.dsv
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/local_setup.bash
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/local_setup.sh
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/local_setup.zsh
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/local_setup.dsv
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/package.dsv
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/ament_index/resource_index/packages/robots_description
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/cmake/robots_descriptionConfig.cmake
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/cmake/robots_descriptionConfig-version.cmake
+[1.348s] -- Installing: /ros/Practicas_pregrado/install/robots_description/share/robots_description/package.xml
+[1.349s] Invoked command in '/ros/Practicas_pregrado/build/robots_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --install /ros/Practicas_pregrado/build/robots_description

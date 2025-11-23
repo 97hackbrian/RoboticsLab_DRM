@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<robot name="angular_robot">
+
+  <!-- ==================== -->
+  <!--    LINK BASE FIJA    -->
+  <!-- ==================== -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.8 0.8 0.03"/> <!-- base cuadrada -->
+      </geometry>
+      <material name="gray">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!-- LINK: CILINDRO ENCIMA DE LA BASE (ROTA) -->
+  <!-- ====================================== -->
+  <link name="base_cylinder_link">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.22" length="0.05"/> 
+      </geometry>
+      <material name="red">
+        <color rgba="0.9 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!--  JOINT 1: REVOLUTE Z (CILINDRO ROTA)  -->
+  <!-- ====================================== -->
+  <joint name="base_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="base_cylinder_link"/>
+    <origin xyz="0 0 0.03" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="5" velocity="2"/>
+  </joint>
+
+  <!-- ====================== -->
+  <!--    LINK: COLUMNA       -->
+  <!-- ====================== -->
+  <link name="column_link">
+    <visual>
+      <origin xyz="0 0 0.5" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.094 0.094 1"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0.2 0.4 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!--  JOINT FIJO: CILINDRO -> COLUMNA      -->
+  <!-- ====================================== -->
+  <joint name="cylinder_to_column_joint" type="fixed">
+    <parent link="base_cylinder_link"/>
+    <child link="column_link"/>
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ============================================== -->
+  <!--  JOINT :  -->
+  <!-- ============================================== -->
+  <joint name="column_to_cylinder_joint" type="fixed">
+    <parent link="column_link"/>
+    <child link="cylinder_link_1"/>
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+  </joint>
+
+  <!-- =========================== -->
+  <!--    LINK:   -->
+  <!-- =========================== -->
+  <link name="cylinder_link_1">
+    <visual>
+      <origin xyz="0 -0.0125 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.3"/> 
+      </geometry>
+      <material name="green">
+        <color rgba="0.2 0.8 0.4 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ================================================= -->
+  <!--  JOINT 1   -->
+  <!-- ================================================= -->
+  <joint name="joint_1" type="revolute">
+    <parent link="cylinder_link_1"/>
+    <child link="link_11"/>
+    <origin xyz="0 -0.125 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="5" velocity="2"/>
+  </joint>
+
+  <!-- ===================== -->
+  <!--    LINK: 11       -->
+  <!-- ===================== -->
+  <link name="link_11">
+    <visual>
+      <origin xyz="0.275 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.075 0.1"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="green">
+        <color rgba="0.2 0.8 0.4 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  
+    <!-- ================================================= -->
+  <!--  JOINT 12   -->
+  <!-- ================================================= -->
+  <joint name="joint_12" type="fixed">
+    <parent link="link_11"/>
+    <child link="link_12"/>
+    <origin xyz="0.6 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="5" velocity="2"/>
+  </joint>
+
+  <!-- ===================== -->
+  <!--    LINK: 12     -->
+  <!-- ===================== -->
+  <link name="link_12">
+    <visual>
+      <origin xyz="0 0.0625 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="0.065" length="0.2"/>
+      </geometry>
+      <material name="red">
+        <color rgba="0.9 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  
+  
+  
+  
+      <!-- ================================================= -->
+  <!--  JOINT 2   -->
+  <!-- ================================================= -->
+  <joint name="joint_2" type="revolute">
+    <parent link="link_12"/>
+    <child link="link_21"/>
+    <origin xyz="0 0.13 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="5" velocity="2"/>
+  </joint>
+
+  <!-- ===================== -->
+  <!--    LINK: 12     -->
+  <!-- ===================== -->
+  <link name="link_21">
+    <visual>
+      <origin xyz="0.15 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.065 0.095"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="red">
+        <color rgba="0.9 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- ====================== -->
+  <!--    LINK: Efector      -->
+  <!-- ====================== -->
+  <link name="tool_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/> <!-- cubo alargado -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0.2 0.4 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- ====================================== -->
+  <!--  JOINT efector     -->
+  <!-- ====================================== -->
+  <joint name="tool_joint" type="fixed">
+    <parent link="link_21"/>
+    <child link="tool_link"/>
+    <origin xyz="0.3 0 0" rpy="0 0 0"/>
+  </joint>
+
+</robot>
+

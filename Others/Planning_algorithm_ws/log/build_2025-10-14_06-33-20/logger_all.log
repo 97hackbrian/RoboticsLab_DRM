@@ -1,0 +1,331 @@
+[0.101s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.101s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7fcbf6790760>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7fcbf67902e0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7fcbf67902e0>>, mixin_verb=('build',))
+[0.229s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.229s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/Gazebo.meta'
+[0.230s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/fastdds.meta'
+[0.230s] INFO:colcon.colcon_metadata.package_discovery.colcon_meta:Using configuration from '/root/.colcon/metadata/default/fastrtps.meta'
+[0.230s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.230s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.230s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.230s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.230s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.230s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/root/Shared'
+[0.230s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.230s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.230s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.231s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.231s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.231s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.231s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.231s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.231s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.240s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.240s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.240s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.240s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extensions ['ignore', 'ignore_ament_install']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extension 'ignore'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extension 'ignore_ament_install'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extensions ['colcon_pkg']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extension 'colcon_pkg'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extensions ['colcon_meta']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extension 'colcon_meta'
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extensions ['ros']
+[0.242s] Level 1:colcon.colcon_core.package_identification:_identify(src/Path-Planning-Algorithms) by extension 'ros'
+[0.244s] DEBUG:colcon.colcon_core.package_identification:Package 'src/Path-Planning-Algorithms' with type 'ros.ament_python' and name 'pathplanners'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extensions ['ignore', 'ignore_ament_install']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extension 'ignore'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extension 'ignore_ament_install'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extensions ['colcon_pkg']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extension 'colcon_pkg'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extensions ['colcon_meta']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extension 'colcon_meta'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extensions ['ros']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(src/TurtleBot-RRT-Star) by extension 'ros'
+[0.246s] DEBUG:colcon.colcon_core.package_identification:Package 'src/TurtleBot-RRT-Star' with type 'ros.ament_cmake' and name 'nav2_rrtstar_planner'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extension 'ignore'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extension 'ignore_ament_install'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extensions ['colcon_pkg']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extension 'colcon_pkg'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extensions ['colcon_meta']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extension 'colcon_meta'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extensions ['ros']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(src/custom_interfaces) by extension 'ros'
+[0.247s] DEBUG:colcon.colcon_core.package_identification:Package 'src/custom_interfaces' with type 'ros.ament_cmake' and name 'custom_interfaces'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extensions ['ignore', 'ignore_ament_install']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extension 'ignore'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extension 'ignore_ament_install'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extensions ['colcon_pkg']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extension 'colcon_pkg'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extensions ['colcon_meta']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extension 'colcon_meta'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extensions ['ros']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(src/multidim_rrt_planner) by extension 'ros'
+[0.248s] DEBUG:colcon.colcon_core.package_identification:Package 'src/multidim_rrt_planner' with type 'ros.ament_python' and name 'multidim_rrt_planner'
+[0.248s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.248s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.248s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.248s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.248s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'custom_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.264s] DEBUG:colcon.colcon_core.verb:Building package 'custom_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/Shared/build/custom_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/Shared/install/custom_interfaces', 'merge_install': False, 'path': '/root/Shared/src/custom_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.264s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'cmake_target' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'cmake_clean_cache' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'cmake_clean_first' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'cmake_force_configure' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'ament_cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'catkin_cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'multidim_rrt_planner' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.265s] DEBUG:colcon.colcon_core.verb:Building package 'multidim_rrt_planner' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/Shared/build/multidim_rrt_planner', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/Shared/install/multidim_rrt_planner', 'merge_install': False, 'path': '/root/Shared/src/multidim_rrt_planner', 'symlink_install': False, 'test_result_base': None}
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'cmake_target' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'cmake_clean_cache' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'cmake_clean_first' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'cmake_force_configure' from command line to 'False'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'ament_cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'catkin_cmake_args' from command line to 'None'
+[0.265s] Level 5:colcon.colcon_core.verb:set package 'nav2_rrtstar_planner' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.265s] DEBUG:colcon.colcon_core.verb:Building package 'nav2_rrtstar_planner' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/Shared/build/nav2_rrtstar_planner', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/Shared/install/nav2_rrtstar_planner', 'merge_install': False, 'path': '/root/Shared/src/TurtleBot-RRT-Star', 'symlink_install': False, 'test_result_base': None}
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'cmake_args' from command line to 'None'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'cmake_target' from command line to 'None'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'cmake_clean_cache' from command line to 'False'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'cmake_clean_first' from command line to 'False'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'cmake_force_configure' from command line to 'False'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'ament_cmake_args' from command line to 'None'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'catkin_cmake_args' from command line to 'None'
+[0.266s] Level 5:colcon.colcon_core.verb:set package 'pathplanners' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.266s] DEBUG:colcon.colcon_core.verb:Building package 'pathplanners' with the following arguments: {'ament_cmake_args': None, 'build_base': '/root/Shared/build/pathplanners', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/root/Shared/install/pathplanners', 'merge_install': False, 'path': '/root/Shared/src/Path-Planning-Algorithms', 'symlink_install': False, 'test_result_base': None}
+[0.266s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.267s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.267s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/root/Shared/src/custom_interfaces' with build type 'ament_cmake'
+[0.267s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/root/Shared/src/custom_interfaces'
+[0.269s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.269s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.269s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.271s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/root/Shared/install/pathplanners' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.271s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/root/Shared/install/nav2_rrtstar_planner' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.271s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/root/Shared/install/multidim_rrt_planner' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.271s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/root/Shared/install/custom_interfaces' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.271s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/root/Shared/install/nav2_rrtstar_planner' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.271s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/root/Shared/install/custom_interfaces' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.275s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/root/Shared/src/multidim_rrt_planner' with build type 'ament_python'
+[0.276s] Level 1:colcon.colcon_core.shell:create_environment_hook('multidim_rrt_planner', 'ament_prefix_path')
+[0.276s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/hook/ament_prefix_path.ps1'
+[0.276s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/hook/ament_prefix_path.dsv'
+[0.277s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/hook/ament_prefix_path.sh'
+[0.277s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.278s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.280s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/root/Shared/src/TurtleBot-RRT-Star' with build type 'ament_cmake'
+[0.280s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/root/Shared/src/TurtleBot-RRT-Star'
+[0.280s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.280s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.283s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/root/Shared/src/Path-Planning-Algorithms' with build type 'ament_python'
+[0.283s] Level 1:colcon.colcon_core.shell:create_environment_hook('pathplanners', 'ament_prefix_path')
+[0.283s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/pathplanners/share/pathplanners/hook/ament_prefix_path.ps1'
+[0.284s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/pathplanners/share/pathplanners/hook/ament_prefix_path.dsv'
+[0.284s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/pathplanners/share/pathplanners/hook/ament_prefix_path.sh'
+[0.284s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.284s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.291s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake /root/Shared/src/custom_interfaces -DCMAKE_INSTALL_PREFIX=/root/Shared/install/custom_interfaces
+[0.494s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/root/Shared/src/multidim_rrt_planner'
+[0.494s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.495s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.500s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/build/nav2_rrtstar_planner': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake /root/Shared/src/TurtleBot-RRT-Star -DCMAKE_INSTALL_PREFIX=/root/Shared/install/nav2_rrtstar_planner
+[0.721s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/root/Shared/src/Path-Planning-Algorithms'
+[0.721s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.721s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.996s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/src/multidim_rrt_planner': PYTHONPATH=/root/Shared/build/multidim_rrt_planner/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multidim_rrt_planner build --build-base /root/Shared/build/multidim_rrt_planner/build install --record /root/Shared/build/multidim_rrt_planner/install.log --single-version-externally-managed install_data
+[0.996s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/src/Path-Planning-Algorithms': PYTHONPATH=/root/Shared/build/pathplanners/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/pathplanners/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pathplanners build --build-base /root/Shared/build/pathplanners/build install --record /root/Shared/build/pathplanners/install.log --single-version-externally-managed install_data
+[1.232s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/src/Path-Planning-Algorithms' returned '0': PYTHONPATH=/root/Shared/build/pathplanners/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/pathplanners/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/pathplanners build --build-base /root/Shared/build/pathplanners/build install --record /root/Shared/build/pathplanners/install.log --single-version-externally-managed install_data
+[1.234s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners' for CMake module files
+[1.234s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners' for CMake config files
+[1.235s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners/lib'
+[1.235s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners/bin'
+[1.235s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners/lib/pkgconfig/pathplanners.pc'
+[1.235s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners/lib/python3.10/site-packages'
+[1.235s] Level 1:colcon.colcon_core.shell:create_environment_hook('pathplanners', 'pythonpath')
+[1.235s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/pathplanners/share/pathplanners/hook/pythonpath.ps1'
+[1.236s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/pathplanners/share/pathplanners/hook/pythonpath.dsv'
+[1.236s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/pathplanners/share/pathplanners/hook/pythonpath.sh'
+[1.237s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/pathplanners/bin'
+[1.237s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(pathplanners)
+[1.237s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/pathplanners/share/pathplanners/package.ps1'
+[1.238s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Shared/install/pathplanners/share/pathplanners/package.dsv'
+[1.238s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/pathplanners/share/pathplanners/package.sh'
+[1.239s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/pathplanners/share/pathplanners/package.bash'
+[1.239s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/pathplanners/share/pathplanners/package.zsh'
+[1.240s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Shared/install/pathplanners/share/colcon-core/packages/pathplanners)
+[1.244s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner' for CMake module files
+[1.245s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/src/multidim_rrt_planner' returned '0': PYTHONPATH=/root/Shared/build/multidim_rrt_planner/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multidim_rrt_planner build --build-base /root/Shared/build/multidim_rrt_planner/build install --record /root/Shared/build/multidim_rrt_planner/install.log --single-version-externally-managed install_data
+[1.245s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner' for CMake config files
+[1.245s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner/lib'
+[1.245s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner/bin'
+[1.245s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner/lib/pkgconfig/multidim_rrt_planner.pc'
+[1.245s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages'
+[1.246s] Level 1:colcon.colcon_core.shell:create_environment_hook('multidim_rrt_planner', 'pythonpath')
+[1.246s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/hook/pythonpath.ps1'
+[1.246s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/hook/pythonpath.dsv'
+[1.246s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/hook/pythonpath.sh'
+[1.247s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/multidim_rrt_planner/bin'
+[1.247s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(multidim_rrt_planner)
+[1.247s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/package.ps1'
+[1.247s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/package.dsv'
+[1.248s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/package.sh'
+[1.248s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/package.bash'
+[1.248s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/multidim_rrt_planner/share/multidim_rrt_planner/package.zsh'
+[1.249s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Shared/install/multidim_rrt_planner/share/colcon-core/packages/multidim_rrt_planner)
+[1.476s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake /root/Shared/src/custom_interfaces -DCMAKE_INSTALL_PREFIX=/root/Shared/install/custom_interfaces
+[1.477s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/custom_interfaces -- -j12 -l12
+[1.927s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/build/nav2_rrtstar_planner' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake /root/Shared/src/TurtleBot-RRT-Star -DCMAKE_INSTALL_PREFIX=/root/Shared/install/nav2_rrtstar_planner
+[1.928s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/build/nav2_rrtstar_planner': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/nav2_rrtstar_planner -- -j12 -l12
+[3.531s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/custom_interfaces -- -j12 -l12
+[3.539s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/build/custom_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --install /root/Shared/build/custom_interfaces
+[3.592s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(custom_interfaces)
+[3.593s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces' for CMake module files
+[3.593s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/build/custom_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --install /root/Shared/build/custom_interfaces
+[3.593s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces' for CMake config files
+[3.593s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'cmake_prefix_path')
+[3.594s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.ps1'
+[3.594s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.dsv'
+[3.594s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.sh'
+[3.595s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/lib'
+[3.595s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'ld_library_path_lib')
+[3.595s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.ps1'
+[3.595s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.dsv'
+[3.595s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.sh'
+[3.596s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/bin'
+[3.596s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/lib/pkgconfig/custom_interfaces.pc'
+[3.596s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/lib/python3.10/site-packages'
+[3.596s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/bin'
+[3.596s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.ps1'
+[3.597s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.dsv'
+[3.597s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.sh'
+[3.597s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.bash'
+[3.598s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.zsh'
+[3.598s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Shared/install/custom_interfaces/share/colcon-core/packages/custom_interfaces)
+[3.598s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(custom_interfaces)
+[3.599s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces' for CMake module files
+[3.599s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces' for CMake config files
+[3.599s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'cmake_prefix_path')
+[3.599s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.ps1'
+[3.600s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.dsv'
+[3.600s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/cmake_prefix_path.sh'
+[3.600s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/lib'
+[3.600s] Level 1:colcon.colcon_core.shell:create_environment_hook('custom_interfaces', 'ld_library_path_lib')
+[3.601s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.ps1'
+[3.601s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.dsv'
+[3.601s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/custom_interfaces/share/custom_interfaces/hook/ld_library_path_lib.sh'
+[3.602s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/bin'
+[3.602s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/lib/pkgconfig/custom_interfaces.pc'
+[3.602s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/lib/python3.10/site-packages'
+[3.602s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/custom_interfaces/bin'
+[3.602s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.ps1'
+[3.603s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.dsv'
+[3.603s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.sh'
+[3.604s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.bash'
+[3.604s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/custom_interfaces/share/custom_interfaces/package.zsh'
+[3.604s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Shared/install/custom_interfaces/share/colcon-core/packages/custom_interfaces)
+[6.115s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/build/nav2_rrtstar_planner' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --build /root/Shared/build/nav2_rrtstar_planner -- -j12 -l12
+[6.116s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/root/Shared/build/nav2_rrtstar_planner': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --install /root/Shared/build/nav2_rrtstar_planner
+[6.125s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(nav2_rrtstar_planner)
+[6.126s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner' for CMake module files
+[6.126s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/root/Shared/build/nav2_rrtstar_planner' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/Shared/install/pathplanners:/root/Shared/install/multidim_rrt_planner:/opt/ros/humble /usr/bin/cmake --install /root/Shared/build/nav2_rrtstar_planner
+[6.126s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner' for CMake config files
+[6.126s] Level 1:colcon.colcon_core.shell:create_environment_hook('nav2_rrtstar_planner', 'cmake_prefix_path')
+[6.127s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/cmake_prefix_path.ps1'
+[6.127s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/cmake_prefix_path.dsv'
+[6.127s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/cmake_prefix_path.sh'
+[6.128s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/lib'
+[6.128s] Level 1:colcon.colcon_core.shell:create_environment_hook('nav2_rrtstar_planner', 'ld_library_path_lib')
+[6.128s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/ld_library_path_lib.ps1'
+[6.128s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/ld_library_path_lib.dsv'
+[6.128s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/ld_library_path_lib.sh'
+[6.129s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/bin'
+[6.129s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/lib/pkgconfig/nav2_rrtstar_planner.pc'
+[6.129s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/lib/python3.10/site-packages'
+[6.129s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/bin'
+[6.129s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.ps1'
+[6.130s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.dsv'
+[6.130s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.sh'
+[6.130s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.bash'
+[6.131s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.zsh'
+[6.131s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Shared/install/nav2_rrtstar_planner/share/colcon-core/packages/nav2_rrtstar_planner)
+[6.131s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(nav2_rrtstar_planner)
+[6.131s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner' for CMake module files
+[6.132s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner' for CMake config files
+[6.132s] Level 1:colcon.colcon_core.shell:create_environment_hook('nav2_rrtstar_planner', 'cmake_prefix_path')
+[6.132s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/cmake_prefix_path.ps1'
+[6.132s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/cmake_prefix_path.dsv'
+[6.133s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/cmake_prefix_path.sh'
+[6.133s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/lib'
+[6.133s] Level 1:colcon.colcon_core.shell:create_environment_hook('nav2_rrtstar_planner', 'ld_library_path_lib')
+[6.133s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/ld_library_path_lib.ps1'
+[6.134s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/ld_library_path_lib.dsv'
+[6.134s] INFO:colcon.colcon_core.shell:Creating environment hook '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/hook/ld_library_path_lib.sh'
+[6.134s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/bin'
+[6.134s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/lib/pkgconfig/nav2_rrtstar_planner.pc'
+[6.134s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/lib/python3.10/site-packages'
+[6.135s] Level 1:colcon.colcon_core.environment:checking '/root/Shared/install/nav2_rrtstar_planner/bin'
+[6.135s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.ps1'
+[6.135s] INFO:colcon.colcon_core.shell:Creating package descriptor '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.dsv'
+[6.136s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.sh'
+[6.136s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.bash'
+[6.136s] INFO:colcon.colcon_core.shell:Creating package script '/root/Shared/install/nav2_rrtstar_planner/share/nav2_rrtstar_planner/package.zsh'
+[6.137s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/root/Shared/install/nav2_rrtstar_planner/share/colcon-core/packages/nav2_rrtstar_planner)
+[6.137s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[6.137s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[6.137s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[6.137s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[6.141s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[6.142s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[6.142s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[6.142s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[6.143s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.Spawn.ExecFailed: /usr/bin/dbus-launch terminated abnormally without any error message
+[6.144s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[6.144s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Shared/install/local_setup.ps1'
+[6.145s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/Shared/install/_local_setup_util_ps1.py'
+[6.146s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Shared/install/setup.ps1'
+[6.147s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Shared/install/local_setup.sh'
+[6.147s] INFO:colcon.colcon_core.shell:Creating prefix util module '/root/Shared/install/_local_setup_util_sh.py'
+[6.148s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Shared/install/setup.sh'
+[6.149s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Shared/install/local_setup.bash'
+[6.149s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Shared/install/setup.bash'
+[6.150s] INFO:colcon.colcon_core.shell:Creating prefix script '/root/Shared/install/local_setup.zsh'
+[6.151s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/root/Shared/install/setup.zsh'

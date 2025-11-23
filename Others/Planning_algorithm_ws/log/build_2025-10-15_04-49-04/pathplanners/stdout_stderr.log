@@ -1,0 +1,29 @@
+running egg_info
+writing ../../build/pathplanners/pathplanners.egg-info/PKG-INFO
+writing dependency_links to ../../build/pathplanners/pathplanners.egg-info/dependency_links.txt
+writing entry points to ../../build/pathplanners/pathplanners.egg-info/entry_points.txt
+writing requirements to ../../build/pathplanners/pathplanners.egg-info/requires.txt
+writing top-level names to ../../build/pathplanners/pathplanners.egg-info/top_level.txt
+reading manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+writing manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+running build
+running build_py
+copying pathplanners/dstart.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+copying pathplanners/astart.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+running install
+running install_lib
+copying /root/Shared/build/pathplanners/build/lib/pathplanners/dstart.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+copying /root/Shared/build/pathplanners/build/lib/pathplanners/astart.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/dstart.py to dstart.cpython-310.pyc
+byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/astart.py to astart.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/pathplanners/pathplanners.egg-info to /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners-0.0.0-py3.10.egg-info
+running install_scripts
+Installing astart script to /root/Shared/install/pathplanners/lib/pathplanners
+Installing bfs script to /root/Shared/install/pathplanners/lib/pathplanners
+Installing dijkstra script to /root/Shared/install/pathplanners/lib/pathplanners
+Installing dstart script to /root/Shared/install/pathplanners/lib/pathplanners
+Installing map_node script to /root/Shared/install/pathplanners/lib/pathplanners
+writing list of installed files to '/root/Shared/build/pathplanners/install.log'

@@ -1,0 +1,4 @@
+Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/simple_urdf -- -j12 -l12
+Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/simple_urdf -- -j12 -l12
+Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/simple_urdf
+Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/simple_urdf

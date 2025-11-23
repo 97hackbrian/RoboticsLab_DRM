@@ -1,0 +1,12 @@
+[submodule "Others/Planning_algorithm_ws/src/multidim_rrt_planner"]
+	path = Others/Planning_algorithm_ws/src/multidim_rrt_planner
+	url = git@github.com:97hackbrian/multidim_rrt_planner_v2.git
+[submodule "Others/Planning_algorithm_ws/src/Path-Planning-Algorithms"]
+	path = Others/Planning_algorithm_ws/src/Path-Planning-Algorithms
+	url = git@github.com:97hackbrian/Path-Planning-Algorithms_v2.git
+[submodule "Others/Planning_algorithm_ws/src/TurtleBot-RRT-Star"]
+	path = Others/Planning_algorithm_ws/src/TurtleBot-RRT-Star
+	url = git@github.com:97hackbrian/TurtleBot-RRT-Star_v2.git
+[submodule "Kinematics_Lab/ros2_kinematics_ws/src/Universal_Robots_ROS2_Description"]
+	path = Kinematics_Lab/ros2_kinematics_ws/src/Universal_Robots_ROS2_Description
+	url = https://github.com/tuuser/Universal_Robots_ROS2_Description.git

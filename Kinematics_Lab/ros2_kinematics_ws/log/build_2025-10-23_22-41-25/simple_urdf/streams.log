@@ -1,0 +1,26 @@
+[0.384s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/simple_urdf -- -j12 -l12
+[0.420s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/simple_urdf -- -j12 -l12
+[0.421s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/simple_urdf
+[0.428s] -- Install configuration: ""
+[0.428s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/launch
+[0.428s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/launch/rr_test.launch.py
+[0.428s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/urdf
+[0.428s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/urdf/rr.urdf
+[0.428s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/rviz
+[0.428s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/rviz/robot_state_visualize.rviz
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/package_run_dependencies/simple_urdf
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/parent_prefix_path/simple_urdf
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/ament_prefix_path.sh
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/ament_prefix_path.dsv
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/path.sh
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/path.dsv
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.bash
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.sh
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.zsh
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.dsv
+[0.429s] -- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/package.dsv
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/packages/simple_urdf
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/cmake/simple_urdfConfig.cmake
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/cmake/simple_urdfConfig-version.cmake
+[0.429s] -- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/package.xml
+[0.430s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/ros/UR_ws/install/rrt_motion_planning:/ros/UR_ws/install/forward_kinematics:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/simple_urdf

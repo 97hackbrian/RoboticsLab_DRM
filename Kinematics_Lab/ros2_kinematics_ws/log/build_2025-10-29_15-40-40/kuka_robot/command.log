@@ -1,0 +1,4 @@
+Invoking command in '/ros/UR_ws/build/kuka_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/kuka_robot -- -j12 -l12
+Invoked command in '/ros/UR_ws/build/kuka_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/kuka_robot -- -j12 -l12
+Invoking command in '/ros/UR_ws/build/kuka_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/kuka_robot
+Invoked command in '/ros/UR_ws/build/kuka_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/kuka_robot

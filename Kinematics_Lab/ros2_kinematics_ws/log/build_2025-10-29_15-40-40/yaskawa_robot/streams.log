@@ -1,0 +1,71 @@
+[0.370s] Invoking command in '/ros/UR_ws/build/yaskawa_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/yaskawa_robot -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/yaskawa_robot
+[0.473s] -- The C compiler identification is GNU 13.3.0
+[0.518s] -- The CXX compiler identification is GNU 13.3.0
+[0.531s] -- Detecting C compiler ABI info
+[0.598s] -- Detecting C compiler ABI info - done
+[0.612s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.613s] -- Detecting C compile features
+[0.613s] -- Detecting C compile features - done
+[0.621s] -- Detecting CXX compiler ABI info
+[0.694s] -- Detecting CXX compiler ABI info - done
+[0.703s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.703s] -- Detecting CXX compile features
+[0.704s] -- Detecting CXX compile features - done
+[0.711s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.840s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.981s] -- Found ament_lint_auto: 0.17.3 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[1.089s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.089s] -- Configured 'flake8' exclude dirs and/or files: 
+[1.090s] -- Added test 'lint_cmake' to check CMake code style
+[1.091s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.093s] -- Added test 'xmllint' to check XML markup files
+[1.095s] -- Configuring done (0.7s)
+[1.097s] -- Generating done (0.0s)
+[1.098s] -- Build files have been written to: /ros/UR_ws/build/yaskawa_robot
+[1.101s] Invoked command in '/ros/UR_ws/build/yaskawa_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/yaskawa_robot -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/yaskawa_robot
+[1.102s] Invoking command in '/ros/UR_ws/build/yaskawa_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/yaskawa_robot -- -j12 -l12
+[1.131s] Invoked command in '/ros/UR_ws/build/yaskawa_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /ros/UR_ws/build/yaskawa_robot -- -j12 -l12
+[1.132s] Invoking command in '/ros/UR_ws/build/yaskawa_robot': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/yaskawa_robot
+[1.139s] -- Install configuration: ""
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/launch
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/launch/mh12_test.launch.py
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_link_5_b.stl
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_link_4_r.stl
+[1.139s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_link_2_l.stl
+[1.140s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_base_link.stl
+[1.140s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_link_1_s.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_link_3_u.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/visual/mh12_link_6_t.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_link_5_b.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_link_4_r.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_link_2_l.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_base_link.stl
+[1.141s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_link_1_s.stl
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_link_3_u.stl
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/meshes/collision/mh12_link_6_t.stl
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/rviz
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/rviz/robot_state_visualize.rviz
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/urdf
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/urdf/common_colors.xacro
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/urdf/mh12.xacro
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/urdf/mh12_macro.xacro
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/urdf/common_materials.xacro
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/ament_index/resource_index/package_run_dependencies/yaskawa_robot
+[1.142s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/ament_index/resource_index/parent_prefix_path/yaskawa_robot
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/environment/ament_prefix_path.sh
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/environment/ament_prefix_path.dsv
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/environment/path.sh
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/environment/path.dsv
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/local_setup.bash
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/local_setup.sh
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/local_setup.zsh
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/local_setup.dsv
+[1.143s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/package.dsv
+[1.144s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/ament_index/resource_index/packages/yaskawa_robot
+[1.144s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/cmake/yaskawa_robotConfig.cmake
+[1.144s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/cmake/yaskawa_robotConfig-version.cmake
+[1.144s] -- Installing: /ros/UR_ws/install/yaskawa_robot/share/yaskawa_robot/package.xml
+[1.145s] Invoked command in '/ros/UR_ws/build/yaskawa_robot' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --install /ros/UR_ws/build/yaskawa_robot

@@ -1,0 +1,5 @@
+  File "/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics/joints_sub.py", line 32
+    p2 = Rz.subs(t, t1) * (Ry.subs(t, -t2) *  ((Ry.subs(t, -t3))*L1)  + p1
+                          ^
+SyntaxError: '(' was never closed
+

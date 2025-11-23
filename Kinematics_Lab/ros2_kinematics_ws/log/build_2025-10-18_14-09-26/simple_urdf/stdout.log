@@ -1,0 +1,22 @@
+-- Install configuration: ""
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/launch
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/launch/rr_test.launch.py
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/urdf
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/urdf/rr.urdf
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/rviz
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/rviz/robot_state_visualize.rviz
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/package_run_dependencies/simple_urdf
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/parent_prefix_path/simple_urdf
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/ament_prefix_path.sh
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/ament_prefix_path.dsv
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/path.sh
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/environment/path.dsv
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.bash
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.sh
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.zsh
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/local_setup.dsv
+-- Installing: /ros/UR_ws/install/simple_urdf/share/simple_urdf/package.dsv
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/ament_index/resource_index/packages/simple_urdf
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/cmake/simple_urdfConfig.cmake
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/cmake/simple_urdfConfig-version.cmake
+-- Up-to-date: /ros/UR_ws/install/simple_urdf/share/simple_urdf/package.xml

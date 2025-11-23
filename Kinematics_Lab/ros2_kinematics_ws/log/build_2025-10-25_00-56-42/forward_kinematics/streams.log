@@ -1,0 +1,31 @@
+[0.975s] Invoking command in '/ros/UR_ws/src/forward_kinematics': PYTHONPATH=/ros/UR_ws/build/forward_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/forward_kinematics build --build-base /ros/UR_ws/build/forward_kinematics/build install --record /ros/UR_ws/build/forward_kinematics/install.log --single-version-externally-managed install_data
+[1.216s] running egg_info
+[1.233s] writing ../../build/forward_kinematics/forward_kinematics.egg-info/PKG-INFO
+[1.233s] writing dependency_links to ../../build/forward_kinematics/forward_kinematics.egg-info/dependency_links.txt
+[1.234s] writing entry points to ../../build/forward_kinematics/forward_kinematics.egg-info/entry_points.txt
+[1.234s] writing requirements to ../../build/forward_kinematics/forward_kinematics.egg-info/requires.txt
+[1.234s] writing top-level names to ../../build/forward_kinematics/forward_kinematics.egg-info/top_level.txt
+[1.268s] reading manifest file '../../build/forward_kinematics/forward_kinematics.egg-info/SOURCES.txt'
+[1.270s] writing manifest file '../../build/forward_kinematics/forward_kinematics.egg-info/SOURCES.txt'
+[1.270s] running build
+[1.270s] running build_py
+[1.270s] copying forward_kinematics/fwd_kr6.py -> /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics
+[1.270s] copying forward_kinematics/fwd_ur5.py -> /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics
+[1.270s] running install
+[1.276s] running install_lib
+[1.293s] copying /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics/fwd_kr6.py -> /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics
+[1.293s] copying /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics/fwd_ur5.py -> /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics
+[1.294s] byte-compiling /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics/fwd_kr6.py to fwd_kr6.cpython-312.pyc
+[1.296s] byte-compiling /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics/fwd_ur5.py to fwd_ur5.cpython-312.pyc
+[1.297s] running install_data
+[1.297s] running install_egg_info
+[1.316s] removing '/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics-0.0.0-py3.12.egg-info' (and everything under it)
+[1.317s] Copying ../../build/forward_kinematics/forward_kinematics.egg-info to /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics-0.0.0-py3.12.egg-info
+[1.318s] running install_scripts
+[1.433s] Installing fwd_kr6 script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.433s] Installing fwd_rr script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.433s] Installing fwd_ur5 script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.433s] Installing joint_pub script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.433s] Installing joint_sub script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.434s] writing list of installed files to '/ros/UR_ws/build/forward_kinematics/install.log'
+[1.461s] Invoked command in '/ros/UR_ws/src/forward_kinematics' returned '0': PYTHONPATH=/ros/UR_ws/build/forward_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/forward_kinematics build --build-base /ros/UR_ws/build/forward_kinematics/build install --record /ros/UR_ws/build/forward_kinematics/install.log --single-version-externally-managed install_data

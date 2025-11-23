@@ -1,0 +1,32 @@
+[0.903s] Invoking command in '/ros/UR_ws/src/forward_kinematics': PYTHONPATH=/ros/UR_ws/build/forward_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/forward_kinematics build --build-base /ros/UR_ws/build/forward_kinematics/build install --record /ros/UR_ws/build/forward_kinematics/install.log --single-version-externally-managed install_data
+[1.139s] running egg_info
+[1.156s] writing ../../build/forward_kinematics/forward_kinematics.egg-info/PKG-INFO
+[1.156s] writing dependency_links to ../../build/forward_kinematics/forward_kinematics.egg-info/dependency_links.txt
+[1.156s] writing entry points to ../../build/forward_kinematics/forward_kinematics.egg-info/entry_points.txt
+[1.156s] writing requirements to ../../build/forward_kinematics/forward_kinematics.egg-info/requires.txt
+[1.156s] writing top-level names to ../../build/forward_kinematics/forward_kinematics.egg-info/top_level.txt
+[1.190s] reading manifest file '../../build/forward_kinematics/forward_kinematics.egg-info/SOURCES.txt'
+[1.191s] writing manifest file '../../build/forward_kinematics/forward_kinematics.egg-info/SOURCES.txt'
+[1.191s] running build
+[1.191s] running build_py
+[1.191s] copying forward_kinematics/fwd_kr6.py -> /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics
+[1.191s] copying forward_kinematics/joints_sub.py -> /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics
+[1.191s] copying forward_kinematics/fwd_rr.py -> /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics
+[1.192s] running install
+[1.197s] running install_lib
+[1.214s] copying /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics/fwd_kr6.py -> /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics
+[1.215s] copying /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics/joints_sub.py -> /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics
+[1.215s] copying /ros/UR_ws/build/forward_kinematics/build/lib/forward_kinematics/fwd_rr.py -> /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics
+[1.215s] byte-compiling /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics/fwd_kr6.py to fwd_kr6.cpython-312.pyc
+[1.216s] byte-compiling /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics/joints_sub.py to joints_sub.cpython-312.pyc
+[1.217s] byte-compiling /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics/fwd_rr.py to fwd_rr.cpython-312.pyc
+[1.217s] running install_data
+[1.218s] running install_egg_info
+[1.235s] removing '/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics-0.0.0-py3.12.egg-info' (and everything under it)
+[1.235s] Copying ../../build/forward_kinematics/forward_kinematics.egg-info to /ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages/forward_kinematics-0.0.0-py3.12.egg-info
+[1.236s] running install_scripts
+[1.349s] Installing fwd_rr script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.349s] Installing joint_pub script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.349s] Installing joint_sub script to /ros/UR_ws/install/forward_kinematics/lib/forward_kinematics
+[1.349s] writing list of installed files to '/ros/UR_ws/build/forward_kinematics/install.log'
+[1.372s] Invoked command in '/ros/UR_ws/src/forward_kinematics' returned '0': PYTHONPATH=/ros/UR_ws/build/forward_kinematics/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/ros/UR_ws/install/forward_kinematics/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/forward_kinematics build --build-base /ros/UR_ws/build/forward_kinematics/build install --record /ros/UR_ws/build/forward_kinematics/install.log --single-version-externally-managed install_data

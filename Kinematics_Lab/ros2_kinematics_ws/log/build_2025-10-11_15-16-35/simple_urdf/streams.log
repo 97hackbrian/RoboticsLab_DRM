@@ -1,0 +1,55 @@
+[0.008s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf
+[0.050s] -- The C compiler identification is GNU 13.3.0
+[0.094s] -- The CXX compiler identification is GNU 13.3.0
+[0.106s] -- Detecting C compiler ABI info
+[0.169s] -- Detecting C compiler ABI info - done
+[0.177s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.177s] -- Detecting C compile features
+[0.178s] -- Detecting C compile features - done
+[0.184s] -- Detecting CXX compiler ABI info
+[0.259s] -- Detecting CXX compiler ABI info - done
+[0.267s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.267s] -- Detecting CXX compile features
+[0.268s] -- Detecting CXX compile features - done
+[0.272s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.399s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.514s] -- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.575s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.596s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.620s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.646s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.749s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.754s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.837s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.854s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.873s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.965s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.983s] -- Found sensor_msgs: 5.3.6 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[1.035s] -- Found urdf: 2.10.0 (/opt/ros/jazzy/share/urdf/cmake)
+[1.081s] -- Found xacro: 2.1.1 (/opt/ros/jazzy/share/xacro/cmake)
+[1.085s] -- Found tf2: 0.36.14 (/opt/ros/jazzy/share/tf2/cmake)
+[1.092s] -- Found tf2_ros: 0.36.14 (/opt/ros/jazzy/share/tf2_ros/cmake)
+[1.237s] -- Found tf2_geometry_msgs: 0.36.14 (/opt/ros/jazzy/share/tf2_geometry_msgs/cmake)
+[1.260s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[1.261s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[1.261s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[1.266s] -- Found robot_state_publisher: 3.3.3 (/opt/ros/jazzy/share/robot_state_publisher/cmake)
+[1.286s] [31mCMake Error at CMakeLists.txt:20 (find_package):
+[1.286s]   By not providing "Findjoint_state_publisher.cmake" in CMAKE_MODULE_PATH
+[1.286s]   this project has asked CMake to find a package configuration file provided
+[1.287s]   by "joint_state_publisher", but CMake did not find one.
+[1.287s] 
+[1.287s]   Could not find a package configuration file provided by
+[1.287s]   "joint_state_publisher" with any of the following names:
+[1.287s] 
+[1.287s]     joint_state_publisherConfig.cmake
+[1.287s]     joint_state_publisher-config.cmake
+[1.287s] 
+[1.287s] -- Configuring incomplete, errors occurred!
+[1.287s]   Add the installation prefix of "joint_state_publisher" to CMAKE_PREFIX_PATH
+[1.287s]   or set "joint_state_publisher_DIR" to a directory containing one of the
+[1.287s]   above files.  If "joint_state_publisher" provides a separate development
+[1.287s]   package or SDK, be sure it has been installed.
+[1.287s] 
+[1.287s] [0m
+[1.293s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf

@@ -1,0 +1,30 @@
+[0.864s] Invoking command in '/root/Shared/src/multidim_rrt_planner': PYTHONPATH=/root/Shared/build/multidim_rrt_planner/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multidim_rrt_planner build --build-base /root/Shared/build/multidim_rrt_planner/build install --record /root/Shared/build/multidim_rrt_planner/install.log --single-version-externally-managed install_data
+[1.077s] running egg_info
+[1.077s] writing ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/PKG-INFO
+[1.078s] writing dependency_links to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/dependency_links.txt
+[1.078s] writing entry points to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/entry_points.txt
+[1.078s] writing requirements to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/requires.txt
+[1.078s] writing top-level names to ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/top_level.txt
+[1.079s] reading manifest file '../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/SOURCES.txt'
+[1.080s] adding license file 'LICENSE'
+[1.080s] writing manifest file '../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info/SOURCES.txt'
+[1.080s] running build
+[1.081s] running build_py
+[1.081s] copying multidim_rrt_planner/rrt3D.py -> /root/Shared/build/multidim_rrt_planner/build/lib/multidim_rrt_planner
+[1.084s] running install
+[1.085s] running install_lib
+[1.086s] copying /root/Shared/build/multidim_rrt_planner/build/lib/multidim_rrt_planner/rrt3D.py -> /root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner
+[1.086s] byte-compiling /root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner/rrt3D.py to rrt3D.cpython-310.pyc
+[1.092s] running install_data
+[1.092s] running install_egg_info
+[1.094s] removing '/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner-0.0.7-py3.10.egg-info' (and everything under it)
+[1.095s] Copying ../../build/multidim_rrt_planner/multidim_rrt_planner.egg-info to /root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages/multidim_rrt_planner-0.0.7-py3.10.egg-info
+[1.096s] running install_scripts
+[1.124s] Installing map_frame_pub script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+[1.125s] Installing obstacle_pub_2D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+[1.125s] Installing obstacle_pub_3D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+[1.125s] Installing occupancy_pub script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+[1.125s] Installing rrt2D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+[1.125s] Installing rrt3D script to /root/Shared/install/multidim_rrt_planner/lib/multidim_rrt_planner
+[1.126s] writing list of installed files to '/root/Shared/build/multidim_rrt_planner/install.log'
+[1.164s] Invoked command in '/root/Shared/src/multidim_rrt_planner' returned '0': PYTHONPATH=/root/Shared/build/multidim_rrt_planner/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/Shared/install/multidim_rrt_planner/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/multidim_rrt_planner build --build-base /root/Shared/build/multidim_rrt_planner/build install --record /root/Shared/build/multidim_rrt_planner/install.log --single-version-externally-managed install_data

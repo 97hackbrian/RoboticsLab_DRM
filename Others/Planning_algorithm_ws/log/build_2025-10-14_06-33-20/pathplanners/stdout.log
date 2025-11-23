@@ -1,0 +1,47 @@
+running egg_info
+creating ../../build/pathplanners/pathplanners.egg-info
+writing ../../build/pathplanners/pathplanners.egg-info/PKG-INFO
+writing dependency_links to ../../build/pathplanners/pathplanners.egg-info/dependency_links.txt
+writing entry points to ../../build/pathplanners/pathplanners.egg-info/entry_points.txt
+writing requirements to ../../build/pathplanners/pathplanners.egg-info/requires.txt
+writing top-level names to ../../build/pathplanners/pathplanners.egg-info/top_level.txt
+writing manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+reading manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+writing manifest file '../../build/pathplanners/pathplanners.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /root/Shared/build/pathplanners/build
+creating /root/Shared/build/pathplanners/build/lib
+creating /root/Shared/build/pathplanners/build/lib/pathplanners
+copying pathplanners/map.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+copying pathplanners/__init__.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+copying pathplanners/breadthfirstsearch.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+copying pathplanners/dijkstra.py -> /root/Shared/build/pathplanners/build/lib/pathplanners
+running install
+running install_lib
+creating /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+copying /root/Shared/build/pathplanners/build/lib/pathplanners/map.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+copying /root/Shared/build/pathplanners/build/lib/pathplanners/__init__.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+copying /root/Shared/build/pathplanners/build/lib/pathplanners/breadthfirstsearch.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+copying /root/Shared/build/pathplanners/build/lib/pathplanners/dijkstra.py -> /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners
+byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/map.py to map.cpython-310.pyc
+byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/__init__.py to __init__.cpython-310.pyc
+byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/breadthfirstsearch.py to breadthfirstsearch.cpython-310.pyc
+byte-compiling /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners/dijkstra.py to dijkstra.cpython-310.pyc
+running install_data
+creating /root/Shared/install/pathplanners/share/ament_index
+creating /root/Shared/install/pathplanners/share/ament_index/resource_index
+creating /root/Shared/install/pathplanners/share/ament_index/resource_index/packages
+copying resource/pathplanners -> /root/Shared/install/pathplanners/share/ament_index/resource_index/packages
+copying package.xml -> /root/Shared/install/pathplanners/share/pathplanners
+creating /root/Shared/install/pathplanners/share/pathplanners/launch
+copying launch/bringup.launch.py -> /root/Shared/install/pathplanners/share/pathplanners/launch
+creating /root/Shared/install/pathplanners/share/pathplanners/rviz
+copying rviz/visualizer.rviz -> /root/Shared/install/pathplanners/share/pathplanners/rviz
+running install_egg_info
+Copying ../../build/pathplanners/pathplanners.egg-info to /root/Shared/install/pathplanners/lib/python3.10/site-packages/pathplanners-0.0.0-py3.10.egg-info
+running install_scripts
+Installing bfs script to /root/Shared/install/pathplanners/lib/pathplanners
+Installing dijkstra script to /root/Shared/install/pathplanners/lib/pathplanners
+Installing map_node script to /root/Shared/install/pathplanners/lib/pathplanners
+writing list of installed files to '/root/Shared/build/pathplanners/install.log'

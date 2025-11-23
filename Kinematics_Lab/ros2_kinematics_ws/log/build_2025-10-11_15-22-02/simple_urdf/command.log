@@ -1,0 +1,2 @@
+Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf
+Invoked command in '/ros/UR_ws/build/simple_urdf' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf

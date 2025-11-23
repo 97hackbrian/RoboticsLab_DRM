@@ -1,0 +1,39 @@
+[0.008s] Invoking command in '/ros/UR_ws/build/simple_urdf': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf
+[0.020s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.197s] -- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.222s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.231s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.241s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.254s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.315s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.316s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.371s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.432s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.446s] -- Found sensor_msgs: 5.3.6 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.483s] -- Found urdf: 2.10.0 (/opt/ros/jazzy/share/urdf/cmake)
+[0.493s] -- Found xacro: 2.1.1 (/opt/ros/jazzy/share/xacro/cmake)
+[0.493s] -- Found tf2: 0.36.14 (/opt/ros/jazzy/share/tf2/cmake)
+[0.497s] -- Found tf2_ros: 0.36.14 (/opt/ros/jazzy/share/tf2_ros/cmake)
+[0.605s] -- Found tf2_geometry_msgs: 0.36.14 (/opt/ros/jazzy/share/tf2_geometry_msgs/cmake)
+[0.608s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[0.610s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.612s] -- Found robot_state_publisher: 3.3.3 (/opt/ros/jazzy/share/robot_state_publisher/cmake)
+[0.631s] [31mCMake Error at CMakeLists.txt:21 (find_package):
+[0.631s]   By not providing "Findkinematics_interface.cmake" in CMAKE_MODULE_PATH this
+[0.632s]   project has asked CMake to find a package configuration file provided by
+[0.632s]   "kinematics_interface", but CMake did not find one.
+[0.632s] 
+[0.632s]   Could not find a package configuration file provided by
+[0.632s]   "kinematics_interface" with any of the following names:
+[0.632s] 
+[0.632s]     kinematics_interfaceConfig.cmake
+[0.632s]     kinematics_interface-config.cmake
+[0.632s] 
+[0.632s]   Add the installation prefix of "kinematics_interface" to CMAKE_PREFIX_PATH
+[0.632s]   or set "kinematics_interface_DIR" to a directory containing one of the
+[0.633s]   above files.  If "kinematics_interface" provides a separate development
+[0.633s]   package or SDK, be sure it has been installed.
+[0.633s] 
+[0.633s] [0m
+[0.633s] -- Configuring incomplete, errors occurred!
+[0.637s] Invoked command in '/ros/UR_ws/build/simple_urdf' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake /ros/UR_ws/src/simple_urdf -DCMAKE_INSTALL_PREFIX=/ros/UR_ws/install/simple_urdf
