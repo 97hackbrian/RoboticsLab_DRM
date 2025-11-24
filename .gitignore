@@ -40,9 +40,9 @@ CMakeLists.txt.user
 qtcreator-*
 *.user
 
-/planning/cfg
-/planning/docs
-/planning/src
+#/planning/cfg
+#/planning/docs
+#/planning/src
 
 #*~
 
