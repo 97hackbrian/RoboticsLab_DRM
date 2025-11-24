@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>industrial_mobile_robot</name>
+  <version>0.0.1</version>
+  <description>Rocker-bogie robot exported from SolidWorks</description>
+
+  <maintainer email="tu_email@correo.com">Brayan Duran</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>ros2launch</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>joint_state_publisher_gui</depend>
+  <depend>rviz2</depend>
+  <depend>xacro</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_media_path="${prefix}/share/industrial_mobile_robot"/>
+    <gazebo_ros gazebo_model_path="${prefix}/share/industrial_mobile_robot"/>
+  </export>
+</package>
+

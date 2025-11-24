@@ -1,0 +1,1 @@
+	$ ros2 launch kinematics_mh12 launch_mode.launch.py mode:=forward

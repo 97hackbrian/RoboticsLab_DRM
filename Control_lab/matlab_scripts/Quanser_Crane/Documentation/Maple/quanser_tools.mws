@@ -1,0 +1,308 @@
+{VERSION 5 0 "IBM INTEL NT" "5.0" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 1 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 
+0 0 1 }{CSTYLE "Hyperlink" -1 17 "" 0 1 0 128 128 1 2 0 1 0 0 0 0 0 0 
+1 }{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 1 }
+{CSTYLE "" -1 256 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 }{CSTYLE "" -1 
+257 "" 1 20 0 0 0 0 0 0 0 0 0 0 0 0 0 1 }{CSTYLE "" -1 258 "" 1 12 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 259 "" 0 1 0 0 0 0 0 1 0 0 0 
+0 0 0 0 0 }{CSTYLE "" -1 260 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 261 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+262 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 263 "" 0 1 0 0 
+0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 264 "" 0 1 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 265 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 266 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+267 "" 1 20 0 0 0 0 1 0 0 0 0 0 0 0 0 1 }{CSTYLE "" -1 268 "" 1 20 0 
+0 0 0 0 0 0 0 0 0 0 0 0 1 }{CSTYLE "" -1 269 "" 0 1 0 0 0 0 1 0 0 0 0 
+0 0 0 0 0 }{CSTYLE "" -1 270 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 271 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+272 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 273 "" 0 1 0 0 
+0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 274 "" 0 1 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 275 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 276 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+277 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 278 "" 0 1 0 0 
+0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 279 "" 0 1 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 280 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 281 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+282 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 283 "" 0 1 0 0 
+0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 284 "" 0 1 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 285 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 286 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+287 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 288 "" 0 1 0 0 
+0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 289 "" 0 1 0 0 0 0 0 1 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 290 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 291 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+292 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 293 "" 0 1 0 0 
+0 0 1 0 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 294 "" 0 1 0 0 0 0 1 0 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 295 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 296 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+297 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 298 "" 0 1 0 0 
+0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 299 "" 0 1 0 0 0 0 0 1 0 0 0 0 
+0 0 0 0 }{CSTYLE "" -1 300 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }
+{CSTYLE "" -1 301 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 
+302 "" 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 303 "" 0 1 0 0 
+0 0 0 1 0 0 0 0 0 0 0 0 }{CSTYLE "" -1 304 "" 0 1 0 0 0 0 0 1 0 0 0 0 
+0 0 0 0 }{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 
+1 2 2 2 2 2 2 1 1 1 1 }1 1 0 0 0 0 1 0 1 0 2 2 0 1 }{PSTYLE "Heading 1
+" -1 3 1 {CSTYLE "" -1 -1 "Times" 1 18 0 0 0 1 2 1 2 2 2 2 1 1 1 1 }1 
+1 0 0 8 4 1 0 1 0 2 2 0 1 }{PSTYLE "Heading 2" -1 4 1 {CSTYLE "" -1 
+-1 "Times" 1 14 0 0 0 1 2 1 2 2 2 2 1 1 1 1 }1 1 0 0 8 2 1 0 1 0 2 2 
+0 1 }{PSTYLE "Maple Output" -1 11 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 
+0 1 2 2 2 2 2 2 1 1 1 1 }3 3 0 0 0 0 1 0 1 0 2 2 0 1 }{PSTYLE "Maple O
+utput" -1 12 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 1 
+1 1 }1 3 0 0 0 0 1 0 1 0 2 2 0 1 }{PSTYLE "Bullet Item" -1 15 1 
+{CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 1 1 1 }1 1 0 0 3 
+3 1 0 1 0 2 2 15 2 }{PSTYLE "Title" -1 18 1 {CSTYLE "" -1 -1 "Times" 
+1 18 0 0 0 1 2 1 1 2 2 2 1 1 1 1 }3 1 0 0 12 12 1 0 1 0 2 2 19 1 }
+{PSTYLE "Author" -1 19 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 
+2 2 2 1 1 1 1 }3 1 0 0 8 8 1 0 1 0 2 2 0 1 }{PSTYLE "Normal" -1 256 1 
+{CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 1 1 1 }3 1 0 0 0 
+0 1 0 1 0 2 2 0 1 }{PSTYLE "Normal" -1 257 1 {CSTYLE "" -1 -1 "Times" 
+1 10 0 0 0 1 2 2 2 2 2 2 1 1 1 1 }3 1 0 0 0 0 1 0 1 0 2 2 0 1 }
+{PSTYLE "Author" -1 258 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 1 2 2 
+2 2 2 1 1 1 1 }3 1 0 0 8 8 1 0 1 0 2 2 0 1 }}
+{SECT 0 {EXCHG {PARA 18 "" 0 "" {TEXT 257 4 "The " }{TEXT 267 13 "Quan
+ser_Tools" }{TEXT 268 8 " Package" }}{PARA 258 "" 0 "" {TEXT 256 1 "
+\251" }{TEXT -1 29 " 2003 Quanser Consulting Inc." }}{PARA 19 "" 0 "" 
+{TEXT 258 5 "URL: " }{URLLINK 17 "http://www.quanser.com" 4 "http://ww
+w.quanser.com" "" }}{PARA 257 "" 0 "" {TEXT -1 33 "NOTE: This workshee
+t creates the " }{TEXT 269 13 "Quanser_Tools" }{TEXT -1 21 " package f
+iles, i.e. " }{TEXT 271 11 "quanser.ind" }{TEXT -1 6 ", and " }{TEXT 
+270 11 "quanser.lib" }}}{SECT 0 {PARA 3 "" 0 "Description" {TEXT -1 
+11 "Description" }}{PARA 15 "" 0 "" {TEXT -1 4 "The " }{TEXT 272 13 "Q
+uanser_Tools" }{TEXT -1 29 " package is created from the " }{TEXT 266 
+13 "Quanser_Tools" }{TEXT -1 8 " module." }}{PARA 15 "" 0 "" {TEXT -1 
+4 "The " }{TEXT 265 13 "Quanser_Tools" }{TEXT -1 215 " module defines \+
+generic procedures and data in relation to determining the state-space
+ representation of all Quanser experiments. Specifically, this means d
+eriving and solving the Lagrange's equations of the system." }}{PARA 
+15 "" 0 "" {TEXT -1 39 "Executing this worksheet generates the " }
+{TEXT 276 7 "quanser" }{TEXT -1 27 " repository containing the " }
+{TEXT 275 13 "Quanser_Tools" }{TEXT -1 20 " package. The files " }
+{TEXT 277 11 "quanser.ind" }{TEXT -1 5 " and " }{TEXT 278 11 "quanser.
+lib" }{TEXT -1 47 " are saved in a temporary subdirectory, called " }
+{TEXT 279 16 "quanser_tmp_repo" }{TEXT -1 44 ", of this worksheet's cu
+rrent location. The " }{TEXT 280 7 "quanser" }{TEXT -1 66 " repository
+ can then be copied to a final destination for access. " }}{PARA 15 "
+" 0 "" {TEXT -1 30 "Please send your comments to: " }{URLLINK 17 "herv
+e@quanser.com" 4 "mailto:herve@quanser.com" "" }{TEXT -1 0 "" }}{PARA 
+0 "" 0 "" {TEXT -1 0 "" }}}{SECT 0 {PARA 3 "" 0 "" {TEXT -1 14 "Initia
+lization" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 8 "restart:" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 22 "with( LinearAlgebra ):" }}}
+{PARA 0 "" 0 "" {TEXT -1 0 "" }}}{SECT 0 {PARA 3 "" 0 "" {TEXT -1 4 "T
+he " }{TEXT 263 13 "Quanser_Tools" }{TEXT -1 7 " Module" }}{PARA 0 "" 
+0 "" {TEXT -1 4 "The " }{TEXT 264 13 "Quanser_Tools" }{TEXT -1 66 " mo
+dule defines the procedures related to the Quanser experiments." }}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 358 "Quanser_Tools := module( )
+\n  export\n    n_norm,\n    moment_of_inertia,\n    kinetic_energy, \+
+\n    potential_energy, \n    lagrange_equations,\n    deriveF,\n    d
+eriveA,\n    deriveB, \n    write_ABCD_to_Mfile;\n  option \n    packa
+ge, \n    `Copyright (C) 2002 Quanser Consulting Inc.`;\n  description
+ \n    \"Support utilities to derive state-space representations.\";\n
+\n" }}{PARA 0 "" 0 "" {TEXT 296 20 "-> input parameters:" }}{PARA 0 "
+" 0 "" {TEXT -1 63 "X = set or list or table of elements (e.g. coordin
+ates) to norm" }}{PARA 0 "" 0 "" {TEXT -1 44 "n = n-Norm (e.g. if n = \+
+2 : Euclidian norm)\n" }{TEXT 297 18 "-> local variable:" }}{PARA 0 "
+" 0 "" {TEXT -1 16 "N = n-Norm value" }}{PARA 0 "> " 0 "" {MPLTEXT 1 
+0 130 "n_norm := proc( X, n::integer )\n  local N;\n  description \"Ca
+lculate the n-norm.\";\n  N := ( add( i^n, i=X ) )^( 1 / n );\nend pro
+c;\n" }}{PARA 0 "" 0 "" {TEXT 298 20 "-> input parameters:" }}{PARA 0 
+"" 0 "" {TEXT -1 50 "shape = ; possible choices: 'cylinder', 'rect_bar
+'" }}{PARA 0 "" 0 "" {TEXT -1 57 "axis = ; possible choices: 'longitud
+inal', 'ortho_middle'" }}{PARA 0 "" 0 "" {TEXT 299 18 "-> local variab
+le:" }}{PARA 0 "" 0 "" {TEXT -1 63 "J = moment of inertia value (also \+
+the returned output)\nM = mass" }}{PARA 0 "" 0 "" {TEXT -1 10 "L = len
+gth" }}{PARA 0 "" 0 "" {TEXT -1 10 "R = radius" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 427 "moment_of_inertia := proc( shape, axis )\n  local J,
+ M, R, L;\n  description \"Calculate the moment of inertia.\";\n  M :=
+ args[3];\n  if ( shape = 'cylinder' ) and ( axis = 'longitudinal' ) t
+hen\n    R := args[4];\n    J := M * R^2 / 2;\n  elif ( shape = 'rect_
+bar' ) and ( axis = 'ortho_middle' ) then\n    L := args[4];\n    J :=
+ M * L^2 / 12;\n  else \n    error \"wrong arguments: \\%1 and/or \\%2
+\", shape, axis;\n  end if;\n  J;\nend proc;\n" }}{PARA 0 "" 0 "" 
+{TEXT 291 19 "-> 2 valid formats:" }{TEXT -1 4 "\ni) " }{TEXT 292 46 "
+kinetic_energy( 'translation', m, v )   ---   " }{TEXT -1 14 "(aka T_l
+inear)" }}{PARA 0 "" 0 "" {TEXT -1 4 "ii) " }{TEXT 293 43 "kinetic_ene
+rgy( 'rotation', J, w )   ---   " }{TEXT -1 18 "(aka T_rotational)" }}
+{PARA 0 "" 0 "" {TEXT 301 19 "-> input parameters" }{TEXT -1 1 ":" }}
+{PARA 0 "" 0 "" {TEXT -1 52 "type = possible choices: 'translation' or
+ 'rotation'" }}{PARA 0 "" 0 "" {TEXT -1 8 "m = mass" }}{PARA 0 "" 0 "
+" {TEXT -1 19 "v = linear velocity" }}{PARA 0 "" 0 "" {TEXT -1 21 "J =
+ moment of inertia" }}{PARA 0 "" 0 "" {TEXT -1 20 "w = angular velocit
+y" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 524 "kinetic_energy := proc( )\n  \+
+local T, type, m, v, J, w;\n  description \"Calculate kinetic energies
+: translation or rotation.\";\n  type := args[1];\n  if ( nargs <> 3 )
+ then\n      error \"wrong argument of arguments: \\%1\", nargs;\n  el
+se\n    if ( type = 'translation' ) then\n      m := args[2];\n      v
+ := args[3];\n      T := 1/2 * m * v^2;\n    elif ( type = 'rotation' \+
+) then\n      J := args[2];\n      w := args[3];\n      T := 1/2 * J *
+ w^2;\n    else \n      error \"wrong argument: \\%1\", type;\n    end
+ if;\n  end if;\n  T;\nend proc;\n" }}{PARA 0 "" 0 "" {TEXT 290 19 "->
+ 2 valid formats:" }}{PARA 0 "" 0 "" {TEXT -1 3 "i) " }{TEXT 294 43 "p
+otential_energy ( 'spring', k, dx )  ---  " }{TEXT -1 16 "(aka V_elast
+ic) " }}{PARA 0 "" 0 "" {TEXT -1 4 "ii) " }{TEXT 295 47 "potential_ene
+rgy ( 'gravity', m, g, dh )  ---  " }{TEXT -1 16 "(aka V_gravity) " }}
+{PARA 0 "" 0 "" {TEXT 300 19 "-> input parameters" }{TEXT -1 1 ":" }}
+{PARA 0 "" 0 "" {TEXT -1 46 "type = possible choices: 'spring' or 'gra
+vity'" }}{PARA 0 "" 0 "" {TEXT -1 20 "k = spring stiffness" }}{PARA 0 
+"" 0 "" {TEXT -1 28 "dx = spring length variation" }}{PARA 0 "" 0 "" 
+{TEXT -1 8 "m = mass" }}{PARA 0 "" 0 "" {TEXT -1 30 "g = gravitational
+ acceleration" }}{PARA 0 "" 0 "" {TEXT -1 9 "dh = high" }}{PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 640 "potential_energy := proc( )\n  local V, type,
+ k, dx, m, g, dh;\n  description \"Calculate potential energies: sprin
+g or gravity.\";\n  type := args[1];\n  if ( type = 'spring' ) then\n \+
+   if ( nargs <> 3 ) then\n      error \"wrong argument of arguments: \+
+\\%1\", nargs;\n    else\n      k := args[2];\n      dx := args[3];\n \+
+     V := 1/2 * k * dx^2;\n    end if;\n  elif ( type = 'gravity' ) th
+en\n    if ( nargs <> 4 ) then\n      error \"wrong argument of argume
+nts: \\%1\", nargs;\n    else\n      m := args[2];\n      g := args[3]
+;\n      dh := args[4];\n      V := m * g * dh;\n    end if;\n  else \+
+\n    error \"wrong argument: \\%1\", type;\n  end if;\n  V;\nend proc
+;\n" }}{PARA 0 "" 0 "" {TEXT 259 20 "-> input parameters:" }}{PARA 0 "
+" 0 "" {TEXT -1 72 "T, V = total kinetic and potential energies, respe
+ctively, of the system" }}{PARA 0 "" 0 "" {TEXT -1 77 "q = list contai
+ning the generalized coordinates chosen to describe the system" }}
+{PARA 0 "" 0 "" {TEXT -1 56 "Q = list containing the generalized force
+s of the system" }}{PARA 0 "" 0 "" {TEXT 260 21 "-> output (returned):
+" }}{PARA 0 "" 0 "" {TEXT -1 77 "eom = list containing the Lagrange's \+
+equations (i.e. the equations of motion)" }}{PARA 0 "" 0 "" {TEXT 261 
+19 "-> local variables:" }}{PARA 0 "" 0 "" {TEXT -1 27 "n = nb of DOF \+
+of the system" }}{PARA 0 "" 0 "" {TEXT -1 17 "qd[i] = d/dt q[i]" }}
+{PARA 0 "" 0 "" {TEXT -1 75 "L = Lagrangian of the system; Lq[i] = d/d
+q[i] L, Lqd[i] = d/dt (d/dqd[i] L)" }}{PARA 0 "" 0 "" {TEXT -1 44 "q_n
+o_t[i], qd_no_t[i] = temporary variables\n" }{TEXT 289 19 "-> global v
+ariable:" }}{PARA 0 "" 0 "" {TEXT -1 26 "t = external time variable" }
+}{PARA 0 "> " 0 "" {MPLTEXT 1 0 630 "lagrange_equations := proc( T, V,
+ q, Q )\n  local n, i, q_no_t, qd, qd_no_t, L, Lq, Lqd, eom;\n  global
+ t;\n  description \"Calculate the Euler-Lagrange's equations.\";\n  n
+ := nops( q );\n  if n <> nops( Q ) then\n    error \"Inconsistent num
+ber of DOF, n: \\%1\", n;\n  end if;\n  qd := map( diff, q, t );\n  L \+
+:= T - V;\n  for i from 1 to n do \n    Lq[i] := subs( q_no_t[i] = q[i
+], diff( subs( q[i] = q_no_t[i], L ), q_no_t[i] ) );\n    Lqd[i] := su
+bs( qd_no_t[i] = qd[i], diff( subs( qd[i] = qd_no_t[i], L ), qd_no_t[i
+] ) );\n    eom[i] := simplify( diff( Lqd[i], t ) - Lq[i] ) = Q[i];\n \+
+ end do;\n  eom := [ seq( eom[i], i = 1..n ) ];\nend proc;" }{TEXT -1 
+1 "\n" }}{PARA 0 "" 0 "" {TEXT 302 21 "-> input parameters:\n" }{TEXT 
+-1 204 "F = inertia (a.k.a. mass) matrix, of size Nq-by-Nq\nEOM_states
+ = list of Euler-Lagrange's equations written in terms of the states\n
+Nq = number of position states (which are also the lagrangian coordina
+tes)" }}{PARA 0 "" 0 "" {TEXT 303 20 "-> global variable:\n" }{TEXT 
+-1 68 "Xd = list representing the 2*Nq first states' first-time deriva
+tives" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 336 "deriveF := proc( F, EOM_s
+tates, Nq )\n  local i, k;\n  global Xd;\n  description \"Calculate th
+e inertia matrix F.\";\n  for i from 1 to Nq do\n    for k from 1 to N
+q do\n      F[ i, k ] := simplify( diff( op( 1, EOM_states[i] ), Xd[k+
+Nq] ) );\n      F[ i, k ] := collect( combine( F[ i, k ], trig ), cos \+
+);\n    end do;\n  end do;\n  F;\nend proc;\n" }}{PARA 0 "" 0 "" 
+{TEXT 286 21 "-> input parameters:\n" }{TEXT -1 120 "Xqdd = list of th
+e position states' second-time derivatives written in terms of the sta
+tes (i.e. state equations format)" }}{PARA 0 "" 0 "" {TEXT -1 115 "A =
+ state-space matrix, of size Nx-by-Nx\nNq = number of position states \+
+(which are also the lagrangian coordinates)" }}{PARA 0 "" 0 "" {TEXT 
+-1 84 "subs_XUlin = substitution set to linearize A around the quiesce
+nt point (e.g. zero)\n" }{TEXT 287 20 "-> global variable:\n" }{TEXT 
+-1 43 "X = list representing the 2*Nq first states" }}{PARA 0 "> " 0 "
+" {MPLTEXT 1 0 427 "deriveA := proc( Xqdd, A, Nq, subs_XUlin )\n  loca
+l i, k;\n  global X;\n  description \"Calculate the state-space matrix
+ A.\";\n  for i from 1 to Nq do\n    for k from 1 to 2*Nq do\n      if
+ k = ( i + Nq ) then\n        A[ i, k ] := 1;\n      else \n        A[
+ i, k ] := 0;\n      end if;\n      A[ i+Nq, k ] := diff( Xqdd[i], X[k
+] );\n      A[ i+Nq, k ] := simplify( subs( subs_XUlin, A[ i+Nq, k ] )
+ );\n    end do;\n  end do;\n  A;\nend proc;\n" }{TEXT -1 0 "" }}
+{PARA 0 "" 0 "" {TEXT 285 21 "-> input parameters:\n" }{TEXT -1 120 "X
+qdd = list of the position states' second-time derivatives written in \+
+terms of the states (i.e. state equations format)" }{TEXT 304 0 "" }}
+{PARA 0 "" 0 "" {TEXT -1 40 "B = state-space matrix, of size Nx-by-Nu
+" }}{PARA 0 "" 0 "" {TEXT -1 158 "Nq = number of position states (whic
+h are also the lagrangian coordinates)\nsubs_XUlin = substitution set \+
+to linearize B around the quiescent point (e.g. zero)" }}{PARA 0 "" 0 
+"" {TEXT 288 20 "-> global variable:\n" }{TEXT -1 32 "U = list represe
+nting the inputs" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 378 "deriveB := pro
+c( Xqdd, B, Nq, subs_XUlin )\n  local i, k, Nu;\n  global U;\n  descri
+ption \"Calculate the state-space matrix B.\";\n  Nu := ColumnDimensio
+n( B );\n  for i from 1 to Nq do\n    for k from 1 to Nu do\n      B[ \+
+i, k ] := 0;\n      B[ i+Nq, k ] := diff( Xqdd[i], U[k] );\n      B[ i
++Nq, k ] := simplify( subs( subs_XUlin, B[ i+Nq, k ] ) );\n    end do;
+\n  end do;\n  B;\nend proc;\n" }}{PARA 0 "" 0 "" {TEXT 262 19 "-> loc
+al variables:" }{TEXT -1 22 "\nNx = number of states" }}{PARA 0 "" 0 "
+" {TEXT -1 21 "Nu = number of inputs" }}{PARA 0 "" 0 "" {TEXT -1 22 "N
+y = number of outputs" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 1786 "write_AB
+CD_to_Mfile := proc( Matlab_File_Name, Experiment_Name, Matlab_Notatio
+ns, A, B, C, D )\n  local fd, Matlab_Header, i, k, Nx, Nu, Ny;\n  desc
+ription \"Write the state-space matrices to a M-file.\";\n  fd := fope
+n( Matlab_File_Name, WRITE ):\n  Matlab_Header := cat( \"% Matlab equa
+tion file: \\\"\", Matlab_File_Name, \"\\\"\\n\" ):\n  Matlab_Header :
+= cat( Matlab_Header, \"% Open-Loop State-Space Matrices: A, B, C, and
+ D\\n\" ):\n  Matlab_Header := cat( Matlab_Header, \"% for the Quanser
+ \", Experiment_Name, \" Experiment.\\n\" ):\n  fprintf( fd, \"%s\", M
+atlab_Header ):\n  Nx := RowDimension( A );\n  if Nx <> ColumnDimensio
+n( A ) or Nx <> RowDimension( B ) or Nx <> ColumnDimension( C ) then\n
+    error \"Inconsistent Nx dimension: \\%1\", Nx;\n  end if;\n  Nu :=
+ ColumnDimension( B );\n  if Nu <> ColumnDimension( D ) then\n    erro
+r \"Inconsistent Nu dimension: \\%1\", Nu;\n  end if;\n  Ny := RowDime
+nsion( C );\n  if Ny <> RowDimension( D ) then\n    error \"Inconsiste
+nt Ny dimension: \\%1\", Ny;\n  end if;\n  fprintf( fd, \"\\n\" );\n  \+
+for i from 1 to Nx do\n    for k from 1 to Nx do\n      fprintf( fd, \+
+\"A( %d, %d ) = %A;\\n\", i, k, subs( Matlab_Notations, simplify( A[ i
+, k ] ) ) );\n    end do; \n  end do:\n  fprintf( fd, \"\\n\" );\n  fo
+r i from 1 to Nx do\n    for k from 1 to Nu do\n      fprintf( fd, \"B
+( %d, %d ) = %A;\\n\", i, k, subs( Matlab_Notations, simplify( B[ i, k
+ ] ) ) );\n    end do;\n  end do; \n  fprintf( fd, \"\\n\" );\n  for i
+ from 1 to Ny do\n    for k from 1 to Nx do\n      fprintf( fd, \"C( %
+d, %d ) = %A;\\n\", i, k, subs( Matlab_Notations, simplify( C[ i, k ] \+
+) ) );\n    end do;\n  end do; \n  fprintf( fd, \"\\n\" );\n  for i fr
+om 1 to Ny do\n    for k from 1 to Nu do\n      fprintf( fd, \"D( %d, \+
+%d ) = %A;\\n\", i, k, subs( Matlab_Notations, simplify( D[ i, k ] ) )
+ );\n    end do;\n  end do; \n  fclose( fd );\nend proc;\n\n" }}{PARA 
+0 "> " 0 "" {MPLTEXT 1 0 11 "end module;" }}{PARA 12 "" 1 "" {XPPMATH 
+20 "6#>%.Quanser_ToolsG`6+%'n_normG%2moment_of_inertiaG%/kinetic_energ
+yG%1potential_energyG%3lagrange_equationsG%(deriveFG%(deriveAG%(derive
+BG%4write_ABCD_to_MfileGb6#%+thismoduleG6\"6$%(packageG%KCopyright~(C)
+~2002~Quanser~Consulting~Inc.G6+%'n_normG%2moment_of_inertiaG%/kinetic
+_energyG%1potential_energyG%3lagrange_equationsG%(deriveFG%(deriveAG%(
+deriveBG%4write_ABCD_to_MfileGF36#QYSupport~utilities~to~derive~state-
+space~representations.F3F3F3%+_m18857912G6\"" }}}{PARA 0 "" 0 "" 
+{TEXT -1 0 "" }}}{SECT 0 {PARA 3 "" 0 "" {TEXT -1 11 "Create the " }
+{TEXT 284 13 "Quanser_Tools" }{TEXT -1 11 " Repository" }}{SECT 0 
+{PARA 4 "" 0 "" {TEXT -1 19 "Name Initialization" }}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 54 "quanser_repo_list := [ \"quanser.lib\", \"quan
+ser.ind\" ];" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#>%2quanser_repo_listG7
+$Q,quanser.lib6\"Q,quanser.indF'" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 26 "startdir := currentdir( ):" }}}{EXCHG {PARA 0 "" 0 "
+" {TEXT -1 28 "set a temporary archive path" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 61 "quanser_repo_tmp_dir := cat( startdir, \"/quanser_tmp
+_repo\" ):" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 41 "savelibname :
+= quanser_repo_tmp_dir, \".\":" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 32 "libname := savelibname, libname:" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 0 "" }}}{PARA 0 "" 0 "" {TEXT -1 0 "" }}}{SECT 0 {PARA 4 
+"" 0 "" {TEXT -1 67 "Clean up previous module information from old fil
+es and directories" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 54 "try cu
+rrentdir( quanser_repo_tmp_dir ) catch: end try:" }}}{EXCHG {PARA 0 "
+" 0 "" {TEXT -1 23 "remove repository files" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 53 "try map( fremove, quanser_repo_list ) catch: end try:
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 23 "currentdir( startdir ):
+" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 26 "delete temporary directory" }
+}{PARA 0 "> " 0 "" {MPLTEXT 1 0 49 "try rmdir( quanser_repo_tmp_dir ) \+
+catch: end try:" }}}{PARA 0 "" 0 "" {TEXT -1 0 "" }}}{SECT 0 {PARA 4 "
+" 0 "" {TEXT -1 32 "Save updated module to new files" }}{EXCHG {PARA 
+0 "" 0 "" {TEXT -1 26 "create temporary directory" }}{PARA 0 "> " 0 "
+" {MPLTEXT 1 0 49 "try mkdir( quanser_repo_tmp_dir ) catch: end try:" 
+}}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 38 "creates the Maple 2 repository \+
+files: " }{TEXT 283 4 ".ind" }{TEXT -1 5 " and " }{TEXT 282 4 ".lib" }
+}{PARA 0 "> " 0 "" {MPLTEXT 1 0 78 "march( 'create', cat( quanser_repo
+_tmp_dir, \"/\", quanser_repo_list[1] ), 20 );" }}}{EXCHG {PARA 0 "" 
+0 "" {TEXT -1 9 "save the " }{TEXT 281 13 "Quanser_Tools" }{TEXT -1 
+61 " module to the first repository found in the global variable " }
+{TEXT 273 7 "libname" }{TEXT -1 50 " or the repository named with the \+
+global variable " }{TEXT 274 11 "savelibname" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 27 "savelib( 'Quanser_Tools' );" }}}{EXCHG {PARA 0 "> " 
+0 "" {MPLTEXT 1 0 54 "listrep := rep -> map2( op, 1, march( 'list', re
+p ) ):" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 32 "listrep( quanser_
+repo_tmp_dir );" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#7,Q&:-6.m6\"Q&:-9.m
+F%Q&:-3.mF%Q&:-7.mF%Q&:-1.mF%Q&:-4.mF%Q0Quanser_Tools.mF%Q&:-8.mF%Q&:-
+2.mF%Q&:-5.mF%" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}
+{PARA 0 "" 0 "" {TEXT -1 0 "" }}}{PARA 0 "" 0 "" {TEXT -1 0 "" }}}
+{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "" 0 "" 
+{HYPERLNK 17 "Click here to go back to top: Description Section" 1 "" 
+"Description" }{TEXT -1 1 "." }}}}{MARK "7" 0 }{VIEWOPTS 1 1 0 1 1 
+1803 1 1 1 1 }{PAGENUMBERS 0 1 2 33 1 1 }

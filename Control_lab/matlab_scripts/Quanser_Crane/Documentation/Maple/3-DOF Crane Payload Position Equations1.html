@@ -1,0 +1,879 @@
+<head>
+<title>3-DOF Crane Payload Position Equations.html</title>
+<!-- Created by Maple 15.00, IBM INTEL NT -->
+</head>
+<body bgcolor="FFFFFF">
+<basefont size="3">
+<a name="MapleAutoBookmark1" />
+<p align="center">
+<b><u><font color="#000000" size="6">3-DOF Crane Payload Position Equation</font></u></b>
+</p>
+<p align="center">
+<i><font color="#000000">©</font></i>
+<i><font color="#000000">&nbsp;2007 Quanser Consulting Inc.</font></i>
+</p>
+<p align="center">
+<font color="#000000">URL: </font>
+<a href="http://www.quanser.com" target="_top">http://www.quanser.com</a></p>
+<p align="center">
+<font color="#000000" size="2">NOTE: This worksheet presents the equations modelling the payload position on the 3D Crane plant.</font>
+</p>
+<dl><a name="MapleAutoBookmark2" />
+<p align="left"><a name="Description" />
+<b><font color="#000000" size="5">Description</font></b>
+</p>
+<ul><li>
+<font color="#000000">This worksheet presents the equations related to the payload of the 3D Crane system modelling and position control experiment.</font>
+</li>
+<li>
+<font color="#000000">For an overview of some of the control challenges offered by the Quanser please visit </font>
+<a href="http://www.quanser.com/" target="_top">www.quanser.com</a></li>
+</ul>
+</dl><dl><a name="MapleAutoBookmark3" />
+</ul>
+<p align="left">
+<b><font color="#000000" size="5">Worksheet Initialization</font></b>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">restart: interface( imaginaryunit = j ):</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">with( inttrans ):</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations1.gif" width="22" height="32" alt="z" align="middle" />
+<font color="#000000">&nbsp;=payload height m]</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">alias( Z = laplace( z(t), t, s ) ):</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations2.gif" width="33" height="32" alt="F[y]" align="middle" />
+<font color="#000000">&nbsp;= Linear force produced by the trolley motor at the motor pinion</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">alias( F[y] = laplace( f[y](t), t, s ) ):</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations3.gif" width="38" height="32" alt="F[ai]" align="middle" />
+<font color="#000000">&nbsp;= Inertial force produced by the motor's armature in rotation</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">alias( F[ai] = laplace( f[ai](t), t, s ) ):</font></b>
+</td></tr>
+</table>
+</p>
+</dl><dl><a name="MapleAutoBookmark4" />
+<p align="left">
+<b><font color="#000000" size="5">Model</font></b>
+</p>
+<p align="left">
+<font color="#000000">Find the transfer function respresenting the position of the payload with respect to the trolley motor input current.</font>
+</p>
+<p align="left">
+<font color="#000000">Newton's second law of motion (i.e. equation of motion in the time domain)</font>
+</p>
+<p align="left">
+<font color="#000000">and application of D'Alembert's principle:</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EOM_DT_FULL := m[p] * diff( z(t), t$2 ) + f[ai](t) = f[y](t) - m[p]*g - B[y] * diff( z(t), t ) - f[coulomb]( t ) :<br />
+EOM_DT_FULL;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations4.gif" width="448" height="63" alt="m[p]*diff(z(t),`$`(t,2))+f[ai](t) = f[y](t)-m[p]*g-B[y]*diff(z(t),t)-f[coulomb](t)" />
+</p>
+<p align="left">
+<font color="#000000">To construct a model for a PIV control system, assume the viscous friction, </font>
+<img src="images/3-DOF Crane Payload Position Equations5.gif" width="32" height="32" alt="B[y]" align="middle" />
+<font color="#000000">, and the Coulomb friction froce, </font>
+<img src="images/3-DOF Crane Payload Position Equations6.gif" width="76" height="32" alt="f[coulomb]" align="middle" />
+<font color="#000000">, are negligible.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">FRICTION_PARAM := {B[y]=0, f[coulomb](t)=0}:<br />
+FRICTION_PARAM;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations7.gif" width="188" height="27" alt="{B[y] = 0, f[coulomb](t) = 0}" />
+</p>
+<p align="left">
+<font color="#000000">The equation of motion therefore becomes</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EOM_DT := subs(FRICTION_PARAM,EOM_DT_FULL):<br />
+EOM_DT;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations8.gif" width="257" height="63" alt="m[p]*diff(z(t),`$`(t,2))+f[ai](t) = f[y](t)-m[p]*g" />
+</p>
+<p align="left">
+<font color="#000000">Transfer function is</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TF_Z_F_IC := laplace( EOM_DT, t, s):<br />
+TF_Z_F_IC;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations9.gif" width="366" height="52" alt="-m[p]*(D(z)(0)+s*z(0))+m[p]*s^2*Z+F[ai] = F[y]-m[p]*g/s" />
+</p>
+<p align="left">
+<font color="#000000">the initial conditions are null</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">IC := { z(0) = 0, D(z)(0) = 0 }:</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<font color="#000000">and the transfer function becomes</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TF_Z_F := subs( IC, TF_Z_F_IC ):<br />
+TF_Z_F;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations10.gif" width="194" height="52" alt="m[p]*s^2*Z+F[ai] = F[y]-m[p]*g/s" />
+</p>
+<p align="left">
+<font color="#000000">Linear force generated by the trolley motor relative to its input current.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">F_Y := F[y] = eta[g,y] * K[g,y] * eta[m,y] * K[t,y] * I[m,y] / r[y,reel]:<br />
+F_Y;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations11.gif" width="237" height="59" alt="F[y] = eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*I[m,y]/r[y,reel]" />
+</p>
+<p align="left">
+<font color="#000000">Torque due to the motor moment of inertia, where </font>
+<img src="images/3-DOF Crane Payload Position Equations12.gif" width="32" height="32" alt="J[phi]" align="middle" />
+<font color="#000000">&nbsp;is the total moment of inertia acting on the motor shaft (i.e. the motor armature inertia plus the inertia from the wheel attached).</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">T_AI := tau[ai] = J[phi] * diff(phi(t),t$2):<br />
+T_AI;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations13.gif" width="142" height="63" alt="tau[ai] = J[phi]*diff(phi(t),`$`(t,2))" />
+</p>
+<p align="left">
+<font color="#000000">Relationship between the linear distance </font>
+<img src="images/3-DOF Crane Payload Position Equations14.gif" width="22" height="32" alt="z" align="middle" />
+<font color="#000000">&nbsp;and the angle of the rotary wheel </font>
+<img src="images/3-DOF Crane Payload Position Equations15.gif" width="25" height="32" alt="phi" align="middle" />
+<font color="#000000">.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_PHI_Z := phi(t) = z(t) / r[y,reel]:<br />
+EQN_PHI_Z;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations16.gif" width="110" height="52" alt="phi(t) = z(t)/r[y,reel]" />
+</p>
+<p align="left">
+<font color="#000000">Torque with respect to z.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">T_AI_Z := subs(EQN_PHI_Z,T_AI):<br />
+T_AI_Z;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations17.gif" width="143" height="95" alt="tau[ai] = J[phi]*diff(z(t),`$`(t,2))/r[y,reel]" />
+</p>
+<p align="left">
+<font color="#000000">Force and torque relationship</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">F_T_AI := f[ai] = tau[ai] / r[y,reel]:<br />
+F_T_AI;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations18.gif" width="99" height="59" alt="f[ai] = tau[ai]/r[y,reel]" />
+</p>
+<p align="left">
+<font color="#000000">Force due to the rotation of the motor w.r.t. position z is therefore.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">F_AI_dt := subs(T_AI_Z,F_T_AI):<br />
+F_AI_dt;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations19.gif" width="141" height="97" alt="f[ai] = J[phi]*diff(z(t),`$`(t,2))/r[y,reel]^2" />
+</p>
+<p align="left">
+<font color="#000000">Corresponding transfer function is</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">F_AI := F[ai] = J[phi] * s^2 * Z / r[y,reel]^2:<br />
+F_AI;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations20.gif" width="113" height="70" alt="F[ai] = J[phi]*s^2*Z/r[y,reel]^2" />
+</p>
+<p align="left">
+<font color="#000000">Substitute the linear force transfer function, </font>
+<img src="images/3-DOF Crane Payload Position Equations21.gif" width="33" height="32" alt="F[y]" align="middle" />
+<font color="#000000">, and the rotary force transfer function, </font>
+<img src="images/3-DOF Crane Payload Position Equations22.gif" width="38" height="32" alt="F[ai]" align="middle" />
+<font color="#000000">, into the main equation to obtain the open-loop representation of the system.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_Z_I := collect( expand( subs(F_Y, F_AI, TF_Z_F), Z), {Z,s}):<br />
+EQN_Z_I;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations23.gif" width="416" height="61" alt="(m[p]+J[phi]/r[y,reel]^2)*Z*s^2 = eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*I[m,y]/r[y,reel]-m[p]*g/s" />
+</p>
+<p align="left">
+<font color="#000000">Solve for Z to get the current to position transfer function in proper form.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TF_Z_I := Z(s) = expand(subs( I[m,y]=I[m,y](s), solve(EQN_Z_I,Z) )):<br />
+TF_Z_I;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations24.gif" width="483" height="70" alt="Z(s) = r[y,reel]/s^2/(m[p]*r[y,reel]^2+J[phi])*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*I[m,y](s)-r[y,reel]^2/s^3/(m[p]*r[y,reel]^2+J[phi])*m[p]*g" />
+</p>
+</dl><p align="left">
+</p>
+<dl><a name="MapleAutoBookmark5" />
+<p align="left">
+<b><font color="#000000" size="5">Position Control Design</font></b>
+</p>
+<p align="left">
+<font color="#000000">Design a PIV compensator to control the vertical position of the payload.</font>
+</p>
+<p align="left">
+<font color="#000000">PIV Controller</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">PIV := I[m,y](s) = (k[p] + k[i]/s)*(Z[d](s)-Z(s)) - k[v]*s*Z(s):<br />
+PIV; &nbsp;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations25.gif" width="327" height="52" alt="I[m,y](s) = (k[p]+k[i]/s)*(Z[d](s)-Z(s))-k[v]*s*Z(s)" />
+</p>
+<p align="left">
+<font color="#000000">Transfer function of a first-order high-pass filter</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">HPF := V[z](s) = omega[f]^2*s*Z(s) / (s + omega[f]):<br />
+HPF;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations26.gif" width="141" height="61" alt="V[z](s) = omega[f]^2*s*Z(s)/(s+omega[f])" />
+</p>
+<p align="left">
+<font color="#000000">Substitute controller in model and find closed-loop transfer function</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TF_Z_ZD_FULL := Z(s) = collect( solve( subs( PIV,TF_Z_I ), Z(s) ), Z[d](s) ):<br />
+TF_Z_ZD_FULL;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations27.gif" width="783" height="30" alt="Z(s) = r[y,reel]*(eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i])/(r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]+r[y,reel]..." />
+<br />
+<img src="images/3-DOF Crane Payload Position Equations28.gif" width="811" height="36" alt="Z(s) = r[y,reel]*(eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i])/(r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]+r[y,reel]..." />
+<br />
+<img src="images/3-DOF Crane Payload Position Equations29.gif" width="837" height="36" alt="Z(s) = r[y,reel]*(eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i])/(r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]+r[y,reel]..." />
+<br />
+<img src="images/3-DOF Crane Payload Position Equations30.gif" width="75" height="36" alt="Z(s) = r[y,reel]*(eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i])/(r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]+r[y,reel]..." />
+</p>
+<p align="left">
+<font color="#000000">Consider only Z/Zd closed-loop transfer function</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TF_Z_ZD:= Z(s) = collect( simplify( coeff(rhs(TF_Z_ZD_FULL),Z[d](s) ) ), s):<br />
+TF_Z_ZD;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations31.gif" width="761" height="36" alt="Z(s) = r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*(k[p]*s+k[i])/((m[p]*r[y,reel]^2+J[phi])*s^3+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[v]*s^2+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,ree..." />
+<br />
+<img src="images/3-DOF Crane Payload Position Equations32.gif" width="495" height="27" alt="Z(s) = r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*(k[p]*s+k[i])/((m[p]*r[y,reel]^2+J[phi])*s^3+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[v]*s^2+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,ree..." />
+</p>
+<p align="left">
+</p>
+<p align="left">
+<font color="#000000">Denominator of the closed-loop transfer function.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TF_Z_ZD_denom := denom( rhs( TF_Z_ZD ) ):<br />
+TF_Z_ZD_denom;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations33.gif" width="837" height="36" alt="r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[v]*s^2+s^3*m[p]*r[y,reel]^2+s^3*J[phi]" />
+<br />
+<img src="images/3-DOF Crane Payload Position Equations34.gif" width="68" height="36" alt="r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[v]*s^2+s^3*m[p]*r[y,reel]^2+s^3*J[phi]" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_CHAR := collect( TF_Z_ZD_denom / coeff(TF_Z_ZD_denom,s,3), s ) :<br />
+EQN_CHAR;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations35.gif" width="767" height="70" alt="s^3+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[v]/(m[p]*r[y,reel]^2+J[phi])*s^2+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]/(m[p]*r[y,reel]^2+J[phi])*s+r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i..." />
+</p>
+<p align="left">
+<font color="#000000">Standard third-order characteristic equation</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_CHAR_STD_factored := ( s^2 + 2 * zeta * omega[0] * s + omega[0]^2 ) * ( s + p[0] ):<br />
+EQN_CHAR_STD_factored;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations36.gif" width="217" height="36" alt="(s^2+2*zeta*omega[0]*s+omega[0]^2)*(s+p[0])" />
+</p>
+<p align="left">
+<font color="#000000">This expands to</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_CHAR_STD := collect( expand( EQN_CHAR_STD_factored ), s ):<br />
+EQN_CHAR_STD_factored = EQN_CHAR_STD;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations37.gif" width="589" height="36" alt="(s^2+2*zeta*omega[0]*s+omega[0]^2)*(s+p[0]) = s^3+(2*zeta*omega[0]+p[0])*s^2+(omega[0]^2+2*zeta*omega[0]*p[0])*s+omega[0]^2*p[0]" />
+</p>
+<p align="left">
+<font color="#000000">Derivative gain to map DCMCT characteristic equation to standard characteristic equation.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_KV := coeff(EQN_CHAR,s,2) = coeff(EQN_CHAR_STD,s,2):<br />
+EQN_KV;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations38.gif" width="329" height="61" alt="r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[v]/(m[p]*r[y,reel]^2+J[phi]) = 2*zeta*omega[0]+p[0]" />
+</p>
+<p align="left">
+<font color="#000000">Proportional gain to map DCMCT characteristic equation to standard characteristic equation.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_KP := coeff(EQN_CHAR,s,1) = coeff(EQN_CHAR_STD,s,1):<br />
+EQN_KP;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations39.gif" width="361" height="61" alt="r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[p]/(m[p]*r[y,reel]^2+J[phi]) = omega[0]^2+2*zeta*omega[0]*p[0]" />
+</p>
+<p align="left">
+<font color="#000000">Integral gain to map DCMCT characteristic equation to standard characteristic equation.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">EQN_KI := coeff(EQN_CHAR,s,0) = coeff(EQN_CHAR_STD,s,0):<br />
+EQN_KI;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations40.gif" width="297" height="61" alt="r[y,reel]*eta[g,y]*K[g,y]*eta[m,y]*K[t,y]*k[i]/(m[p]*r[y,reel]^2+J[phi]) = omega[0]^2*p[0]" />
+</p>
+<p align="left">
+<font color="#000000">Solve the above system of equations for gains </font>
+<img src="images/3-DOF Crane Payload Position Equations41.gif" width="95" height="32" alt="{k[p], k[i], k[d]}" align="middle" />
+<font color="#000000">.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">sol := solve( {EQN_KV,EQN_KP,EQN_KI}, {k[v],k[p],k[i]} );</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<img src="images/3-DOF Crane Payload Position Equations42.gif" width="752" height="61" alt="sol := {k[i] = omega[0]^2*p[0]*(m[p]*r[y,reel]^2+J[phi])/r[y,reel]/eta[g,y]/K[g,y]/eta[m,y]/K[t,y], k[p] = omega[0]*(2*zeta*p[0]*J[phi]+omega[0]*m[p]*r[y,reel]^2+omega[0]*J[phi]+2*zeta*p[0]*m[p]*r[y,re..." />
+<br />
+<img src="images/3-DOF Crane Payload Position Equations43.gif" width="436" height="61" alt="sol := {k[i] = omega[0]^2*p[0]*(m[p]*r[y,reel]^2+J[phi])/r[y,reel]/eta[g,y]/K[g,y]/eta[m,y]/K[t,y], k[p] = omega[0]*(2*zeta*p[0]*J[phi]+omega[0]*m[p]*r[y,reel]^2+omega[0]*J[phi]+2*zeta*p[0]*m[p]*r[y,re..." />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">assign(sol);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="left">
+<font color="#000000">Proportional gain meeting specification.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">kp_symb := k[p]:<br />
+'k[p]' = kp_symb;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations44.gif" width="463" height="61" alt="k[p] = omega[0]*(2*zeta*p[0]*J[phi]+omega[0]*m[p]*r[y,reel]^2+omega[0]*J[phi]+2*zeta*p[0]*m[p]*r[y,reel]^2)/r[y,reel]/eta[g,y]/K[g,y]/eta[m,y]/K[t,y]" />
+</p>
+<p align="left">
+<font color="#000000">Derivative gain meeting specification.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">kv_symb := k[v]:<br />
+'k[v]' = kv_symb;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations45.gif" width="426" height="61" alt="k[v] = (p[0]*J[phi]+2*zeta*omega[0]*m[p]*r[y,reel]^2+2*zeta*omega[0]*J[phi]+p[0]*m[p]*r[y,reel]^2)/r[y,reel]/eta[g,y]/K[g,y]/eta[m,y]/K[t,y]" />
+</p>
+<p align="left">
+<font color="#000000">Integral gain meeting specification.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">ki_symb := k[i]:<br />
+'k[i]' = ki_symb;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations46.gif" width="245" height="61" alt="k[i] = omega[0]^2*p[0]*(m[p]*r[y,reel]^2+J[phi])/r[y,reel]/eta[g,y]/K[g,y]/eta[m,y]/K[t,y]" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">unassign('k[p]','k[v]','k[i]');</font></b>
+</td></tr>
+</table>
+</p>
+<dl><a name="MapleAutoBookmark6" />
+<p align="left">
+<b><font color="#000000" size="4">Control Specifications</font></b>
+</p>
+<p align="left">
+<font color="#000000">Find the PIV gains needed to meet a given peak time, percentage overshoot, and pole location specification.</font>
+</p>
+<p align="left">
+<font color="#000000">Model parameters</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">MDL_PARAM := {m[p] = 0.147, r[y,reel] = 1/2*0.0254, J[phi] = 1.7897e-6, eta[g,y] = 1, K[g,y] = 2*14, eta[m,y] = 0.81, K[t,y] = 0.0261 }:<br />
+MDL_PARAM; </font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations47.gif" width="737" height="36" alt="{J[phi] = .17897e-5, K[g,y] = 28, K[t,y] = .261e-1, eta[g,y] = 1, eta[m,y] = .81, m[p] = .147, r[y,reel] = .1270000000e-1}" />
+</p>
+<p align="left">
+<font color="#000000">Peak time equation</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">TP_EQN := t[p] = Pi / ( omega[0] * sqrt(1-zeta^2) ):<br />
+TP_EQN;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations48.gif" width="134" height="65" alt="t[p] = Pi/omega[0]/(1-zeta^2)^(1/2)" />
+</p>
+<p align="left">
+<font color="#000000">Percentage overshoot equation</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">PO_EQN := PO = 100*exp(-zeta*Pi/sqrt(1-zeta^2)):<br />
+PO_EQN;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations49.gif" width="185" height="71" alt="PO = 100*exp(-zeta*Pi/(1-zeta^2)^(1/2))" />
+</p>
+<p align="left">
+<font color="#000000">Control design specifications</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">CNTRL_SPECS := {t[p] = 0.02, PO = 10, p[0] = 0.125}:<br />
+CNTRL_SPECS;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations50.gif" width="232" height="27" alt="{PO = 10, p[0] = .125, t[p] = .2e-1}" />
+</p>
+<p align="left">
+<font color="#000000">Minimum damping ratio required to meet overshoot specification.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">temp := solve(PO_EQN,zeta):<br />
+ZETA_SPEC := zeta = temp:<br />
+ZETA_SPEC;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations51.gif" width="256" height="86" alt="zeta = -ln(1/100*PO)*(1/(ln(1/100*PO)^2+Pi^2))^(1/2)" />
+</p>
+<p align="left">
+<font color="#000000">Natural frequency required to meet peak time and overshoot specifiations.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">W0_SPEC := omega[0] = solve( TP_EQN, omega[0] ):<br />
+W0_SPEC;</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations52.gif" width="134" height="65" alt="omega[0] = Pi/t[p]/(1-zeta^2)^(1/2)" />
+</p>
+<p align="left">
+<font color="#000000">Evaluate the damping ratio needed.</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">ZETA_SPEC_VAL := evalf(subs(CNTRL_SPECS,ZETA_SPEC)):<br />
+lhs(ZETA_SPEC_VAL) = evalf(rhs(ZETA_SPEC_VAL),3);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations53.gif" width="77" height="20" alt="zeta = .591" />
+</p>
+<p align="left">
+<font color="#000000">Evaluate the natural frequency needed</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">W0_SPEC_VAL := evalf(subs(ZETA_SPEC_VAL,CNTRL_SPECS,W0_SPEC)):<br />
+lhs(W0_SPEC_VAL) = evalf(rhs(W0_SPEC_VAL),4)*Unit(rad/s);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations54.gif" width="187" height="45" alt="omega[0] = 194.8*Unit([m/s/m(radius)])" />
+</p>
+<p align="left">
+<font color="#000000">Given the damping ratio and natural frequency, the PIV gains needed to attain the specified peak time and overshoot requirements are</font>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">KP_VAL := k[p] = subs(ZETA_SPEC_VAL,W0_SPEC_VAL,MDL_PARAM,CNTRL_SPECS,kp_symb):<br />
+lhs(KP_VAL) = evalf(rhs(KP_VAL),4)*Unit(A/m);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations55.gif" width="121" height="45" alt="k[p] = 128.7*Unit([A/m])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">KI_VAL := k[i] = subs(ZETA_SPEC_VAL,W0_SPEC_VAL,MDL_PARAM,CNTRL_SPECS,ki_symb):<br />
+lhs(KI_VAL) = evalf(rhs(KI_VAL),3)*Unit(A/m/s);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations56.gif" width="119" height="45" alt="k[i] = 16.1*Unit([A/m/s])" />
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"><b><font color="#FF0000">KV_VAL := k[v] = subs(ZETA_SPEC_VAL,W0_SPEC_VAL,MDL_PARAM,CNTRL_SPECS,kv_symb):<br />
+lhs(KV_VAL) = evalf(rhs(KV_VAL),3)*Unit(A*s/m);</font></b>
+</td></tr>
+</table>
+</p>
+<p align="center">
+<img src="images/3-DOF Crane Payload Position Equations57.gif" width="129" height="45" alt="k[v] = .781*Unit([A*s/m])" />
+</p>
+</dl><p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+</dl><p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top"><tt>&gt; &nbsp;&nbsp;</tt></td>
+<td width="100%" valign="top"></td></tr>
+</table>
+</p>
+<p align="left">
+</p>
+</basefont>
+</body>
+</html>

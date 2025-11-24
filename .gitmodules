@@ -11,3 +11,24 @@
 [submodule "Kinematics_Lab/ros2_kinematics_ws/src/Universal_Robots_ROS2_Description"]
         path = Kinematics_Lab/ros2_kinematics_ws/src/Universal_Robots_ROS2_Description
         url = https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
+[submodule "Introduction_lab/robotnik_ws/src/Universal_Robots_ROS2_Description"]
+	path = Introduction_lab/robotnik_ws/src/Universal_Robots_ROS2_Description
+	url = https://github.com/UniversalRobots/Universal_Robots_ROS2_Description.git
+[submodule "Introduction_lab/robotnik_ws/src/robotnik_sensors"]
+	path = Introduction_lab/robotnik_ws/src/robotnik_sensors
+	url = https://github.com/RobotnikAutomation/robotnik_sensors.git
+[submodule "Introduction_lab/robotnik_ws/src/robotnik_interfaces"]
+	path = Introduction_lab/robotnik_ws/src/robotnik_interfaces
+	url = https://github.com/RobotnikAutomation/robotnik_interfaces.git
+[submodule "Introduction_lab/robotnik_ws/src/robotnik_common"]
+	path = Introduction_lab/robotnik_ws/src/robotnik_common
+	url = https://github.com/RobotnikAutomation/robotnik_common.git
+[submodule "Introduction_lab/robotnik_ws/src/robotnik_description"]
+	path = Introduction_lab/robotnik_ws/src/robotnik_description
+	url = https://github.com/RobotnikAutomation/robotnik_description.git
+[submodule "Introduction_lab/robotnik_ws/src/robotnik_simulation"]
+	path = Introduction_lab/robotnik_ws/src/robotnik_simulation
+	url = git@github.com:97hackbrian/robotnik_simulation_v2.git
+[submodule "Introduction_lab/ros2_ws_grupo_5_ws"]
+	path = Introduction_lab/ros2_ws_grupo_5_ws
+	url = https://github.com/DanielAguilarM/ros2_ws_grupo_5.git

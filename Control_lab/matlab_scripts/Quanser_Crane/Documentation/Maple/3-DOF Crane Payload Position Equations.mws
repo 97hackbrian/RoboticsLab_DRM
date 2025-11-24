@@ -1,0 +1,306 @@
+{VERSION 6 0 "IBM INTEL NT" "6.0" }
+{USTYLETAB {CSTYLE "Maple Input" -1 0 "Courier" 0 1 255 0 0 1 0 1 0 0 
+1 0 0 0 0 1 }{CSTYLE "2D Math" -1 2 "Times" 0 1 0 0 0 0 0 0 2 0 0 0 0 
+0 0 1 }{CSTYLE "Hyperlink" -1 17 "" 0 1 0 128 128 1 2 0 1 0 0 0 0 0 0 
+1 }{CSTYLE "2D Comment" 2 18 "" 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 }
+{CSTYLE "2D Output" 2 20 "" 0 1 0 0 255 1 0 0 0 0 0 0 0 0 0 1 }
+{CSTYLE "" -1 256 "" 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 }{CSTYLE "" -1 
+257 "" 1 20 0 0 0 0 0 0 0 0 0 0 0 0 0 1 }{CSTYLE "" -1 258 "" 1 12 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 }{PSTYLE "Normal" -1 0 1 {CSTYLE "" -1 -1 "T
+imes" 1 12 0 0 0 1 2 2 2 2 2 2 1 1 1 1 }1 1 0 0 0 0 1 0 1 0 2 2 0 1 }
+{PSTYLE "Heading 1" -1 3 1 {CSTYLE "" -1 -1 "Times" 1 18 0 0 0 1 2 1 
+2 2 2 2 1 1 1 1 }1 1 0 0 8 4 1 0 1 0 2 2 0 1 }{PSTYLE "Heading 2" -1 
+4 1 {CSTYLE "" -1 -1 "Times" 1 14 0 0 0 1 2 1 2 2 2 2 1 1 1 1 }1 1 0 
+0 8 2 1 0 1 0 2 2 0 1 }{PSTYLE "Maple Output" -1 11 1 {CSTYLE "" -1 
+-1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 1 1 1 }3 3 0 0 0 0 1 0 1 0 2 2 
+0 1 }{PSTYLE "Maple Output" -1 12 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 
+0 1 2 2 2 2 2 2 1 1 1 1 }1 3 0 0 0 0 1 0 1 0 2 2 0 1 }{PSTYLE "Bullet \+
+Item" -1 15 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 0 1 2 2 2 2 2 2 1 1 1 
+1 }1 1 0 0 3 3 1 0 1 0 2 2 15 2 }{PSTYLE "Title" -1 18 1 {CSTYLE "" 
+-1 -1 "Times" 1 18 0 0 0 1 2 1 1 2 2 2 1 1 1 1 }3 1 0 0 12 12 1 0 1 0 
+2 2 19 1 }{PSTYLE "Author" -1 19 1 {CSTYLE "" -1 -1 "Times" 1 12 0 0 
+0 1 2 2 2 2 2 2 1 1 1 1 }3 1 0 0 8 8 1 0 1 0 2 2 0 1 }{PSTYLE "Normal
+" -1 256 1 {CSTYLE "" -1 -1 "Times" 1 10 0 0 0 1 2 2 2 2 2 2 1 1 1 1 }
+3 1 0 0 0 0 1 0 1 0 2 2 0 1 }{PSTYLE "Author" -1 257 1 {CSTYLE "" -1 
+-1 "Times" 1 12 0 0 0 1 1 2 2 2 2 2 1 1 1 1 }3 1 0 0 8 8 1 0 1 0 2 2 
+0 1 }}
+{SECT 0 {EXCHG {PARA 18 "" 0 "" {TEXT 257 37 "3-DOF Crane Payload Posi
+tion Equation" }}{PARA 257 "" 0 "" {TEXT 256 1 "\251" }{TEXT -1 29 " 2
+007 Quanser Consulting Inc." }}{PARA 19 "" 0 "" {TEXT 258 5 "URL: " }
+{URLLINK 17 "http://www.quanser.com" 4 "http://www.quanser.com" "" }}
+{PARA 256 "" 0 "" {TEXT -1 97 "NOTE: This worksheet presents the equat
+ions modelling the payload position on the 3D Crane plant." }}}{SECT 
+0 {PARA 3 "" 0 "Description" {TEXT -1 11 "Description" }}{EXCHG {PARA 
+15 "" 0 "" {TEXT -1 126 "This worksheet presents the equations related
+ to the payload of the 3D Crane system modelling and position control \+
+experiment." }}{PARA 15 "" 0 "" {TEXT -1 86 "For an overview of some o
+f the control challenges offered by the Quanser please visit " }
+{URLLINK 17 "www.quanser.com" 4 "http://www.quanser.com/" "" }{TEXT 
+-1 0 "" }}}}{SECT 0 {PARA 3 "" 0 "" {TEXT -1 24 "Worksheet Initializat
+ion" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 40 "restart: interface( i
+maginaryunit = j ):" }{TEXT -1 0 "" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 17 "with( inttrans ):" }}}{EXCHG {PARA 0 "" 0 "" 
+{XPPEDIT 18 0 "z;" "6#%\"zG" }{TEXT -1 19 " =payload height m]" }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 35 "alias( Z = laplace( z(t), t, s ) ):
+" }}}{EXCHG {PARA 0 "" 0 "" {XPPEDIT 18 0 "F[y];" "6#&%\"FG6#%\"yG" }
+{TEXT -1 65 " = Linear force produced by the trolley motor at the moto
+r pinion" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 41 "alias( F[y] = laplace( \+
+f[y](t), t, s ) ):" }}}{EXCHG {PARA 0 "" 0 "" {XPPEDIT 18 0 "F[ai];" "
+6#&%\"FG6#%#aiG" }{TEXT -1 62 " = Inertial force produced by the motor
+'s armature in rotation" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 43 "alias( F
+[ai] = laplace( f[ai](t), t, s ) ):" }}}}{SECT 0 {PARA 3 "" 0 "" 
+{TEXT -1 5 "Model" }}{PARA 0 "" 0 "" {TEXT -1 117 "Find the transfer f
+unction respresenting the position of the payload with respect to the \+
+trolley motor input current." }}{EXCHG {PARA 0 "" 0 "" {TEXT -1 74 "Ne
+wton's second law of motion (i.e. equation of motion in the time domai
+n)" }}{PARA 0 "" 0 "" {TEXT -1 42 "and application of D'Alembert's pri
+nciple:" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 127 "EOM_DT_FULL := m[p] * d
+iff( z(t), t$2 ) + f[ai](t) = f[y](t) - m[p]*g - B[y] * diff( z(t), t \+
+) - f[coulomb]( t ) :\nEOM_DT_FULL;" }{TEXT -1 0 "" }}{PARA 11 "" 1 "
+" {XPPMATH 20 "6#/,&*&&%\"mG6#%\"pG\"\"\"-%%diffG6$-%\"zG6#%\"tG-%\"$G
+6$F1\"\"#F*F*-&%\"fG6#%#aiGF0F*,*-&F86#%\"yGF0F**&F&F*%\"gGF*!\"\"*&&%
+\"BGF>F*-F,6$F.F1F*FB-&F86#%(coulombGF0FB" }}}{EXCHG {PARA 0 "" 0 "" 
+{TEXT -1 76 "To construct a model for a PIV control system, assume the
+ viscous friction, " }{XPPEDIT 18 0 "B[y];" "6#&%\"BG6#%\"yG" }{TEXT 
+-1 34 ", and the Coulomb friction froce, " }{XPPEDIT 18 0 "f[coulomb];
+" "6#&%\"fG6#%(coulombG" }{TEXT -1 17 ", are negligible." }}{PARA 0 ">
+ " 0 "" {MPLTEXT 1 0 60 "FRICTION_PARAM := \{B[y]=0, f[coulomb](t)=0\}
+:\nFRICTION_PARAM;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#<$/&%\"BG6#%\"yG
+\"\"!/-&%\"fG6#%(coulombG6#%\"tGF)" }}}{EXCHG {PARA 0 "" 0 "" {TEXT 
+-1 40 "The equation of motion therefore becomes" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 51 "EOM_DT := subs(FRICTION_PARAM,EOM_DT_FULL):\nEOM_DT;
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/,&*&&%\"mG6#%\"pG\"\"\"-%%diffG6$
+-%\"zG6#%\"tG-%\"$G6$F1\"\"#F*F*-&%\"fG6#%#aiGF0F*,&-&F86#%\"yGF0F**&F
+&F*%\"gGF*!\"\"" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 20 "Transfer funct
+ion is" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 47 "TF_Z_F_IC := laplace( EOM
+_DT, t, s):\nTF_Z_F_IC;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/,(*&&%\"mG
+6#%\"pG\"\"\",&--%\"DG6#%\"zG6#\"\"!F**&%\"sGF*-F0F1F*F*F*!\"\"*(F&F*)
+F4\"\"#F*%\"ZGF*F*&%\"FG6#%#aiGF*,&&F<6#%\"yGF**(F&F*%\"gGF*F4F6F6" }}
+}{EXCHG {PARA 0 "" 0 "" {TEXT -1 31 "the initial conditions are null" 
+}}{PARA 0 "> " 0 "" {MPLTEXT 1 0 32 "IC := \{ z(0) = 0, D(z)(0) = 0 \}
+:" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 33 "and the transfer function be
+comes" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 40 "TF_Z_F := subs( IC, TF_Z_F
+_IC ):\nTF_Z_F;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/,&*(&%\"mG6#%\"pG
+\"\"\")%\"sG\"\"#F*%\"ZGF*F*&%\"FG6#%#aiGF*,&&F06#%\"yGF**(F&F*%\"gGF*
+F,!\"\"F9" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 74 "Linear force generat
+ed by the trolley motor relative to its input current." }}{PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 78 "F_Y := F[y] = eta[g,y] * K[g,y] * eta[m,y] * K
+[t,y] * I[m,y] / r[y,reel]:\nF_Y;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/
+&%\"FG6#%\"yG*.&%$etaG6$%\"gGF'\"\"\"&%\"KGF+F-&F*6$%\"mGF'F-&F/6$%\"t
+GF'F-&%\"IGF1F-&%\"rG6$F'%%reelG!\"\"" }}}{EXCHG {PARA 0 "" 0 "" 
+{TEXT -1 49 "Torque due to the motor moment of inertia, where " }
+{XPPEDIT 18 0 "J[phi];" "6#&%\"JG6#%$phiG" }{TEXT -1 133 " is the tota
+l moment of inertia acting on the motor shaft (i.e. the motor armature
+ inertia plus the inertia from the wheel attached)." }}{PARA 0 "> " 0 
+"" {MPLTEXT 1 0 50 "T_AI := tau[ai] = J[phi] * diff(phi(t),t$2):\nT_AI
+;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%$tauG6#%#aiG*&&%\"JG6#%$phiG\"
+\"\"-%%diffG6$-F,6#%\"tG-%\"$G6$F3\"\"#F-" }}}{EXCHG {PARA 0 "" 0 "" 
+{TEXT -1 41 "Relationship between the linear distance " }{XPPEDIT 18 
+0 "z;" "6#%\"zG" }{TEXT -1 35 " and the angle of the rotary wheel " }
+{XPPEDIT 18 0 "phi;" "6#%$phiG" }{TEXT -1 1 "." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 50 "EQN_PHI_Z := phi(t) = z(t) / r[y,reel]:\nEQN_PHI_Z;" 
+}}{PARA 11 "" 1 "" {XPPMATH 20 "6#/-%$phiG6#%\"tG*&-%\"zGF&\"\"\"&%\"r
+G6$%\"yG%%reelG!\"\"" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 25 "Torque wi
+th respect to z." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 39 "T_AI_Z := subs(
+EQN_PHI_Z,T_AI):\nT_AI_Z;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%$tauG6
+#%#aiG*(&%\"JG6#%$phiG\"\"\"-%%diffG6$-%\"zG6#%\"tG-%\"$G6$F4\"\"#F-&%
+\"rG6$%\"yG%%reelG!\"\"" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 29 "Force \+
+and torque relationship" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 46 "F_T_AI :
+= f[ai] = tau[ai] / r[y,reel]:\nF_T_AI;" }}{PARA 11 "" 1 "" {XPPMATH 
+20 "6#/&%\"fG6#%#aiG*&&%$tauGF&\"\"\"&%\"rG6$%\"yG%%reelG!\"\"" }}}
+{EXCHG {PARA 0 "" 0 "" {TEXT -1 70 "Force due to the rotation of the m
+otor w.r.t. position z is therefore." }}{PARA 0 "> " 0 "" {MPLTEXT 1 
+0 40 "F_AI_dt := subs(T_AI_Z,F_T_AI):\nF_AI_dt;" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/&%\"fG6#%#aiG*(&%\"JG6#%$phiG\"\"\"-%%diffG6$-%\"zG6#%
+\"tG-%\"$G6$F4\"\"#F-&%\"rG6$%\"yG%%reelG!\"#" }}}{EXCHG {PARA 0 "" 0 
+"" {TEXT -1 34 "Corresponding transfer function is" }}{PARA 0 "> " 0 "
+" {MPLTEXT 1 0 53 "F_AI := F[ai] = J[phi] * s^2 * Z / r[y,reel]^2:\nF_
+AI;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%\"FG6#%#aiG**&%\"JG6#%$phiG
+\"\"\"%\"sG\"\"#%\"ZGF-&%\"rG6$%\"yG%%reelG!\"#" }}}{EXCHG {PARA 0 "" 
+0 "" {TEXT -1 47 "Substitute the linear force transfer function, " }
+{XPPEDIT 18 0 "F[y];" "6#&%\"FG6#%\"yG" }{TEXT -1 42 ", and the rotary
+ force transfer function, " }{XPPEDIT 18 0 "F[ai];" "6#&%\"FG6#%#aiG" 
+}{TEXT -1 78 ", into the main equation to obtain the open-loop represe
+ntation of the system." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 73 "EQN_Z_I :
+= collect( expand( subs(F_Y, F_AI, TF_Z_F), Z), \{Z,s\}):\nEQN_Z_I;" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*(,&&%\"mG6#%\"pG\"\"\"*&&%\"JG6#%$p
+hiGF*&%\"rG6$%\"yG%%reelG!\"#F*F*%\"ZGF*)%\"sG\"\"#F*,&*.&%$etaG6$%\"g
+GF3F*&%\"KGF>F*&F=6$F'F3F*&FA6$%\"tGF3F*&%\"IGFCF*F0!\"\"F**(F&F*F?F*F
+8FIFI" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 76 "Solve for Z to get the c
+urrent to position transfer function in proper form." }}{PARA 0 "> " 
+0 "" {MPLTEXT 1 0 76 "TF_Z_I := Z(s) = expand(subs( I[m,y]=I[m,y](s), \+
+solve(EQN_Z_I,Z) )):\nTF_Z_I;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/-%\"
+ZG6#%\"sG,&*2&%\"rG6$%\"yG%%reelG\"\"\"F'!\"#,&*&&%\"mG6#%\"pGF/)F*\"
+\"#F/F/&%\"JG6#%$phiGF/!\"\"&%$etaG6$%\"gGF-F/&%\"KGF@F/&F?6$F4F-F/&FC
+6$%\"tGF-F/-&%\"IGFEF&F/F/*,F*F8F'!\"$F1F=F3F/FAF/F=" }}}}{PARA 3 "" 
+0 "" {TEXT -1 0 "" }}{SECT 0 {PARA 3 "" 0 "" {TEXT -1 23 "Position Con
+trol Design" }}{PARA 0 "" 0 "" {TEXT -1 73 "Design a PIV compensator t
+o control the vertical position of the payload." }}{EXCHG {PARA 0 "" 
+0 "" {TEXT -1 14 "PIV Controller" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 71 
+"PIV := I[m,y](s) = (k[p] + k[i]/s)*(Z[d](s)-Z(s)) - k[v]*s*Z(s):\nPIV
+;  " }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/-&%\"IG6$%\"mG%\"yG6#%\"sG,&*&
+,&&%\"kG6#%\"pG\"\"\"*&&F06#%\"iGF3F+!\"\"F3F3,&-&%\"ZG6#%\"dGF*F3-F<F
+*F8F3F3*(&F06#%\"vGF3F+F3F?F3F8" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 
+51 "Transfer function of a first-order high-pass filter" }}{PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 57 "HPF := V[z](s) = omega[f]^2*s*Z(s) / (s + omeg
+a[f]):\nHPF;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/-&%\"VG6#%\"zG6#%\"sG
+**&%&omegaG6#%\"fG\"\"#F*\"\"\"-%\"ZGF)F1,&F*F1F,F1!\"\"" }}}{PARA 0 "
+" 0 "" {TEXT -1 69 "Substitute controller in model and find closed-loo
+p transfer function" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 91 "TF_Z_
+ZD_FULL := Z(s) = collect( solve( subs( PIV,TF_Z_I ), Z(s) ), Z[d](s) \+
+):\nTF_Z_ZD_FULL;" }}{PARA 12 "" 1 "" {XPPMATH 20 "6#/-%\"ZG6#%\"sG,&*
+*&%\"rG6$%\"yG%%reelG\"\"\",&*.&%$etaG6$%\"gGF-F/&%\"KGF4F/&F36$%\"mGF
+-F/&F76$%\"tGF-F/&%\"kG6#%\"pGF/F'F/F/*,F2F/F6F/F8F/F;F/&F?6#%\"iGF/F/
+F/,,*0F*F/F2F/F6F/F8F/F;F/F>F/F'F/F/*.F*F/F2F/F6F/F8F/F;F/FCF/F/*0F*F/
+F2F/F6F/F8F/F;F/&F?6#%\"vGF/)F'\"\"#F/F/*()F'\"\"$F/&F:F@F/)F*FNF/F/*&
+FPF/&%\"JG6#%$phiGF/F/!\"\"-&F%6#%\"dGF&F/F/**F*FNFRF/F5F/FFFYFY" }}}
+{EXCHG {PARA 0 "" 0 "" {TEXT -1 48 "Consider only Z/Zd closed-loop tra
+nsfer function" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 85 "TF_Z_ZD:= Z(s) = \+
+collect( simplify( coeff(rhs(TF_Z_ZD_FULL),Z[d](s) ) ), s):\nTF_Z_ZD;
+" }}{PARA 12 "" 1 "" {XPPMATH 20 "6#/-%\"ZG6#%\"sG*0&%\"rG6$%\"yG%%ree
+lG\"\"\"&%$etaG6$%\"gGF,F.&%\"KGF1F.&F06$%\"mGF,F.&F46$%\"tGF,F.,&*&&%
+\"kG6#%\"pGF.F'F.F.&F>6#%\"iGF.F.,**&,&*&&F7F?F.)F)\"\"#F.F.&%\"JG6#%$
+phiGF.F.)F'\"\"$F.F.*0F)F.F/F.F3F.F5F.F8F.&F>6#%\"vGF.)F'FJF.F.*0F)F.F
+/F.F3F.F5F.F8F.F=F.F'F.F.*.F)F.F/F.F3F.F5F.F8F.FAF.F.!\"\"" }}}{PARA 
+0 "" 0 "" {TEXT -1 0 "" }}{EXCHG {PARA 0 "" 0 "" {TEXT -1 49 "Denomina
+tor of the closed-loop transfer function." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 56 "TF_Z_ZD_denom := denom( rhs( TF_Z_ZD ) ):\nTF_Z_ZD_de
+nom;" }}{PARA 12 "" 1 "" {XPPMATH 20 "6#,,*0&%\"rG6$%\"yG%%reelG\"\"\"
+&%$etaG6$%\"gGF(F*&%\"KGF-F*&F,6$%\"mGF(F*&F06$%\"tGF(F*&%\"kG6#%\"pGF
+*%\"sGF*F**.F%F*F+F*F/F*F1F*F4F*&F86#%\"iGF*F**0F%F*F+F*F/F*F1F*F4F*&F
+86#%\"vGF*)F;\"\"#F*F**()F;\"\"$F*&F3F9F*)F%FEF*F**&FGF*&%\"JG6#%$phiG
+F*F*" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 78 "EQN_CHAR := collect
+( TF_Z_ZD_denom / coeff(TF_Z_ZD_denom,s,3), s ) :\nEQN_CHAR;" }}{PARA 
+11 "" 1 "" {XPPMATH 20 "6#,**$)%\"sG\"\"$\"\"\"F(*2&%\"rG6$%\"yG%%reel
+GF(&%$etaG6$%\"gGF-F(&%\"KGF1F(&F06$%\"mGF-F(&F46$%\"tGF-F(&%\"kG6#%\"
+vGF(,&*&&F76#%\"pGF()F*\"\"#F(F(&%\"JG6#%$phiGF(!\"\"F&FEF(*2F*F(F/F(F
+3F(F5F(F8F(&F<FBF(F?FJF&F(F(*0F*F(F/F(F3F(F5F(F8F(&F<6#%\"iGF(F?FJF(" 
+}}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 44 "Standard third-order characteri
+stic equation" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 110 "EQN_CHAR_
+STD_factored := ( s^2 + 2 * zeta * omega[0] * s + omega[0]^2 ) * ( s +
+ p[0] ):\nEQN_CHAR_STD_factored;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#*&
+,(*$)%\"sG\"\"#\"\"\"F)**F(F)%%zetaGF)&%&omegaG6#\"\"!F)F'F)F)*$)F,F(F
+)F)F),&F'F)&%\"pGF.F)F)" }}}{PARA 0 "" 0 "" {TEXT -1 15 "This expands \+
+to" }}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 100 "EQN_CHAR_STD := colle
+ct( expand( EQN_CHAR_STD_factored ), s ):\nEQN_CHAR_STD_factored = EQN
+_CHAR_STD;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*&,(*$)%\"sG\"\"#\"\"\"
+F***F)F*%%zetaGF*&%&omegaG6#\"\"!F*F(F*F**$)F-F)F*F*F*,&F(F*&%\"pGF/F*
+F*,**$)F(\"\"$F*F**&,&*(F)F*F,F*F-F*F*F4F*F*F'F*F**&,&F1F***F)F*F,F*F-
+F*F4F*F*F*F(F*F**&F2F*F4F*F*" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 89 "D
+erivative gain to map DCMCT characteristic equation to standard charac
+teristic equation." }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 64 "EQN_KV := coe
+ff(EQN_CHAR,s,2) = coeff(EQN_CHAR_STD,s,2):\nEQN_KV;" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/*0&%\"rG6$%\"yG%%reelG\"\"\"&%$etaG6$%\"gGF(F*&%\"K
+GF-F*&F,6$%\"mGF(F*&F06$%\"tGF(F*&%\"kG6#%\"vGF*,&*&&F36#%\"pGF*)F%\"
+\"#F*F*&%\"JG6#%$phiGF*!\"\",&*(FAF*%%zetaGF*&%&omegaG6#\"\"!F*F*&F?FL
+F*" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 91 "Proportional gain to map DC
+MCT characteristic equation to standard characteristic equation." }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 64 "EQN_KP := coeff(EQN_CHAR,s,1) = coe
+ff(EQN_CHAR_STD,s,1):\nEQN_KP;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*0&
+%\"rG6$%\"yG%%reelG\"\"\"&%$etaG6$%\"gGF(F*&%\"KGF-F*&F,6$%\"mGF(F*&F0
+6$%\"tGF(F*&%\"kG6#%\"pGF*,&*&&F3F9F*)F%\"\"#F*F*&%\"JG6#%$phiGF*!\"\"
+,&*$)&%&omegaG6#\"\"!F?F*F***F?F*%%zetaGF*FHF*&F:FJF*F*" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 87 "Integral gain to map DCMCT characteristic
+ equation to standard characteristic equation." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 64 "EQN_KI := coeff(EQN_CHAR,s,0) = coeff(EQN_CHAR_STD,s,
+0):\nEQN_KI;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/*0&%\"rG6$%\"yG%%reel
+G\"\"\"&%$etaG6$%\"gGF(F*&%\"KGF-F*&F,6$%\"mGF(F*&F06$%\"tGF(F*&%\"kG6
+#%\"iGF*,&*&&F36#%\"pGF*)F%\"\"#F*F*&%\"JG6#%$phiGF*!\"\"*&)&%&omegaG6
+#\"\"!FAF*&F?FKF*" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 46 "Solve the ab
+ove system of equations for gains " }{XPPEDIT 18 0 "\{k[p], k[i], k[d]
+\};" "6#<%&%\"kG6#%\"pG&F%6#%\"iG&F%6#%\"dG" }{TEXT -1 1 "." }}{PARA 
+0 "> " 0 "" {MPLTEXT 1 0 57 "sol := solve( \{EQN_KV,EQN_KP,EQN_KI\}, \+
+\{k[v],k[p],k[i]\} );" }}{PARA 12 "" 1 "" {XPPMATH 20 "6#>%$solG<%/&%
+\"kG6#%\"iG*2&%&omegaG6#\"\"!\"\"#&%\"pGF.\"\"\",&*&&%\"mG6#F2F3)&%\"r
+G6$%\"yG%%reelGF0F3F3&%\"JG6#%$phiGF3F3F:!\"\"&%$etaG6$%\"gGF=FC&%\"KG
+FFFC&FE6$F7F=FC&FI6$%\"tGF=FC/&F(F8*0F,F3,***F0F3%%zetaGF3F1F3F?F3F3*(
+F,F3F6F3F9F3F3*&F,F3F?F3F3*,F0F3FTF3F1F3F6F3F9F3F3F3F:FCFDFCFHFCFJFCFL
+FC/&F(6#%\"vG*.,**&F1F3F?F3F3*,F0F3FTF3F,F3F6F3F9F3F3**F0F3FTF3F,F3F?F
+3F3*(F1F3F6F3F9F3F3F3F:FCFDFCFHFCFJFCFLFC" }}}{EXCHG {PARA 0 "> " 0 "
+" {MPLTEXT 1 0 12 "assign(sol);" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 
+40 "Proportional gain meeting specification." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 34 "kp_symb := k[p]:\n'k[p]' = kp_symb;" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/&%\"kG6#%\"pG*0&%&omegaG6#\"\"!\"\"\",***\"\"#F-%%z
+etaGF-&F'F+F-&%\"JG6#%$phiGF-F-*(F)F-&%\"mGF&F-)&%\"rG6$%\"yG%%reelGF0
+F-F-*&F)F-F3F-F-*,F0F-F1F-F2F-F8F-F:F-F-F-F;!\"\"&%$etaG6$%\"gGF>FB&%
+\"KGFEFB&FD6$F9F>FB&FH6$%\"tGF>FB" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 
+38 "Derivative gain meeting specification." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 34 "kv_symb := k[v]:\n'k[v]' = kv_symb;" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/&%\"kG6#%\"vG*.,**&&%\"pG6#\"\"!\"\"\"&%\"JG6#%$phi
+GF/F/*,\"\"#F/%%zetaGF/&%&omegaGF-F/&%\"mG6#F,F/)&%\"rG6$%\"yG%%reelGF
+5F/F/**F5F/F6F/F7F/F0F/F/*(F+F/F9F/F<F/F/F/F=!\"\"&%$etaG6$%\"gGF@FD&%
+\"KGFGFD&FF6$F:F@FD&FJ6$%\"tGF@FD" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 
+36 "Integral gain meeting specification." }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 34 "ki_symb := k[i]:\n'k[i]' = ki_symb;" }}{PARA 11 "" 1 
+"" {XPPMATH 20 "6#/&%\"kG6#%\"iG*2&%&omegaG6#\"\"!\"\"#&%\"pGF+\"\"\",
+&*&&%\"mG6#F/F0)&%\"rG6$%\"yG%%reelGF-F0F0&%\"JG6#%$phiGF0F0F7!\"\"&%$
+etaG6$%\"gGF:F@&%\"KGFCF@&FB6$F4F:F@&FF6$%\"tGF:F@" }}}{EXCHG {PARA 0 
+"> " 0 "" {MPLTEXT 1 0 31 "unassign('k[p]','k[v]','k[i]');" }}}{SECT 
+0 {PARA 4 "" 0 "" {TEXT -1 22 "Control Specifications" }}{PARA 0 "" 0 
+"" {TEXT -1 107 "Find the PIV gains needed to meet a given peak time, \+
+percentage overshoot, and pole location specification." }}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 16 "Model parameters" }}{PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 148 "MDL_PARAM := \{m[p] = 0.147, r[y,reel] = 1/2*0.0254,
+ J[phi] = 1.7897e-6, eta[g,y] = 1, K[g,y] = 2*14, eta[m,y] = 0.81, K[t
+,y] = 0.0261 \}:\nMDL_PARAM; " }}{PARA 11 "" 1 "" {XPPMATH 20 "6#<)/&%
+\"JG6#%$phiG$\"&(*y\"!#5/&%\"KG6$%\"gG%\"yG\"#G/&F.6$%\"tGF1$\"$h#!\"%
+/&%$etaGF/\"\"\"/&F<6$%\"mGF1$\"#\")!\"#/&FA6#%\"pG$\"$Z\"!\"$/&%\"rG6
+$F1%%reelG$\"++++q7!#6" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 18 "Peak ti
+me equation" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 60 "TP_EQN := t[p] = Pi \+
+/ ( omega[0] * sqrt(1-zeta^2) ):\nTP_EQN;" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/&%\"tG6#%\"pG*(%#PiG\"\"\"&%&omegaG6#\"\"!!\"\",&F*F**
+$)%%zetaG\"\"#F*F/#F/F4" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 29 "Percen
+tage overshoot equation" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 56 "PO_EQN :
+= PO = 100*exp(-zeta*Pi/sqrt(1-zeta^2)):\nPO_EQN;" }}{PARA 11 "" 1 "" 
+{XPPMATH 20 "6#/%#POG,$*&\"$+\"\"\"\"-%$expG6#,$*(%%zetaGF(%#PiGF(,&F(
+F(*$)F.\"\"#F(!\"\"#F4F3F4F(F(" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 29 
+"Control design specifications" }}{PARA 0 "> " 0 "" {MPLTEXT 1 0 65 "C
+NTRL_SPECS := \{t[p] = 0.02, PO = 10, p[0] = 0.125\}:\nCNTRL_SPECS;" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#<%/%#POG\"#5/&%\"pG6#\"\"!$\"$D\"!\"$
+/&%\"tG6#F)$\"\"#!\"#" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 63 "Minimum \+
+damping ratio required to meet overshoot specification." }}{PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 64 "temp := solve(PO_EQN,zeta):\nZETA_SPEC := zeta
+ = temp:\nZETA_SPEC;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%%zetaG,$*&-%
+#lnG6#,$*&\"$+\"!\"\"%#POG\"\"\"F/F/*&F/F/,&*$)F'\"\"#F/F/*$)%#PiGF4F/
+F/F-#F/F4F-" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 73 "Natural frequency \+
+required to meet peak time and overshoot specifiations." }}{PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 57 "W0_SPEC := omega[0] = solve( TP_EQN, omega[0] \+
+):\nW0_SPEC;" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%&omegaG6#\"\"!*(%#P
+iG\"\"\"&%\"tG6#%\"pG!\"\",&F*F**$)%%zetaG\"\"#F*F/#F/F4" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 34 "Evaluate the damping ratio needed." }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 102 "ZETA_SPEC_VAL := evalf(subs(CNTRL_
+SPECS,ZETA_SPEC)):\nlhs(ZETA_SPEC_VAL) = evalf(rhs(ZETA_SPEC_VAL),3);
+" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/%%zetaG$\"$\"f!\"$" }}}{EXCHG 
+{PARA 0 "" 0 "" {TEXT -1 37 "Evaluate the natural frequency needed" }}
+{PARA 0 "> " 0 "" {MPLTEXT 1 0 120 "W0_SPEC_VAL := evalf(subs(ZETA_SPE
+C_VAL,CNTRL_SPECS,W0_SPEC)):\nlhs(W0_SPEC_VAL) = evalf(rhs(W0_SPEC_VAL
+),4)*Unit(rad/s);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%&omegaG6#\"\"!
+,$*&$\"%[>!\"\"\"\"\"-%%UnitG6#7#*(%\"mGF-%\"sGF,-%\"mG6#%'radiusGF,F-
+F-" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 132 "Given the damping ratio an
+d natural frequency, the PIV gains needed to attain the specified peak
+ time and overshoot requirements are" }}{PARA 0 "> " 0 "" {MPLTEXT 1 
+0 125 "KP_VAL := k[p] = subs(ZETA_SPEC_VAL,W0_SPEC_VAL,MDL_PARAM,CNTRL
+_SPECS,kp_symb):\nlhs(KP_VAL) = evalf(rhs(KP_VAL),4)*Unit(A/m);" }}
+{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%\"kG6#%\"pG,$*&$\"%(G\"!\"\"\"\"\"-
+%%UnitG6#7#*&%\"AGF-%\"mGF,F-F-" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 
+1 0 127 "KI_VAL := k[i] = subs(ZETA_SPEC_VAL,W0_SPEC_VAL,MDL_PARAM,CNT
+RL_SPECS,ki_symb):\nlhs(KI_VAL) = evalf(rhs(KI_VAL),3)*Unit(A/m/s);" }
+}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%\"kG6#%\"iG,$*&$\"$h\"!\"\"\"\"\"-
+%%UnitG6#7#*(%\"AGF-%\"mGF,%\"sGF,F-F-" }}}{EXCHG {PARA 0 "> " 0 "" 
+{MPLTEXT 1 0 127 "KV_VAL := k[v] = subs(ZETA_SPEC_VAL,W0_SPEC_VAL,MDL_
+PARAM,CNTRL_SPECS,kv_symb):\nlhs(KV_VAL) = evalf(rhs(KV_VAL),3)*Unit(A
+*s/m);" }}{PARA 11 "" 1 "" {XPPMATH 20 "6#/&%\"kG6#%\"vG,$*&$\"$\"y!\"
+$\"\"\"-%%UnitG6#7#*(%\"AGF-%\"sGF-%\"mG!\"\"F-F-" }}}}{EXCHG {PARA 0 
+"> " 0 "" {MPLTEXT 1 0 0 "" }}}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 
+0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "
+> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 
+"" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "
+" }}}{EXCHG {PARA 0 "> " 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "> \+
+" 0 "" {MPLTEXT 1 0 0 "" }}}{EXCHG {PARA 0 "" 0 "" {TEXT -1 0 "" }}}}
+{MARK "5 24 0 0" 0 }{VIEWOPTS 1 1 0 1 1 1803 1 1 1 1 }{PAGENUMBERS 0 
+1 2 33 1 1 }

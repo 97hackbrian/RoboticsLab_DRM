@@ -1,0 +1,6126 @@
+Model {
+  Name			  "q_3d_crane"
+  Version		  6.6
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.51"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "windows-1252"
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  on
+  ShowLineDimensions	  on
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  StopFcn		  "callback_clear_setpoints"
+  Created		  "Thu Sep 18 16:33:20 2008"
+  Creator		  "MLevis"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "MLevis"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Mon Jan 10 16:33:14 2011"
+  ModelVersionFormat	  "1.%<AutoIncrement:51>"
+  ConfigurationManager	  "None"
+  UserBdParams		  "CheckForProblematicBlocks;"
+  SimulationMode	  "external"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  AccelVerboseBuild	  off
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  25000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ProdHWDeviceType	  "32-bit Generic"
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.2.0"
+      Array {
+	Type			"Handle"
+	Dimension		7
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "PositivePriorityOrder"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.2.0"
+	  StartTime		  "0.0"
+	  StopTime		  "inf"
+	  AbsTol		  "auto"
+	  FixedStep		  "0.001"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  Solver		  "FixedStepDiscrete"
+	  SolverName		  "FixedStepDiscrete"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  on
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  RateTranMode		  "Deterministic"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.2.0"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveFormat		  "Array"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    5
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "InitFltsAndDblsToZero"
+	    Cell		    "OptimizeModelRefInitCode"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.2.0"
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  BufferReusableBoundary  on
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.2.0"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  CheckSSInitialOutputMsg on
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "error"
+	  MultiTaskCondExecSysMsg "error"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  ModelReferenceSimTargetVerbose off
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  StrictBusMsg		  "Warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.2.0"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.2.0"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  8
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "IncludeHyperlinkInReport"
+	    PropName		    "DisabledProps"
+	  }
+	  Version		  "1.2.0"
+	  SystemTargetFile	  "quarc_windows.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "quarc_default_tmf"
+	  Description		  "QuaRC Win32 Target"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ProcessScript		  "quarc_windows_make_rtw_hook"
+	  ConfigAtBuild		  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  off
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      9
+	      Array {
+		Type			"Cell"
+		Dimension		16
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.2.0"
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      PrefixModelToSubsysFcnNames on
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	    }
+	    Simulink.STFCustomTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      10
+	      Array {
+		Type			"Cell"
+		Dimension		15
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlComp"
+"liant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportNonFinite"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		Cell			"PortableWordSizes"
+		PropName		"DisabledProps"
+	      }
+	      Version		      "1.2.0"
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      TargetLibSuffix	      ".lib"
+	      TargetPreCompLibLocation "C:\\DOCUME~1\\ALLUSE~1\\APPLIC~1\\QUAR"
+"C\\lib\\2007a\\windows\\release"
+	      GenFloatMathFcnCalls    "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      IncludeMdlTerminateFcn  on
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      off
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      SystemTargetFile	      "quarc_windows.tlc"
+	      DialogCategory	      0
+	      Array {
+		Type			"Handle"
+		Dimension		1
+		Simulink.GRTTargetCC {
+		  $BackupClass		  "Simulink.TargetCC"
+		  $ObjectID		  11
+		  Array {
+		    Type		    "Cell"
+		    Dimension		    15
+		    Cell		    "IncludeMdlTerminateFcn"
+		    Cell		    "CombineOutputUpdateFcns"
+		    Cell		    "SuppressErrorStatus"
+		    Cell		    "ERTCustomFileBanners"
+		    Cell		    "GenerateSampleERTMain"
+		    Cell		    "GenerateTestInterfaces"
+		    Cell		    "ModelStepFunctionPrototypeControl"
+"Compliant"
+		    Cell		    "MultiInstanceERTCode"
+		    Cell		    "PurelyIntegerCode"
+		    Cell		    "SupportNonFinite"
+		    Cell		    "SupportComplex"
+		    Cell		    "SupportAbsoluteTime"
+		    Cell		    "SupportContinuousTime"
+		    Cell		    "SupportNonInlinedSFcns"
+		    Cell		    "PortableWordSizes"
+		    PropName		    "DisabledProps"
+		  }
+		  Version		  "1.2.0"
+		  TargetFcnLib		  "ansi_tfl_tmw.mat"
+		  TargetLibSuffix	  ".lib"
+		  TargetPreCompLibLocation "C:\\DOCUME~1\\ALLUSE~1\\APPLIC~1\\"
+"QUARC\\lib\\2007a\\windows\\release"
+		  GenFloatMathFcnCalls	  "ANSI_C"
+		  UtilityFuncGeneration	  "Auto"
+		  GenerateFullHeader	  on
+		  GenerateSampleERTMain	  off
+		  GenerateTestInterfaces  off
+		  IsPILTarget		  off
+		  ModelReferenceCompliant on
+		  IncludeMdlTerminateFcn  on
+		  CombineOutputUpdateFcns off
+		  SuppressErrorStatus	  off
+		  IncludeFileDelimiter	  "Auto"
+		  ERTCustomFileBanners	  off
+		  SupportAbsoluteTime	  on
+		  LogVarNameModifier	  "rt_"
+		  MatFileLogging	  off
+		  MultiInstanceERTCode	  off
+		  SupportNonFinite	  on
+		  SupportComplex	  on
+		  PurelyIntegerCode	  off
+		  SupportContinuousTime	  on
+		  SupportNonInlinedSFcns  on
+		  EnableShiftOperators	  on
+		  ParenthesesLevel	  "Nominal"
+		  PortableWordSizes	  off
+		  ModelStepFunctionPrototypeControlCompliant off
+		  ExtMode		  on
+		  ExtModeStaticAlloc	  off
+		  ExtModeTesting	  off
+		  ExtModeStaticAllocSize  1000000
+		  ExtModeTransport	  0
+		  ExtModeMexFile	  "quarc_comm"
+		  ExtModeMexArgs	  "'-w -d %d -uri %u'"
+		  ExtModeIntrfLevel	  "Level1"
+		  RTWCAPISignals	  off
+		  RTWCAPIParams		  off
+		  RTWCAPIStates		  off
+		  GenerateASAP2		  off
+		}
+		PropName		"Components"
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"QuarcMatFileLogging"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"StopOnOverrun"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"FastSystemTimer"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"HaveStdio"
+		Value			on
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"DynamicReconfiguration"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"Debug"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"DebugHeap"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"RTWOptions_EnumType_C__Program Files_"
+"Quanser_QUARC_quarc_quarc_windows_AssertionAction"
+		EnumStrPairs {
+		  Value			  0
+		  String		  "Ignore"
+		  Value			  1
+		  String		  "Stop model with an error"
+		  Value			  2
+		  String		  "Print assertion"
+		}
+		Name			"AssertionAction"
+		Value			"Stop model with an error"
+	      }
+	      CustomProperty {
+		DataType		"int32"
+		Name			"MinimumThreadPriority"
+		Value			2
+	      }
+	      CustomProperty {
+		DataType		"int32"
+		Name			"StackSize"
+		Value			0
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"PermissibleCPUs"
+		Value			"[]"
+	      }
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Solver"
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  CheckForProblematicBlocks "on"
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "Arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "sfix(16)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "2^0"
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      DiscreteIntegrator
+      IntegratorMethod	      "Integration: Forward Euler"
+      gainval		      "1.0"
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      InitialConditionMode    "State and output"
+      SampleTime	      "1"
+      OutDataTypeMode	      "Inherit via internal rule"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      IgnoreLimit	      off
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
+      BlockType		      DiscreteTransferFcn
+      Numerator		      "[1]"
+      Denominator	      "[1 0.5]"
+      SampleTime	      "1"
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+      Realization	      "auto"
+    }
+    Block {
+      BlockType		      Display
+      Format		      "short"
+      Decimation	      "10"
+      Floating		      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      EnablePort
+      StatesWhenEnabling      "held"
+      ShowOutputPort	      off
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      From
+      IconDisplay	      "Tag"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ParameterDataTypeMode   "Same as input"
+      ParameterDataType	      "sfix(16)"
+      ParameterScalingMode    "Best Precision: Matrix-wise"
+      ParameterScaling	      "2^0"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Goto
+      IconDisplay	      "Tag"
+    }
+    Block {
+      BlockType		      Ground
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchByCopyingInsideSignal off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Memory
+      X0		      "0"
+      InheritSampleTime	      off
+      LinearizeMemory	      off
+      LinearizeAsDelay	      off
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
+      BlockType		      MultiPortSwitch
+      Inputs		      "4"
+      zeroidx		      off
+      InputSameDT	      on
+      OutDataTypeMode	      "Inherit via internal rule"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      RelationalOperator
+      Operator		      ">="
+      InputSameDT	      on
+      LogicOutDataTypeMode    "Logical (see Configuration Parameters: Optimiza"
+"tion)"
+      LogicDataType	      "uint(8)"
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Saturate
+      UpperLimit	      "0.5"
+      LowerLimit	      "-0.5"
+      LinearizeAsGain	      on
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Scope
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Selector
+      NumberOfDimensions      "1"
+      IndexMode		      "One-based"
+      InputPortWidth	      "-1"
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+    }
+    Block {
+      BlockType		      SignalSpecification
+      Dimensions	      "-1"
+      SampleTime	      "-1"
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+    }
+    Block {
+      BlockType		      Stop
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Switch
+      Criteria		      "u2 >= Threshold"
+      Threshold		      "0"
+      InputSameDT	      on
+      OutDataTypeMode	      "Inherit via internal rule"
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      ZeroCross		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Terminator
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "Arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "Arial"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "q_3d_crane"
+    Location		    [32, 82, 798, 951]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "usletter"
+    PaperUnits		    "inches"
+    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      SubSystem
+      Name		      "3-DOF Crane HIL"
+      Ports		      []
+      Position		      [450, 50, 533, 134]
+      BackgroundColor	      "green"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"3-DOF Crane HIL"
+	Location		[292, 474, 876, 821]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  From
+	  Name			  "From AO"
+	  Position		  [55, 126, 95, 154]
+	  CloseFcn		  "tagdialog Close"
+	  GotoTag		  "AO"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  From
+	  Name			  "From DO"
+	  Position		  [55, 181, 95, 209]
+	  CloseFcn		  "tagdialog Close"
+	  GotoTag		  "DO"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto AI"
+	  Position		  [450, 140, 490, 170]
+	  GotoTag		  "AI"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto DI"
+	  Position		  [435, 254, 505, 286]
+	  GotoTag		  "DI"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto Encoder"
+	  Position		  [435, 199, 505, 231]
+	  GotoTag		  "ENC_CNT"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Initialize"
+	  Ports			  []
+	  Position		  [395, 18, 541, 83]
+	  AttributesFormatString  "%<object_name>"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Conf"
+"iguration/HIL Initialize"
+	  SourceType		  "HIL Initialize"
+	  object_name		  "HIL-1"
+	  board_type		  "q8"
+	  board_number		  "0"
+	  exclusive		  off
+	  active		  on
+	  hardware_clocks	  "[0:1]"
+	  clock_modes		  "[0 0]"
+	  initial_clock_frequencies "[]"
+	  set_clock_params_at_start on
+	  set_clock_params_at_switch_in	off
+	  set_clock_frequencies_at_start off
+	  set_clock_frequencies_at_switch_in off
+	  analog_input_channels	  "[0:7]"
+	  analog_input_maximums	  "10"
+	  analog_input_minimums	  "-10"
+	  set_analog_input_params_at_start off
+	  set_analog_input_params_at_switch_in off
+	  analog_output_channels  "[0:7]"
+	  analog_output_maximums  "[10]"
+	  analog_output_minimums  "[-10]"
+	  initial_analog_outputs  "[0]"
+	  final_analog_outputs	  "[0]"
+	  watchdog_analog_outputs "0"
+	  set_analog_output_params_at_start on
+	  set_analog_output_params_at_switch_in	off
+	  set_analog_outputs_at_start on
+	  set_analog_outputs_at_switch_in off
+	  set_analog_outputs_at_terminate on
+	  set_analog_outputs_at_switch_out off
+	  set_analog_outputs_on_watchdog off
+	  digital_input_channels  "[]"
+	  digital_output_channels "[0:2,4]"
+	  digital_output_configuration "[]"
+	  initial_digital_outputs "[1]"
+	  final_digital_outputs	  "[1]"
+	  watchdog_digital_outputs "[2]"
+	  set_digital_output_params_at_start off
+	  set_digital_output_params_at_switch_in off
+	  set_digital_outputs_at_start on
+	  set_digital_outputs_at_switch_in off
+	  set_digital_outputs_at_terminate on
+	  set_digital_outputs_at_switch_out off
+	  set_digital_outputs_on_watchdog off
+	  encoder_channels	  "[0:7]"
+	  quadrature		  "[4]"
+	  encoder_filter_frequency "(1/120e-9)/1"
+	  initial_encoder_counts  "[0]"
+	  set_encoder_params_at_start on
+	  set_encoder_params_at_switch_in off
+	  set_encoder_counts_at_start on
+	  set_encoder_counts_at_switch_in off
+	  pwm_channels		  "[]"
+	  pwm_modes		  "[0]"
+	  pwm_frequency		  "(1/60e-9)/1024"
+	  pwm_configuration	  "[]"
+	  pwm_alignment		  "[]"
+	  pwm_polarity		  "[]"
+	  pwm_leading_deadband	  "[]"
+	  pwm_trailing_deadband	  "[]"
+	  initial_pwm_outputs	  "[0]"
+	  final_pwm_outputs	  "[0]"
+	  watchdog_pwm_outputs	  "[]"
+	  set_pwm_params_at_start on
+	  set_pwm_params_at_switch_in off
+	  set_pwm_outputs_at_start on
+	  set_pwm_outputs_at_switch_in off
+	  set_pwm_outputs_at_terminate on
+	  set_pwm_outputs_at_switch_out	off
+	  set_pwm_outputs_on_watchdog off
+	  other_output_channels	  "[]"
+	  initial_other_outputs	  "[]"
+	  final_other_outputs	  "[]"
+	  watchdog_other_outputs  "[]"
+	  set_other_outputs_at_start off
+	  set_other_outputs_at_switch_in off
+	  set_other_outputs_at_terminate off
+	  set_other_outputs_at_switch_out off
+	  set_other_outputs_on_watchdog	off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Read\nTimebase"
+	  Tag			  "unassigned"
+	  Ports			  [0, 3]
+	  Position		  [280, 144, 370, 216]
+	  AttributesFormatString  "(%<object_name>)"
+	  UserDataPersistent	  on
+	  UserData		  "DataTag0"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Time"
+"bases/HIL Read\nTimebase"
+	  SourceType		  "HIL Read Timebase"
+	  object_name		  "HIL-1"
+	  clock			  "0"
+	  analog_channels	  "[0:2]"
+	  encoder_channels	  "[0:4]"
+	  digital_channels	  "[8:12]"
+	  other_channels	  "[]"
+	  samples_in_buffer	  "max(ceil(1/qc_get_step_size), 1)"
+	  active		  on
+	  vector_output		  on
+	  data_type_mode	  "Inherit via back propagation"
+	  encoder_data_type	  "double"
+	  digital_data_type	  "boolean"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "HIL Write"
+	  Tag			  "unassigned"
+	  Ports			  [2]
+	  Position		  [175, 143, 260, 212]
+	  AttributesFormatString  "(%<object_name>)"
+	  UserDataPersistent	  on
+	  UserData		  "DataTag1"
+	  SourceBlock		  "quarc_library/Data Acquisition/Generic/Imme"
+"diate I//O/HIL Write"
+	  SourceType		  "HIL Write"
+	  object_name		  "HIL-1"
+	  analog_channels	  "[0:2]"
+	  pwm_channels		  "[]"
+	  digital_channels	  "[0:2,4]"
+	  other_channels	  "[]"
+	  sample_time		  "-1"
+	  active		  off
+	  vector_input		  on
+	}
+	Line {
+	  SrcBlock		  "HIL Read\nTimebase"
+	  SrcPort		  3
+	  Points		  [5, 0; 0, 65]
+	  DstBlock		  "Goto DI"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "HIL Read\nTimebase"
+	  SrcPort		  1
+	  DstBlock		  "Goto AI"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "HIL Read\nTimebase"
+	  SrcPort		  2
+	  Points		  [15, 0; 0, 35]
+	  DstBlock		  "Goto Encoder"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "From DO"
+	  SrcPort		  1
+	  DstBlock		  "HIL Write"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "From AO"
+	  SrcPort		  1
+	  Points		  [35, 0; 0, 20]
+	  DstBlock		  "HIL Write"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "3D Crane Motors - HIL"
+      Ports		      [3, 1]
+      Position		      [515, 459, 595, 541]
+      BackgroundColor	      "green"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"3D Crane Motors - HIL"
+	Location		[393, 470, 1022, 719]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Im,t (A)"
+	  Position		  [35, 43, 65, 57]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Im,j (A)"
+	  Position		  [35, 78, 65, 92]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Im,z (A)"
+	  Position		  [35, 113, 65, 127]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "AMPAQ Current \nLimit (A)"
+	  Position		  [150, 70, 185, 100]
+	  UpperLimit		  "IMAX_AMP"
+	  LowerLimit		  "-IMAX_AMP"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Amps to Volts"
+	  Position		  [300, 65, 360, 105]
+	  Gain			  "1 / Ka"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Commanded Current "
+	  Position		  [490, 155, 550, 195]
+	  Gain			  "-Ka"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "DAC Limit (V)"
+	  Position		  [390, 70, 425, 100]
+	  UpperLimit		  "VMAX_DAC"
+	  LowerLimit		  "-VMAX_DAC"
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto AO"
+	  Position		  [505, 69, 575, 101]
+	  GotoTag		  "AO"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Motor \nDirection"
+	  Position		  [235, 70, 265, 100]
+	  Gain			  "-1"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [3, 1]
+	  Position		  [100, 33, 105, 137]
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Im (A)"
+	  Position		  [580, 168, 610, 182]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Amps to Volts"
+	  SrcPort		  1
+	  DstBlock		  "DAC Limit (V)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "DAC Limit (V)"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    DstBlock		    "Goto AO"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 90]
+	    DstBlock		    "Commanded Current "
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "AMPAQ Current \nLimit (A)"
+	  SrcPort		  1
+	  DstBlock		  "Motor \nDirection"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Im,t (A)"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Im,j (A)"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Im,z (A)"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "AMPAQ Current \nLimit (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Commanded Current "
+	  SrcPort		  1
+	  DstBlock		  "Im (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Motor \nDirection"
+	  SrcPort		  1
+	  DstBlock		  "Amps to Volts"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "AMPAQ Current \nSensors - HIL"
+      Ports		      [0, 1]
+      Position		      [30, 707, 120, 803]
+      BackgroundColor	      "green"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"AMPAQ Current \nSensors - HIL"
+	Location		[539, 413, 1015, 619]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Gain
+	  Name			  "Current Sensitivity (A/V)"
+	  Position		  [150, 79, 230, 121]
+	  Gain			  "K_CURR"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  From
+	  Name			  "From Analog Input"
+	  Position		  [55, 86, 95, 114]
+	  CloseFcn		  "tagdialog Close"
+	  GotoTag		  "AI"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "I_meas (A)"
+	  Position		  [280, 93, 310, 107]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Current Sensitivity (A/V)"
+	  SrcPort		  1
+	  DstBlock		  "I_meas (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "From Analog Input"
+	  SrcPort		  1
+	  DstBlock		  "Current Sensitivity (A/V)"
+	  DstPort		  1
+	}
+	Annotation {
+	  Name			  "AMPAQ Current Sensors"
+	  Position		  [22, 31]
+	  HorizontalAlignment	  "left"
+	  FontSize		  16
+	  FontWeight		  "bold"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Enable AMPAQ \nAmplifier - HIL"
+      Ports		      []
+      Position		      [590, 60, 652, 130]
+      BackgroundColor	      "green"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Enable AMPAQ \nAmplifier - HIL"
+	Location		[727, 208, 1118, 384]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Enable Amp"
+	  Position		  [25, 48, 120, 82]
+	  Value			  "[0 0 0 1]"
+	}
+	Block {
+	  BlockType		  Goto
+	  Name			  "Goto DO"
+	  Position		  [165, 49, 235, 81]
+	  GotoTag		  "DO"
+	  TagVisibility		  "global"
+	}
+	Line {
+	  SrcBlock		  "Enable Amp"
+	  SrcPort		  1
+	  DstBlock		  "Goto DO"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "FS/PS\nSwitch"
+      Ports		      [2, 1]
+      Position		      [115, 122, 145, 158]
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      sw		      "1"
+      action		      "0"
+      varsize		      off
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Jib Control System"
+      Ports		      [3, 1]
+      Position		      [350, 407, 445, 473]
+      BackgroundColor	      "lightBlue"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Jib Control System"
+	Location		[309, 279, 933, 582]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "P/F"
+	  Position		  [55, 23, 85, 37]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_J_ref"
+	  Position		  [50, 78, 80, 92]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_J"
+	  Position		  [50, 128, 80, 142]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add"
+	  Ports			  [2, 1]
+	  Position		  [495, 175, 520, 250]
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  DiscreteIntegrator
+	  Name			  "Discrete-Time\nIntegrator"
+	  Ports			  [1, 1]
+	  Position		  [380, 201, 430, 259]
+	  IntegratorMethod	  "Integration: Forward Euler"
+	  ExternalReset		  "none"
+	  InitialConditionSource  "internal"
+	  SampleTime		  "qc_get_step_size"
+	  LimitOutput		  on
+	  UpperSaturationLimit	  "2"
+	  LowerSaturationLimit	  "-2"
+	  IgnoreLimit		  off
+	  ICPrevOutput		  "DiscIntNeverNeededParam"
+	  ICPrevScaledInput	  "DiscIntNeverNeededParam"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Error"
+	  Ports			  [2, 1]
+	  Position		  [130, 60, 155, 160]
+	  Inputs		  "+-"
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Jib Control \nGain"
+	  Position		  [295, 76, 340, 114]
+	  Gain			  "K_J(1:4)"
+	  Multiplication	  "Matrix(K*u)"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Jib Integral \nControl Gain"
+	  Position		  [300, 211, 345, 249]
+	  Gain			  "K_J(5)"
+	  Multiplication	  "Matrix(K*u)"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "PSF or FSF\nSelector"
+	  Ports			  [2, 1]
+	  Position		  [210, 59, 270, 126]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "PSF or FSF\nSelector"
+	    Location		    [688, 453, 1220, 757]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "P/F"
+	      Position		      [80, 63, 110, 77]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_full"
+	      Position		      [80, 98, 110, 112]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant: FS"
+	      Position		      [80, 227, 160, 253]
+	      Value		      "[1 1 1 1]"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant: PS"
+	      Position		      [80, 137, 160, 163]
+	      Value		      "[1 0 1 0]"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Full-state"
+	      Ports		      [2, 1]
+	      Position		      [205, 217, 235, 248]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      MultiPortSwitch
+	      Name		      "Multiport\nSwitch"
+	      Ports		      [3, 1]
+	      Position		      [295, 197, 325, 243]
+	      Inputs		      "2"
+	      zeroidx		      on
+	      InputSameDT	      off
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Partial-state"
+	      Ports		      [2, 1]
+	      Position		      [205, 142, 235, 173]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "X_out"
+	      Position		      [380, 213, 410, 227]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "Constant: FS"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Full-state"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Constant: PS"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Partial-state"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Partial-state"
+	      SrcPort		      1
+	      Points		      [25, 0; 0, 60]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Full-state"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Multiport\nSwitch"
+	      SrcPort		      1
+	      DstBlock		      "X_out"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "P/F"
+	      SrcPort		      1
+	      Points		      [165, 0]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "X_full"
+	      SrcPort		      1
+	      Points		      [70, 0; 0, 60]
+	      Branch {
+		DstBlock		"Partial-state"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 60]
+		DstBlock		"Full-state"
+		DstPort			1
+	      }
+	    }
+	    Annotation {
+	      Name		      "Partial-state or Full-state Feedback"
+	      Position		      [140, 21]
+	      FontSize		      14
+	      FontWeight	      "bold"
+	    }
+	    Annotation {
+	      Name		      "0 = partial and 1 = full,"
+	      Position		      [181, 60]
+	    }
+	    Annotation {
+	      Name		      "state"
+	      Position		      [146, 93]
+	    }
+	    Annotation {
+	      Name		      "control input"
+	      Position		      [393, 200]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select x"
+	  Ports			  [1, 1]
+	  Position		  [225, 211, 265, 249]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "1"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "4"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "u_j (A)"
+	  Position		  [565, 208, 595, 222]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "PSF or FSF\nSelector"
+	  SrcPort		  1
+	  DstBlock		  "Jib Control \nGain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "P/F"
+	  SrcPort		  1
+	  Points		  [80, 0; 0, 45]
+	  DstBlock		  "PSF or FSF\nSelector"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "u_j (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete-Time\nIntegrator"
+	  SrcPort		  1
+	  DstBlock		  "Add"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Jib Control \nGain"
+	  SrcPort		  1
+	  Points		  [110, 0; 0, 100]
+	  DstBlock		  "Add"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Jib Integral \nControl Gain"
+	  SrcPort		  1
+	  DstBlock		  "Discrete-Time\nIntegrator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Select x"
+	  SrcPort		  1
+	  DstBlock		  "Jib Integral \nControl Gain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_J"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Error"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "X_J_ref"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Error"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Error"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    Points		    [0, 120]
+	    DstBlock		    "Select x"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "PSF or FSF\nSelector"
+	    DstPort		    2
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Limit Switches - HIL"
+      Ports		      []
+      Position		      [590, 180, 661, 255]
+      BackgroundColor	      "red"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Limit Switches - HIL"
+	Location		[489, 223, 949, 472]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant3"
+	  Position		  [256, 40, 354, 65]
+	  Orientation		  "down"
+	  ShowName		  off
+	  Value			  "LS_LIM_ENABLE "
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Read Limit Switches"
+	  Ports			  [0, 5]
+	  Position		  [90, 103, 185, 217]
+	  BackgroundColor	  "red"
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Read Limit Switches"
+	    Location		    [138, 188, 756, 586]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Selector
+	      Name		      "End of track CCP-Ext"
+	      Ports		      [1, 1]
+	      Position		      [165, 181, 205, 219]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "3"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      From
+	      Name		      "From DI"
+	      Position		      [35, 56, 75, 84]
+	      CloseFcn		      "tagdialog Close"
+	      GotoTag		      "DI"
+	      TagVisibility	      "global"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Goes to zero: \next"
+	      Ports		      [1, 1]
+	      Position		      [270, 185, 300, 215]
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
+	      SourceType	      "Compare To Constant"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      relop		      "<"
+	      const		      "1"
+	      LogicOutDataTypeMode    "uint8"
+	      ZeroCross		      off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Goes to zero: \npayload"
+	      Ports		      [1, 1]
+	      Position		      [270, 250, 300, 280]
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
+	      SourceType	      "Compare To Constant"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      relop		      "<"
+	      const		      "1"
+	      LogicOutDataTypeMode    "uint8"
+	      ZeroCross		      off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Goes to zero: \nret"
+	      Ports		      [1, 1]
+	      Position		      [270, 120, 300, 150]
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
+	      SourceType	      "Compare To Constant"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      relop		      "<"
+	      const		      "1"
+	      LogicOutDataTypeMode    "uint8"
+	      ZeroCross		      off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Goes to zero: \ntower ccw"
+	      Ports		      [1, 1]
+	      Position		      [270, 320, 300, 350]
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
+	      SourceType	      "Compare To Constant"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      relop		      "<"
+	      const		      "1"
+	      LogicOutDataTypeMode    "uint8"
+	      ZeroCross		      off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Goes to zero: \ntower cw"
+	      Ports		      [1, 1]
+	      Position		      [270, 55, 300, 85]
+	      SourceBlock	      "simulink/Logic and Bit\nOperations/Comp"
+"are\nTo Constant"
+	      SourceType	      "Compare To Constant"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      relop		      "<"
+	      const		      "1"
+	      LogicOutDataTypeMode    "uint8"
+	      ZeroCross		      off
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Payload"
+	      Ports		      [1, 1]
+	      Position		      [165, 246, 205, 284]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "4"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Start of track: CCP-Ret"
+	      Ports		      [1, 1]
+	      Position		      [165, 116, 205, 154]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "2"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Tower: BCP-CCW"
+	      Ports		      [1, 1]
+	      Position		      [160, 316, 200, 354]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "5"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Tower: BCP-CW"
+	      Ports		      [1, 1]
+	      Position		      [165, 51, 205, 89]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "1"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "tower cw"
+	      Position		      [395, 63, 425, 77]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "tower ccw"
+	      Position		      [390, 328, 420, 342]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "jib ret"
+	      Position		      [395, 128, 425, 142]
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "jib ext"
+	      Position		      [395, 193, 425, 207]
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "payload max"
+	      Position		      [395, 258, 425, 272]
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "Goes to zero: \ntower ccw"
+	      SrcPort		      1
+	      DstBlock		      "tower ccw"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Tower: BCP-CCW"
+	      SrcPort		      1
+	      DstBlock		      "Goes to zero: \ntower ccw"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End of track CCP-Ext"
+	      SrcPort		      1
+	      DstBlock		      "Goes to zero: \next"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Start of track: CCP-Ret"
+	      SrcPort		      1
+	      DstBlock		      "Goes to zero: \nret"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Goes to zero: \next"
+	      SrcPort		      1
+	      DstBlock		      "jib ext"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Goes to zero: \nret"
+	      SrcPort		      1
+	      DstBlock		      "jib ret"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Tower: BCP-CW"
+	      SrcPort		      1
+	      DstBlock		      "Goes to zero: \ntower cw"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Goes to zero: \ntower cw"
+	      SrcPort		      1
+	      DstBlock		      "tower cw"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Goes to zero: \npayload"
+	      SrcPort		      1
+	      DstBlock		      "payload max"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Payload"
+	      SrcPort		      1
+	      DstBlock		      "Goes to zero: \npayload"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "From DI"
+	      SrcPort		      1
+	      Points		      [40, 0]
+	      Branch {
+		DstBlock		"Tower: BCP-CW"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 65]
+		Branch {
+		  DstBlock		  "Start of track: CCP-Ret"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 65]
+		  Branch {
+		    Points		    [0, 65]
+		    Branch {
+		    Points		    [0, 70]
+		    DstBlock		    "Tower: BCP-CCW"
+		    DstPort		    1
+		    }
+		    Branch {
+		    DstBlock		    "Payload"
+		    DstPort		    1
+		    }
+		  }
+		  Branch {
+		    DstBlock		    "End of track CCP-Ext"
+		    DstPort		    1
+		  }
+		}
+	      }
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Stop with Limit Switches"
+	  Ports			  [5, 0, 1]
+	  Position		  [245, 103, 365, 217]
+	  BackgroundColor	  "red"
+	  TreatAsAtomicUnit	  on
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Stop with Limit Switches"
+	    Location		    [168, 255, 867, 873]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "tower cw"
+	      Position		      [135, 93, 165, 107]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "tower ccw"
+	      Position		      [135, 193, 165, 207]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "jib ret"
+	      Position		      [135, 298, 165, 312]
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "jib ext"
+	      Position		      [140, 403, 170, 417]
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "payload max"
+	      Position		      [135, 508, 165, 522]
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      EnablePort
+	      Name		      "Enable"
+	      Ports		      []
+	      Position		      [70, 30, 90, 50]
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Payload Max Limit"
+	      Ports		      [1]
+	      Position		      [335, 480, 405, 550]
+	      AttributesFormatString  "\"%<message>\""
+	      SourceBlock	      "quarc_library/Sinks/Error Handling/Stop"
+" with Message"
+	      SourceType	      "Stop with Message"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      message_type	      "Fixed error message"
+	      message_icon	      "Error"
+	      message		      "Payload limit switch triggered: payload"
+" at max height."
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Tower Limit: CCW"
+	      Ports		      [1]
+	      Position		      [335, 165, 405, 235]
+	      AttributesFormatString  "\"%<message>\""
+	      SourceBlock	      "quarc_library/Sinks/Error Handling/Stop"
+" with Message"
+	      SourceType	      "Stop with Message"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      message_type	      "Fixed error message"
+	      message_icon	      "Error"
+	      message		      "Tower limit switch triggered: tower rea"
+"ched max counter-clockwise angle."
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Tower Limit: CW"
+	      Ports		      [1]
+	      Position		      [330, 65, 400, 135]
+	      AttributesFormatString  "\"%<message>\""
+	      SourceBlock	      "quarc_library/Sinks/Error Handling/Stop"
+" with Message"
+	      SourceType	      "Stop with Message"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      message_type	      "Fixed error message"
+	      message_icon	      "Error"
+	      message		      "Tower limit switch triggered: tower rea"
+"ched max clockwise angle."
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Trolley Ext Limit"
+	      Ports		      [1]
+	      Position		      [335, 375, 405, 445]
+	      AttributesFormatString  "\"%<message>\""
+	      SourceBlock	      "quarc_library/Sinks/Error Handling/Stop"
+" with Message"
+	      SourceType	      "Stop with Message"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      message_type	      "Fixed error message"
+	      message_icon	      "Error"
+	      message		      "EXT limit switch triggered: trolley at "
+"max position."
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Trolley Return Limit"
+	      Ports		      [1]
+	      Position		      [335, 270, 405, 340]
+	      AttributesFormatString  "\"%<message>\""
+	      SourceBlock	      "quarc_library/Sinks/Error Handling/Stop"
+" with Message"
+	      SourceType	      "Stop with Message"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      message_type	      "Fixed error message"
+	      message_icon	      "Error"
+	      message		      "RET limit switch triggered: trolley at "
+"min position."
+	    }
+	    Line {
+	      SrcBlock		      "tower cw"
+	      SrcPort		      1
+	      DstBlock		      "Tower Limit: CW"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "jib ret"
+	      SrcPort		      1
+	      DstBlock		      "Trolley Return Limit"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "jib ext"
+	      SrcPort		      1
+	      DstBlock		      "Trolley Ext Limit"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "payload max"
+	      SrcPort		      1
+	      DstBlock		      "Payload Max Limit"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "tower ccw"
+	      SrcPort		      1
+	      DstBlock		      "Tower Limit: CCW"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Constant3"
+	  SrcPort		  1
+	  DstBlock		  "Stop with Limit Switches"
+	  DstPort		  enable
+	}
+	Line {
+	  SrcBlock		  "Read Limit Switches"
+	  SrcPort		  1
+	  DstBlock		  "Stop with Limit Switches"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Read Limit Switches"
+	  SrcPort		  2
+	  DstBlock		  "Stop with Limit Switches"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Read Limit Switches"
+	  SrcPort		  3
+	  DstBlock		  "Stop with Limit Switches"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Read Limit Switches"
+	  SrcPort		  4
+	  DstBlock		  "Stop with Limit Switches"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Read Limit Switches"
+	  SrcPort		  5
+	  DstBlock		  "Stop with Limit Switches"
+	  DstPort		  5
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Partial/Full\nState Feedback"
+      Ports		      [0, 2]
+      Position		      [35, 118, 90, 162]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Partial/Full\nState Feedback"
+	Location		[34, 204, 169, 336]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Full-State"
+	  Position		  [25, 25, 55, 55]
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Partial-State"
+	  Position		  [25, 75, 55, 105]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "full"
+	  Position		  [80, 33, 110, 47]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "partial"
+	  Position		  [80, 83, 110, 97]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Full-State"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "full"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Partial-State"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "partial"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Payload Control System"
+      Ports		      [2, 1]
+      Position		      [345, 494, 445, 556]
+      BackgroundColor	      "lightBlue"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Payload Control System"
+	Location		[546, 596, 1194, 849]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_Z_ref"
+	  Position		  [25, 48, 55, 62]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_Z"
+	  Position		  [25, 83, 55, 97]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Add"
+	  Ports			  [3, 1]
+	  Position		  [485, 99, 510, 211]
+	  Inputs		  "+++"
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2]
+	  Position		  [175, 56, 180, 94]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  DiscreteIntegrator
+	  Name			  "Discrete-Time\nIntegrator"
+	  Ports			  [1, 1]
+	  Position		  [360, 114, 395, 146]
+	  IntegratorMethod	  "Integration: Forward Euler"
+	  ExternalReset		  "none"
+	  InitialConditionSource  "internal"
+	  SampleTime		  "qc_get_step_size"
+	  IgnoreLimit		  off
+	  ICPrevOutput		  "DiscIntNeverNeededParam"
+	  ICPrevScaledInput	  "DiscIntNeverNeededParam"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Payload Integral \nGain"
+	  Position		  [265, 115, 295, 145]
+	  Gain			  "ki"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Payload Proportional \nGain"
+	  Position		  [265, 50, 295, 80]
+	  Gain			  "kp"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Payload Velocity \nGain"
+	  Position		  [265, 175, 295, 205]
+	  Gain			  "kv"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Subtract"
+	  Ports			  [2, 1]
+	  Position		  [125, 37, 150, 108]
+	  Inputs		  "+-"
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "u_z (A)"
+	  Position		  [545, 148, 575, 162]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "X_Z"
+	  SrcPort		  1
+	  DstBlock		  "Subtract"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "X_Z_ref"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Subtract"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Payload Integral \nGain"
+	  SrcPort		  1
+	  DstBlock		  "Discrete-Time\nIntegrator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Add"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "u_z (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Payload Proportional \nGain"
+	  SrcPort		  1
+	  Points		  [170, 0]
+	  DstBlock		  "Add"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Discrete-Time\nIntegrator"
+	  SrcPort		  1
+	  Points		  [50, 0; 0, 25]
+	  DstBlock		  "Add"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Subtract"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    DstBlock		    "Payload Proportional \nGain"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 65]
+	    DstBlock		    "Payload Integral \nGain"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [15, 0; 0, 105]
+	  DstBlock		  "Payload Velocity \nGain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Payload Velocity \nGain"
+	  SrcPort		  1
+	  DstBlock		  "Add"
+	  DstPort		  3
+	}
+	Annotation {
+	  Position		  [273, 134]
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Position Sensors - HIL"
+      Ports		      [0, 3]
+      Position		      [25, 298, 115, 392]
+      BackgroundColor	      "green"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Position Sensors - HIL"
+	Location		[569, 360, 1110, 689]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Construct Jib State"
+	  Ports			  [1, 1]
+	  Position		  [310, 155, 405, 215]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Construct Jib State"
+	    Location		    [267, 316, 824, 899]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_read"
+	      Position		      [15, 53, 45, 67]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant"
+	      Position		      [406, 305, 494, 330]
+	      Orientation	      "down"
+	      ShowName		      off
+	      Value		      "X_LIM_ENABLE"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant2"
+	      Position		      [393, 435, 507, 460]
+	      Orientation	      "down"
+	      ShowName		      off
+	      Value		      "GAMMA_LIM_ENABLE"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux2"
+	      Ports		      [1, 2]
+	      Position		      [160, 28, 165, 92]
+	      BackgroundColor	      "black"
+	      ShowName		      off
+	      Outputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Gimble Gamma Deflection Watchdog"
+	      Ports		      [1, 0, 1]
+	      Position		      [400, 480, 500, 540]
+	      BackgroundColor	      "red"
+	      TreatAsAtomicUnit	      on
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskHideContents	      off
+	      System {
+		Name			"Gimble Gamma Deflection Watchdog"
+		Location		[532, 418, 1196, 937]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
+"00]"
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "gamma (rad)"
+		  Position		  [45, 233, 75, 247]
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  EnablePort
+		  Name			  "Enable"
+		  Ports			  []
+		  Position		  [70, 30, 90, 50]
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Maximum\nAllowed Angle"
+		  Position		  [280, 68, 320, 212]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Minimum\nAllowed Angle"
+		  Position		  [280, 268, 320, 412]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Max Gamma"
+		  Ports			  [1]
+		  Position		  [425, 105, 495, 175]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Maximum gamma gimble angle reached."
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Min Gamma"
+		  Ports			  [1]
+		  Position		  [425, 305, 495, 375]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Minimum gamma gimble angle reached."
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Radians\nto Degrees"
+		  Ports			  [1, 1]
+		  Position		  [125, 225, 155, 255]
+		  SourceBlock		  "simulink_extras/Transformations/Rad"
+"ians\nto Degrees"
+		  SourceType		  "RadiansToDegrees"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X MAX"
+		  Position		  [145, 88, 215, 122]
+		  ShowName		  off
+		  Value			  "GAMMA_MAX"
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X MIN"
+		  Position		  [155, 359, 225, 391]
+		  ShowName		  off
+		  Value			  "GAMMA_MIN"
+		}
+		Line {
+		  SrcBlock		  "X MAX"
+		  SrcPort		  1
+		  DstBlock		  "Check Maximum\nAllowed Angle"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Check Minimum\nAllowed Angle"
+		  SrcPort		  1
+		  DstBlock		  "Min Gamma"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "X MIN"
+		  SrcPort		  1
+		  DstBlock		  "Check Minimum\nAllowed Angle"
+		  DstPort		  2
+		}
+		Line {
+		  SrcBlock		  "gamma (rad)"
+		  SrcPort		  1
+		  DstBlock		  "Radians\nto Degrees"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Check Maximum\nAllowed Angle"
+		  SrcPort		  1
+		  DstBlock		  "Max Gamma"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Radians\nto Degrees"
+		  SrcPort		  1
+		  Points		  [45, 0]
+		  Branch {
+		    Points		    [0, -65]
+		    DstBlock		    "Check Maximum\nAllowed Angle"
+		    DstPort		    2
+		  }
+		  Branch {
+		    Points		    [0, 65]
+		    DstBlock		    "Check Minimum\nAllowed Angle"
+		    DstPort		    1
+		  }
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "High-Pass Filter: gamma"
+	      Ports		      [1, 1]
+	      Position		      [280, 242, 350, 288]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_gamma 0]"
+	      den		      "[1 wf_gamma]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "High-Pass Filter: x"
+	      Ports		      [1, 1]
+	      Position		      [280, 163, 345, 207]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_x 0]"
+	      den		      "[1 wf_x]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Low-Pass Filter: gamma"
+	      Ports		      [1, 1]
+	      Position		      [280, 92, 350, 138]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_gamma]"
+	      den		      "[1 wf_gamma]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Low-Pass Filter: x"
+	      Ports		      [1, 1]
+	      Position		      [285, 23, 350, 67]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_x]"
+	      den		      "[1 wf_x]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux1"
+	      Ports		      [4, 1]
+	      Position		      [425, 143, 430, 282]
+	      ShowName		      off
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Select x and gamma"
+	      Ports		      [1, 1]
+	      Position		      [80, 41, 120, 79]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "[2, 5]"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Trolley Position Watchdog"
+	      Ports		      [1, 0, 1]
+	      Position		      [400, 350, 500, 410]
+	      BackgroundColor	      "red"
+	      TreatAsAtomicUnit	      on
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskHideContents	      off
+	      System {
+		Name			"Trolley Position Watchdog"
+		Location		[109, 224, 773, 743]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
+"00]"
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "x (m)"
+		  Position		  [45, 233, 75, 247]
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  EnablePort
+		  Name			  "Enable"
+		  Ports			  []
+		  Position		  [70, 30, 90, 50]
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Maximum\nAllowed Position"
+		  Position		  [280, 68, 320, 212]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Minimum\nAllowed Position"
+		  Position		  [280, 268, 320, 412]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Max Trolley"
+		  Ports			  [1]
+		  Position		  [430, 105, 500, 175]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Maximum trolley position reached."
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Min Trolley"
+		  Ports			  [1]
+		  Position		  [430, 305, 500, 375]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Minimum trolley position reached."
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X IN"
+		  Position		  [165, 360, 215, 390]
+		  ShowName		  off
+		  Value			  "X_MIN"
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X MAX"
+		  Position		  [150, 90, 200, 120]
+		  ShowName		  off
+		  Value			  "X_MAX"
+		}
+		Line {
+		  SrcBlock		  "Check Maximum\nAllowed Position"
+		  SrcPort		  1
+		  DstBlock		  "Max Trolley"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "x (m)"
+		  SrcPort		  1
+		  Points		  [90, 0]
+		  Branch {
+		    Points		    [0, 65]
+		    DstBlock		    "Check Minimum\nAllowed Position"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, -65]
+		    DstBlock		    "Check Maximum\nAllowed Position"
+		    DstPort		    2
+		  }
+		}
+		Line {
+		  SrcBlock		  "X IN"
+		  SrcPort		  1
+		  DstBlock		  "Check Minimum\nAllowed Position"
+		  DstPort		  2
+		}
+		Line {
+		  SrcBlock		  "Check Minimum\nAllowed Position"
+		  SrcPort		  1
+		  DstBlock		  "Min Trolley"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "X MAX"
+		  SrcPort		  1
+		  DstBlock		  "Check Maximum\nAllowed Position"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "X_J"
+	      Position		      [465, 208, 495, 222]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "Constant"
+	      SrcPort		      1
+	      DstBlock		      "Trolley Position Watchdog"
+	      DstPort		      enable
+	    }
+	    Line {
+	      SrcBlock		      "Mux1"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "X_J"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Select x and gamma"
+	      SrcPort		      1
+	      DstBlock		      "Demux2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant2"
+	      SrcPort		      1
+	      DstBlock		      "Gimble Gamma Deflection Watchdog"
+	      DstPort		      enable
+	    }
+	    Line {
+	      SrcBlock		      "X_read"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Select x and gamma"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux2"
+	      SrcPort		      1
+	      Points		      [80, 0]
+	      Branch {
+		Points			[0, 140]
+		Branch {
+		  Points		  [0, 195]
+		  DstBlock		  "Trolley Position Watchdog"
+		  DstPort		  1
+		}
+		Branch {
+		  DstBlock		  "High-Pass Filter: x"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Low-Pass Filter: x"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Demux2"
+	      SrcPort		      2
+	      Points		      [10, 0; 0, 40]
+	      Branch {
+		Points			[0, 150]
+		Branch {
+		  Points		  [0, 245]
+		  DstBlock		  "Gimble Gamma Deflection Watchdog"
+		  DstPort		  1
+		}
+		Branch {
+		  DstBlock		  "High-Pass Filter: gamma"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Low-Pass Filter: gamma"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Low-Pass Filter: x"
+	      SrcPort		      1
+	      Points		      [55, 0]
+	      DstBlock		      "Mux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Low-Pass Filter: gamma"
+	      SrcPort		      1
+	      Points		      [40, 0; 0, 80]
+	      DstBlock		      "Mux1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "High-Pass Filter: x"
+	      SrcPort		      1
+	      Points		      [35, 0; 0, 45]
+	      DstBlock		      "Mux1"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "High-Pass Filter: gamma"
+	      SrcPort		      1
+	      DstBlock		      "Mux1"
+	      DstPort		      4
+	    }
+	    Annotation {
+	      Name		      "Jib State"
+	      Position		      [480, 190]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Construct Payload State"
+	  Ports			  [1, 1]
+	  Position		  [310, 236, 405, 294]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Construct Payload State"
+	    Location		    [665, 683, 1183, 957]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_read"
+	      Position		      [15, 38, 45, 52]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant3"
+	      Position		      [356, 115, 444, 140]
+	      Orientation	      "down"
+	      ShowName		      off
+	      Value		      "Z_LIM_ENABLE"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "High-Pass Filter: z"
+	      Ports		      [1, 1]
+	      Position		      [205, 62, 265, 108]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_z 0]"
+	      den		      "[1 wf_z]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux2"
+	      Ports		      [2, 1]
+	      Position		      [325, 24, 330, 106]
+	      ShowName		      off
+	      Inputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Payload Position Watchdog"
+	      Ports		      [1, 0, 1]
+	      Position		      [350, 160, 450, 220]
+	      BackgroundColor	      "red"
+	      TreatAsAtomicUnit	      on
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskHideContents	      off
+	      System {
+		Name			"Payload Position Watchdog"
+		Location		[499, 324, 1163, 843]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
+"00]"
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "z (m)"
+		  Position		  [45, 233, 75, 247]
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  EnablePort
+		  Name			  "Enable"
+		  Ports			  []
+		  Position		  [70, 30, 90, 50]
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Maximum\nAllowed Position"
+		  Position		  [280, 68, 320, 212]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Minimum\nAllowed Position"
+		  Position		  [280, 268, 320, 412]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Max Payload Position"
+		  Ports			  [1]
+		  Position		  [420, 105, 490, 175]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Maximum payload position reached."
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Min Payload Position"
+		  Ports			  [1]
+		  Position		  [425, 305, 495, 375]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Minimum payload position reached."
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X IN"
+		  Position		  [165, 360, 215, 390]
+		  ShowName		  off
+		  Value			  "Z_MIN"
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X MAX"
+		  Position		  [150, 90, 200, 120]
+		  ShowName		  off
+		  Value			  "Z_MAX"
+		}
+		Line {
+		  SrcBlock		  "X MAX"
+		  SrcPort		  1
+		  DstBlock		  "Check Maximum\nAllowed Position"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "Check Minimum\nAllowed Position"
+		  SrcPort		  1
+		  DstBlock		  "Min Payload Position"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "X IN"
+		  SrcPort		  1
+		  DstBlock		  "Check Minimum\nAllowed Position"
+		  DstPort		  2
+		}
+		Line {
+		  SrcBlock		  "z (m)"
+		  SrcPort		  1
+		  Points		  [90, 0]
+		  Branch {
+		    Points		    [0, -65]
+		    DstBlock		    "Check Maximum\nAllowed Position"
+		    DstPort		    2
+		  }
+		  Branch {
+		    Points		    [0, 65]
+		    DstBlock		    "Check Minimum\nAllowed Position"
+		    DstPort		    1
+		  }
+		}
+		Line {
+		  SrcBlock		  "Check Maximum\nAllowed Position"
+		  SrcPort		  1
+		  DstBlock		  "Max Payload Position"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Select z"
+	      Ports		      [1, 1]
+	      Position		      [80, 26, 120, 64]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "3"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "X_Z"
+	      Position		      [365, 58, 395, 72]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "Select z"
+	      SrcPort		      1
+	      Points		      [0, 0; 30, 0]
+	      Branch {
+		DstBlock		"Mux2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 40]
+		Branch {
+		  Points		  [0, 105]
+		  DstBlock		  "Payload Position Watchdog"
+		  DstPort		  1
+		}
+		Branch {
+		  DstBlock		  "High-Pass Filter: z"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux2"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "X_Z"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant3"
+	      SrcPort		      1
+	      DstBlock		      "Payload Position Watchdog"
+	      DstPort		      enable
+	    }
+	    Line {
+	      SrcBlock		      "X_read"
+	      SrcPort		      1
+	      DstBlock		      "Select z"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "High-Pass Filter: z"
+	      SrcPort		      1
+	      DstBlock		      "Mux2"
+	      DstPort		      2
+	    }
+	    Annotation {
+	      Name		      "Payload State"
+	      Position		      [383, 45]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Construct Tower State"
+	  Ports			  [1, 1]
+	  Position		  [310, 72, 410, 128]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Construct Tower State"
+	    Location		    [520, 339, 1159, 710]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_read"
+	      Position		      [20, 48, 50, 62]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant1"
+	      Position		      [460, 190, 570, 220]
+	      Orientation	      "down"
+	      ShowName		      off
+	      Value		      "ALPHA_LIM_ENABLE"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux1"
+	      Ports		      [1, 2]
+	      Position		      [180, 18, 185, 87]
+	      BackgroundColor	      "black"
+	      ShowName		      off
+	      Outputs		      "2"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "Gimble Alpha Deflection Watchdog"
+	      Ports		      [1, 0, 1]
+	      Position		      [465, 240, 565, 300]
+	      BackgroundColor	      "red"
+	      TreatAsAtomicUnit	      on
+	      MinAlgLoopOccurrences   off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      MaskHideContents	      off
+	      System {
+		Name			"Gimble Alpha Deflection Watchdog"
+		Location		[220, 170, 951, 689]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"usletter"
+		PaperUnits		"inches"
+		TiledPaperMargins	"[0.500000, 0.500000, 0.500000, 0.5000"
+"00]"
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		Block {
+		  BlockType		  Inport
+		  Name			  "alpha (rad)"
+		  Position		  [45, 233, 75, 247]
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  EnablePort
+		  Name			  "Enable"
+		  Ports			  []
+		  Position		  [70, 30, 90, 50]
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Maximum\nAllowed Angle"
+		  Position		  [280, 68, 320, 212]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  RelationalOperator
+		  Name			  "Check Minimum\nAllowed Angle"
+		  Position		  [280, 268, 320, 412]
+		  Operator		  "<"
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Max Alpha"
+		  Ports			  [1]
+		  Position		  [420, 105, 490, 175]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Maximum alpha gimble angle reached."
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Min Angle"
+		  Ports			  [1]
+		  Position		  [420, 305, 490, 375]
+		  AttributesFormatString  "\"%<message>\""
+		  SourceBlock		  "quarc_library/Sinks/Error Handling/"
+"Stop with Message"
+		  SourceType		  "Stop with Message"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		  message_type		  "Fixed error message"
+		  message_icon		  "Error"
+		  message		  "Minimum alpha gimble angle reached."
+		}
+		Block {
+		  BlockType		  Reference
+		  Name			  "Radians\nto Degrees"
+		  Ports			  [1, 1]
+		  Position		  [125, 225, 155, 255]
+		  SourceBlock		  "simulink_extras/Transformations/Rad"
+"ians\nto Degrees"
+		  SourceType		  "RadiansToDegrees"
+		  ShowPortLabels	  "FromPortIcon"
+		  SystemSampleTime	  "-1"
+		  FunctionWithSeparateData off
+		  RTWMemSecFuncInitTerm	  "Inherit from model"
+		  RTWMemSecFuncExecute	  "Inherit from model"
+		  RTWMemSecDataConstants  "Inherit from model"
+		  RTWMemSecDataInternal	  "Inherit from model"
+		  RTWMemSecDataParameters "Inherit from model"
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X MAX"
+		  Position		  [145, 88, 215, 122]
+		  ShowName		  off
+		  Value			  "ALPHA_MAX"
+		}
+		Block {
+		  BlockType		  Constant
+		  Name			  "X MIN"
+		  Position		  [155, 359, 225, 391]
+		  ShowName		  off
+		  Value			  "ALPHA_MIN"
+		}
+		Line {
+		  SrcBlock		  "Radians\nto Degrees"
+		  SrcPort		  1
+		  Points		  [45, 0]
+		  Branch {
+		    Points		    [0, 65]
+		    DstBlock		    "Check Minimum\nAllowed Angle"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, -65]
+		    DstBlock		    "Check Maximum\nAllowed Angle"
+		    DstPort		    2
+		  }
+		}
+		Line {
+		  SrcBlock		  "Check Maximum\nAllowed Angle"
+		  SrcPort		  1
+		  DstBlock		  "Max Alpha"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "alpha (rad)"
+		  SrcPort		  1
+		  DstBlock		  "Radians\nto Degrees"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "X MIN"
+		  SrcPort		  1
+		  DstBlock		  "Check Minimum\nAllowed Angle"
+		  DstPort		  2
+		}
+		Line {
+		  SrcBlock		  "Check Minimum\nAllowed Angle"
+		  SrcPort		  1
+		  DstBlock		  "Min Angle"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "X MAX"
+		  SrcPort		  1
+		  DstBlock		  "Check Maximum\nAllowed Angle"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "High-Pass Filter: alpha"
+	      Ports		      [1, 1]
+	      Position		      [265, 156, 335, 204]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_gamma 0]"
+	      den		      "[1 wf_gamma]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "High-Pass Filter: theta"
+	      Ports		      [1, 1]
+	      Position		      [265, 92, 335, 138]
+	      SourceBlock	      "quarc_library/Discrete/Discretized\nTra"
+"nsfer Function"
+	      SourceType	      "Discretized Transfer Function"
+	      ShowPortLabels	      "FromPortIcon"
+	      SystemSampleTime	      "-1"
+	      FunctionWithSeparateData off
+	      RTWMemSecFuncInitTerm   "Inherit from model"
+	      RTWMemSecFuncExecute    "Inherit from model"
+	      RTWMemSecDataConstants  "Inherit from model"
+	      RTWMemSecDataInternal   "Inherit from model"
+	      RTWMemSecDataParameters "Inherit from model"
+	      num		      "[wf_theta 0]"
+	      den		      "[1 wf_theta]"
+	      method		      "tustin"
+	      Ts		      "qc_get_step_size"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [4, 1]
+	      Position		      [430, 90, 435, 195]
+	      ShowName		      off
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Select Theta and Alpha"
+	      Ports		      [1, 1]
+	      Position		      [90, 36, 130, 74]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "[1, 4]"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "5"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "X_T"
+	      Position		      [515, 138, 545, 152]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "Constant1"
+	      SrcPort		      1
+	      DstBlock		      "Gimble Alpha Deflection Watchdog"
+	      DstPort		      enable
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "X_T"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Select Theta and Alpha"
+	      SrcPort		      1
+	      DstBlock		      "Demux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "X_read"
+	      SrcPort		      1
+	      DstBlock		      "Select Theta and Alpha"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      1
+	      Points		      [40, 0]
+	      Branch {
+		Points			[170, 0; 0, 70]
+		DstBlock		"Mux"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 80]
+		DstBlock		"High-Pass Filter: theta"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      2
+	      Points		      [0, 0; 30, 0]
+	      Branch {
+		Points			[160, 0; 0, 60]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 110]
+		Branch {
+		  Points		  [0, 90]
+		  DstBlock		  "Gimble Alpha Deflection Watchdog"
+		  DstPort		  1
+		}
+		Branch {
+		  DstBlock		  "High-Pass Filter: alpha"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "High-Pass Filter: theta"
+	      SrcPort		      1
+	      Points		      [25, 0; 0, 40]
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "High-Pass Filter: alpha"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Annotation {
+	      Name		      "Tower State"
+	      Position		      [535, 122]
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Encoder Calibration"
+	  Position		  [180, 85, 210, 115]
+	  Gain			  "[K_ENC_THETA, K_ENC_X, K_ENC_Z, K_ENC_ALPHA"
+", K_ENC_GAMMA]"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  From
+	  Name			  "From"
+	  Position		  [45, 85, 125, 115]
+	  CloseFcn		  "tagdialog Close"
+	  GotoTag		  "ENC_CNT"
+	  TagVisibility		  "global"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X_T"
+	  Position		  [460, 93, 490, 107]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X_J"
+	  Position		  [460, 178, 490, 192]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X_Z"
+	  Position		  [465, 258, 495, 272]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "From"
+	  SrcPort		  1
+	  DstBlock		  "Encoder Calibration"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Encoder Calibration"
+	  SrcPort		  1
+	  Points		  [0, 0; 50, 0]
+	  Branch {
+	    DstBlock		    "Construct Tower State"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 85]
+	    Branch {
+	      DstBlock		      "Construct Jib State"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 80]
+	      DstBlock		      "Construct Payload State"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Construct Tower State"
+	  SrcPort		  1
+	  DstBlock		  "X_T"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Construct Jib State"
+	  SrcPort		  1
+	  DstBlock		  "X_J"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Construct Payload State"
+	  SrcPort		  1
+	  DstBlock		  "X_Z"
+	  DstPort		  1
+	}
+	Annotation {
+	  Name			  "3D Crane Encoders"
+	  Position		  [22, 31]
+	  HorizontalAlignment	  "left"
+	  FontSize		  16
+	  FontWeight		  "bold"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Sample Time Check"
+      Ports		      []
+      Position		      [465, 175, 534, 257]
+      BackgroundColor	      "red"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Sample Time Check"
+	Location		[411, 193, 1226, 390]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Reference
+	  Name			  "Larger than \n2x sample time?"
+	  Ports			  [1, 1]
+	  Position		  [175, 91, 250, 119]
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
+"\nTo Constant"
+	  SourceType		  "Compare To Constant"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  relop			  ">"
+	  const			  "2*qc_get_step_size"
+	  LogicOutDataTypeMode	  "uint8"
+	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Max Missed Samples"
+	  Ports			  [1, 1]
+	  Position		  [440, 90, 485, 120]
+	  SourceBlock		  "simulink/Logic and Bit\nOperations/Compare"
+"\nTo Constant"
+	  SourceType		  "Compare To Constant"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  relop			  ">"
+	  const			  "5"
+	  LogicOutDataTypeMode	  "uint8"
+	  ZeroCross		  off
+	}
+	Block {
+	  BlockType		  Memory
+	  Name			  "Memory"
+	  Position		  [330, 140, 360, 170]
+	  Orientation		  "left"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Sample Time"
+	  Ports			  [0, 1]
+	  Position		  [25, 74, 110, 136]
+	  Priority		  "-99"
+	  SourceBlock		  "quarc_library/Sources/Time/Sample Time"
+	  SourceType		  "Sample Time"
+	  sample_time		  "qc_get_step_size"
+	}
+	Block {
+	  BlockType		  Display
+	  Name			  "Samples Missed"
+	  Ports			  [1]
+	  Position		  [445, 25, 535, 55]
+	  Lockdown		  off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Stop with Message"
+	  Ports			  [1]
+	  Position		  [570, 70, 640, 140]
+	  AttributesFormatString  "\"%<message>\""
+	  SourceBlock		  "quarc_library/Sinks/Error Handling/Stop wit"
+"h Message"
+	  SourceType		  "Stop with Message"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  message_type		  "Fixed error message"
+	  message_icon		  "Error"
+	  message		  "Maximum number of missed samples reached. P"
+"lease reduce your CPU load."
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1]
+	  Position		  [285, 95, 305, 115]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Line {
+	  SrcBlock		  "Max Missed Samples"
+	  SrcPort		  1
+	  DstBlock		  "Stop with Message"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Memory"
+	  SrcPort		  1
+	  Points		  [-30, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  Points		  [85, 0]
+	  Branch {
+	    Points		    [0, 50]
+	    DstBlock		    "Memory"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [20, 0]
+	    Branch {
+	      DstBlock		      "Max Missed Samples"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, -65]
+	      DstBlock		      "Samples Missed"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Larger than \n2x sample time?"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sample Time"
+	  SrcPort		  1
+	  DstBlock		  "Larger than \n2x sample time?"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Scopes"
+      Ports		      [8]
+      Position		      [340, 600, 450, 770]
+      BackgroundColor	      "yellow"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Scopes"
+	Location		[108, 205, 710, 913]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_T_ref"
+	  Position		  [35, 33, 65, 47]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_T_meas"
+	  Position		  [35, 68, 65, 82]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_J_ref"
+	  Position		  [30, 203, 60, 217]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_J_meas"
+	  Position		  [30, 238, 60, 252]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_Z_ref"
+	  Position		  [35, 333, 65, 347]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_Z_meas"
+	  Position		  [35, 373, 65, 387]
+	  Port			  "6"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Im"
+	  Position		  [40, 418, 70, 432]
+	  Port			  "7"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "I_meas"
+	  Position		  [40, 448, 70, 462]
+	  Port			  "8"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Im_j (A)"
+	  Ports			  [1]
+	  Position		  [350, 489, 380, 521]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [1077, 739, 1401, 978]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  SaveName		  "ScopeData4"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Im_t (A)"
+	  Ports			  [1]
+	  Position		  [350, 429, 380, 461]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [1304, 737, 1628, 976]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  SaveName		  "ScopeData3"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Im_y (A)"
+	  Ports			  [1]
+	  Position		  [350, 554, 380, 586]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [1082, 603, 1406, 842]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  SaveName		  "ScopeData5"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1]
+	  Position		  [105, 216, 110, 254]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1]
+	  Position		  [115, 351, 120, 389]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux3"
+	  Ports			  [2, 1]
+	  Position		  [110, 426, 115, 464]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux4"
+	  Ports			  [2, 1]
+	  Position		  [110, 46, 115, 84]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select alpha"
+	  Ports			  [1, 1]
+	  Position		  [165, 116, 205, 154]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[2 6]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "8"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select cart"
+	  Ports			  [1, 1]
+	  Position		  [170, 486, 210, 524]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[2 5]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "6"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select gamma"
+	  Ports			  [1, 1]
+	  Position		  [165, 281, 205, 319]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[2 6]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "8"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select payload"
+	  Ports			  [1, 1]
+	  Position		  [170, 551, 210, 589]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[3 6]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "6"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select theta"
+	  Ports			  [1, 1]
+	  Position		  [165, 46, 205, 84]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[1 5]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "8"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select tower"
+	  Ports			  [1, 1]
+	  Position		  [170, 426, 210, 464]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[1 4]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "6"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select x"
+	  Ports			  [1, 1]
+	  Position		  [165, 216, 205, 254]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[1 5]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "8"
+	}
+	Block {
+	  BlockType		  Selector
+	  Name			  "Select z"
+	  Ports			  [1, 1]
+	  Position		  [170, 351, 210, 389]
+	  IndexOptions		  "Index vector (dialog)"
+	  Indices		  "[1 3]"
+	  OutputSizes		  "1"
+	  InputPortWidth	  "4"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "alpha (deg)"
+	  Ports			  [1]
+	  Position		  [350, 119, 380, 151]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [1137, 56, 1461, 295]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  YMin			  "-15"
+	  YMax			  "15"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "gamma (deg)"
+	  Ports			  [1]
+	  Position		  [350, 284, 380, 316]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [1140, 350, 1464, 589]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  SaveName		  "ScopeData9"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "rad to deg:\n theta"
+	  Ports			  [1, 1]
+	  Position		  [255, 50, 285, 80]
+	  SourceBlock		  "simulink_extras/Transformations/Radians\nto"
+" Degrees"
+	  SourceType		  "RadiansToDegrees"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "rad to deg:\ngamma"
+	  Ports			  [1, 1]
+	  Position		  [265, 285, 295, 315]
+	  SourceBlock		  "simulink_extras/Transformations/Radians\nto"
+" Degrees"
+	  SourceType		  "RadiansToDegrees"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "rad to deg: \nalpha"
+	  Ports			  [1, 1]
+	  Position		  [255, 120, 285, 150]
+	  SourceBlock		  "simulink_extras/Transformations/Radians\nto"
+" Degrees"
+	  SourceType		  "RadiansToDegrees"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "theta (deg)"
+	  Ports			  [1]
+	  Position		  [350, 49, 380, 81]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [796, 56, 1120, 295]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  YMin			  "-150"
+	  YMax			  "150"
+	  SaveName		  "ScopeData8"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "x (m)"
+	  Ports			  [1]
+	  Position		  [350, 219, 380, 251]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [794, 357, 1118, 596]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  YMin			  "-1"
+	  YMax			  "1"
+	  SaveName		  "ScopeData1"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "z (m)"
+	  Ports			  [1]
+	  Position		  [350, 354, 380, 386]
+	  BackgroundColor	  "yellow"
+	  Floating		  off
+	  Location		  [809, 666, 1133, 905]
+	  Open			  on
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "25"
+	  YMin			  "0"
+	  YMax			  "0.65"
+	  SaveName		  "ScopeData2"
+	  DataFormat		  "StructureWithTime"
+	  LimitDataPoints	  off
+	  SampleTime		  "0"
+	}
+	Line {
+	  SrcBlock		  "I_meas"
+	  SrcPort		  1
+	  DstBlock		  "Mux3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux3"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Select tower"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 60]
+	    Branch {
+	      Points		      [0, 65]
+	      DstBlock		      "Select payload"
+	      DstPort		      1
+	    }
+	    Branch {
+	      DstBlock		      "Select cart"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Im"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, 10]
+	  DstBlock		  "Mux3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "rad to deg:\n theta"
+	  SrcPort		  1
+	  DstBlock		  "theta (deg)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "rad to deg:\ngamma"
+	  SrcPort		  1
+	  DstBlock		  "gamma (deg)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "rad to deg: \nalpha"
+	  SrcPort		  1
+	  DstBlock		  "alpha (deg)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Select theta"
+	  SrcPort		  1
+	  DstBlock		  "rad to deg:\n theta"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_T_ref"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 15]
+	  DstBlock		  "Mux4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux4"
+	  SrcPort		  1
+	  Points		  [0, 0; 15, 0]
+	  Branch {
+	    DstBlock		    "Select theta"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 70]
+	    DstBlock		    "Select alpha"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Select x"
+	  SrcPort		  1
+	  DstBlock		  "x (m)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  DstBlock		  "Select z"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Select alpha"
+	  SrcPort		  1
+	  DstBlock		  "rad to deg: \nalpha"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Select gamma"
+	  SrcPort		  1
+	  DstBlock		  "rad to deg:\ngamma"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_J_ref"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 15]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_J_meas"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [0, 0; 5, 0]
+	  Branch {
+	    DstBlock		    "Select x"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 65]
+	    DstBlock		    "Select gamma"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "X_Z_ref"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 20]
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_Z_meas"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Select z"
+	  SrcPort		  1
+	  DstBlock		  "z (m)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_T_meas"
+	  SrcPort		  1
+	  DstBlock		  "Mux4"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Select tower"
+	  SrcPort		  1
+	  DstBlock		  "Im_t (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Select cart"
+	  SrcPort		  1
+	  DstBlock		  "Im_j (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Select payload"
+	  SrcPort		  1
+	  DstBlock		  "Im_y (A)"
+	  DstPort		  1
+	}
+	Annotation {
+	  Name			  "Tower Current"
+	  Position		  [396, 444]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Cart Current"
+	  Position		  [398, 505]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Payload Current"
+	  Position		  [394, 573]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Payload position"
+	  Position		  [401, 369]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Cart/trolley position"
+	  Position		  [401, 238]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Tower position"
+	  Position		  [400, 69]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Gimbal X angle\n(i.e. angle perpendicular t"
+"o tower) "
+	  Position		  [402, 135]
+	  HorizontalAlignment	  "left"
+	}
+	Annotation {
+	  Name			  "Gimbal Y angle \n(i.e. angle parallel along"
+" tower)"
+	  Position		  [401, 298]
+	  HorizontalAlignment	  "left"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Setpoints"
+      Ports		      [0, 3]
+      Position		      [30, 191, 115, 279]
+      BackgroundColor	      "orange"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Setpoints"
+	Location		[86, 377, 876, 868]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  Position		  [470, 180, 500, 210]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Continuous Sigmoid: \nPayload"
+	  Ports			  [1, 4]
+	  Position		  [240, 369, 325, 441]
+	  SourceBlock		  "quarc_library/Sources/Sigmoids/Continuous S"
+"igmoid"
+	  SourceType		  "Continuous Sigmoid"
+	  params_source		  "Internal (dialog parameters)"
+	  max_velocity		  "0.25"
+	  max_acceleration	  "0.25"
+	  initial_position	  "0"
+	  initial_velocity	  "0"
+	  hold_off		  "0.5"
+	  input_sample_time	  "-1"
+	  output_sample_time	  "qc_get_step_size"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Continuous Sigmoid: \nTower"
+	  Ports			  [1, 4]
+	  Position		  [235, 94, 320, 166]
+	  SourceBlock		  "quarc_library/Sources/Sigmoids/Continuous S"
+"igmoid"
+	  SourceType		  "Continuous Sigmoid"
+	  params_source		  "Internal (dialog parameters)"
+	  max_velocity		  "75"
+	  max_acceleration	  "45"
+	  initial_position	  "0"
+	  initial_velocity	  "0"
+	  hold_off		  "0.5"
+	  input_sample_time	  "-1"
+	  output_sample_time	  "qc_get_step_size"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Continuous Sigmoid: \nTrolley"
+	  Ports			  [1, 4]
+	  Position		  [235, 224, 320, 296]
+	  SourceBlock		  "quarc_library/Sources/Sigmoids/Continuous S"
+"igmoid"
+	  SourceType		  "Continuous Sigmoid"
+	  params_source		  "Internal (dialog parameters)"
+	  max_velocity		  "0.75"
+	  max_acceleration	  "1.5"
+	  initial_position	  "0"
+	  initial_velocity	  "0"
+	  hold_off		  "0.5"
+	  input_sample_time	  "-1"
+	  output_sample_time	  "qc_get_step_size"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Degrees to\nRadians"
+	  Ports			  [1, 1]
+	  Position		  [440, 85, 470, 115]
+	  SourceBlock		  "simulink_extras/Transformations/Degrees to"
+"\nRadians"
+	  SourceType		  "DegreesToRadians"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1]
+	  Position		  [360, 112, 365, 168]
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1]
+	  Position		  [350, 259, 355, 301]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [3, 1]
+	  Position		  [350, 387, 355, 443]
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux3"
+	  Ports			  [4, 1]
+	  Position		  [530, 221, 535, 314]
+	  ShowName		  off
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Payload Setpoint\nConstant "
+	  Position		  [35, 390, 65, 420]
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Payload Setpoint \nVector"
+	  Position		  [515, 360, 545, 390]
+	  Gain			  "[1, 0]"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Payload Setpoint (m)"
+	  Ports			  [1, 1]
+	  Position		  [135, 390, 165, 420]
+	  SourceBlock		  "simulink/Math\nOperations/Slider\nGain"
+	  SourceType		  "Slider Gain"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  low			  "0"
+	  gain			  "0"
+	  high			  "0.8"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Slider\nGain"
+	  Ports			  [1, 1]
+	  Position		  [445, 265, 475, 295]
+	  SourceBlock		  "simulink/Math\nOperations/Slider\nGain"
+	  SourceType		  "Slider Gain"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  low			  "0"
+	  gain			  "1"
+	  high			  "1"
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator 1"
+	  Position		  [395, 130, 415, 150]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator 2"
+	  Position		  [390, 270, 410, 290]
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator 3"
+	  Position		  [390, 405, 410, 425]
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Tower Setpoint\nConstant "
+	  Position		  [40, 115, 70, 145]
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Tower Setpoint \nVector"
+	  Position		  [510, 85, 540, 115]
+	  Gain			  "[1, 0, 0, 0]"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Tower Setpoint (deg)"
+	  Ports			  [1, 1]
+	  Position		  [135, 115, 165, 145]
+	  SourceBlock		  "simulink/Math\nOperations/Slider\nGain"
+	  SourceType		  "Slider Gain"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  low			  "-120"
+	  gain			  "0"
+	  high			  "120"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Trolley Setpoint\nConstant "
+	  Position		  [35, 245, 65, 275]
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Trolley Setpoint (m)"
+	  Ports			  [1, 1]
+	  Position		  [135, 245, 165, 275]
+	  SourceBlock		  "simulink/Math\nOperations/Slider\nGain"
+	  SourceType		  "Slider Gain"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  low			  "-0.2"
+	  gain			  "0"
+	  high			  "0.2"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X_T_ref"
+	  Position		  [595, 93, 625, 107]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X_J_ref"
+	  Position		  [600, 263, 630, 277]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "X_Z_ref"
+	  Position		  [600, 368, 630, 382]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTower"
+	  SrcPort		  1
+	  DstBlock		  "Degrees to\nRadians"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tower Setpoint\nConstant "
+	  SrcPort		  1
+	  DstBlock		  "Tower Setpoint (deg)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tower Setpoint (deg)"
+	  SrcPort		  1
+	  DstBlock		  "Continuous Sigmoid: \nTower"
+	  DstPort		  1
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Trolley Setpoint\nConstant "
+	  SrcPort		  1
+	  DstBlock		  "Trolley Setpoint (m)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Payload Setpoint\nConstant "
+	  SrcPort		  1
+	  DstBlock		  "Payload Setpoint (m)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Degrees to\nRadians"
+	  SrcPort		  1
+	  DstBlock		  "Tower Setpoint \nVector"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTower"
+	  SrcPort		  2
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTower"
+	  SrcPort		  3
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTower"
+	  SrcPort		  4
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Terminator 1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Payload Setpoint (m)"
+	  SrcPort		  1
+	  DstBlock		  "Continuous Sigmoid: \nPayload"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tower Setpoint \nVector"
+	  SrcPort		  1
+	  DstBlock		  "X_T_ref"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nPayload"
+	  SrcPort		  1
+	  DstBlock		  "Payload Setpoint \nVector"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Payload Setpoint \nVector"
+	  SrcPort		  1
+	  DstBlock		  "X_Z_ref"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Trolley Setpoint (m)"
+	  SrcPort		  1
+	  DstBlock		  "Continuous Sigmoid: \nTrolley"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux3"
+	  SrcPort		  1
+	  DstBlock		  "X_J_ref"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTrolley"
+	  SrcPort		  1
+	  DstBlock		  "Mux3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, 60]
+	  Branch {
+	    DstBlock		    "Mux3"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 50]
+	    DstBlock		    "Mux3"
+	    DstPort		    4
+	  }
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTrolley"
+	  SrcPort		  2
+	  Points		  [105, 0]
+	  DstBlock		  "Slider\nGain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Slider\nGain"
+	  SrcPort		  1
+	  DstBlock		  "Mux3"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "Terminator 2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  DstBlock		  "Terminator 3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nPayload"
+	  SrcPort		  2
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nPayload"
+	  SrcPort		  3
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nPayload"
+	  SrcPort		  4
+	  DstBlock		  "Mux2"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTrolley"
+	  SrcPort		  3
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Continuous Sigmoid: \nTrolley"
+	  SrcPort		  4
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Annotation {
+	  Name			  "X_J_ref = [xj_ref,0,xj_dot_ref,0]^T"
+	  Position		  [687, 242]
+	  FontSize		  12
+	  FontWeight		  "bold"
+	}
+	Annotation {
+	  Name			  "X_T = [theta_ref,0,0,0]^T"
+	  Position		  [665, 81]
+	  FontSize		  12
+	  FontWeight		  "bold"
+	}
+	Annotation {
+	  Name			  "X_Z = [z_ref,0,0,0]^T"
+	  Position		  [655, 351]
+	  FontSize		  12
+	  FontWeight		  "bold"
+	}
+	Annotation {
+	  Name			  "Desired Tower, Trolley, and Payload Positio"
+"ns"
+	  Position		  [190, 25]
+	  FontSize		  16
+	  FontWeight		  "bold"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Tower Control System"
+      Ports		      [5, 1]
+      Position		      [350, 284, 445, 386]
+      BackgroundColor	      "lightBlue"
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Tower Control System"
+	Location		[269, 603, 849, 864]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_W ON/OFF"
+	  Position		  [35, 63, 65, 77]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "P/F"
+	  Position		  [35, 108, 65, 122]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_T_ref"
+	  Position		  [35, 158, 65, 172]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_T_meas"
+	  Position		  [35, 198, 65, 212]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "X_Z"
+	  Position		  [35, 23, 65, 37]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "PSF or FSF\nSelector"
+	  Ports			  [2, 1]
+	  Position		  [180, 134, 240, 201]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "PSF or FSF\nSelector"
+	    Location		    [688, 453, 1220, 757]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "P/F"
+	      Position		      [80, 63, 110, 77]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_full"
+	      Position		      [80, 98, 110, 112]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant: FS"
+	      Position		      [80, 227, 160, 253]
+	      Value		      "[1 1 1 1]"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant: PS"
+	      Position		      [80, 137, 160, 163]
+	      Value		      "[1 0 1 0]"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Full-state"
+	      Ports		      [2, 1]
+	      Position		      [205, 217, 235, 248]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      MultiPortSwitch
+	      Name		      "Multiport\nSwitch"
+	      Ports		      [3, 1]
+	      Position		      [295, 197, 325, 243]
+	      Inputs		      "2"
+	      zeroidx		      on
+	      InputSameDT	      off
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Partial-state"
+	      Ports		      [2, 1]
+	      Position		      [205, 142, 235, 173]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "X_out"
+	      Position		      [380, 213, 410, 227]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "X_full"
+	      SrcPort		      1
+	      Points		      [70, 0; 0, 60]
+	      Branch {
+		Points			[0, 60]
+		DstBlock		"Full-state"
+		DstPort			1
+	      }
+	      Branch {
+		DstBlock		"Partial-state"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "P/F"
+	      SrcPort		      1
+	      Points		      [165, 0]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Multiport\nSwitch"
+	      SrcPort		      1
+	      DstBlock		      "X_out"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Full-state"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Partial-state"
+	      SrcPort		      1
+	      Points		      [25, 0; 0, 60]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Constant: PS"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Partial-state"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant: FS"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Full-state"
+	      DstPort		      2
+	    }
+	    Annotation {
+	      Name		      "control input"
+	      Position		      [393, 200]
+	    }
+	    Annotation {
+	      Name		      "state"
+	      Position		      [146, 93]
+	    }
+	    Annotation {
+	      Name		      "0 = partial and 1 = full,"
+	      Position		      [181, 60]
+	    }
+	    Annotation {
+	      Name		      "Partial-state or Full-state Feedback"
+	      Position		      [140, 21]
+	      FontSize		      14
+	      FontWeight	      "bold"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Tower Control \nGain"
+	  Position		  [460, 135, 490, 165]
+	  Gain			  "K_T"
+	  Multiplication	  "Matrix(K*u)"
+	  ParameterDataTypeMode	  "Inherit via internal rule"
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Tower Error"
+	  Ports			  [2, 1]
+	  Position		  [130, 143, 155, 227]
+	  Inputs		  "+-"
+	  CollapseMode		  "All dimensions"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutScaling		  "2^-10"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Weighed State"
+	  Ports			  [3, 1]
+	  Position		  [315, 119, 415, 181]
+	  MinAlgLoopOccurrences	  off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Weighed State"
+	    Location		    [630, 601, 1245, 909]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_Z"
+	      Position		      [25, 148, 55, 162]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_W ON/OFF"
+	      Position		      [30, 43, 60, 57]
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "X_in"
+	      Position		      [20, 268, 50, 282]
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant"
+	      Position		      [285, 60, 315, 90]
+	    }
+	    Block {
+	      BlockType		      MultiPortSwitch
+	      Name		      "Multiport\nSwitch"
+	      Ports		      [3, 1]
+	      Position		      [365, 102, 395, 148]
+	      Inputs		      "2"
+	      zeroidx		      on
+	      InputSameDT	      off
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [4, 1]
+	      Position		      [445, 104, 455, 161]
+	      ShowName		      off
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product"
+	      Ports		      [2, 1]
+	      Position		      [505, 252, 535, 283]
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Select z"
+	      Ports		      [1, 1]
+	      Position		      [170, 136, 210, 174]
+	      IndexOptions	      "Index vector (dialog)"
+	      Indices		      "1"
+	      OutputSizes	      "1"
+	      InputPortWidth	      "2"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "a"
+	      Position		      [175, 85, 205, 115]
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "a-z"
+	      Ports		      [2, 1]
+	      Position		      [245, 104, 265, 171]
+	      Inputs		      "+-"
+	      CollapseMode	      "All dimensions"
+	      InputSameDT	      off
+	      OutDataTypeMode	      "Inherit via internal rule"
+	      OutScaling	      "2^-10"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "X_w"
+	      Position		      [560, 263, 590, 277]
+	      IconDisplay	      "Port number"
+	      BusOutputAsStruct	      off
+	    }
+	    Line {
+	      SrcBlock		      "X_in"
+	      SrcPort		      1
+	      DstBlock		      "Product"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Product"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "X_w"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "X_Z"
+	      SrcPort		      1
+	      DstBlock		      "Select z"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Select z"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "a-z"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "a-z"
+	      SrcPort		      1
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Constant"
+	      SrcPort		      1
+	      Points		      [0, 0; 20, 0]
+	      Branch {
+		Points			[85, 0; 0, 35]
+		Branch {
+		  DstBlock		  "Mux"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 30]
+		  DstBlock		  "Mux"
+		  DstPort		  3
+		}
+	      }
+	      Branch {
+		Points			[0, 50]
+		DstBlock		"Multiport\nSwitch"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "a"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, 20]
+	      DstBlock		      "a-z"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "X_W ON/OFF"
+	      SrcPort		      1
+	      Points		      [285, 0]
+	      DstBlock		      "Multiport\nSwitch"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Multiport\nSwitch"
+	      SrcPort		      1
+	      Points		      [0, 0; 15, 0]
+	      Branch {
+		Points			[0, 30]
+		DstBlock		"Mux"
+		DstPort			4
+	      }
+	      Branch {
+		DstBlock		"Mux"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, 125]
+	      DstBlock		      "Product"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "u_t (A)"
+	  Position		  [525, 143, 555, 157]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Tower Control \nGain"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "u_t (A)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_T_ref"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Tower Error"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_T_meas"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Tower Error"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "P/F"
+	  SrcPort		  1
+	  Points		  [95, 0]
+	  DstBlock		  "PSF or FSF\nSelector"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Tower Error"
+	  SrcPort		  1
+	  DstBlock		  "PSF or FSF\nSelector"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "X_Z"
+	  SrcPort		  1
+	  Points		  [225, 0; 0, 100]
+	  DstBlock		  "Weighed State"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "X_W ON/OFF"
+	  SrcPort		  1
+	  Points		  [200, 0; 0, 80]
+	  DstBlock		  "Weighed State"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "PSF or FSF\nSelector"
+	  SrcPort		  1
+	  DstBlock		  "Weighed State"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Weighed State"
+	  SrcPort		  1
+	  DstBlock		  "Tower Control \nGain"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Weighed\nState ON/OFF"
+      Ports		      [0, 2]
+      Position		      [35, 40, 95, 80]
+      MinAlgLoopOccurrences   off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      MaskHideContents	      off
+      System {
+	Name			"Weighed\nState ON/OFF"
+	Location		[34, 120, 169, 252]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Constant
+	  Name			  "Full State"
+	  Position		  [25, 75, 55, 105]
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Weighed State"
+	  Position		  [25, 25, 55, 55]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "weighed"
+	  Position		  [80, 33, 110, 47]
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "non-weighed"
+	  Position		  [80, 83, 110, 97]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  BusOutputAsStruct	  off
+	}
+	Line {
+	  SrcBlock		  "Weighed State"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "weighed"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Full State"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "non-weighed"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "X/XW\nSwitch"
+      Ports		      [2, 1]
+      Position		      [125, 42, 155, 78]
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      sw		      "1"
+      action		      "0"
+      varsize		      off
+    }
+    Line {
+      SrcBlock		      "Payload Control System"
+      SrcPort		      1
+      DstBlock		      "3D Crane Motors - HIL"
+      DstPort		      3
+    }
+    Line {
+      SrcBlock		      "Tower Control System"
+      SrcPort		      1
+      Points		      [50, 0]
+      DstBlock		      "3D Crane Motors - HIL"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Position Sensors - HIL"
+      SrcPort		      1
+      Points		      [145, 0; 0, 40]
+      Branch {
+	Points			[0, 280]
+	DstBlock		"Scopes"
+	DstPort			2
+      }
+      Branch {
+	DstBlock		"Tower Control System"
+	DstPort			4
+      }
+    }
+    Line {
+      SrcBlock		      "Position Sensors - HIL"
+      SrcPort		      3
+      Points		      [40, 0]
+      Branch {
+	Points			[0, 165]
+	Branch {
+	  Points		  [0, 175]
+	  DstBlock		  "Scopes"
+	  DstPort		  6
+	}
+	Branch {
+	  DstBlock		  "Payload Control System"
+	  DstPort		  2
+	}
+      }
+      Branch {
+	DstBlock		"Tower Control System"
+	DstPort			5
+      }
+    }
+    Line {
+      SrcBlock		      "Position Sensors - HIL"
+      SrcPort		      2
+      Points		      [100, 0; 0, 115]
+      Branch {
+	Points			[0, 215]
+	DstBlock		"Scopes"
+	DstPort			4
+      }
+      Branch {
+	DstBlock		"Jib Control System"
+	DstPort			3
+      }
+    }
+    Line {
+      SrcBlock		      "Setpoints"
+      SrcPort		      2
+      Points		      [110, 0; 0, 205]
+      Branch {
+	Points			[0, 215]
+	DstBlock		"Scopes"
+	DstPort			3
+      }
+      Branch {
+	DstBlock		"Jib Control System"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Setpoints"
+      SrcPort		      1
+      Points		      [155, 0; 0, 130]
+      Branch {
+	Points			[0, 280]
+	DstBlock		"Scopes"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"Tower Control System"
+	DstPort			3
+      }
+    }
+    Line {
+      SrcBlock		      "Setpoints"
+      SrcPort		      3
+      Points		      [50, 0; 0, 245]
+      Branch {
+	Points			[0, 185]
+	DstBlock		"Scopes"
+	DstPort			5
+      }
+      Branch {
+	DstBlock		"Payload Control System"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Jib Control System"
+      SrcPort		      1
+      Points		      [20, 0; 0, 60]
+      DstBlock		      "3D Crane Motors - HIL"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Partial/Full\nState Feedback"
+      SrcPort		      1
+      DstBlock		      "FS/PS\nSwitch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Partial/Full\nState Feedback"
+      SrcPort		      2
+      DstBlock		      "FS/PS\nSwitch"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Weighed\nState ON/OFF"
+      SrcPort		      1
+      DstBlock		      "X/XW\nSwitch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Weighed\nState ON/OFF"
+      SrcPort		      2
+      DstBlock		      "X/XW\nSwitch"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "X/XW\nSwitch"
+      SrcPort		      1
+      Points		      [165, 0; 0, 235]
+      DstBlock		      "Tower Control System"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "FS/PS\nSwitch"
+      SrcPort		      1
+      Points		      [165, 0; 0, 175]
+      Branch {
+	DstBlock		"Tower Control System"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 105]
+	DstBlock		"Jib Control System"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "3D Crane Motors - HIL"
+      SrcPort		      1
+      Points		      [40, 0; 0, 300; -340, 0; 0, -65]
+      DstBlock		      "Scopes"
+      DstPort		      7
+    }
+    Line {
+      SrcBlock		      "AMPAQ Current \nSensors - HIL"
+      SrcPort		      1
+      DstBlock		      "Scopes"
+      DstPort		      8
+    }
+    Annotation {
+      Name		      "3D Crane: Implemented Closed-loop Position Cont"
+"rol"
+      Position		      [220, 23]
+      FontSize		      16
+      FontWeight	      "bold"
+    }
+  }
+}
+MatData {
+  NumRecords		  2
+  DataRecord {
+    Tag			    DataTag1
+    Data		    "  %)30     .    & $   8    (     @         %    "
+"\"     $    !     0         %  0 #0    $    G    ;VQD7VYA;64      &ES7V1E;&5T"
+"960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4  "
+"  !         !     %    2$E,+3$    .    ,     8    (    \"0(        %    \"   "
+"  $    !     0         \"  $       X    X    !@    @    &          4    (    "
+" 0    $    !          D    (        & #RL$ "
+  }
+  DataRecord {
+    Tag			    DataTag0
+    Data		    "  %)30     .    & $   8    (     @         %    "
+"\"     $    !     0         %  0 #0    $    G    ;VQD7VYA;64      &ES7V1E;&5T"
+"960   !O8FIE8W1?8FQO8VL   X    X    !@    @    $          4    (     0    4  "
+"  !         !     %    2$E,+3$    .    ,     8    (    \"0(        %    \"   "
+"  $    !     0         \"  $       X    X    !@    @    &          4    (    "
+" 0    $    !          D    (        & #RL$ "
+  }
+}
