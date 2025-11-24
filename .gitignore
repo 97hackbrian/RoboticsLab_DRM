@@ -51,6 +51,7 @@ qtcreator-*
 
 #vscode
 *.code-workspace
+.vscode/
 
 # Catkin custom files
 CATKIN_IGNORE
