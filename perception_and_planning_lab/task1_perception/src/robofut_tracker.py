@@ -2,10 +2,14 @@ import cv2
 import numpy as np
 import argparse
 import sys
+import os
 
-sys.path.append('/home/hackbrian/Documents/gits/RoboticsLab_DRM/perception_and_planning_lab/python_scripts')
+# Add python_scripts to path relative to this file
+# We need to go up from src -> task1_perception -> perception_and_planning_lab
+script_dir = os.path.dirname(os.path.abspath(__file__))
+python_scripts_path = os.path.join(script_dir, '../../python_scripts')
+sys.path.append(python_scripts_path)
 
-sys.path.append('RoboticsLab_DRM/perception_and_planning_lab/python_scripts')
 import ball_tracker
 
 if __name__ == '__main__':
