@@ -27,6 +27,11 @@ bgr_map = {
     "blue":  (255, 0, 0),
     "red":   (0, 0, 255)
 }
+trackers = {
+    "Blue": ball_tracker.KalmanTracker(),
+    "Green": ball_tracker.KalmanTracker(),
+    "Red": ball_tracker.KalmanTracker()
+}
 
 # Crear draw_info automáticamente
 draw_info = [(c.capitalize(), bgr_map[c]) for c in colors]
@@ -152,10 +157,43 @@ def main ():
                             cv2.putText(frame, name, (measured_x[name] + 10, measured_y[name]), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
                     
 
-        cv2.imshow("frame",frame)
+        #cv2.imshow("frame",frame)
         print("pos: ",measured_x,"   |   ",measured_y,"\n")
         
         #pred_x, pred_y = kalaman.predict()
+
+
+                # Diccionario de trayectoria por color
+        trajectory = {name: [] for name in trackers.keys()}
+
+        for name, tracker in trackers.items():
+            
+            pred_x, pred_y = tracker.predict()
+            
+            if detected[name]:
+                tracker.correct(measured_x[name], measured_y[name])
+                current_pos = (measured_x[name], measured_y[name])
+            else:
+                current_pos = (pred_x, pred_y)
+                cv2.putText(frame, f"{name} P(Ocluido)", (int(pred_x) + 10, int(pred_y)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+
+            # Dibujo del marcador del Kalman
+            cv2.drawMarker(frame, (int(pred_x), int(pred_y)), (0, 0, 255), cv2.MARKER_CROSS, 20, 2)
+
+            # Guardar trayectoria
+            trajectory[name].append(current_pos)
+            if len(trajectory[name]) > 15:
+                trajectory[name].pop(0)
+            
+            # Dibujar la trayectoria
+            for i in range(1, len(trajectory[name])):
+                if trajectory[name][i - 1] is None or trajectory[name][i] is None:
+                    continue
+                cv2.line(frame, trajectory[name][i - 1], trajectory[name][i], (255, 0, 0), 2)
+
+
+        cv2.imshow("frame",frame)
 
         if cv2.waitKey(30) & 0xFF == ord('q'):
             break
