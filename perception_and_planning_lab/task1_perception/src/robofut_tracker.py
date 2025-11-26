@@ -71,7 +71,6 @@ def main ():
         print("\n")
         print("\n")
 
-        
         mean_hsv[c] = np.mean(means[c], axis=0)
         cov_hsv[c] = np.mean(covs[c], axis=0)
         sleep(1)
@@ -81,24 +80,28 @@ def main ():
 
     print("Tracking...")
     cap.set(0, frame_number)
+    hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+    combined_mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
+    masks=[[] for _ in range(len(colors))]
+    kernel=np.ones((5,5),np.uint8)
+
     while True:
         ret, frame = cap.read() 
         if not ret:
             break
-
         hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-        
-        mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
+        combined_mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
         for c in range(len(colors)):
-            mask = cv2.bitwise_or(mask, ball_tracker.gaussian_mask(hsv, mean_hsv[c], cov_hsv[c], args.threshold))
+            masks[c] = ball_tracker.gaussian_mask(hsv, mean_hsv[c], cov_hsv[c], args.threshold)
+
+            masks[c]=cv2.erode(masks[c],kernel,iterations=1)
+            masks[c]=cv2.dilate(masks[c],kernel,iterations=2)
+            combined_mask = cv2.bitwise_or(combined_mask, masks[c])
         
-        kernel=np.ones((5,5),np.uint8)
+        frame_masked=cv2.bitwise_and(frame,frame,mask=combined_mask)
         
-        mask=cv2.erode(mask,kernel,iterations=1)
-        mask=cv2.dilate(mask,kernel,iterations=2)
-        frame_masked=cv2.bitwise_and(frame,frame,mask=mask)
-        
-        cv2.imshow("Mask",frame_masked)
+        cv2.imshow("frame_masked",frame_masked)
+        #cv2.imshow("Masks",mask)
         cv2.imshow("frame",frame)
 
         #contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
