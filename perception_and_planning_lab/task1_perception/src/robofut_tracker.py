@@ -21,6 +21,16 @@ import ball_tracker
 
 colors=["green","blue","red"] #Colors to track in the robot soccer
 
+# Tabla fija de colores BGR para OpenCV
+bgr_map = {
+    "green": (0, 255, 0),
+    "blue":  (255, 0, 0),
+    "red":   (0, 0, 255)
+}
+
+# Crear draw_info automáticamente
+draw_info = [(c.capitalize(), bgr_map[c]) for c in colors]
+
 def main ():
     parser = argparse.ArgumentParser(description='Detector de pelota robusto con Kalman Filter + Modelo Bayesiano.')
     parser.add_argument('video_path', type=str, help='Path to video file')
@@ -102,9 +112,50 @@ def main ():
         
         cv2.imshow("frame_masked",frame_masked)
         #cv2.imshow("Masks",mask)
-        cv2.imshow("frame",frame)
+        #cv2.imshow("frame",frame)
 
-        #contours,_=cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        blue_contour,_=cv2.findContours(masks[1],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        green_contours,_=cv2.findContours(masks[0],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        red_contour,_=cv2.findContours(masks[2],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+
+        # Diccionarios para guardar los resultados por color
+        detected = { name: False for name, _ in draw_info }
+        measured_x = { name: None for name, _ in draw_info }
+        measured_y = { name: None for name, _ in draw_info }
+
+        for i, (name, color) in enumerate(draw_info):
+            contours, _ = cv2.findContours(masks[i], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if contours:
+                if name != "Green":
+                    c = max(contours, key=cv2.contourArea) # max
+                    ((x, y), radius) = cv2.minEnclosingCircle(c)
+                    print(radius)
+                    if radius > 9.0 and radius < 15.5: # 0.005
+
+                        detected[name] = True
+                        measured_x[name] = int(x)
+                        measured_y[name] = int(y)
+
+                        # Dibujo en pantalla
+                        cv2.circle(frame, (measured_x[name], measured_y[name]), int(radius), color, 2)
+                        cv2.putText(frame, name, (measured_x[name] + 10, measured_y[name]),cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+                else:
+                    for c in contours:
+                        ((x, y), radius) = cv2.minEnclosingCircle(c)
+
+                        if radius > 9.0 and radius < 15.2:
+                            detected[name] = True
+                            measured_x[name] = int(x)
+                            measured_y[name] = int(y)
+
+                            cv2.circle(frame, (measured_x[name], measured_y[name]), int(radius),color, 2)
+                            cv2.putText(frame, name, (measured_x[name] + 10, measured_y[name]), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+                    
+
+        cv2.imshow("frame",frame)
+        print("pos: ",measured_x,"   |   ",measured_y,"\n")
+        
+        #pred_x, pred_y = kalaman.predict()
 
         if cv2.waitKey(30) & 0xFF == ord('q'):
             break
