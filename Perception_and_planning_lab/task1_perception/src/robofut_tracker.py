@@ -50,7 +50,7 @@ def main ():
     args=parser.parse_args()
     
     kalaman=ball_tracker.KalmanTracker()
-    trajectory=[]
+    trajectory = {name: [] for name in trackers.keys()}
     means=[[] for _ in range(len(colors))]
     covs=[[] for _ in range(len(colors))]
     mean_hsv=[[] for _ in range(len(colors))]
@@ -166,41 +166,48 @@ def main ():
         #pred_x, pred_y = kalaman.predict()
 
 
-                # Diccionario de trayectoria por color
-        trajectory = {name: [] for name in trackers.keys()}
+        kalman_positions = {}
 
         for name, tracker in trackers.items():
-            
-            pred_x, pred_y = tracker.predict()
-            
-            if detected[name]:
-                mx = measured_x[name]
-                my = measured_y[name]
-                if isinstance(mx, list):
-                    for x, y in zip(mx, my):
-                        tracker.correct(x, y)
-                    current_pos = (mx[-1], my[-1])
-                else:
+            if name in ["Red", "Blue"]:
+                pred_x, pred_y = tracker.predict()
+                
+                if detected[name]:
+                    mx = measured_x[name]
+                    my = measured_y[name]
                     tracker.correct(mx, my)
                     current_pos = (mx, my)
-            else:
-                current_pos = (pred_x, pred_y)
-                cv2.putText(frame, f"{name} P(Ocluido)", (int(pred_x) + 10, int(pred_y)),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                else:
+                    current_pos = (pred_x, pred_y)
+                    cv2.putText(frame, f"{name} P(Ocluido)", (int(pred_x) + 10, int(pred_y)),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                
+                kalman_positions[name] = current_pos
+                # Dibujo del marcador del Kalman
+                cv2.drawMarker(frame, (int(current_pos[0]), int(current_pos[1])), (0, 0, 255), cv2.MARKER_CROSS, 20, 2)
 
-            # Dibujo del marcador del Kalman
-            cv2.drawMarker(frame, (int(pred_x), int(pred_y)), (0, 0, 255), cv2.MARKER_CROSS, 20, 2)
+            elif name == "Green":
+                if detected[name]:
+                    mx_list = measured_x[name]
+                    my_list = measured_y[name]
+                    if isinstance(mx_list, list):
+                        for x, y in zip(mx_list, my_list):
+                             cv2.drawMarker(frame, (x, y), (0, 255, 0), cv2.MARKER_TILTED_CROSS, 15, 2)
+        
+        # Draw Arrow from Red to Blue
+        if "Red" in kalman_positions and "Blue" in kalman_positions:
+            cv2.arrowedLine(frame, kalman_positions["Red"], kalman_positions["Blue"], (255, 255, 0), 2)
 
-            # Guardar trayectoria
-            trajectory[name].append(current_pos)
-            if len(trajectory[name]) > 15:
-                trajectory[name].pop(0)
+        # Update and Draw Trajectory for Blue only
+        if "Blue" in kalman_positions:
+            trajectory["Blue"].append(kalman_positions["Blue"])
+            if len(trajectory["Blue"]) > 15:
+                trajectory["Blue"].pop(0)
             
-            # Dibujar la trayectoria
-            for i in range(1, len(trajectory[name])):
-                if trajectory[name][i - 1] is None or trajectory[name][i] is None:
+            for i in range(1, len(trajectory["Blue"])):
+                if trajectory["Blue"][i - 1] is None or trajectory["Blue"][i] is None:
                     continue
-                cv2.line(frame, trajectory[name][i - 1], trajectory[name][i], (255, 0, 0), 2)
+                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (255, 0, 0), 2)
 
 
         cv2.imshow("frame",frame)
