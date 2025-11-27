@@ -27,7 +27,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{textcomp}
-
+\usepackage{ragged2e}
 
 % --- Colores personalizados ---
 \definecolor{bashgreen}{rgb}{0.0,0.6,0.0}
@@ -39,7 +39,7 @@
 \definecolor{purple}{rgb}{0.58,0,0.82}
 
 % --- Estilo para Python ---
-\lstdefinestyle{pythonstyle}{
+\lstdefinestyle{pythonstyle2}{
 	language=Python,
 	backgroundcolor=\color{lightgray},
 	basicstyle=\ttfamily\footnotesize,
@@ -55,6 +55,45 @@
 	tabsize=2,
 	frame=single,
 	rulecolor=\color{gray},
+}
+
+\lstdefinestyle{pythonstyle}{
+	language=Python,
+	backgroundcolor=\color{lightgray!10},
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\color{purple}\bfseries,
+	keywordstyle={[2]\color{violet}\bfseries}, % Palabras clave built-in
+	stringstyle=\color{red!70!black},
+	commentstyle=\color{green!60!black}\itshape,
+	numberstyle=\tiny\color{gray},
+	numbers=left,
+	stepnumber=1,
+	showstringspaces=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=2,
+	frame=single,
+	rulecolor=\color{gray!50},
+	% Colores adicionales para elementos específicos
+	identifierstyle=\color{blue!70!black},
+	emphstyle=\color{cyan!70!black},
+	% Palabras clave adicionales para resaltar
+	morekeywords={as,assert,async,await,with,yield,None,True,False},
+	morekeywords={[2]len,range,print,import,from,def,class,return},
+	% Elementos para enfatizar
+	emph={self,__init__,__name__,__main__},
+	% Estilo para números
+	literate=%
+		{0}{{{\color{orange!80!black}0}}}1
+		{1}{{{\color{orange!80!black}1}}}1
+		{2}{{{\color{orange!80!black}2}}}1
+		{3}{{{\color{orange!80!black}3}}}1
+		{4}{{{\color{orange!80!black}4}}}1
+		{5}{{{\color{orange!80!black}5}}}1
+		{6}{{{\color{orange!80!black}6}}}1
+		{7}{{{\color{orange!80!black}7}}}1
+		{8}{{{\color{orange!80!black}8}}}1
+		{9}{{{\color{orange!80!black}9}}}1,
 }
 
 % --- Estilo para Bash ---
@@ -175,7 +214,7 @@
 
 
 \author{Brayan Gerson Duran Toconas}
-\date{\today}
+\date{November, 2025}
 
 %ros2 topic pub /target geometry_msgs/msg/Point "{x: 0.5, y: -0.5, z: 0.12}" --once
 
@@ -185,7 +224,7 @@
 	
 	\maketitle
 	\tableofcontents
-	\listoffigures
+	%\listoffigures
 	\newpage
 	
 	\section{Introduction}
@@ -204,24 +243,17 @@
 	    r = cv2.selectROI("Seleccione la pelota", frame, fromCenter=False, showCrosshair=True)
 	    x, y, w, h = r
 	    roi = frame[y:y+h, x:x+w]
-	
 	    hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 	    pixels = hsv_roi.reshape((-1, 3))
-	
 	    mean = np.mean(pixels, axis=0)
 	    cov = np.cov(pixels, rowvar=False)
-	
 	    print("Media HSV:", mean)
 	    print("Covarianza HSV:", cov)
-	
 	    cv2.destroyWindow("Seleccione la pelota")
-	
 	    return mean, cov
-	    
 	print("Mark the colors...")
 	    for c in range(len(colors)):
 	        print(f"Color {c+1}: {colors[c]}")
-	
 	        for i in range(args.captures):
 	            print(f"Captura {i+1} de {args.captures}")
 	            frame_number=int(input(f"Frame number of {int(cap.get(cv2.CAP_PROP_FRAME_COUNT))}: "))
@@ -231,7 +263,6 @@
 	            except:
 	                print("Error: Not valid frame number")
 	                continue
-	            
 	            if not ret:
 	                print("Error: No se pudo leer el frame")
 	                continue
@@ -240,7 +271,13 @@
 	            covs[c].append(cov_i)\end{lstlisting}
 	
 	
-	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Traing the gaussian mask from mean and covariance},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
+	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Traing the gaussian mask from mean and covariance and apply morphological operations},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
+	def gaussian_mask(hsv, mean, cov, threshold=6.0):
+	    inv_cov = np.linalg.inv(cov + np.eye(3) * 1e-6)
+	    diff = hsv - mean.reshape((1, 1, 3))
+	    dist = np.sqrt(np.sum((diff @ inv_cov) * diff, axis=2))
+	    mask = (dist < threshold).astype(np.uint8) * 255
+	    return mask
 	mean_hsv[c] = np.mean(means[c], axis=0)
 	cov_hsv[c] = np.mean(covs[c], axis=0)
 	hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
@@ -284,11 +321,7 @@
 	
 	
 	
-	
-	
-	
-	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Prediction and marking of the color and robot positions using a Kalman filter.
-	},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
+	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Prediction and marking of the color and robot positions using a Kalman filter.},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
 	kalman_positions = {}
 	        for name, tracker in trackers.items():
 	            if name in ["Red", "Blue"]:
@@ -312,583 +345,537 @@
 	                    if isinstance(mx_list, list):
 	                        for x, y in zip(mx_list, my_list):
 	                             cv2.drawMarker(frame, (x, y), (0, 0, 255), cv2.MARKER_TILTED_CROSS, 15, 2)\end{lstlisting}
+	                             
+	                             
+	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Rendering of the trail, mark, and Kalman filter updates.},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
+	# Draw Arrow from Red to Blue
+	        if "Red" in kalman_positions and "Blue" in kalman_positions:
+	            start_point = kalman_positions["Blue"]
+	            end_point = kalman_positions["Red"]
+	            # Extender la flecha
+	            scale = 3.0
+	            dx = end_point[0] - start_point[0]
+	            dy = end_point[1] - start_point[1]
+	            new_end_point = (int(start_point[0] + dx * scale), int(start_point[1] + dy * scale))    
+	            cv2.arrowedLine(frame, start_point, new_end_point, (75, 70, 50), 6)
+	        # Update and Draw Trajectory for Blue only
+	        if "Blue" in kalman_positions:
+	            trajectory["Blue"].append(kalman_positions["Blue"])
+	            if len(trajectory["Blue"]) > 45: #15
+	                trajectory["Blue"].pop(0)
+	            for i in range(1, len(trajectory["Blue"])):
+	                if trajectory["Blue"][i - 1] is None or trajectory["Blue"][i] is None:
+	                    continue
+	                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (200, 100, 120), 3)\end{lstlisting}
+	                	
+	\vspace{1cm}
+	All previous operations are described in the following listing:
+	\begin{itemize}
+	    \item The video is read and stored frame by frame.
+	    \item The HSV channels are used to compute the mean and covariance of the colors selected by the user for subsequent training.
+	    \item A Gaussian mask is computed and morphological closing is applied.
+	    \item The positions of the colored circles are detected using maximum contours and a radius constraint.
+	    \item The Kalman filter is computed for the blue and red circles to estimate the robot's position, and all color detections are visually marked.
+	    \item The robot's trajectory is drawn and the filter is updated.
+	\end{itemize}
 	
-	
-	\begin{lstlisting}[language=Bash, caption={Tree of packages},basicstyle=\ttfamily\small]
-		tree -L 1 src/
-		src/
-		├── kinematics_mh12
-		└── yaskawa_robot
-	\end{lstlisting}
-	
-	Next, from the root directory of the workspace, verify the installation of all dependencies using the following command:  
-	\texttt{rosdep update \&\& rosdep install}\verb| --from-paths src|
-	
-	Alternatively, you can install the dependencies manually using \texttt{pip}:  
-	\texttt{pip3 install sympy numpy scipy pyyaml} adding the \verb|--break-system-packages| flag if required by your system.
-	Finally, compile the workspace using:  
-	\texttt{colcon build \&\& source install/setup.bash}
-	
-	
-	\section{Forward Kinematics}
-	Forward kinematics determines the position of the end-effector as a function of the robot's joint angles.  
-	This position and orientation corresponds to the total homogeneous transformation matrix $T$, also referred to as $M$ in the PoE method.
-	
-	The following section presents the interpretation of the reference frames and rotations used in the kinematic model.
-	\subsection{References Axis}
-	Figure~\ref{fig:axis} presents a comprehensive view of the robot's kinematic model, including all the annotations and reference frames necessary for applying the PoE method. This figure serves as a visual guide for understanding the orientation and position of each joint as well as the end-effector, facilitating the implementation of both forward and inverse kinematics calculations.
-	
-	\begin{figure}[htbp]
-		\centering
-		%\includegraphics[width=0.95\textwidth]{ilustration_axis_annotated.pdf}
-		\caption{Robot with the reference frames illustrated}
-		\label{fig:axis}
-	\end{figure}
-	\newpage
-	
-	\subsection{Screw Axes}
-	\begin{equation}
-		s_1: \quad 
-		\mathbf{w} = 
-		\begin{bmatrix}
-			0 \\ 0 \\ 1
-		\end{bmatrix}, \quad
-		\mathbf{q} = 
-		\begin{bmatrix}
-			0 \\ 0 \\ 0.44999998807907104
-		\end{bmatrix}
-	\end{equation}
-	
-	\begin{equation}
-		s_2: \quad 
-		\mathbf{w} = 
-		\begin{bmatrix}
-			0 \\ 1 \\ 0
-		\end{bmatrix}, \quad
-		\mathbf{q} = 
-		\begin{bmatrix}
-			0.1550000011920929 \\ 0 \\ 0.44999998807907104
-		\end{bmatrix}
-	\end{equation}
-	
-	\begin{equation}
-		s_3: \quad 
-		\mathbf{w} = 
-		\begin{bmatrix}
-			0 \\ -1 \\ 0
-		\end{bmatrix}, \quad
-		\mathbf{q} = 
-		\begin{bmatrix}
-			0.15487676858901978 \\ 0 \\ 1.0640000104904175
-		\end{bmatrix}
-	\end{equation}
-	
-	\begin{equation}
-		s_4: \quad 
-		\mathbf{w} = 
-		\begin{bmatrix}
-			0 \\ 1 \\ 0
-		\end{bmatrix}, \quad
-		\mathbf{q} = 
-		\begin{bmatrix}
-			0.7949622273445129 \\ 0 \\ 1.2637263536453247
-		\end{bmatrix}
-	\end{equation}
-	
-	\begin{equation}
-		s_5: \quad 
-		\mathbf{w} = 
-		\begin{bmatrix}
-			-1 \\ 0 \\ 0
-		\end{bmatrix}, \quad
-		\mathbf{q} = 
-		\begin{bmatrix}
-			0.7949622273445129 \\ 0 \\ 1.2637263536453247
-		\end{bmatrix}
-	\end{equation}
-	
-	\begin{equation}
-		M =
-		\begin{bmatrix}
-			0 & 0 & 1 & 0.8949621915817261 \\
-			0 & 1 & 0 & 0 \\
-			-1 & 0 & 0 & 1.263683557510376 \\
-			0 & 0 & 0 & 1
-		\end{bmatrix}
-	\end{equation}
-	
-	
-	
-	\subsection{Procedure to Execute the Forward Kinematics Program}
-	To run the forward kinematics, execute the following command.  
-	After running it, the position and orientation values of the end-effector will start printing in the same terminal.
-	
-	\noindent
-	\begin{lstlisting}[style=bashconsolewhite,language=Bash, caption={Command to run forward kinematics},xleftmargin=15pt,xrightmargin=20pt,basicstyle=\ttfamily\small,breaklines=true, breakatwhitespace=true,columns=fixed,prebreak=\mbox{\tiny$\rhook$},
-	    postbreak=\mbox{\tiny$\rightarrow$},showspaces=false,showspaces=false,showtabs=false,showstringspaces=false]
-$ ros2 launch kinematics_mh12 launch_mode.launch.py mode:=forward
-	\end{lstlisting}
-	
-	The previous command will launch a preconfigured \texttt{RViz2} session along with the \texttt{Joint State Publisher} graphical interface.  
-	Additionally, the position and orientation of the end-effector will be continuously displayed in the same terminal from which the launch was executed.
-	
-	
-	
-	
-	\section{Inverse Kinematics}
-	The inverse kinematics was solved using the total homogeneous transformation matrix $T$, whose last column $(T_{0,3},\, T_{1,3},\, T_{2,3})$ represents the translation components $p_x$, $p_y$, and $p_z$.  
-	These elements define the position equations of the end-effector as functions of the robot’s joint variables $(\theta_1,\, \theta_2,\, \theta_3,\, \theta_4,\, \theta_5)$.  
-	
-	From these equations, the Jacobian matrix and its inverse are derived and used in an iterative gradient-based approach to reach the target position by minimizing the error.  
-	The joint update control law is defined as:
-	
-	\[
-	\theta_i = \theta_i + \alpha \, \Delta\theta
-	\]
-	
-	While minimizing the approximation error, the real-time joint state of the robot is published as follows:
-	
-	\noindent
-	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Real-time joint state publishing},xleftmargin=20pt,xrightmargin=20pt,breaklines=true, breakatwhitespace=true]
-	joint_msg.name = ['joint_1_s', 'joint_2_l', 'joint_3_u', 'joint_4_r', 'joint_5_b', 'joint_6_t']
-		
-	joint_angles = [ti[0], ti[1], ti[2], 0.0, -ti[3], ti[4]]
-	\end{lstlisting}
-	
-	In this configuration, \texttt{joint\_4\_r} is fixed to zero since it has no mobility.  
-	The \texttt{joint\_5\_b} angle is inverted due to its opposite orientation in the model, while the last joint, \texttt{joint\_6\_t}, maintains rotation because there is a small displacement along the $z$-axis between joints \texttt{j5} and \texttt{j4}.
-	
-	
-	
-	
-	
-	\subsection{Procedure to Execute the Inverse Kinematics Program}
-	
-	To execute the inverse kinematics, the same package uses the same launch file with an additional argument to specify the mode. It can be started as follows:
-	
-	\noindent
-	\begin{lstlisting}[style=bashconsolewhite,language=Bash, caption={Command to run inverse kinematics},xleftmargin=15pt,xrightmargin=10pt,basicstyle=\ttfamily\small,breaklines=true, breakatwhitespace=true]
-$ ros2 launch kinematics_mh12 launch_mode.launch.py mode:=inverse
-	\end{lstlisting}
-	
-	To define the target position, open another terminal within the same \texttt{ROS\_DOMAIN\_ID} and execute the following command:
-	
-	\begin{lstlisting}[style=bashconsolewhite,language=Bash, caption={Command to publish a target point},xleftmargin=10pt,xrightmargin=10pt,columns=fullflexible,keepspaces=true,basicstyle=\ttfamily\small,breaklines=true, breakatwhitespace=true]
-$ ros2 topic pub /target geometry_msgs/msg/Point "{x: 0.3, y: 0.3, z: 0.3}" --once
-	\end{lstlisting}
-	
-	If the message is published correctly, the first terminal (where the inverse kinematics was launched) will begin displaying the real-time approximation of the joint values as the error decreases. This process typically takes about 2 to 3 minutes. Once the iteration converges, an information message will indicate that the target has been successfully reached, after which a new target can be sent.
-	
-	
-	
-	
+
 	
 	\section{Discussion and Results}
-	The analysis is considered valid, as the results obtained from both forward and inverse kinematics demonstrate high accuracy.  
-	For forward kinematics, the difference between the estimated values and those visualized in \texttt{RViz2} is approximately $\pm 0.0001$, while for inverse kinematics the difference is even smaller, around $\pm 0.0001$.  
+	The tracking results are as follows:
 	
-	The following Figure \ref{fig:sub1_en}, \ref{fig:sub2_en}, \ref{fig:sub3_en}, \ref{fig:sub4_en} provide visual evidence supporting the correct operation of both methods:
 	
 	\begin{figure}[htpb]
 		\centering
-		\begin{subfigure}[b]{0.7\textwidth}
+		\begin{subfigure}[b]{0.45\textwidth}
 			\centering
-			%\includegraphics[width=\textwidth]{fw_rviz.png}
-			\caption{RViz2}
+			\includegraphics[width=\textwidth]{2025-11-27_02-58.png}
+			\caption{Example 1 of tracking using the color markers.}
 			\label{fig:sub1_en}
 		\end{subfigure}
 		\vfill
-		\begin{subfigure}[b]{0.7\textwidth}
+		\begin{subfigure}[b]{0.45\textwidth}
 			\centering
-			%\includegraphics[width=\textwidth]{fw_terminal.png}
-			\caption{Forward kinematics}
+			\includegraphics[width=\textwidth]{2025-11-27_03-30_1.png}
+			\caption{Example of the Gaussian mask output.}
 			\label{fig:sub2_en}
 		\end{subfigure}
-		\caption{Comparison of forward kinematics values}
+		\caption{Examples of function}
 		\label{fig:forward}
 	\end{figure}
 	
+	In Figure~\ref{fig:sub1_en}, all colored circles are marked with an “X” indicating their detected positions, and each circle is also highlighted. Additionally, a Kalman filter is applied to the blue and red markers, and a line is drawn between their estimated positions. Figure~\ref{fig:sub2_en} shows the corresponding Gaussian masks for all color channels.
+	
+	
+	
 	\begin{figure}[htpb]
 		\centering
-		\begin{subfigure}[b]{0.7\textwidth}
+		\begin{subfigure}[b]{0.55\textwidth}
 			\centering
-			%\includegraphics[width=\textwidth]{inv_rviz.png}
-			\caption{RViz2}
+			\includegraphics[width=\textwidth]{2025-11-27_02-58.png}
+			\caption{Example 2 of tracking using the color markers.}
 			\label{fig:sub3_en}
 		\end{subfigure}
 		\vfill
-		\begin{subfigure}[b]{0.7\textwidth}
+		\begin{subfigure}[b]{0.55\textwidth}
 			\centering
-			%\includegraphics[width=\textwidth]{inv_terminal.png}
-			\caption{Inverse kinematics}
+			\includegraphics[width=\textwidth]{2025-11-27_03-45.png}
+			\caption{Example 3 of tracking using the color markers.}
 			\label{fig:sub4_en}
 		\end{subfigure}
-		\caption{Comparison of inverse kinematics values}
-		\label{fig:inverse}
+		\caption{Examples of function}
 	\end{figure}
-
 	
+	\justify{
+	Furthermore, Figures~\ref{fig:sub3_en} and \ref{fig:sub4_en} show the trajectory of the robot based on the detection of its color markers.
+	\textbf{To view the full video evidence, please visit the following link:}}\\
+	\newline
+	\begin{center}
+		\textcolor{blue}{\textbf{\Large{\url{https://youtu.be/Wf4FbxHWbGE?si=8wJOW9GZnzo7OF9H}}}.}
+	\end{center}
+	 
+	
+
+ 	\newpage
 	
 	\section{Conclusion}
+	\justify
+	In conclusion, color detection remains consistent, and the application of a threshold computed from the Gaussian curve contributes significantly to its accuracy. This is further reinforced by circle detection and the use of HSV channels, which help mitigate the effects of lighting variations. Additionally, the application of a Kalman filter to predict the positions of the color markers and the robot smooths the tracking and prevents potential marker loss. Although marker loss did not occur during the tests, the Kalman filter clearly provides a smoother and less oscillatory motion prediction.
 	
-	In conclusion, the implementation of the PoE method for determining the robot's kinematics was successful. This is supported by the low errors obtained in both forward and inverse kinematics, as well as by meeting all the deliverable requirements specified in the project guidelines.
 	
 	
 	\newpage
 	\appendix
 	\section{Codes}
 	
-	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Forward code of Python},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
-	#ROS 2 PoE Node.
-	
-	import rclpy
-	from rclpy.node import Node
-	from sensor_msgs.msg import JointState
-	
-	import sympy as sp
-	from sympy import symbols, Matrix, eye, sin, cos, pprint, pi
-	import os
-	import yaml
+	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Python Funtions},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
+	import cv2
 	import numpy as np
-	from scipy.spatial.transform import Rotation as R_quat
-	
-	# -- Symbols definition
-	theta = symbols('theta', real=True)
-	w0, w1, w2 = symbols('omega_0 omega_1 omega_2', real=True)
-	qx, qy, qz = symbols('q_x q_y q_z', real=True)
-	L1, L2, L3 = symbols('L_1 L_2 L_3', real=True)
-	t1, t2, t3, t4, t5 = symbols('theta_1 theta_2 theta_3 theta_4 theta5', real=True)
-	
-	# Symbolic twist axis
-	w = Matrix([w0, w1, w2])
-	
-	# Skew-symmetric matrix
-	skew_w = Matrix([
-	    [0, -w[2], w[1]],
-	    [w[2], 0, -w[0]],
-	    [-w[1], w[0], 0]
-	])
-	
-	# Rodrigues / Exponential map pieces
-	R = eye(3) + sin(theta)*skew_w + (1 - cos(theta))*(skew_w**2)
-	v = -skew_w*Matrix([[qx], [qy], [qz]])
-	Rv = (eye(3)*theta + (1 - cos(theta))*(skew_w) + (theta - sin(theta))*(skew_w**2)) * v
-	
-	# Homogeneous Transform
-	T_elem = Matrix([[R[0,0], R[0,1], R[0,2], Rv[0]],
-	                 [R[1,0], R[1,1], R[1,2], Rv[1]],
-	                 [R[2,0], R[2,1], R[2,2], Rv[2]],
-	                 [0, 0, 0, 1]])
-	
-	# Symbolic quaternion components (tool)
-	qtx, qty, qtz, qtw = symbols('q_tool_x q_tool_y q_tool_z q_tool_w', real=True)
-	
-	# Normalize quaternion (to be safe if the numeric inputs are not normalized)
-	norm_q = sp.sqrt(qtx**2 + qty**2 + qtz**2 + qtw**2)
-	qx_n = qtx / norm_q
-	qy_n = qty / norm_q
-	qz_n = qtz / norm_q
-	qw_n = qtw / norm_q
-	
-	# Rotation matrix from normalized quaternion (qw is scalar part)
-	Rot_tool = Matrix([
-	    [1 - 2*(qy_n**2 + qz_n**2),     2*(qx_n*qy_n - qz_n*qw_n),     2*(qx_n*qz_n + qy_n*qw_n)],
-	    [2*(qx_n*qy_n + qz_n*qw_n),     1 - 2*(qx_n**2 + qz_n**2),     2*(qy_n*qz_n - qx_n*qw_n)],
-	    [2*(qx_n*qz_n - qy_n*qw_n),     2*(qy_n*qz_n + qx_n*qw_n),     1 - 2*(qx_n**2 + qy_n**2)]
-	])
-	
-	# Definitions of the tool quaternion and position values
-	# Numeric defaults for the tool quaternion (qx,qy,qz,qw) - unit quaternion
-	# represents no rotation.
-	TOOL_QX = -1.89428046581952e-08
-	TOOL_QY = 0.7072578072547913
-	TOOL_QZ = 1.8950899516312347e-08
-	TOOL_QW = 0.7069556713104248
-	
-	# Build the 4x4 M with the tool rotation and the previously used translation
-	M_sym = sp.eye(4)
-	for i in range(3):
-	    for j in range(3):
-	        M_sym[i, j] = Rot_tool[i, j]
-	# translation values from original M
-	M_sym[0, 3] = 0.8949621915817261
-	M_sym[1, 3] = 0.0
-	M_sym[2, 3] = 1.263683557510376
-	
-	# Definition of M (pose end-effector at  home)
-	# Substitute numeric tool quaternion so FK depends only on joint angles
-	M = sp.N(M_sym.subs({qtx: TOOL_QX, qty: TOOL_QY, qtz: TOOL_QZ, qtw: TOOL_QW}))
-	#pprint(M)
-	
-	# Transfrorms for each joint and screws (axis and point)
-	T1 = T_elem.subs({theta: t1, w0: 0, w1: 0, w2: 1, qx: 0, qy: 0, qz: 0.44999998807907104})
-	T2 = T_elem.subs({theta: t2, w0: 0, w1: 1, w2: 0, qx: 0.1550000011920929, qy: 0, qz: 0.44999998807907104})
-	T3 = T_elem.subs({theta: t3, w0: 0, w1: -1, w2: 0, qx: 0.15487676858901978, qy: 0, qz: 1.0640000104904175})
-	T4 = T_elem.subs({theta: t4, w0: 0, w1: 1, w2: 0, qx: 0.7949622273445129, qy: 0, qz: 1.2637263536453247})
-	T5 = T_elem.subs({theta: t5, w0: -1, w1: 0, w2: 0, qx: 0.7949622273445129, qy: 0, qz: 1.2637263536453247})
-	
-	# Final Transform for the robot
-	T_sym = sp.expand(T1 * T2 * T3 * T4 * T5 * M)
-	
-	# Save symbolic matrix to a YAML file
-	def save_symbolic_matrix(matrix, filename):
-	    matrix_data = {
-	        'shape': matrix.shape,
-	        'elements': [[str(matrix[i,j]) for j in range(matrix.shape[1])] 
-	                    for i in range(matrix.shape[0])]
-	    }
-	    os.makedirs(os.path.dirname(filename), exist_ok=True)
-	    with open(filename, 'w') as f:
-	        yaml.dump(matrix_data, f, default_flow_style=False)
-	
-	matrix_file = os.path.join('data', 'T_sym_matrix.yaml')
-	os.makedirs('data', exist_ok=True)
-	
-	save_symbolic_matrix(T_sym, matrix_file)
-	
-	pprint(T_sym)
-	
-	# Lambdify for numeric evaluation
-	fk_func = sp.lambdify((t1, t2, t3, t4, t5), T_sym, modules=['numpy'])
-	
-	class PoEfwMH12Node(Node):
+	import argparse
+	from time import sleep
+	class KalmanTracker:
 	    def __init__(self):
-	        super().__init__('poe_mh12_node')
-	        # Default joint values
-	        self.j1 = 0.0
-	        self.j2 = 0.0
-	        self.j3 = 0.0
-	        self.j4 = 0.0
-	        self.j5 = 0.0
 	
-	        # Subscription `joint_states`
-	        self.sub = self.create_subscription(JointState, 'joint_states', self.cb_joint_states, 10)
-	
-	        self.get_logger().info('Nodo PoE RRR iniciado. Suscrito a: /joint_states')
-	
-	    def cb_joint_states(self, msg: JointState):
-	        #Callback for search JointState names.
-	        try:
-	            names = list(msg.name)
-	            positions = list(msg.position)
-	        except Exception:
-	            self.get_logger().warn('Mensaje JointState sin campos name/position válidos')
-	            return
-	        def get_by_name(n):
-	            if n in names:
-	                idx = names.index(n)
-	                if idx < len(positions):
-	                    return float(positions[idx])
-	            return None
-	        # correct joint name (URDF uses 'joint_1_s')
-	        v1s = get_by_name('joint_1_s')
-	        v2l = get_by_name('joint_2_l')
-	        v3u = get_by_name('joint_3_u')
-	        v5b = get_by_name('joint_5_b')
-	        v6t = get_by_name('joint_6_t')
-	
-	        # Fallback:
-	        if v1s is None or v2l is None or v3u is None or v5b is None or v6t is None:
-	            if len(positions) >= 5:
-	                if v1s is None:
-	                    v1s = float(positions[0])
-	                if v2l is None:
-	                    v2l = float(positions[1])
-	                if v3u is None:
-	                    v3u = float(positions[2])
-	                if v5b is None:
-	                    v5b = float(positions[3])
-	                if v6t is None:
-	                    v6t = float(positions[4])
-	            else:
-	                self.get_logger().warn('JointState no contiene suficientes posiciones y no se encontraron nombres esperados')
-	                return
-	        self.j1 = v1s
-	        self.j2_= v2l
-	        self.j3 = v3u
-	        self.j4 = v5b
-	        self.j5 = v6t
-	        self._recompute_and_print()
-	
-	    def _recompute_and_print(self):
-	        # Call to fk_func for the numeric evaluation
+	        self.kf = cv2.KalmanFilter(4, 2)
 	        
-	        j1 = getattr(self, 'j1', 0.0)
-	        j2 = getattr(self, 'j2_',0.0)
-	        j3 = getattr(self, 'j3', 0.0)
-	        j4 = getattr(self, 'j4', 0.0)
-	        j5 = getattr(self, 'j5', 0.0)
-	        try:
-	            T_num = fk_func(j1, j2, j3, j4, j5)
-	        except Exception as e:
-	            self.get_logger().error(f'Error al evaluar fk_func: {e}')
-	            return
+	        self.kf.measurementMatrix = np.array([[1, 0, 0, 0],
+	                                              [0, 1, 0, 0]], np.float32)
+	        
+	        self.kf.transitionMatrix = np.array([[1, 0, 1, 0],
+	                                             [0, 1, 0, 1],
+	                                             [0, 0, 1, 0],
+	                                             [0, 0, 0, 1]], np.float32)
+	        
+	        self.kf.processNoiseCov = np.array([[1, 0, 0, 0],
+	                                            [0, 1, 0, 0],
+	                                            [0, 0, 1, 0],
+	                                            [0, 0, 0, 1]], np.float32) * 0.001 #0.03  0.001
 	
-	        # numpy 4x4
-	        T_np = np.array(T_num, dtype=float)
-	        pos = T_np[0:3, 3]
+	        self.kf.measurementNoiseCov = np.array([[1, 0],
+	                                                [0, 1]], np.float32) * 0.4 #1  0.7
 	
-	        # Rotations 3x3 -> cuaternión (x, y, z, w)
-	        rot_mat = T_np[0:3, 0:3]
-	        try:
-	            rotation = R_quat.from_matrix(rot_mat)
-	            quat = rotation.as_quat()
-	        except Exception as e:
-	            self.get_logger().error(f'Error al convertir matriz a cuaternión: {e}')
-	            return
 	
-	        #Position: [x, y, z]
-	        self.get_logger().info(f'Posición: x={pos[0]:.6f}, y={pos[1]:.6f}, z={pos[2]:.6f}')
-	        # Quaternion: [x, y, z, w]
-	        self.get_logger().info(f'Cuaternión: x={quat[0]:.6f}, y={quat[1]:.6f}, z={quat[2]:.6f}, w={quat[3]:.6f}')
+	    def predict(self):
+	        prediction = self.kf.predict()
+	        return (int(prediction[0]), int(prediction[1]))
 	
-	def main(args=None):
-	    rclpy.init(args=args)
-	    node = PoEfwMH12Node()
-	    try:
-	        rclpy.spin(node)
-	    except KeyboardInterrupt:
-	        pass
-	    finally:
-	        node.destroy_node()
-	        rclpy.shutdown()
-	if __name__ == '__main__':
+	    def correct(self, x, y):
+	        measurement = np.array([[np.float32(x)], [np.float32(y)]])
+	        self.kf.correct(measurement)
+	
+	
+	# --------------------------- NUEVA FUNCIÓN: selecciona ROI y aprende el color
+	def select_color_model(frame):
+	    r = cv2.selectROI("Seleccione la pelota", frame, fromCenter=False, showCrosshair=True)
+	    x, y, w, h = r
+	    roi = frame[y:y+h, x:x+w]
+	
+	    hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+	    pixels = hsv_roi.reshape((-1, 3))
+	
+	    mean = np.mean(pixels, axis=0)
+	    cov = np.cov(pixels, rowvar=False)
+	
+	    print("Media HSV:", mean)
+	    print("Covarianza HSV:", cov)
+	
+	    cv2.destroyWindow("Seleccione la pelota")
+	
+	    return mean, cov
+	
+	
+	# --------------------------- NUEVA FUNCIÓN: máscara Bayesiana Gaussiana
+	def gaussian_mask(hsv, mean, cov, threshold=6.0):
+	    inv_cov = np.linalg.inv(cov + np.eye(3) * 1e-6)
+	    diff = hsv - mean.reshape((1, 1, 3))
+	    dist = np.sqrt(np.sum((diff @ inv_cov) * diff, axis=2))
+	    mask = (dist < threshold).astype(np.uint8) * 255
+	    return mask
+	
+	
+	def main():
+	    parser = argparse.ArgumentParser(description='Detector de pelota robusto con Kalman Filter + Modelo Bayesiano.')
+	    parser.add_argument('video_path', help='Ruta al archivo de video')
+	    parser.add_argument('--captures', type=int, default=1,
+	                    help='Número de capturas que hará el usuario para entrenar el color')
+	    parser.add_argument('--threshold', type=float, default=7.456,
+	                    help='Umbral para la máscara Bayesiana')
+	
+	    args = parser.parse_args()
+	
+	    cap = cv2.VideoCapture(args.video_path)
+	
+	    if not cap.isOpened():
+	        print(f"Error: No se pudo abrir el video {args.video_path}")
+	        return
+	
+	    tracker = KalmanTracker()
+	    trajectory = []
+	
+	    # --------------------------- : capturar 
+	    '''
+	    cap.set(cv2.CAP_PROP_POS_FRAMES, 20)
+	    ret, frame = cap.read()
+	    if not ret:
+	        print("Error al leer primer frame")
+	        return
+	
+	    print("Seleccione la pelota para aprender el color...")
+	    mean_hsv, cov_hsv = select_color_model(frame)
+	    '''
+	    # ======== NUEVO: múltiples capturas para aprender el color ========
+	
+	    means = []
+	    covs = []
+	
+	    for i in range(args.captures):
+	        print(f"\n=== Captura {i+1}/{args.captures} ===")
+	
+	        # Usuario elige frame
+	        frame_number = int(input("Número de frame a usar: "))
+	
+	        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
+	        ret, frame = cap.read()
+	        if not ret:
+	            print("Error leyendo frame. Saltando captura...")
+	            continue
+	
+	        mean_i, cov_i = select_color_model(frame)
+	        means.append(mean_i)
+	        covs.append(cov_i)
+	
+	    # Modelo final promediado
+	    mean_hsv = np.mean(means, axis=0)
+	    cov_hsv = np.mean(covs, axis=0)
+	
+	    print("\n=== MODELO FINAL ===")
+	    print("Media HSV:", mean_hsv)
+	    print("Covarianza HSV:", cov_hsv)
+	    sleep(5)
+	
+	
+	
+	    print("Procesando video con Kalman Filter... Presiona 'q' para salir.")
+	
+	    while True:
+	        ret, frame = cap.read()
+	        if not ret:
+	            break
+	
+	        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+	
+	        # --------------------------- NUEVO: máscara usando clasificación bayesiana
+	        mask = gaussian_mask(hsv, mean_hsv, cov_hsv, threshold=args.threshold) #9.0   7.456 17.456
+	        
+	        kernel = np.ones((5, 5), np.uint8)
+	        mask = cv2.erode(mask, kernel, iterations=2)
+	        mask = cv2.dilate(mask, kernel, iterations=2)
+	
+	        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	
+	        detected = False
+	        measured_x, measured_y = 0, 0
+	
+	        if contours:
+	            c = max(contours, key=cv2.contourArea)
+	            ((x, y), radius) = cv2.minEnclosingCircle(c)
+	            
+	            if radius > 0.005:     # --------------------------- 
+	                detected = True
+	                measured_x, measured_y = int(x), int(y)
+	                
+	                cv2.circle(frame, (measured_x, measured_y), int(radius), (0, 255, 0), 2)
+	                cv2.putText(frame, "Pelota", (measured_x + 10, measured_y), 
+	                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+	
+	        pred_x, pred_y = tracker.predict()
+	        
+	        if detected:
+	            tracker.correct(measured_x, measured_y)
+	            current_pos = (measured_x, measured_y)
+	        else:
+	            current_pos = (pred_x, pred_y)
+	            cv2.putText(frame, "P(Ocluido)", (pred_x + 10, pred_y), 
+	                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+	
+	        cv2.drawMarker(frame, (pred_x, pred_y), (0, 0, 255), cv2.MARKER_CROSS, 20, 2)
+	
+	        trajectory.append(current_pos)
+	        if len(trajectory) > 15: 
+	            trajectory.pop(0)
+	            
+	        for i in range(1, len(trajectory)):
+	            if trajectory[i - 1] is None or trajectory[i] is None:
+	                continue
+	            cv2.line(frame, trajectory[i - 1], trajectory[i], (255, 0, 0), 2)
+	
+	        cv2.imshow("Detector de Pelota (Kalman + Bayes)", frame)
+	
+	        if cv2.waitKey(30) & 0xFF == ord('q'):
+	            break
+	
+	    cap.release()
+	    cv2.destroyAllWindows()
+	
+	
+	if __name__ == "__main__":
 	    main()
+	
 	\end{lstlisting}
 	\newpage
-	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Inverse code of Python},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
-	import rclpy
-	from rclpy.node import Node
-	from std_msgs.msg import Header
-	from sensor_msgs.msg import JointState
-	from geometry_msgs.msg import Point
+	\begin{lstlisting}[style=pythonstyle,language=Python, caption={Main Script},columns=fullflexible,keepspaces=true,breakatwhitespace=true,breaklines=true]
+	#!/usr/bin/env python3
+	#Python script to track a robot soccer with 3 colors using Kalman Filter and Bayes
 	
-	from sympy import Matrix, symbols, cos, sin, pi, diff, lambdify, pprint
+	import cv2
 	import numpy as np
-	import math
-	from random import random 
-	from kinematics_mh12.fw_kinematics_mh12 import T_sym
+	import argparse
+	import sys
+	import os
+	from time import sleep
+	os.environ["QT_QPA_PLATFORM"] = "xcb"
+	os.environ["QT_LOGGING_RULES"] = "*.warning=false"
 	
-	#-Old symbols definitions
-	#t1=symbols('t1')
-	#t2=symbols('t2')
-	#t3=symbols('t3')
-	#t4=symbols('t4')
-	#t5=symbols('t5')
 	
-	# New symbols definitions
-	t1, t2, t3, t4, t5 = symbols('theta_1 theta_2 theta_3 theta_4 theta5', real=True)
+	# Add python_scripts to path relative to this file
+	# We need to go up from src -> task1_perception -> perception_and_planning_lab
+	script_dir = os.path.dirname(os.path.abspath(__file__))
+	python_scripts_path = os.path.join(script_dir, '../../python_scripts')
+	sys.path.append(python_scripts_path)
 	
-	# Learning parameters
-	alpha=0.06  #learning rate 0.07
-	iterations = 255  #350
+	import ball_tracker
 	
-	def create_jacobian(T_sym, thetas):
-	    # Get position elements from the transformation matrix T_sym
-	    px = T_sym[0,3]
-	    py = T_sym[1,3]
-	    pz = T_sym[2,3]
+	colors=["green","blue","red"] #Colors to track in the robot soccer
 	
-	    # Create a dinamic Jacobian matrix
-	    J_rows = []
-	    # For each position component
-	    for p in [px, py, pz]:
-	        # Parcial derivatives w.r.t. each theta
-	        row = [diff(p, theta) for theta in thetas]
-	        J_rows.append(row)
-	    return Matrix(J_rows)
+	# Tabla fija de colores BGR para OpenCV
+	bgr_map = {
+	    "green": (0, 255, 0),
+	    "blue":  (255, 0, 0),
+	    "red":   (0, 0, 255)
+	}
+	trackers = {
+	    "Blue": ball_tracker.KalmanTracker(),
+	    "Green": ball_tracker.KalmanTracker(),
+	    "Red": ball_tracker.KalmanTracker()
+	}
 	
-	# Get the list of joint variables
-	thetas = [t1, t2, t3, t4, t5] 
+	# Crear draw_info automáticamente
+	draw_info = [(c.capitalize(), bgr_map[c]) for c in colors]
 	
-	# Create jacobian symbolically
-	px = T_sym[0,3]
-	py = T_sym[1,3]
-	pz = T_sym[2,3]
-	J = create_jacobian(T_sym, thetas)
+	def main ():
+	    parser = argparse.ArgumentParser(description='Detector de pelota robusto con Kalman Filter + Modelo Bayesiano.')
+	    parser.add_argument('video_path', type=str, help='Path to video file')
+	    parser.add_argument('--captures', type=int, default=1,
+	                        help='Número de capturas que hará el usuario para entrenar el color')
+	    parser.add_argument('--threshold', type=float, default=7.456,
+	                        help='Umbral para la máscara Bayesiana')
+	    args = parser.parse_args()
+	    kalaman=ball_tracker.KalmanTracker()
+	    #kalaman.track_video(args.video_path, args.captures, args.threshold) 
 	
-	class invKinematicsMH12Node(Node):
-	    def __init__(self):
-	        super().__init__('inverse_mh12_node')
-	        self.subscription = self.create_subscription(Point, 'target', self.sub_callback,10)
-	        self.publisher_ = self.create_publisher(JointState, 'joint_states', 10)
-	        self.subscription
-	        self.get_logger().info('Node inverse started')
-	        
-	    def sub_callback(self,msg):
-	        driffz=0.0004
-	        driffxy=0.0003
-	        target=Matrix([msg.x,msg.y,msg.z])
-	        self.get_logger().info('Received target: x={:.3f}, y={:.3f}, z={:.3f}'.format(msg.x, msg.y, msg.z))
-	        ##target += np.sign(target) * driffxy
-	        
-	        for i in [0, 1]:
-	            target[i] += np.sign(target[i]) * driffxy
-	            '''
-	            if target[i]>0:
-	                target[i] += driffxy
-	            else:
-	                target[i] -= driffxy
-	        '''    
-	        target[2] += np.sign(target[2]) * driffz 
+	    args=parser.parse_args()
+	    
+	    kalaman=ball_tracker.KalmanTracker()
+	    trajectory = {name: [] for name in trackers.keys()}
+	    means=[[] for _ in range(len(colors))]
+	    covs=[[] for _ in range(len(colors))]
+	    mean_hsv=[[] for _ in range(len(colors))]
+	    cov_hsv=[[] for _ in range(len(colors))]
 	
-	        ti=Matrix([random(),random(),random(),random(),random()])
-	        if hasattr(self, 'last_ti'):
-	            ti = self.last_ti
-	        else:
-	            ti = Matrix([0, 0, 0, 0, 0])
 	
-	        for i in range(iterations):
-	            # Evaluate forward position and Jacobian numerically
+	    cap=cv2.VideoCapture(args.video_path)
+	    if not cap.isOpened():
+	        print(f"Error: No se pudo abrir el video {args.video_path} . Revisa el path")
+	        return
+	    print("Mark the colors...")
+	
+	    for c in range(len(colors)):
+	        print(f"Color {c+1}: {colors[c]}")
+	
+	        for i in range(args.captures):
+	            print(f"Captura {i+1} de {args.captures}")
+	            frame_number=int(input(f"Frame number of {int(cap.get(cv2.CAP_PROP_FRAME_COUNT))}: "))
 	            try:
+	                cap.set(cv2.CAP_PROP_POS_FRAMES, frame_number)
+	                ret, frame=cap.read()
+	            except:
+	                print("Error: Not valid frame number")
+	                continue
+	            
+	            if not ret:
+	                print("Error: No se pudo leer el frame")
+	                continue
+	            men_i,cov_i=ball_tracker.select_color_model(frame)
+	            means[c].append(men_i)
+	            covs[c].append(cov_i)
 	
-	                cp = Matrix([
-	                px.subs([(t1, ti[0]), (t2, ti[1]), (t3, ti[2]), (t4, ti[3]), (t5, ti[4])]),
-	                py.subs([(t1, ti[0]), (t2, ti[1]), (t3, ti[2]), (t4, ti[3]), (t5, ti[4])]),
-	                pz.subs([(t1, ti[0]), (t2, ti[1]), (t3, ti[2]), (t4, ti[3]), (t5, ti[4])])])
-	                Jsubs = J.subs([(t1, ti[0]), (t2, ti[1]), (t3, ti[2]), (t4, ti[3]), (t5, ti[4])])
+	        print("\n")
+	        print("\n")
 	
-	                e = (target - cp)
+	        mean_hsv[c] = np.mean(means[c], axis=0)
+	        cov_hsv[c] = np.mean(covs[c], axis=0)
+	        sleep(1)
+	        print("Media color: ",colors[c],mean_hsv[c])
+	        print("Cov color: ",colors[c],cov_hsv[c])
+	    sleep(3)
+	
+	    print("Tracking...")
+	    #cap.set(0, frame_number)
+	
+	    cap.set(cv2.CAP_PROP_POS_FRAMES, 2)
+	    hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+	    combined_mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
+	    masks=[[] for _ in range(len(colors))]
+	    kernel=np.ones((5,5),np.uint8)
+	
+	    while True:
+	        ret, frame = cap.read() 
+	        if not ret:
+	            break
+	        hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+	        combined_mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
+	        for c in range(len(colors)):
+	            masks[c] = ball_tracker.gaussian_mask(hsv, mean_hsv[c], cov_hsv[c], args.threshold)
+	
+	            masks[c]=cv2.erode(masks[c],kernel,iterations=1)
+	            masks[c]=cv2.dilate(masks[c],kernel,iterations=2)
+	            combined_mask = cv2.bitwise_or(combined_mask, masks[c])
+	        
+	        frame_masked=cv2.bitwise_and(frame,frame,mask=combined_mask)
+	        
+	        cv2.imshow("frame_masked",frame_masked)
+	        #cv2.imshow("Masks",mask)
+	        #cv2.imshow("frame",frame)
+	
+	        blue_contour,_=cv2.findContours(masks[1],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+	        green_contours,_=cv2.findContours(masks[0],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+	        red_contour,_=cv2.findContours(masks[2],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+	
+	        # Diccionarios para guardar los resultados por color
+	        detected = { name: False for name, _ in draw_info }
+	        measured_x = { name: None for name, _ in draw_info }
+	        measured_y = { name: None for name, _ in draw_info }
+	
+	        for i, (name, color) in enumerate(draw_info):
+	            contours, _ = cv2.findContours(masks[i], cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	            if contours:
+	                if name != "Green":
+	                    c = max(contours, key=cv2.contourArea) # max
+	                    ((x, y), radius) = cv2.minEnclosingCircle(c)
+	                    print(radius)
+	                    if radius > 9.0 and radius < 15.5: # 0.005
+	
+	                        detected[name] = True
+	                        measured_x[name] = int(x)
+	                        measured_y[name] = int(y)
+	
+	                        # Dibujo en pantalla
+	                        cv2.circle(frame, (measured_x[name], measured_y[name]), int(radius), color, 2)
+	                        cv2.putText(frame, name, (measured_x[name] + 10, measured_y[name]),cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+	                else:
+	                    for c in contours:
+	                        ((x, y), radius) = cv2.minEnclosingCircle(c)
+	
+	                        if radius > 8.0 and radius < 15.2:
+	                            detected[name] = True
+	                            if measured_x[name] is None:
+	                                measured_x[name] = []
+	                                measured_y[name] = []
+	                            measured_x[name].append(int(x))
+	                            measured_y[name].append(int(y))
+	
+	                            cv2.circle(frame, (int(x), int(y)), int(radius),color, 2)
+	                            cv2.putText(frame, name, (int(x) + 10, int(y)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+	                    
+	
+	        #cv2.imshow("frame",frame)
+	        print("pos: ",measured_x,"   |   ",measured_y,"\n")
+	        
+	        #pred_x, pred_y = kalaman.predict()
+	
+	
+	        kalman_positions = {}
+	
+	        for name, tracker in trackers.items():
+	            if name in ["Red", "Blue"]:
+	                pred_x, pred_y = tracker.predict()
 	                
-	                #e = e / max(1.0, e.norm())  
+	                if detected[name]:
+	                    mx = measured_x[name]
+	                    my = measured_y[name]
+	                    tracker.correct(mx, my)
+	                    current_pos = (mx, my)
+	                else:
+	                    current_pos = (pred_x, pred_y)
+	                    cv2.putText(frame, f"{name} P(Ocluido)", (int(pred_x) + 10, int(pred_y)),
+	                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+	                
+	                kalman_positions[name] = current_pos
+	                # Dibujo del marcador del Kalman
+	                cv2.drawMarker(frame, (int(current_pos[0]), int(current_pos[1])), (0, 0, 255), cv2.MARKER_CROSS, 20, 2)
+	
+	            elif name == "Green":
+	                if detected[name]:
+	                    mx_list = measured_x[name]
+	                    my_list = measured_y[name]
+	                    if isinstance(mx_list, list):
+	                        for x, y in zip(mx_list, my_list):
+	                             cv2.drawMarker(frame, (x, y), (0, 0, 255), cv2.MARKER_TILTED_CROSS, 15, 2)
+	        
+	        # Draw Arrow from Red to Blue
+	        if "Red" in kalman_positions and "Blue" in kalman_positions:
+	            start_point = kalman_positions["Blue"]
+	            end_point = kalman_positions["Red"]
 	            
-	                Jinv=Jsubs.H*(Jsubs*Jsubs.H)**-1
-	                #Jinv = (Jsubs.T * Jsubs + 0.01 * Matrix.eye(5))**-1 * Jsubs.T
-	
-	                dt=Jinv*e
-	
-	                ti=ti+alpha*dt
-	
-	            except Exception as exc:
-	                self.get_logger().error(f'Numeric evaluation failed at iter {i}: {exc}')
-	                break
-	            # Build and publish final JointState (6 joints expected by other parts;  joint_4_r fixed to 0)
-	            header = Header()
-	            header.stamp = self.get_clock().now().to_msg()
-	            joint_msg = JointState()
-	
-	            joint_msg.name = ['joint_1_s', 'joint_2_l', 'joint_3_u', 'joint_4_r', 'joint_5_b', 'joint_6_t']
-	
-	            joint_angles = [ti[0], ti[1], ti[2], 0.0, -ti[3], ti[4]]
+	            # Extender la flecha
+	            scale = 3.0
+	            dx = end_point[0] - start_point[0]
+	            dy = end_point[1] - start_point[1]
+	            new_end_point = (int(start_point[0] + dx * scale), int(start_point[1] + dy * scale))
 	            
-	            joint_msg.position = joint_angles
-	            joint_msg.header = header
-	            self.publisher_.publish(joint_msg)
-	            self.get_logger().info('Published joint angles: {}'.format(joint_angles))
-	            self.get_logger().info('Error: {:.6f}'.format(e.norm()))
-	        self.get_logger().info('Finished IK iterations for target.')
-	        self.last_ti = ti
+	            cv2.arrowedLine(frame, start_point, new_end_point, (75, 70, 50), 6)
 	
-	def main(args=None):
-	    rclpy.init(args=args)
-	    node = invKinematicsMH12Node()
-	    try:
-	        rclpy.spin(node)
-	    except KeyboardInterrupt:
-	        pass
-	    finally:
-	        node.destroy_node()
-	        rclpy.shutdown()
+	        # Update and Draw Trajectory for Blue only
+	        if "Blue" in kalman_positions:
+	            trajectory["Blue"].append(kalman_positions["Blue"])
+	            if len(trajectory["Blue"]) > 45: #15
+	                trajectory["Blue"].pop(0)
+	            
+	            for i in range(1, len(trajectory["Blue"])):
+	                if trajectory["Blue"][i - 1] is None or trajectory["Blue"][i] is None:
+	                    continue
+	                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (200, 100, 120), 3)
+	
+	
+	        cv2.imshow("frame",frame)
+	
+	        if cv2.waitKey(30) & 0xFF == ord('q'):
+	            break
+	
+	    cap.release()
+	    cv2.destroyAllWindows()
+	
+	
 	if __name__ == '__main__':
 	    main()
 	\end{lstlisting}
