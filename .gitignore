@@ -109,5 +109,6 @@ COLCON_IGNORE
 *.synctex
 *.synctex.gz
 *.toc
+*.lof
 #*.vrb
 #*.pdf
