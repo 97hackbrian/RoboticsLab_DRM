@@ -198,7 +198,16 @@ def main ():
         
         # Draw Arrow from Red to Blue
         if "Red" in kalman_positions and "Blue" in kalman_positions:
-            cv2.arrowedLine(frame, kalman_positions["Blue"], kalman_positions["Red"], (5, 15, 10), 6)
+            start_point = kalman_positions["Blue"]
+            end_point = kalman_positions["Red"]
+            
+            # Extender la flecha
+            scale = 2.5
+            dx = end_point[0] - start_point[0]
+            dy = end_point[1] - start_point[1]
+            new_end_point = (int(start_point[0] + dx * scale), int(start_point[1] + dy * scale))
+            
+            cv2.arrowedLine(frame, start_point, new_end_point, (5, 15, 10), 6)
 
         # Update and Draw Trajectory for Blue only
         if "Blue" in kalman_positions:
