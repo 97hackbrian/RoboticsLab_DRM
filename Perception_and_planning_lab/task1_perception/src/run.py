@@ -9,4 +9,4 @@ video_path= python_script_path+"/fulbito.mp4"
 
 print("\n")
 print(python_script_path)
-subprocess.run(["python3", script_dir, video_path, "--captures", "1", "--threshold", "23.00"])
+subprocess.run(["python3", script_dir, video_path, "--captures", "3", "--threshold", "23.00"])

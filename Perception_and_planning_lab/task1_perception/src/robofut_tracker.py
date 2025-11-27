@@ -94,7 +94,9 @@ def main ():
     sleep(3)
 
     print("Tracking...")
-    cap.set(0, frame_number)
+    #cap.set(0, frame_number)
+
+    cap.set(cv2.CAP_PROP_POS_FRAMES, 2)
     hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     combined_mask = np.zeros(hsv.shape[:2], dtype=np.uint8)
     masks=[[] for _ in range(len(colors))]
@@ -148,7 +150,7 @@ def main ():
                     for c in contours:
                         ((x, y), radius) = cv2.minEnclosingCircle(c)
 
-                        if radius > 9.0 and radius < 15.2:
+                        if radius > 8.0 and radius < 15.2:
                             detected[name] = True
                             if measured_x[name] is None:
                                 measured_x[name] = []
@@ -192,22 +194,22 @@ def main ():
                     my_list = measured_y[name]
                     if isinstance(mx_list, list):
                         for x, y in zip(mx_list, my_list):
-                             cv2.drawMarker(frame, (x, y), (0, 255, 0), cv2.MARKER_TILTED_CROSS, 15, 2)
+                             cv2.drawMarker(frame, (x, y), (0, 0, 255), cv2.MARKER_TILTED_CROSS, 15, 2)
         
         # Draw Arrow from Red to Blue
         if "Red" in kalman_positions and "Blue" in kalman_positions:
-            cv2.arrowedLine(frame, kalman_positions["Red"], kalman_positions["Blue"], (255, 255, 0), 2)
+            cv2.arrowedLine(frame, kalman_positions["Blue"], kalman_positions["Red"], (5, 15, 10), 6)
 
         # Update and Draw Trajectory for Blue only
         if "Blue" in kalman_positions:
             trajectory["Blue"].append(kalman_positions["Blue"])
-            if len(trajectory["Blue"]) > 15:
+            if len(trajectory["Blue"]) > 45: #15
                 trajectory["Blue"].pop(0)
             
             for i in range(1, len(trajectory["Blue"])):
                 if trajectory["Blue"][i - 1] is None or trajectory["Blue"][i] is None:
                     continue
-                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (255, 0, 0), 2)
+                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (205, 100, 150), 3)
 
 
         cv2.imshow("frame",frame)
