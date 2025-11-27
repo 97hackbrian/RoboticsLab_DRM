@@ -150,11 +150,14 @@ def main ():
 
                         if radius > 9.0 and radius < 15.2:
                             detected[name] = True
-                            measured_x[name] = int(x)
-                            measured_y[name] = int(y)
+                            if measured_x[name] is None:
+                                measured_x[name] = []
+                                measured_y[name] = []
+                            measured_x[name].append(int(x))
+                            measured_y[name].append(int(y))
 
-                            cv2.circle(frame, (measured_x[name], measured_y[name]), int(radius),color, 2)
-                            cv2.putText(frame, name, (measured_x[name] + 10, measured_y[name]), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
+                            cv2.circle(frame, (int(x), int(y)), int(radius),color, 2)
+                            cv2.putText(frame, name, (int(x) + 10, int(y)), cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1)
                     
 
         #cv2.imshow("frame",frame)
@@ -171,8 +174,15 @@ def main ():
             pred_x, pred_y = tracker.predict()
             
             if detected[name]:
-                tracker.correct(measured_x[name], measured_y[name])
-                current_pos = (measured_x[name], measured_y[name])
+                mx = measured_x[name]
+                my = measured_y[name]
+                if isinstance(mx, list):
+                    for x, y in zip(mx, my):
+                        tracker.correct(x, y)
+                    current_pos = (mx[-1], my[-1])
+                else:
+                    tracker.correct(mx, my)
+                    current_pos = (mx, my)
             else:
                 current_pos = (pred_x, pred_y)
                 cv2.putText(frame, f"{name} P(Ocluido)", (int(pred_x) + 10, int(pred_y)),
