@@ -121,9 +121,9 @@ def main ():
         #cv2.imshow("Masks",mask)
         #cv2.imshow("frame",frame)
 
-        blue_contour,_=cv2.findContours(masks[1],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-        green_contours,_=cv2.findContours(masks[0],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
-        red_contour,_=cv2.findContours(masks[2],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        #blue_contour,_=cv2.findContours(masks[1],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        #green_contours,_=cv2.findContours(masks[0],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+        #red_contour,_=cv2.findContours(masks[2],cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
         # Diccionarios para guardar los resultados por color
         detected = { name: False for name, _ in draw_info }
