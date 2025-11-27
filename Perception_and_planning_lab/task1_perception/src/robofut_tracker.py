@@ -202,12 +202,12 @@ def main ():
             end_point = kalman_positions["Red"]
             
             # Extender la flecha
-            scale = 2.5
+            scale = 3.0
             dx = end_point[0] - start_point[0]
             dy = end_point[1] - start_point[1]
             new_end_point = (int(start_point[0] + dx * scale), int(start_point[1] + dy * scale))
             
-            cv2.arrowedLine(frame, start_point, new_end_point, (150, 150, 140), 6)
+            cv2.arrowedLine(frame, start_point, new_end_point, (75, 70, 50), 6)
 
         # Update and Draw Trajectory for Blue only
         if "Blue" in kalman_positions:
@@ -218,7 +218,7 @@ def main ():
             for i in range(1, len(trajectory["Blue"])):
                 if trajectory["Blue"][i - 1] is None or trajectory["Blue"][i] is None:
                     continue
-                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (205, 100, 150), 3)
+                cv2.line(frame, trajectory["Blue"][i - 1], trajectory["Blue"][i], (200, 100, 120), 3)
 
 
         cv2.imshow("frame",frame)
