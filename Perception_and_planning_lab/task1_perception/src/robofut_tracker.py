@@ -207,7 +207,7 @@ def main ():
             dy = end_point[1] - start_point[1]
             new_end_point = (int(start_point[0] + dx * scale), int(start_point[1] + dy * scale))
             
-            cv2.arrowedLine(frame, start_point, new_end_point, (5, 15, 10), 6)
+            cv2.arrowedLine(frame, start_point, new_end_point, (150, 150, 140), 6)
 
         # Update and Draw Trajectory for Blue only
         if "Blue" in kalman_positions:
@@ -228,16 +228,7 @@ def main ():
 
     cap.release()
     cv2.destroyAllWindows()
-        #detected= False
-        #measure_x, measure_y =0.0
-        #pred_x, pred_y=kalaman.predict()
-        
-
-
-
-    #kalaman.track_video(args.video_path, args.captures, args.threshold)
 
 
 if __name__ == '__main__':
-    #kalaman=ball_tracker.KalmanTracker()
     main()
