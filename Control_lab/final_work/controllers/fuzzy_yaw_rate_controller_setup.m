@@ -37,12 +37,25 @@ fis = addMF(fis, 'distance', 'trimf', [8 20 20], 'Name', 'Far');
 
 %% SALIDAS
 
+% Salida 1: Velocidad (Ajuste "Muuuy Lento" para demostración)
+fis = addOutput(fis, [0 1.5], 'Name', 'v_desired');
+fis = addMF(fis, 'v_desired', 'trimf', [0 0 0.05], 'Name', 'Stop');
+fis = addMF(fis, 'v_desired', 'trimf', [0 0.15 0.3], 'Name', 'Slow');   % ~ 0.15 m/s (Casi reptando)
+fis = addMF(fis, 'v_desired', 'trimf', [0.2 0.6 1.0], 'Name', 'Medium'); % ~ 0.6 m/s
+fis = addMF(fis, 'v_desired', 'trimf', [0.8 1.0 1.5], 'Name', 'Fast');   % ~ 1.0 m/s (Muy tranquilo)
+
+%{
+
+
 % Salida 1: Velocidad (Ajuste Fino)
 fis = addOutput(fis, [0 2.5], 'Name', 'v_desired');
 fis = addMF(fis, 'v_desired', 'trimf', [0 0 0.1], 'Name', 'Stop');
 fis = addMF(fis, 'v_desired', 'trimf', [0 0.3 0.6], 'Name', 'Slow');   % ~ 0.3 m/s
 fis = addMF(fis, 'v_desired', 'trimf', [0.5 1.0 1.5], 'Name', 'Medium'); % ~ 1.0 m/s
 fis = addMF(fis, 'v_desired', 'trimf', [1.2 2.0 2.5], 'Name', 'Fast');   % ~ 2.0 m/s (Antes 3.0)
+
+%}
+
 
 % Salida 2: Omega (AUMENTADA para control más firme - "Tight")
 fis = addOutput(fis, [-3 3], 'Name', 'omega_desired');
