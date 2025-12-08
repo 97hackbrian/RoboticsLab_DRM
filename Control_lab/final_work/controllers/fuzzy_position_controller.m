@@ -63,20 +63,27 @@ de_x_clipped = max(-3, min(3, de_x));
 e_y_clipped = max(-5, min(5, e_y_combined)); % Usar error combinado
 pitch_deg = max(-30, min(30, rad2deg(theta)));
 
-% Evaluar FIS
-output = evalfis(fis, [e_x_clipped, de_x_clipped, e_y_clipped, pitch_deg]);
-
-T_long = output(1); % Torque longitudinal
-T_diff = output(2); % Torque diferencial
-
-% IMPORTANTE: Garantizar velocidad mínima para turning efectivo
-% Skid-steer necesita movimiento forward para girar
-if abs(e_y_combined) > 0.5 % Si hay error lateral significativo
-    min_forward_torque = 1.0; % Nm - torque mínimo para mantener movimiento
-    if abs(T_long) < min_forward_torque
-        T_long = sign(T_long) * min_forward_torque;
-        if T_long == 0
-            T_long = min_forward_torque; % Forzar avance si está detenido
+% MODO ESPECIAL: Para errores de yaw grandes (>45°), priorizar alineación
+if abs(e_psi) > pi/4  % 45 grados
+    % Modo de alineación: avance lento + giro fuerte
+    % Skid-steer DEBE moverse forward para girar efectivamente
+    T_long = 2.0; % Avance constante moderado para permitir giro
+    T_diff = 5.0 * sign(e_psi); % Diferencial fuerte
+else
+    % Modo normal: evaluar FIS
+    output = evalfis(fis, [e_x_clipped, de_x_clipped, e_y_clipped, pitch_deg]);
+    
+    T_long = output(1); % Torque longitudinal
+    T_diff = output(2); % Torque diferencial
+    
+    % IMPORTANTE: Garantizar velocidad mínima para turning efectivo
+    if abs(e_y_combined) > 0.5
+        min_forward_torque = 1.0;
+        if abs(T_long) < min_forward_torque
+            T_long = sign(T_long) * min_forward_torque;
+            if T_long == 0
+                T_long = min_forward_torque;
+            end
         end
     end
 end
@@ -88,7 +95,7 @@ T_long = max(-tau_max, min(tau_max, T_long));
 T_diff = max(-tau_max*0.8, min(tau_max*0.8, T_diff)); % Aumentado de 0.5 a 0.8
 
 %% 6. DISTRIBUIR TORQUES A LAS 4 RUEDAS
-% Configuración Skid-Steer:
+% Configuración Skid-Steer (LÓGICA ORIGINAL - CORRECTA):
 % - T_long: torque promedio (avance)
 % - T_diff: diferencia izquierda-derecha (giro)
 %   T_diff > 0 → ruedas derechas más lentas → giro a la derecha
