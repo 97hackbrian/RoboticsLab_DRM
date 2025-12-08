@@ -3,6 +3,7 @@
 
 function realtime_waypoint_click_simulation()
 close all;
+clear all; close all; clc
 
 % Agregar rutas
 addpath('../config');
