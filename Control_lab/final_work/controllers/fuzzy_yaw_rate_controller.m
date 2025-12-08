@@ -59,7 +59,7 @@ omega_desired = output(2);  % rad/s
 % Cuando estamos muy cerca (<0.5m), el cálculo de ángulo varía drásticamente.
 % SIEMPRE debemos dejar de girar (omega=0) si estamos cerca para evitar "spinning".
 
-if distance < 0.5
+if distance < 0.2
     omega_desired = 0; % DEADZONE DE GIRO: Prohibido girar si estamos cerca
     
     % Solo permitimos movimiento lineal final (parking) si estamos alineados
