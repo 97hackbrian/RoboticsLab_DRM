@@ -54,6 +54,14 @@ output = evalfis(fis, [error_heading_clip, derror_heading_clip, distance_clip]);
 v_desired = output(1);      % m/s
 omega_desired = output(2);  % rad/s
 
+% --- REVISIÓN DE PARADA FINAL ---
+% Si estamos MUY cerca (zona de parking), forzar omega a 0 para evitar
+% giros sobre el propio eje (jitter) mientras se intenta parar.
+if distance < 0.7  % Aumentado de 0.25 a 0.4 para coincidir con Fuzzy 'VeryClose'
+    omega_desired = 0;
+    v_desired = 0; % Asegurar parada
+end
+
 %% 4. CONVERTIR VELOCIDADES DESEADAS A TORQUES (MEJORADO)
 % Modelo realista de skid-steer con control de retroalimentación
 

@@ -87,7 +87,7 @@ try
         v_abs = abs(X(7));
         
         % 2. Lógica de Control y "Parking"
-        if dist_to_target < 0.25
+        if dist_to_target < 0.6
             % --- ZONA DE LLEGADA (Parking) ---
             u_control = zeros(4,1); % Cortar motores (Zero Torque)
             
