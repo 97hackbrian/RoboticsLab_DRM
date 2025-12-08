@@ -87,28 +87,26 @@ try
         dist_to_target = norm(X(1:2) - current_target);
         v_abs = abs(X(7));
         
-        % 2. Lógica de Control y "Parking"
-        if dist_to_target < 0.6
-            % --- ZONA DE LLEGADA (Parking) ---
-            u_control = zeros(4,1); % Cortar motores (Zero Torque)
-            
-            % Si la velocidad ya es baja, forzar parada perfecta para evitar "drift"
-            if v_abs < 0.1
-                X(7:12) = 0;
-            end
+        % 2. Calcular Control (SIEMPRE activo para frenado)
+        % Construir vector de referencia
+        X_ref = zeros(12,1);
+        X_ref(1) = current_target(1);
+        X_ref(2) = current_target(2);
+        
+        % Calcular control difuso
+        % NOTA: El controlador ya tiene logic interna para poner v=0 si dist < 0.7
+        % Esto genera frenado activo (torque opuesto).
+        u_control = fuzzy_yaw_rate_controller(X, X_ref, X_ref_prev, dt, fis, params);
+        
+        % 3. Lógica de "Hard Stop" (Parking final)
+        if dist_to_target < 0.1
+            % --- ZONA DE PARADA TOTAL ---
+            u_control = zeros(4,1); % Cortar energía final
+            X(7:12) = 0;            % Forzar velocidad cero (matar inercia residual)
             
             status_str = sprintf(' T=%.1fs | LLEGADO (Click para mover) ', t_current);
             set(target_circle, 'Color', 'g');
         else
-            % --- ZONA DE NAVEGACIÓN ---
-            % Construir vector de referencia
-            X_ref = zeros(12,1);
-            X_ref(1) = current_target(1);
-            X_ref(2) = current_target(2);
-            
-            % Calcular control difuso
-            u_control = fuzzy_yaw_rate_controller(X, X_ref, X_ref_prev, dt, fis, params);
-            
             status_str = sprintf(' T=%.1fs | Dist: %.2fm | V: %.2fm/s ', t_current, dist_to_target, v_abs);
             set(target_circle, 'Color', 'r');
         end

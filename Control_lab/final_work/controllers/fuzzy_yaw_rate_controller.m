@@ -57,7 +57,7 @@ omega_desired = output(2);  % rad/s
 % --- REVISIÓN DE PARADA FINAL ---
 % Si estamos MUY cerca (zona de parking), forzar omega a 0 para evitar
 % giros sobre el propio eje (jitter) mientras se intenta parar.
-if distance < 0.7  % Aumentado de 0.25 a 0.4 para coincidir con Fuzzy 'VeryClose'
+if distance < 0.1  % Aumentado de 0.25 a 0.4 para coincidir con Fuzzy 'VeryClose'
     omega_desired = 0;
     v_desired = 0; % Asegurar parada
 end
@@ -95,8 +95,8 @@ omega_wheel_left_actual = v_left_actual / r;
 omega_wheel_right_actual = v_right_actual / r;
 
 % PASO 3: Control PD en velocidad de rueda (más suave para evitar chattering)
-Kp_wheel = 8.0;  % Reducido de 15.0 para suavizar respuesta
-Kd_wheel = 0.5;  % Reducido de 2.0 para reducir ruido/vibración
+Kp_wheel = 25.0;  % Aumentado (antes 8.0) por mayor masa/inercia
+Kd_wheel = 2.0;   % Aumentado (antes 0.5) para damping rápido
 
 % Errores de velocidad
 e_omega_left = omega_wheel_left_desired - omega_wheel_left_actual;
@@ -121,7 +121,7 @@ T_right = Kp_wheel * e_omega_right + Kd_wheel * de_omega_right;
 
 % PASO 5: Compensación feedforward (ayuda a acelerar respuesta)
 % Torque para vencer inercia rotacional
-I_wheel = 0.01; % kg*m^2 (inercia aproximada de rueda)
+I_wheel = 0.05; % Aumentado (antes 0.01) por rueda más grande (0.2m)
 T_ff_left = I_wheel * (omega_wheel_left_desired - omega_wheel_left_actual) / max(dt, 0.001);
 T_ff_right = I_wheel * (omega_wheel_right_desired - omega_wheel_right_actual) / max(dt, 0.001);
 

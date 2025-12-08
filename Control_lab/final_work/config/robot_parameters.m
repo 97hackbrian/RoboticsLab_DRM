@@ -5,16 +5,16 @@ function params = robot_parameters()
 %   params - Estructura con todos los parámetros físicos, EKF y controlador
 
 %% PARÁMETROS FÍSICOS DEL ROBOT
-params.m = 20;                      % Masa total (kg)
+params.m = 30;                      % Masa total (kg)
 params.I = diag([0.5, 0.8, 0.8]);   % Tensor de inercia [Ix, Iy, Iz] (kg·m²)
-params.r_wheel = 0.1;               % Radio de rueda (m)
-params.L = 0.5;                     % Distancia entre ejes (m)
-params.W = 0.4;                     % Ancho del robot (m)
-params.h_chassis = 0.05;            % Altura del chasis (m)
+params.r_wheel = 0.2;               % Radio de rueda (m)
+params.L = 0.6;                     % Distancia entre ejes (m)
+params.W = 0.6;                     % Ancho del robot (m)
+params.h_chassis = 0.45;            % Altura del chasis (m)
 
 %% PARÁMETROS DE TERRENO Y FRICCIÓN
-params.mu_static = 0.3;             % Coeficiente de fricción estática REDUCIDO
-params.mu_kinetic = 0.25;           % Coeficiente de fricción cinética REDUCIDO
+params.mu_static = 0.4;             % Coeficiente de fricción estática REDUCIDO
+params.mu_kinetic = 0.55;           % Coeficiente de fricción cinética REDUCIDO
 params.mu_lateral = 0.4;            % Fricción lateral (Skid-Steer) REDUCIDO
 params.Cd = 0.1;                    % Coeficiente de fricción viscosa
 
