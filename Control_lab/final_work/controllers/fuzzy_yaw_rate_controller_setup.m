@@ -28,11 +28,11 @@ fis = addMF(fis, 'derror_heading', 'trimf', [-2 -2 -0.2], 'Name', 'Neg');
 fis = addMF(fis, 'derror_heading', 'trimf', [-0.5 0 0.5], 'Name', 'Zero');
 fis = addMF(fis, 'derror_heading', 'trimf', [0.2 2 2], 'Name', 'Pos');
 
-% Entrada 3: Distancia
+% Entrada 3: Distancia (Ajustada para frenado anticipado)
 fis = addInput(fis, [0 20], 'Name', 'distance');
-fis = addMF(fis, 'distance', 'trimf', [0 0 0.2], 'Name', 'VeryClose');
-fis = addMF(fis, 'distance', 'trimf', [0.1 0.8 1.5], 'Name', 'Close');
-fis = addMF(fis, 'distance', 'trimf', [1.0 5 10], 'Name', 'Medium');
+fis = addMF(fis, 'distance', 'trimf', [0 0 0.5], 'Name', 'VeryClose'); % Un poco más amplio
+fis = addMF(fis, 'distance', 'trimf', [0.2 2 4], 'Name', 'Close');      % Empieza a frenar a 4m
+fis = addMF(fis, 'distance', 'trimf', [3 8 15], 'Name', 'Medium');
 fis = addMF(fis, 'distance', 'trimf', [8 20 20], 'Name', 'Far');
 
 %% SALIDAS
@@ -44,15 +44,15 @@ fis = addMF(fis, 'v_desired', 'trimf', [0 0.5 1.0], 'Name', 'Slow');
 fis = addMF(fis, 'v_desired', 'trimf', [0.8 1.5 2.2], 'Name', 'Medium');
 fis = addMF(fis, 'v_desired', 'trimf', [1.8 3.0 3.0], 'Name', 'Fast');
 
-% Salida 2: Omega (Más granularidad para control fino)
+% Salida 2: Omega (AUMENTADA para control más firme - "Tight")
 fis = addOutput(fis, [-3 3], 'Name', 'omega_desired');
-fis = addMF(fis, 'omega_desired', 'trimf', [-3 -3 -1.5], 'Name', 'TurnLeft_Fast');
-fis = addMF(fis, 'omega_desired', 'trimf', [-2 -1 -0.5], 'Name', 'TurnLeft_Med');
-fis = addMF(fis, 'omega_desired', 'trimf', [-0.8 -0.3 -0.05], 'Name', 'TurnLeft_Slow');
-fis = addMF(fis, 'omega_desired', 'trimf', [-0.1 0 0.1], 'Name', 'Straight');
-fis = addMF(fis, 'omega_desired', 'trimf', [0.05 0.3 0.8], 'Name', 'TurnRight_Slow');
-fis = addMF(fis, 'omega_desired', 'trimf', [0.5 1 2], 'Name', 'TurnRight_Med');
-fis = addMF(fis, 'omega_desired', 'trimf', [1.5 3 3], 'Name', 'TurnRight_Fast');
+fis = addMF(fis, 'omega_desired', 'trimf', [-3 -3 -2.0], 'Name', 'TurnLeft_Fast');
+fis = addMF(fis, 'omega_desired', 'trimf', [-2.5 -1.5 -0.8], 'Name', 'TurnLeft_Med');  % Aumentado (antes -1)
+fis = addMF(fis, 'omega_desired', 'trimf', [-1.2 -0.8 -0.2], 'Name', 'TurnLeft_Slow'); % Aumentado (antes -0.3)
+fis = addMF(fis, 'omega_desired', 'trimf', [-0.3 0 0.3], 'Name', 'Straight');
+fis = addMF(fis, 'omega_desired', 'trimf', [0.2 0.8 1.2], 'Name', 'TurnRight_Slow');   % Aumentado
+fis = addMF(fis, 'omega_desired', 'trimf', [0.8 1.5 2.5], 'Name', 'TurnRight_Med');    % Aumentado
+fis = addMF(fis, 'omega_desired', 'trimf', [2.0 3 3], 'Name', 'TurnRight_Fast');
 
 %% REGLAS
 rules = [

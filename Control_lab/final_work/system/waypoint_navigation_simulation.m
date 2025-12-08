@@ -24,7 +24,7 @@ fis = fuzzy_yaw_rate_controller_setup();
 fprintf('\n► Generando waypoints...\n');
 
 % Configuración de trayectoria
-trajectory_type = 'square'; % Opciones: 'line', 'square', 'circle', 's_curve'
+trajectory_type = 'circle'; % Opciones: 'line', 'square', 'circle', 's_curve'
 
 switch trajectory_type
     case 'square'
@@ -94,10 +94,13 @@ while ~simulation_complete && step < max_steps
     dist_to_waypoint = sqrt((X_current(1) - target_waypoint(1))^2 + ...
         (X_current(2) - target_waypoint(2))^2);
     
-    % Verificar si alcanzamos el waypoint
-    if dist_to_waypoint < waypoint_threshold
-        fprintf('  ✓ Waypoint %d alcanzado (t=%.1fs, dist=%.2fm)\n', ...
-            current_waypoint_idx, t_current, dist_to_waypoint);
+    % Verificar si alcanzamos el waypoint (DISTANCIA + VELOCIDAD CERO)
+    % Se requiere que el robot se DETENGA en el waypoint antes de cambiar
+    v_abs = abs(X_current(7)); % Velocidad longitudinal
+    
+    if dist_to_waypoint < waypoint_threshold && v_abs < 0.1
+        fprintf('  ✓ Waypoint %d alcanzado (t=%.1fs, dist=%.2fm, v=%.2fm/s)\n', ...
+            current_waypoint_idx, t_current, dist_to_waypoint, v_abs);
         
         % Avanzar al siguiente waypoint
         current_waypoint_idx = current_waypoint_idx + 1;
