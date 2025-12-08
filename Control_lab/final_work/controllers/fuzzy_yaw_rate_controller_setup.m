@@ -14,84 +14,74 @@ fis = mamfis('Name', 'YawRateController');
 
 %% ENTRADAS
 
-% Entrada 1: Error de heading (ángulo al objetivo) - rad
+% Entrada 1: Error de heading (MÁS ESTRECHO CERCA DE CERO)
 fis = addInput(fis, [-pi pi], 'Name', 'error_heading');
 fis = addMF(fis, 'error_heading', 'trimf', [-pi -pi -pi/2], 'Name', 'N_Large');
-fis = addMF(fis, 'error_heading', 'trimf', [-pi -pi/4 0], 'Name', 'N_Med');
+fis = addMF(fis, 'error_heading', 'trimf', [-2*pi/3 -pi/3 -pi/12], 'Name', 'N_Med'); % Ajustado
 fis = addMF(fis, 'error_heading', 'trimf', [-pi/6 0 pi/6], 'Name', 'Zero');
-fis = addMF(fis, 'error_heading', 'trimf', [0 pi/4 pi], 'Name', 'P_Med');
+fis = addMF(fis, 'error_heading', 'trimf', [pi/12 pi/3 2*pi/3], 'Name', 'P_Med'); % Ajustado
 fis = addMF(fis, 'error_heading', 'trimf', [pi/2 pi pi], 'Name', 'P_Large');
 
-% Entrada 2: Derivada de error de heading - rad/s
+% Entrada 2: Derivada de error (Damping)
 fis = addInput(fis, [-2 2], 'Name', 'derror_heading');
-fis = addMF(fis, 'derror_heading', 'trimf', [-2 -2 -0.5], 'Name', 'Neg');
-fis = addMF(fis, 'derror_heading', 'trimf', [-1 0 1], 'Name', 'Zero');
-fis = addMF(fis, 'derror_heading', 'trimf', [0.5 2 2], 'Name', 'Pos');
+fis = addMF(fis, 'derror_heading', 'trimf', [-2 -2 -0.2], 'Name', 'Neg');
+fis = addMF(fis, 'derror_heading', 'trimf', [-0.5 0 0.5], 'Name', 'Zero');
+fis = addMF(fis, 'derror_heading', 'trimf', [0.2 2 2], 'Name', 'Pos');
 
-% Entrada 3: Distancia al objetivo - metros
+% Entrada 3: Distancia
 fis = addInput(fis, [0 20], 'Name', 'distance');
-fis = addMF(fis, 'distance', 'trimf', [0 0 0.5], 'Name', 'VeryClose');
-fis = addMF(fis, 'distance', 'trimf', [0.3 1 2], 'Name', 'Close');
-fis = addMF(fis, 'distance', 'trimf', [1.5 5 10], 'Name', 'Medium');
+fis = addMF(fis, 'distance', 'trimf', [0 0 0.2], 'Name', 'VeryClose');
+fis = addMF(fis, 'distance', 'trimf', [0.1 0.8 1.5], 'Name', 'Close');
+fis = addMF(fis, 'distance', 'trimf', [1.0 5 10], 'Name', 'Medium');
 fis = addMF(fis, 'distance', 'trimf', [8 20 20], 'Name', 'Far');
 
 %% SALIDAS
 
-% Salida 1: Velocidad lineal deseada - m/s (AUMENTADA para completar trayectoria)
+% Salida 1: Velocidad (Suavizada)
 fis = addOutput(fis, [0 3], 'Name', 'v_desired');
-fis = addMF(fis, 'v_desired', 'trimf', [0 0 0], 'Name', 'Stop');
+fis = addMF(fis, 'v_desired', 'trimf', [0 0 0.1], 'Name', 'Stop');
 fis = addMF(fis, 'v_desired', 'trimf', [0 0.5 1.0], 'Name', 'Slow');
 fis = addMF(fis, 'v_desired', 'trimf', [0.8 1.5 2.2], 'Name', 'Medium');
 fis = addMF(fis, 'v_desired', 'trimf', [1.8 3.0 3.0], 'Name', 'Fast');
 
-% Salida 2: Velocidad angular deseada - rad/s
+% Salida 2: Omega (Más granularidad para control fino)
 fis = addOutput(fis, [-3 3], 'Name', 'omega_desired');
 fis = addMF(fis, 'omega_desired', 'trimf', [-3 -3 -1.5], 'Name', 'TurnLeft_Fast');
-fis = addMF(fis, 'omega_desired', 'trimf', [-2 -0.8 -0.2], 'Name', 'TurnLeft_Slow');
-fis = addMF(fis, 'omega_desired', 'trimf', [-0.3 0 0.3], 'Name', 'Straight');
-fis = addMF(fis, 'omega_desired', 'trimf', [0.2 0.8 2], 'Name', 'TurnRight_Slow');
+fis = addMF(fis, 'omega_desired', 'trimf', [-2 -1 -0.5], 'Name', 'TurnLeft_Med');
+fis = addMF(fis, 'omega_desired', 'trimf', [-0.8 -0.3 -0.05], 'Name', 'TurnLeft_Slow');
+fis = addMF(fis, 'omega_desired', 'trimf', [-0.1 0 0.1], 'Name', 'Straight');
+fis = addMF(fis, 'omega_desired', 'trimf', [0.05 0.3 0.8], 'Name', 'TurnRight_Slow');
+fis = addMF(fis, 'omega_desired', 'trimf', [0.5 1 2], 'Name', 'TurnRight_Med');
 fis = addMF(fis, 'omega_desired', 'trimf', [1.5 3 3], 'Name', 'TurnRight_Fast');
 
-%% REGLAS DIFUSAS
-% Formato: [e_heading, de_heading, distance] => [v, omega]
-
+%% REGLAS
 rules = [
-    % Si estamos MUY cerca, detenerse
-    0 0 1  1 3  1 1;  % distance=VeryClose => v=Stop, omega=Straight
+    % 1. SEGURIDAD: Distancia
+    0 0 1  1 4  1 1; % VeryClose -> Stop, Straight
+    0 0 2  2 0  1 1; % Close -> Slow
     
-    % Si distance=Close, ir despacio
-    0 0 2  2 0  1 1;  % distance=Close => v=Slow, omega=(depends on heading)
+    % 2. TANK TURNS (Giro en su sitio)
+    1 0 0  1 1  1 1; % N_Large -> Stop, TurnLeft_Fast
+    5 0 0  1 7  1 1; % P_Large -> Stop, TurnRight_Fast
+    2 0 0  1 2  1 1; % N_Med -> Stop, TurnLeft_Med (Giro limpio)
+    4 0 0  1 6  1 1; % P_Med -> Stop, TurnRight_Med (Giro limpio)
     
-    % Reglas de velocidad angular basadas en error de heading
-    % Error grande negativo (objetivo a la izquierda)
-    1 0 0  0 1  1 1;  % e_heading=N_Large => omega=TurnLeft_Fast
-    2 0 0  0 2  1 1;  % e_heading=N_Med => omega=TurnLeft_Slow
+    % 3. CORRECCIONES FINAS (En movimiento)
+    3 0 0  0 4  1 1; % Zero Error -> Straight
     
-    % Error grande positivo (objetivo a la derecha)
-    5 0 0  0 5  1 1;  % e_heading=P_Large => omega=TurnRight_Fast
-    4 0 0  0 4  1 1;  % e_heading=P_Med => omega=TurnRight_Slow
+    % 4. VELOCIDAD DE CRUCERO (Solo si alineado)
+    3 0 3  3 0  1 1; % Aligned + Medium Dist -> v=Medium
+    3 0 4  4 0  1 1; % Aligned + Far Dist -> v=Fast
     
-    % Heading correcto
-    3 0 0  0 3  1 1;  % e_heading=Zero => omega=Straight
-    
-    % Si el error de ángulo es MEDIO o GRANDE, DETENERSE para girar (Tank Turn)
-    1 0 0  1 1  1 1;  % e_heading=N_Large -> v=STOP
-    5 0 0  1 5  1 1;  % e_heading=P_Large -> v=STOP
-    2 0 0  1 2  1 1;  % e_heading=N_Med   -> v=STOP (Antes Slow, ahora Stop para evitar bucles)
-    4 0 0  1 4  1 1;  % e_heading=P_Med   -> v=STOP (Antes Slow, ahora Stop para evitar bucles)
-    
-    % Si heading está bien (Zero) y lejos, entonces correr
-    3 0 3  3 3  1 1;  % e_heading=Zero & dist=Medium -> v=Medium, omega=Straight
-    3 0 4  4 3  1 1;  % e_heading=Zero & dist=Far -> v=Fast, omega=Straight
-    
-    % Reglas de seguridad básicas (ya existentes pero refinadas)
-    0 0 1  1 3  1 1;  % distance=VeryClose -> Stop
-    0 0 2  2 0  1 1;  % distance=Close -> Slow
+    % 5. AMORTIGUAMIENTO (Damping para evitar overshoot)
+    % Si error es Zero pero derror es alto, contra-restar
+    3 1 0  0 5  0.8 1; % Error~0, Girando izq rapido -> TurnRight_Slow (Frenar giro)
+    3 3 0  0 3  0.8 1; % Error~0, Girando der rapido -> TurnLeft_Slow (Frenar giro)
     ];
 
 fis = addRule(fis, rules);
 
-fprintf('✓ FIS creado con %d reglas\n', length(fis.Rules));
+fprintf('✓ FIS MEJORADO creado con %d reglas (granularidad fina)\n', length(fis.Rules));
 fprintf('  Entradas: error_heading, derror_heading, distance\n');
 fprintf('  Salidas: v_desired, omega_desired\n\n');
 
