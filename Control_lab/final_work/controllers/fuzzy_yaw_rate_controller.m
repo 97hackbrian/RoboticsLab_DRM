@@ -55,11 +55,21 @@ v_desired = output(1);      % m/s
 omega_desired = output(2);  % rad/s
 
 % --- REVISIÓN DE PARADA FINAL ---
-% Si estamos MUY cerca (zona de parking), forzar omega a 0 para evitar
-% giros sobre el propio eje (jitter) mientras se intenta parar.
-if distance < 0.1  % Aumentado de 0.25 a 0.4 para coincidir con Fuzzy 'VeryClose'
-    omega_desired = 0;
-    v_desired = 0; % Asegurar parada
+% ESTABILIZACIÓN: Problema de "Singularidad"
+% Cuando estamos muy cerca (<0.5m), el cálculo de ángulo varía drásticamente.
+% SIEMPRE debemos dejar de girar (omega=0) si estamos cerca para evitar "spinning".
+
+if distance < 0.5
+    omega_desired = 0; % DEADZONE DE GIRO: Prohibido girar si estamos cerca
+    
+    % Solo permitimos movimiento lineal final (parking) si estamos alineados
+    % o simplemente paramos todo si estamos muy cerca (0.15m)
+    if distance < 0.1
+        v_desired = 0; % Parada total
+    else
+        % Entre 0.15m y 0.5m: Acercarse recto y despacio
+        v_desired = min(v_desired, 0.2);
+    end
 end
 
 %% 4. CONVERTIR VELOCIDADES DESEADAS A TORQUES (MEJORADO)
@@ -94,15 +104,41 @@ v_right_actual = v_actual + (omega_actual * W / 2);
 omega_wheel_left_actual = v_left_actual / r;
 omega_wheel_right_actual = v_right_actual / r;
 
-% PASO 3: Control PD en velocidad de rueda (más suave para evitar chattering)
-Kp_wheel = 25.0;  % Aumentado (antes 8.0) por mayor masa/inercia
-Kd_wheel = 2.0;   % Aumentado (antes 0.5) para damping rápido
+% PASO 3: Control PID en velocidad de rueda
+% Intentar leer ganancias desde params (para tuning en tiempo real)
+if isfield(params, 'Kp_wheel')
+    Kp_wheel = params.Kp_wheel;
+    Ki_wheel = params.Ki_wheel;
+    Kd_wheel = params.Kd_wheel;
+else
+    % Valores por defecto (si no están en params)
+    Kp_wheel = 15.0;
+    Ki_wheel = 7.0;
+    Kd_wheel = 0.09;
+end
 
 % Errores de velocidad
 e_omega_left = omega_wheel_left_desired - omega_wheel_left_actual;
 e_omega_right = omega_wheel_right_desired - omega_wheel_right_actual;
 
-% Derivada de error (aproximación con diferencia finita)
+% Integral del error (con anti-windup simple)
+persistent int_e_omega_left int_e_omega_right
+if isempty(int_e_omega_left)
+    int_e_omega_left = 0;
+    int_e_omega_right = 0;
+end
+
+% Acumular integral solo si no estamos saturados (anti-windup básico) o si el error es pequeño
+int_e_omega_left = int_e_omega_left + e_omega_left * dt;
+int_e_omega_right = int_e_omega_right + e_omega_right * dt;
+
+% Limitar integral para evitar windup excesivo
+limit_int = 5.0;
+int_e_omega_left = max(-limit_int, min(limit_int, int_e_omega_left));
+int_e_omega_right = max(-limit_int, min(limit_int, int_e_omega_right));
+
+
+% Derivada de error
 persistent prev_e_omega_left prev_e_omega_right
 if isempty(prev_e_omega_left)
     prev_e_omega_left = 0;
@@ -115,9 +151,9 @@ de_omega_right = (e_omega_right - prev_e_omega_right) / max(dt, 0.001);
 prev_e_omega_left = e_omega_left;
 prev_e_omega_right = e_omega_right;
 
-% PASO 4: Calcular torques con PD
-T_left = Kp_wheel * e_omega_left + Kd_wheel * de_omega_left;
-T_right = Kp_wheel * e_omega_right + Kd_wheel * de_omega_right;
+% PASO 4: Calcular torques con PID
+T_left = Kp_wheel * e_omega_left + Ki_wheel * int_e_omega_left + Kd_wheel * de_omega_left;
+T_right = Kp_wheel * e_omega_right + Ki_wheel * int_e_omega_right + Kd_wheel * de_omega_right;
 
 % PASO 5: Compensación feedforward (ayuda a acelerar respuesta)
 % Torque para vencer inercia rotacional

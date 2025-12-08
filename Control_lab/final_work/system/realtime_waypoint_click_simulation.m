@@ -67,6 +67,32 @@ set(fig, 'WindowButtonDownFcn', @mouse_click_callback);
 % Texto de estado
 status_text = text(ax, field_xlim(1)+2, field_ylim(2)-2, 'Estado: Iniciando...', 'FontSize', 12, 'BackgroundColor', 'w', 'EdgeColor', 'k');
 
+%% GUI CONTROLS (Sliders para Tuning PID)
+gui_panel = uipanel(fig, 'Position', [0.75 0.1 0.23 0.3], 'Title', 'PID Tuning');
+
+% Kp Slider
+uicontrol(gui_panel, 'Style', 'text', 'Position', [10 180 180 20], 'String', 'Kp (Proportional):');
+slider_Kp = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 200, 'Value', 15, ...
+    'Position', [10 160 180 20]);
+lbl_Kp = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 160 40 20], 'String', '15');
+
+% Ki Slider
+uicontrol(gui_panel, 'Style', 'text', 'Position', [10 130 180 20], 'String', 'Ki (Integral):');
+slider_Ki = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 500, 'Value', 6, ...
+    'Position', [10 110 180 20]);
+lbl_Ki = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 110 40 20], 'String', '6');
+
+% Kd Slider
+uicontrol(gui_panel, 'Style', 'text', 'Position', [10 80 180 20], 'String', 'Kd (Derivative):');
+slider_Kd = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 100, 'Value', 0.09, ...
+    'Position', [10 60 180 20]);
+lbl_Kd = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 60 40 20], 'String', '0.09');
+
+% Add Listener callback simple to update labels directly
+addlistener(slider_Kp, 'Value', 'PostSet', @(s,e) set(lbl_Kp, 'String', sprintf('%.1f', get(slider_Kp, 'Value'))));
+addlistener(slider_Ki, 'Value', 'PostSet', @(s,e) set(lbl_Ki, 'String', sprintf('%.1f', get(slider_Ki, 'Value'))));
+addlistener(slider_Kd, 'Value', 'PostSet', @(s,e) set(lbl_Kd, 'String', sprintf('%.1f', get(slider_Kd, 'Value'))));
+
 %% 3. BUCLE DE SIMULACIÓN
 t_current = 0;
 last_tic = tic;
@@ -93,18 +119,19 @@ try
         X_ref(1) = current_target(1);
         X_ref(2) = current_target(2);
         
+        % Leer valores de los sliders para tuning en tiempo real
+        params.Kp_wheel = get(slider_Kp, 'Value');
+        params.Ki_wheel = get(slider_Ki, 'Value');
+        params.Kd_wheel = get(slider_Kd, 'Value');
+        
         % Calcular control difuso
         % NOTA: El controlador ya tiene logic interna para poner v=0 si dist < 0.7
         % Esto genera frenado activo (torque opuesto).
         u_control = fuzzy_yaw_rate_controller(X, X_ref, X_ref_prev, dt, fis, params);
         
-        % 3. Lógica de "Hard Stop" (Parking final)
-        if dist_to_target < 0.1
-            % --- ZONA DE PARADA TOTAL ---
-            u_control = zeros(4,1); % Cortar energía final
-            X(7:12) = 0;            % Forzar velocidad cero (matar inercia residual)
-            
-            status_str = sprintf(' T=%.1fs | LLEGADO (Click para mover) ', t_current);
+        % Estado de llegada (solo visual)
+        if dist_to_target < 0.2
+            status_str = sprintf(' T=%.1fs | LLEGADO (Holding) | V: %.2fm/s', t_current, v_abs);
             set(target_circle, 'Color', 'g');
         else
             status_str = sprintf(' T=%.1fs | Dist: %.2fm | V: %.2fm/s ', t_current, dist_to_target, v_abs);
