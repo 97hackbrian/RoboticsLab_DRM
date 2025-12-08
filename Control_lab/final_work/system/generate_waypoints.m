@@ -14,48 +14,17 @@ switch lower(trajectory_type)
         waypoints = [0, 0; 10, 0];
         
     case 'square'
-        % Cuadrado con CURVAS SUAVES automáticas
+        % Cuadrado SIMPLE (solo esquinas) para evitar lazos raros
         side = params.side;
-        corner_radius = min(side * 0.25, 1.5); % 25% del lado o 1.5m máximo
         
-        % Esquinas originales
-        corners = [0, 0; side, 0; side, side; 0, side; 0, 0];
-        
-        % Generar waypoints con curvas
-        waypoints = [];
-        num_curve_points = 3; % Puntos por curva
-        
-        for i = 1:(size(corners,1)-1)
-            p_current = corners(i,:);
-            p_next = corners(i+1,:);
-            
-            % Vector dirección actual
-            dir = p_next - p_current;
-            len = norm(dir);
-            dir_norm = dir / len;
-            
-            if i == 1
-                % Primer segmento: desde inicio
-                waypoints = [waypoints; p_current];
-                % Añadir punto antes de la esquina
-                waypoints = [waypoints; p_current + dir_norm * (len - corner_radius)];
-            else
-                % Segmentos intermedios: curva + recta
-                % Puntos de curva (transición suave)
-                for j = 1:num_curve_points
-                    alpha = j / (num_curve_points + 1);
-                    waypoints = [waypoints; p_current + dir_norm * (corner_radius * alpha)];
-                end
-                
-                % Punto antes de siguiente esquina
-                if i < size(corners,1)-1
-                    waypoints = [waypoints; p_current + dir_norm * (len - corner_radius)];
-                else
-                    % Último punto (regreso al inicio)
-                    waypoints = [waypoints; p_next];
-                end
-            end
-        end
+        % Definir explícitamente los 4 puntos + cierre
+        waypoints = [
+            0, 0;       % Inicio
+            side, 0;    % Esquina 1 (X+)
+            side, side; % Esquina 2 (X+, Y+)
+            0, side;    % Esquina 3 (Y+)
+            0, 0        % Cierre (Inicio)
+            ];
         
     case 'circle'
         % Círculo: múltiples waypoints

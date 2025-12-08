@@ -13,9 +13,9 @@ params.W = 0.4;                     % Ancho del robot (m)
 params.h_chassis = 0.05;            % Altura del chasis (m)
 
 %% PARÁMETROS DE TERRENO Y FRICCIÓN
-params.mu_static = 0.7;             % Coeficiente de fricción estática
-params.mu_kinetic = 0.65;           % Coeficiente de fricción cinética
-params.mu_lateral = 0.8;            % Fricción lateral (Skid-Steer)
+params.mu_static = 0.3;             % Coeficiente de fricción estática REDUCIDO
+params.mu_kinetic = 0.25;           % Coeficiente de fricción cinética REDUCIDO
+params.mu_lateral = 0.4;            % Fricción lateral (Skid-Steer) REDUCIDO
 params.Cd = 0.1;                    % Coeficiente de fricción viscosa
 
 %% PARÁMETROS DEL EKF (Extended Kalman Filter)

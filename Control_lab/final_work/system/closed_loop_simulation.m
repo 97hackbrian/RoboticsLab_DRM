@@ -17,32 +17,41 @@ fprintf('╚══════════════════════�
 params = robot_parameters();
 
 %% 2. CREAR SISTEMA DE INFERENCIA DIFUSO
-fprintf('► Inicializando controlador difuso...\n');
-fis = fuzzy_controller_setup();
+fprintf('► Inicializando controlador difuso de YAW RATE...\n');
+fis = fuzzy_yaw_rate_controller_setup();
 
 %% 3. GENERAR TRAYECTORIA DE REFERENCIA
 fprintf('\n► Generando trayectoria de referencia...\n');
 
 % Seleccionar tipo de trayectoria
 % Opciones: 'line', 'circle', 's_curve', 'step', 'square'
-trajectory_type = 'circle';
-t_sim = [0 10]; % Tiempo de simulación (segundos)
+trajectory_type = 's_curve';
+t_sim = [0 60]; % Tiempo de simulación AUMENTADO
 dt_control = 0.01; % Paso de control (100 Hz)
 
 % Generar trayectoria
-traj_params.radius = 100;  % Radio MUY grande - curvatura casi imperceptible
-traj_params.period = 120; % Período muy largo - giro extremadamente lento
+traj_params.radius = 10;  % Radio moderado para prueba
+traj_params.period = 30; % Período largo
 [t_ref, X_ref_traj] = trajectory_generator(trajectory_type, t_sim, dt_control, traj_params);
 
-% AJUSTAR condición inicial para empezar EN la trayectoria
-theta_0 = deg2rad(0.5);
-% Empezar en el punto (0,0) que está en el círculo
-X0 = [0; 0; 0;  0; theta_0; 0;  0; 0; 0;  0; 0; 0];
+% AJUSTAR condición inicial para coincidir EXACTAMENTE con el inicio de la trayectoria
+% Esto elimina el error inicial artificial
+start_pos = X_ref_traj(1, 1:2);
+next_pos = X_ref_traj(2, 1:2); % Para calcular orientación inicial
 
-fprintf('  Condiciones iniciales:\n');
-fprintf('    Posición: (%.1f, %.1f) m\n', X0(1), X0(2));
-fprintf('    Pitch: %.1f°\n', rad2deg(theta_0));
-fprintf('    Círculo: R=%dm, curvatura=%.6f rad/m\n\n', traj_params.radius, 1/traj_params.radius);
+% Calcular orientación inicial de la trayectoria
+initial_heading = atan2(next_pos(2) - start_pos(2), next_pos(1) - start_pos(1));
+
+% Configurar estado inicial del robot
+X0 = zeros(12, 1);
+X0(1) = start_pos(1); % x
+X0(2) = start_pos(2); % y
+X0(5) = 0.0087;       % pitch (0.5 grados approx para estabilidad)
+X0(6) = initial_heading; % yaw alineado con trayectoria
+
+fprintf('  Condiciones iniciales calculadas:\n');
+fprintf('    Posición: (%.2f, %.2f) m\n', X0(1), X0(2));
+fprintf('    Yaw: %.2f° (alineado con trayectoria)\n\n', rad2deg(X0(6)));
 
 %% 5. SIMULACIÓN EN LAZO CERRADO
 fprintf('\n► Ejecutando simulación en lazo cerrado...\n');
@@ -64,10 +73,8 @@ X_ref_prev = X_ref_traj(1,:)';
 for i = 1:N_steps-1
     % Obtener referencia actual
     X_ref_current = X_ref_traj(i,:)';
-    
-    % Calcular control usando controlador difuso
-    u_control = fuzzy_position_controller(X_current, X_ref_current, ...
-        X_ref_prev, dt_control, fis, params);
+    % Calcular torques de control con FIS de yaw rate
+    u_control = fuzzy_yaw_rate_controller(X_current, X_ref_current, X_ref_prev, dt_control, fis, params);
     
     % Guardar torques
     U_history(i,:) = u_control';

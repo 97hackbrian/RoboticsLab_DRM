@@ -17,23 +17,23 @@ fprintf('╚══════════════════════�
 params = robot_parameters();
 
 %% 2. CREAR SISTEMA DE INFERENCIA DIFUSO
-fprintf('► Inicializando controlador difuso...\n');
-fis = fuzzy_controller_setup();
+fprintf('► Inicializando controlador difuso de YAW RATE...\n');
+fis = fuzzy_yaw_rate_controller_setup();
 
 %% 3. GENERAR WAYPOINTS
 fprintf('\n► Generando waypoints...\n');
 
 % Configuración de trayectoria
-trajectory_type = 'circle'; % Opciones: 'line', 'square', 'circle', 's_curve'
+trajectory_type = 'square'; % Opciones: 'line', 'square', 'circle', 's_curve'
 
 switch trajectory_type
     case 'square'
-        wp_params.side = 4; % metros
+        wp_params.side = 10; % metros (mismo tamaño que simulation closed loop)
     case 'circle'
-        wp_params.radius = 200;
-        wp_params.num_points = 12; % 12 puntos alrededor del círculo
+        wp_params.radius = 10;
+        wp_params.num_points = 12;
     case 's_curve'
-        wp_params.num_points = 10; % 10 puntos para S-curve
+        wp_params.num_points = 10;
     otherwise
         wp_params = struct();
 end
@@ -42,7 +42,7 @@ waypoints = generate_waypoints(trajectory_type, wp_params);
 N_waypoints = size(waypoints, 1);
 
 fprintf('  Total waypoints: %d\n', N_waypoints);
-for i = 1:min(N_waypoints, 5) % Mostrar solo primeros 5
+for i = 1:min(N_waypoints, 5)
     fprintf('    WP%d: (%.1f, %.1f)\n', i, waypoints(i,1), waypoints(i,2));
 end
 if N_waypoints > 5
@@ -50,7 +50,7 @@ if N_waypoints > 5
 end
 
 %% 4. CONDICIONES INICIALES
-theta_0 = deg2rad(0.5); % Terreno casi plano
+theta_0 = deg2rad(0.5);
 X0 = [0; 0; 0;  0; theta_0; 0;  0; 0; 0;  0; 0; 0];
 
 fprintf('\n  Condiciones iniciales:\n');
@@ -60,7 +60,7 @@ fprintf('    Pitch: %.1f°\n\n', rad2deg(theta_0));
 %% 5. PARÁMETROS DE NAVEGACIÓN
 waypoint_threshold = 0.5; % Distancia para considerar waypoint alcanzado (metros)
 dt_control = 0.01; % 100 Hz
-max_time = 60; % Tiempo máximo de simulación (s)
+max_time = 400; % Tiempo máximo de simulación AUMENTADO
 
 current_waypoint_idx = 1;
 target_waypoint = waypoints(current_waypoint_idx, :);
@@ -113,8 +113,8 @@ while ~simulation_complete && step < max_steps
             current_waypoint_idx, target_waypoint(1), target_waypoint(2));
     end
     
-    % Calcular control
-    u_control = fuzzy_position_controller(X_current, X_ref, X_ref_prev, ...
+    % Calcular control (USANDO NUEVO CONTROLADOR DE YAW RATE)
+    u_control = fuzzy_yaw_rate_controller(X_current, X_ref, X_ref_prev, ...
         dt_control, fis, params);
     U_history(step,:) = u_control';
     
