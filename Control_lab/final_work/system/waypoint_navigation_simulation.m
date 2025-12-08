@@ -24,13 +24,13 @@ fis = fuzzy_controller_setup();
 fprintf('\n► Generando waypoints...\n');
 
 % Configuración de trayectoria
-trajectory_type = 's_curve'; % Opciones: 'line', 'square', 'circle', 's_curve'
+trajectory_type = 'circle'; % Opciones: 'line', 'square', 'circle', 's_curve'
 
 switch trajectory_type
     case 'square'
         wp_params.side = 4; % metros
     case 'circle'
-        wp_params.radius = 2;
+        wp_params.radius = 200;
         wp_params.num_points = 12; % 12 puntos alrededor del círculo
     case 's_curve'
         wp_params.num_points = 10; % 10 puntos para S-curve

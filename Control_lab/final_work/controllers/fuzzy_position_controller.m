@@ -63,27 +63,19 @@ de_x_clipped = max(-3, min(3, de_x));
 e_y_clipped = max(-5, min(5, e_y_combined)); % Usar error combinado
 pitch_deg = max(-30, min(30, rad2deg(theta)));
 
-% MODO ESPECIAL: Para errores de yaw grandes (>45°), priorizar alineación
-if abs(e_psi) > pi/4  % 45 grados
-    % Modo de alineación: avance lento + giro fuerte
-    % Skid-steer DEBE moverse forward para girar efectivamente
-    T_long = 2.0; % Avance constante moderado para permitir giro
-    T_diff = 5.0 * sign(e_psi); % Diferencial fuerte
-else
-    % Modo normal: evaluar FIS
-    output = evalfis(fis, [e_x_clipped, de_x_clipped, e_y_clipped, pitch_deg]);
-    
-    T_long = output(1); % Torque longitudinal
-    T_diff = output(2); % Torque diferencial
-    
-    % IMPORTANTE: Garantizar velocidad mínima para turning efectivo
-    if abs(e_y_combined) > 0.5
-        min_forward_torque = 1.0;
-        if abs(T_long) < min_forward_torque
-            T_long = sign(T_long) * min_forward_torque;
-            if T_long == 0
-                T_long = min_forward_torque;
-            end
+% Evaluar FIS - SIN modos especiales, solo fuzzy logic puro
+output = evalfis(fis, [e_x_clipped, de_x_clipped, e_y_clipped, pitch_deg]);
+
+T_long = output(1); % Torque longitudinal
+T_diff = output(2); % Torque diferencial
+
+% Garantizar velocidad mínima para turning efectivo
+if abs(e_y_combined) > 0.5
+    min_forward_torque = 1.0;
+    if abs(T_long) < min_forward_torque
+        T_long = sign(T_long) * min_forward_torque;
+        if T_long == 0
+            T_long = min_forward_torque;
         end
     end
 end

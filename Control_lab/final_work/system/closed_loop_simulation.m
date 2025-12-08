@@ -25,23 +25,24 @@ fprintf('\n► Generando trayectoria de referencia...\n');
 
 % Seleccionar tipo de trayectoria
 % Opciones: 'line', 'circle', 's_curve', 'step', 'square'
-trajectory_type = 's_curve';
+trajectory_type = 'circle';
 t_sim = [0 10]; % Tiempo de simulación (segundos)
 dt_control = 0.01; % Paso de control (100 Hz)
 
 % Generar trayectoria
-traj_params.radius = 2;  % Reducido de 3m a 2m para giros más suaves
-traj_params.period = 12; % Aumentado de 8s a 12s para velocidad angular más baja
+traj_params.radius = 100;  % Radio MUY grande - curvatura casi imperceptible
+traj_params.period = 120; % Período muy largo - giro extremadamente lento
 [t_ref, X_ref_traj] = trajectory_generator(trajectory_type, t_sim, dt_control, traj_params);
 
-%% 4. CONDICIONES INICIALES
-% Robot comienza en origen con terreno plano
-theta_0 = deg2rad(0.5); % Pendiente mínima (casi plano)
+% AJUSTAR condición inicial para empezar EN la trayectoria
+theta_0 = deg2rad(0.5);
+% Empezar en el punto (0,0) que está en el círculo
 X0 = [0; 0; 0;  0; theta_0; 0;  0; 0; 0;  0; 0; 0];
 
 fprintf('  Condiciones iniciales:\n');
 fprintf('    Posición: (%.1f, %.1f) m\n', X0(1), X0(2));
 fprintf('    Pitch: %.1f°\n', rad2deg(theta_0));
+fprintf('    Círculo: R=%dm, curvatura=%.6f rad/m\n\n', traj_params.radius, 1/traj_params.radius);
 
 %% 5. SIMULACIÓN EN LAZO CERRADO
 fprintf('\n► Ejecutando simulación en lazo cerrado...\n');
