@@ -82,14 +82,39 @@ try
         set(target_marker, 'XData', current_target(1), 'YData', current_target(2));
         set(target_circle, 'XData', current_target(1), 'YData', current_target(2));
         
-        % 1. Controlador
-        X_ref = zeros(12,1);
-        X_ref(1) = current_target(1);
-        X_ref(2) = current_target(2);
+        % 1. Calcular distancia y estado actual
+        dist_to_target = norm(X(1:2) - current_target);
+        v_abs = abs(X(7));
         
-        u_control = fuzzy_yaw_rate_controller(X, X_ref, X_ref_prev, dt, fis, params);
+        % 2. Lógica de Control y "Parking"
+        if dist_to_target < 0.25
+            % --- ZONA DE LLEGADA (Parking) ---
+            u_control = zeros(4,1); % Cortar motores (Zero Torque)
+            
+            % Si la velocidad ya es baja, forzar parada perfecta para evitar "drift"
+            if v_abs < 0.1
+                X(7:12) = 0;
+            end
+            
+            status_str = sprintf(' T=%.1fs | LLEGADO (Click para mover) ', t_current);
+            set(target_circle, 'Color', 'g');
+        else
+            % --- ZONA DE NAVEGACIÓN ---
+            % Construir vector de referencia
+            X_ref = zeros(12,1);
+            X_ref(1) = current_target(1);
+            X_ref(2) = current_target(2);
+            
+            % Calcular control difuso
+            u_control = fuzzy_yaw_rate_controller(X, X_ref, X_ref_prev, dt, fis, params);
+            
+            status_str = sprintf(' T=%.1fs | Dist: %.2fm | V: %.2fm/s ', t_current, dist_to_target, v_abs);
+            set(target_circle, 'Color', 'r');
+        end
         
-        % 2. Física
+        set(status_text, 'String', status_str);
+        
+        % 3. Física (ode45 paso a paso)
         model_func = @(t,x) skid_steer_robot_model(t, x, u_control, params);
         [~, X_ode] = ode45(model_func, [0 dt], X);
         X = X_ode(end,:)';
