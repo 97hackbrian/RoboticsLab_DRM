@@ -93,30 +93,51 @@ switch lower(trajectory_type)
         end
         
     case 'square'
-        % Trayectoria cuadrada
+        % Trayectoria cuadrada CON ESQUINAS SUAVIZADAS
         side = 4; % Lado del cuadrado (metros)
         T_total = t_span(2) - t_span(1);
         T_side = T_total / 4; % Tiempo por lado
+        corner_radius = 0.5; % Radio de suavizado en las esquinas (metros)
         
         for i = 1:N
             t_rel = t(i) - t_span(1);
             
-            if t_rel < T_side
-                % Lado 1: avanzar en +X
-                X_ref(i,1) = (t_rel / T_side) * side;
-                X_ref(i,2) = 0;
-            elseif t_rel < 2*T_side
-                % Lado 2: avanzar en +Y
-                X_ref(i,1) = side;
-                X_ref(i,2) = ((t_rel - T_side) / T_side) * side;
-            elseif t_rel < 3*T_side
-                % Lado 3: retroceder en -X
-                X_ref(i,1) = side - ((t_rel - 2*T_side) / T_side) * side;
-                X_ref(i,2) = side;
-            else
-                % Lado 4: retroceder en -Y
+            % Determinar en qué lado estamos
+            side_num = floor(t_rel / T_side);
+            t_in_side = mod(t_rel, T_side);
+            progress = t_in_side / T_side; % [0, 1] dentro del lado actual
+            
+            % Definir puntos de esquina
+            corners = [0, 0; side, 0; side, side; 0, side; 0, 0];
+            
+            if side_num >= 4
+                % Completado - quedarse en inicio
                 X_ref(i,1) = 0;
-                X_ref(i,2) = side - ((t_rel - 3*T_side) / T_side) * side;
+                X_ref(i,2) = 0;
+            else
+                % Puntos inicial y final del segmento actual
+                p_start = corners(side_num + 1, :);
+                p_end = corners(side_num + 2, :);
+                
+                % Interpolación suave usando función sigmoidea en las transiciones
+                % Esto crea esquinas redondeadas naturalmente
+                smooth_factor = 8; % Mayor = transición más brusca
+                
+                % Aplicar suavizado cerca de las esquinas (primero y último 20% del lado)
+                if progress < 0.2
+                    % Saliendo de esquina - suavizar inicio
+                    alpha = 0.5 * (1 + tanh(smooth_factor * (progress - 0.1) / 0.1));
+                elseif progress > 0.8
+                    % Entrando a esquina - suavizar final
+                    alpha = 0.5 * (1 - tanh(smooth_factor * (progress - 0.9) / 0.1)) + 0.5;
+                else
+                    % Sección media - movimiento lineal
+                    alpha = progress;
+                end
+                
+                % Interpolar posición
+                X_ref(i,1) = p_start(1) + alpha * (p_end(1) - p_start(1));
+                X_ref(i,2) = p_start(2) + alpha * (p_end(2) - p_start(2));
             end
         end
         

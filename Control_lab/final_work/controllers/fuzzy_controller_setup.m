@@ -68,14 +68,15 @@ fis = addMF(fis, 'torque_long', 'trimf', [0 4 8], 'Name', 'PM');
 fis = addMF(fis, 'torque_long', 'trimf', [6 10 10], 'Name', 'PB');
 
 % Salida 2: Torque Diferencial (para giro - diferencia entre izq/der)
-fis = addOutput(fis, [-5 5], 'Name', 'torque_diff');
-fis = addMF(fis, 'torque_diff', 'trimf', [-5 -5 -3], 'Name', 'NB');
-fis = addMF(fis, 'torque_diff', 'trimf', [-4 -2 0], 'Name', 'NM');
-fis = addMF(fis, 'torque_diff', 'trimf', [-1.5 -0.5 0], 'Name', 'NS');
+% AUMENTADO el rango para mejorar capacidad de giro
+fis = addOutput(fis, [-8 8], 'Name', 'torque_diff');
+fis = addMF(fis, 'torque_diff', 'trimf', [-8 -8 -5], 'Name', 'NB');
+fis = addMF(fis, 'torque_diff', 'trimf', [-6 -3 0], 'Name', 'NM');
+fis = addMF(fis, 'torque_diff', 'trimf', [-2 -1 0], 'Name', 'NS');
 fis = addMF(fis, 'torque_diff', 'trimf', [-0.5 0 0.5], 'Name', 'ZE');
-fis = addMF(fis, 'torque_diff', 'trimf', [0 0.5 1.5], 'Name', 'PS');
-fis = addMF(fis, 'torque_diff', 'trimf', [0 2 4], 'Name', 'PM');
-fis = addMF(fis, 'torque_diff', 'trimf', [3 5 5], 'Name', 'PB');
+fis = addMF(fis, 'torque_diff', 'trimf', [0 1 2], 'Name', 'PS');
+fis = addMF(fis, 'torque_diff', 'trimf', [0 3 6], 'Name', 'PM');
+fis = addMF(fis, 'torque_diff', 'trimf', [5 8 8], 'Name', 'PB');
 
 %% REGLAS DIFUSAS
 
@@ -110,13 +111,13 @@ rules = [
     4 0 0 2  3 0  1 1;  % error_x=ZE, pitch=DS → T_long=NS (frenar en bajada)
     3 0 0 1  2 0  1 1;  % error_x=NS, pitch=DN → T_long=NM (frenar fuerte)
     
-    % CONTROL LATERAL (basado en error_y)
+    % CONTROL LATERAL (basado en error_y) - MEJORADO con más reglas
     % Error Y positivo → girar a la derecha (diferencial positivo)
     0 0 7 0  0 7  1 1;  % error_y=PB → T_diff=PB
     0 0 6 0  0 6  1 1;  % error_y=PM → T_diff=PM
     0 0 5 0  0 5  1 1;  % error_y=PS → T_diff=PS
     
-    % Error Y negativo → girar a la izquierda (diferencial negativo)
+    % Error Y negativo → girar a la izquierda (diferencialnegativo)
     0 0 1 0  0 1  1 1;  % error_y=NB → T_diff=NB
     0 0 2 0  0 2  1 1;  % error_y=NM → T_diff=NM
     0 0 3 0  0 3  1 1;  % error_y=NS → T_diff=NS

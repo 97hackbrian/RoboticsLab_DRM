@@ -25,7 +25,7 @@ fprintf('\n► Generando trayectoria de referencia...\n');
 
 % Seleccionar tipo de trayectoria
 % Opciones: 'line', 'circle', 's_curve', 'step', 'square'
-trajectory_type = 's_curve';
+trajectory_type = 'circle';
 t_sim = [0 10]; % Tiempo de simulación (segundos)
 dt_control = 0.01; % Paso de control (100 Hz)
 
