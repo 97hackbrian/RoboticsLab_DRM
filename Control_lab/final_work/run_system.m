@@ -38,7 +38,15 @@ current_dir = pwd;
 cd(fullfile(project_root, 'system'));
 
 try
+    diagnose_simulation;
+    pause
     open_loop_simulation;
+    pause
+    waypoint_navigation_simulation;
+    pause
+    realtime_waypoint_click_simulation;
+
+
     fprintf('\n► Simulación completada exitosamente ✓\n');
     fprintf('  Las gráficas muestran el comportamiento del sistema físico\n');
     fprintf('  sin controlador (solo torque constante en pendiente).\n\n');
@@ -54,7 +62,7 @@ catch ME
 end
 
 % Return to original directory
-cd(current_dir);
+%cd(current_dir);
 
 fprintf('╔════════════════════════════════════════════════════════════╗\n');
 fprintf('║   SIMULACIÓN FINALIZADA                                    ║\n');

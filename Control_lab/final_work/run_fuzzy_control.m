@@ -34,7 +34,7 @@ current_dir = pwd;
 try
     % Cambiar al directorio system y ejecutar
     cd(fullfile(project_root, 'system'));
-    closed_loop_simulation;
+    waypoint_navigation_simulation;
     
     % Volver al directorio raíz
     cd(current_dir);
