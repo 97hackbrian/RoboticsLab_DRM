@@ -72,21 +72,21 @@ gui_panel = uipanel(fig, 'Position', [0.75 0.1 0.23 0.3], 'Title', 'PID Tuning')
 
 % Kp Slider
 uicontrol(gui_panel, 'Style', 'text', 'Position', [10 180 180 20], 'String', 'Kp (Proportional):');
-slider_Kp = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 200, 'Value', 15, ...
+slider_Kp = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 200, 'Value', 12, ...
     'Position', [10 160 180 20]);
-lbl_Kp = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 160 40 20], 'String', '15');
+lbl_Kp = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 160 40 20], 'String', '12');
 
 % Ki Slider
 uicontrol(gui_panel, 'Style', 'text', 'Position', [10 130 180 20], 'String', 'Ki (Integral):');
-slider_Ki = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 500, 'Value', 6, ...
+slider_Ki = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 500, 'Value', 20, ...
     'Position', [10 110 180 20]);
-lbl_Ki = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 110 40 20], 'String', '6');
+lbl_Ki = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 110 40 20], 'String', '20');
 
 % Kd Slider
 uicontrol(gui_panel, 'Style', 'text', 'Position', [10 80 180 20], 'String', 'Kd (Derivative):');
-slider_Kd = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 100, 'Value', 0.09, ...
+slider_Kd = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 100, 'Value', 0.00, ...
     'Position', [10 60 180 20]);
-lbl_Kd = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 60 40 20], 'String', '0.09');
+lbl_Kd = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 60 40 20], 'String', '0.00');
 
 % Add Listener callback simple to update labels directly
 addlistener(slider_Kp, 'Value', 'PostSet', @(s,e) set(lbl_Kp, 'String', sprintf('%.1f', get(slider_Kp, 'Value'))));

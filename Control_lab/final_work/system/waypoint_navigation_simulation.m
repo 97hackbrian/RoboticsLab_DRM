@@ -24,7 +24,7 @@ fis = fuzzy_yaw_rate_controller_setup();
 fprintf('\n► Generando waypoints...\n');
 
 % Configuración de trayectoria
-trajectory_type = 'circle'; % Opciones: 'line', 'square', 'circle', 's_curve'
+trajectory_type = 's_curve'; % Opciones: 'line', 'square', 'circle', 's_curve'
 
 switch trajectory_type
     case 'square'
