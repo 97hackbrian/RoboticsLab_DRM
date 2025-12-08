@@ -30,13 +30,13 @@ t_sim = [0 10]; % Tiempo de simulación (segundos)
 dt_control = 0.01; % Paso de control (100 Hz)
 
 % Generar trayectoria
-traj_params.radius = 3;
-traj_params.period = 8;
+traj_params.radius = 2;  % Reducido de 3m a 2m para giros más suaves
+traj_params.period = 12; % Aumentado de 8s a 12s para velocidad angular más baja
 [t_ref, X_ref_traj] = trajectory_generator(trajectory_type, t_sim, dt_control, traj_params);
 
 %% 4. CONDICIONES INICIALES
-% Robot comienza en origen con pequeña pendiente
-theta_0 = deg2rad(5); % Pendiente inicial
+% Robot comienza en origen con terreno plano
+theta_0 = deg2rad(0.5); % Pendiente mínima (casi plano)
 X0 = [0; 0; 0;  0; theta_0; 0;  0; 0; 0;  0; 0; 0];
 
 fprintf('  Condiciones iniciales:\n');
