@@ -2,7 +2,8 @@
 % Simulación en lazo abierto del robot Skid-Steer en pendiente
 % Muestra el comportamiento del sistema sin controlador (solo torque constante)
 
-clear; clc; close all;
+% clear; clc; close all; % Commented to preserve workspace when called from run_system.m
+clc; close all;
 
 % Agregar rutas necesarias
 addpath('../config');

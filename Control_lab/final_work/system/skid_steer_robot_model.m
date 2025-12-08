@@ -94,21 +94,26 @@ v_wheel_RR = [u_b; v_b; 0] + cross([p;q;r], d_RR);
 % Función auxiliar para fuerza de tracción con deslizamiento (Slip)
 % u_in: Torque motor, v_long: vel longitudinal rueda, v_lat: vel lateral
 % Pasamos angulos (theta, phi) para cálculo correcto de fuerza normal
-[F_x_FL, F_y_FL] = compute_tire_force(u(1), v_wheel_FL, rw, mu_s, params, theta, phi);
-[F_x_FR, F_y_FR] = compute_tire_force(u(2), v_wheel_FR, rw, mu_s, params, theta, phi);
-[F_x_RL, F_y_RL] = compute_tire_force(u(3), v_wheel_RL, rw, mu_s, params, theta, phi);
-[F_x_RR, F_y_RR] = compute_tire_force(u(4), v_wheel_RR, rw, mu_s, params, theta, phi);
+[F_x_FL, F_y_FL, N_FL] = compute_tire_force(u(1), v_wheel_FL, rw, mu_s, params, theta, phi);
+[F_x_FR, F_y_FR, N_FR] = compute_tire_force(u(2), v_wheel_FR, rw, mu_s, params, theta, phi);
+[F_x_RL, F_y_RL, N_RL] = compute_tire_force(u(3), v_wheel_RL, rw, mu_s, params, theta, phi);
+[F_x_RR, F_y_RR, N_RR] = compute_tire_force(u(4), v_wheel_RR, rw, mu_s, params, theta, phi);
 
 % Fuerzas Totales en el Cuerpo
 F_traction_x = F_x_FL + F_x_FR + F_x_RL + F_x_RR;
 F_traction_y = F_y_FL + F_y_FR + F_y_RL + F_y_RR; % Resistencia lateral al giro
 
-% Torques generados por las fuerzas de las ruedas (Yaw principalmente)
-% Torque = r x F
-tau_tires = cross(d_FL, [F_x_FL; F_y_FL; 0]) + ...
-    cross(d_FR, [F_x_FR; F_y_FR; 0]) + ...
-    cross(d_RL, [F_x_RL; F_y_RL; 0]) + ...
-    cross(d_RR, [F_x_RR; F_y_RR; 0]);
+% CRÍTICO: Fuerza vertical (Normal) total que soporta al robot
+% Esta fuerza debe equilibrar la gravedad proyectada + componente Z de aceleración
+F_traction_z = N_FL + N_FR + N_RL + N_RR;
+
+% Torques generados por las fuerzas de las ruedas
+% INCLUIMOS la componente vertical (normal) para que el suelo genere
+% un torque de reacción que evita que el robot se voltee
+tau_tires = cross(d_FL, [F_x_FL; F_y_FL; N_FL]) + ...
+    cross(d_FR, [F_x_FR; F_y_FR; N_FR]) + ...
+    cross(d_RL, [F_x_RL; F_y_RL; N_RL]) + ...
+    cross(d_RR, [F_x_RR; F_y_RR; N_RR]);
 
 %% 5. FUERZAS DE GRAVEDAD (PENDIENTES)
 % Proyectar gravedad del mundo al cuerpo
@@ -118,7 +123,8 @@ F_gravity_body = R_ib' * [0; 0; -m*g];
 
 % Sumatoria de Fuerzas = m * (accel + w x v)
 % F_total = F_traction + F_gravity
-F_total = [F_traction_x; F_traction_y; 0] + F_gravity_body;
+% AHORA incluimos la componente vertical de las fuerzas de contacto
+F_total = [F_traction_x; F_traction_y; F_traction_z] + F_gravity_body;
 
 % Añadir resistencia aerodinámica o fricción viscosa extra si se desea
 F_total = F_total - params.Cd * [u_b; v_b; 0] .* abs([u_b; v_b; 0]);
@@ -138,15 +144,13 @@ dX = [vel_world; d_angles; d_vel_b; d_omega_b];
 end
 
 %% SUB-FUNCIÓN: Modelo de Fricción / Neumático Simplificado
-function [Fx, Fy] = compute_tire_force(Torque, v_contact, r, mu, p, theta, phi)
-% Modelo simplificado de tracción longitudinal y fricción lateral
+function [Fx, Fy, Fz] = compute_tire_force(Torque, v_contact, r, mu, p, theta, phi)
+% Modelo simplificado de tracción longitudinal, fricción lateral y fuerza normal
 % v_contact(1) = velocidad longitudinal rueda sobre suelo
 % v_contact(2) = velocidad lateral (derrape)
+% v_contact(3) = velocidad vertical (penetración/separación del suelo)
 
-% 1. Fuerza Longitudinal (Tracción)
-% Relacionamos Torque con Fuerza, pero limitados por fricción estática
-F_desired = Torque / r;
-
+% 1. FUERZA NORMAL (Vertical)
 % Carga normal ESTIMADA en pendiente (corrección física)
 % N = (mg * cos(theta) * cos(phi)) / 4
 % Esto reduce la tracción límite en pendientes fuertes
@@ -154,6 +158,15 @@ NormalForce = (p.m * 9.81 * cos(theta) * cos(phi)) / 4;
 
 % Evitar valores negativos o cero si el robot vuelca (mas de 90 deg)
 NormalForce = max(0, NormalForce);
+
+% La fuerza normal actúa hacia arriba (en marco del cuerpo, +Z)
+% Añadimos un amortiguamiento si la rueda se mueve verticalmente
+k_damp_vertical = 100; % Amortiguamiento vertical (N·s/m)
+Fz = NormalForce - k_damp_vertical * v_contact(3);
+
+% 2. Fuerza Longitudinal (Tracción)
+% Relacionamos Torque con Fuerza, pero limitados por fricción estática
+F_desired = Torque / r;
 
 % Límite de fricción (Círculo de Kamm)
 F_max = mu * NormalForce;
@@ -168,11 +181,11 @@ else
     Fx = F_desired;
 end
 
-% 2. Fuerza Lateral (Resistencia al giro - Skid Steer)
+% 3. Fuerza Lateral (Resistencia al giro - Skid Steer)
 % Esta fuerza se opone a la velocidad lateral v_contact(2)
 % Es crucial para que el Skid-Steer gire (debe vencer esta fricción)
 
-% Coeficiente de fricción lateral (su suele ser alto)
+% Coeficiente de fricción lateral (suele ser alto)
 Fy_max = p.mu_lateral * NormalForce;
 
 % Usamos tanh para suavizar la transición en velocidad cero

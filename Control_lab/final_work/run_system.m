@@ -33,25 +33,28 @@ fprintf('  Estado: 12 variables [x,y,z,φ,θ,ψ,u,v,w,p,q,r]\n');
 fprintf('  Física: Dinámica 3D + Gravedad + Fricción neumático-terreno\n');
 fprintf('  Sensores: IMU + Encoders + Cámara (con ruido)\n\n');
 
+% Ejecutar desde el directorio system
+current_dir = pwd;
+cd(fullfile(project_root, 'system'));
+
 try
-    % Cambiar al directorio system y ejecutar
-    cd(fullfile(project_root, 'system'));
     open_loop_simulation;
-    
     fprintf('\n► Simulación completada exitosamente ✓\n');
     fprintf('  Las gráficas muestran el comportamiento del sistema físico\n');
     fprintf('  sin controlador (solo torque constante en pendiente).\n\n');
-    
 catch ME
     fprintf('\n✗ ERROR durante la simulación:\n');
     fprintf('  Mensaje: %s\n', ME.message);
-    fprintf('  Archivo: %s\n', ME.stack(1).file);
-    fprintf('  Línea: %d\n\n', ME.stack(1).line);
+    if ~isempty(ME.stack)
+        fprintf('  Archivo: %s\n', ME.stack(1).file);
+        fprintf('  Línea: %d\n\n', ME.stack(1).line);
+    end
+    cd(current_dir); % Return to original directory
     rethrow(ME);
 end
 
-% Volver al directorio raíz
-cd(project_root);
+% Return to original directory
+cd(current_dir);
 
 fprintf('╔════════════════════════════════════════════════════════════╗\n');
 fprintf('║   SIMULACIÓN FINALIZADA                                    ║\n');
