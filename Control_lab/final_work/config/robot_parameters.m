@@ -13,7 +13,7 @@ params.W = 0.6;                     % Ancho del robot (m)
 params.h_chassis = 0.45;            % Altura del chasis (m)
 
 %% PARÁMETROS DE TERRENO Y FRICCIÓN
-params.mu_static = 0.4;             % Coeficiente de fricción estática REDUCIDO
+params.mu_static = 0.5;             % Coeficiente de fricción estática REDUCIDO
 params.mu_kinetic = 0.55;           % Coeficiente de fricción cinética REDUCIDO
 params.mu_lateral = 0.4;            % Fricción lateral (Skid-Steer) REDUCIDO
 params.Cd = 0.1;                    % Coeficiente de fricción viscosa
@@ -36,9 +36,8 @@ params.R_imu = diag([...
 % Matriz de covarianza de ruido de medición cámara R_cam (3x3)
 params.R_cam = diag([0.02^2, 0.02^2, 0.02^2]);  % Ruido posición (m²)
 
-%% PARÁMETROS DEL CONTROLADOR SMC (Sliding Mode Control)
-params.lambda_smc = 2.5;            % Pendiente de superficie deslizante
-params.K_smc = 6.0;                 % Ganancia de conmutación
+%% PARÁMETROS DEL CONTROLADOR
+
 params.eta_smc = 0.8;               % Ancho de capa límite (anti-chattering)
 params.tau_max = 10.0;              % Saturación de torque (Nm)
 

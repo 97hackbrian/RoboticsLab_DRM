@@ -30,7 +30,7 @@ X(6) = 0; % Yaw inicial 0
 current_target = [5; 0];
 
 % Variables de control de tiempo
-dt = 0.05; % Paso de simulación (más lento que 0.01 para "tiempo real" visual)
+dt = 0.02; % Paso de simulación (más lento que 0.01 para "tiempo real" visual)
 time_multiplier = 1.0; % Factor de velocidad (1.0 = tiempo real aprox)
 
 %% 2. PREPARAR VISUALIZACIÓN (MODO 2D)
@@ -78,9 +78,9 @@ lbl_Kp = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 160 40 20], 'Str
 
 % Ki Slider
 uicontrol(gui_panel, 'Style', 'text', 'Position', [10 130 180 20], 'String', 'Ki (Integral):');
-slider_Ki = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 500, 'Value', 20, ...
+slider_Ki = uicontrol(gui_panel, 'Style', 'slider', 'Min', 0, 'Max', 500, 'Value', 40, ...
     'Position', [10 110 180 20]);
-lbl_Ki = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 110 40 20], 'String', '20');
+lbl_Ki = uicontrol(gui_panel, 'Style', 'text', 'Position', [195 110 40 20], 'String', '40');
 
 % Kd Slider
 uicontrol(gui_panel, 'Style', 'text', 'Position', [10 80 180 20], 'String', 'Kd (Derivative):');
