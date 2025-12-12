@@ -45,7 +45,7 @@ fprintf('► Referencia: Escalón de posición (0,0) → (%.1f, %.1f) m\n\n', X_
 
 %% 5. PARÁMETROS DE SIMULACIÓN
 dt_control = 0.01;  % 100 Hz
-max_time = 30;      % Tiempo máximo (s)
+max_time = 90;      % Tiempo máximo (s)
 threshold = 0.05;   % Umbral de llegada (m)
 
 %% 6. SIMULACIÓN EN LAZO CERRADO
@@ -77,6 +77,11 @@ while step < max_steps && t_current < max_time
     error_history(step) = error_dist;
     
     % Control con Fuzzy + PID
+
+    params.Kp_wheel = 12;
+    params.Ki_wheel = 40;
+    params.Kd_wheel = 0;
+
     u_control = fuzzy_yaw_rate_controller(X_current, X_ref, X_ref_prev, ...
         dt_control, fis, params);
     U_history(step,:) = u_control';
