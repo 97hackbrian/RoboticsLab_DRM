@@ -62,28 +62,37 @@ prev_error_heading = error_heading;
 %  C_lag(s) = (s + z) / (s + p), donde z > p
 %  Modifica la "distancia percibida" para eliminar error estacionario
 % ═════════════════════════════════════════════════════════════════════
+
+% Verificar si el Lag Compensator está habilitado
+if isfield(params, 'use_lag_compensator')
+    use_lag = params.use_lag_compensator;
+else
+    use_lag = true;  % Habilitado por defecto
+end
+
 persistent x_lag_state
 if isempty(x_lag_state)
     x_lag_state = 0;
 end
 
-% Parámetros del compensador
-alpha_lag = 3.5;        % Factor de mejora del error estacionario
-wc_estimate = 0.5;      % Frecuencia de cruce estimada
-z_lag = wc_estimate / 10;
-p_lag = z_lag / alpha_lag;
-
-% Aplicar compensador a la distancia (entrada del FIS)
-% Esto hace que el FIS "perciba" una distancia mayor, evitando que frene demasiado pronto
-if distance < 3.0 && distance > 0.08
-    % Actualizar estado del compensador
-    x_lag_state = (1 - p_lag * dt) * x_lag_state + dt * distance;
-    distance_compensation = (z_lag - p_lag) * x_lag_state;
+if use_lag
+    % Parámetros del compensador
+    alpha_lag = 15.5;        % Factor de mejora del error estacionario
+    wc_estimate = 0.5;      % Frecuencia de cruce estimada
+    z_lag = wc_estimate / 10;
+    p_lag = z_lag / alpha_lag;
     
-    % La distancia compensada es mayor que la real (empuja al robot más cerca)
-    distance_compensated = distance + max(0, min(0.5, distance_compensation));
+    % Aplicar compensador a la distancia (entrada del FIS)
+    if distance < 2.0 && distance > 0.0
+        x_lag_state = (1 - p_lag * dt) * x_lag_state + dt * distance;
+        distance_compensation = (z_lag - p_lag) * x_lag_state;
+        distance_compensated = distance + max(0, min(0.5, distance_compensation));
+    else
+        x_lag_state = 0;
+        distance_compensated = distance;
+    end
 else
-    % Muy lejos o muy cerca: resetear y usar distancia real
+    % Lag Compensator deshabilitado
     x_lag_state = 0;
     distance_compensated = distance;
 end
@@ -104,7 +113,7 @@ omega_desired = output(2);  % rad/s
 % Solución: Agregar corrección proporcional CONTINUA para errores pequeños.
 
 % Ganancia proporcional para corrección de heading durante movimiento
-Kp_heading = 20.5;  % rad/s por radián de error (aumentado de 2.0)
+Kp_heading = 60.5;  % rad/s por radián de error (aumentado de 2.0)
 
 % Si hay error de heading pero el FIS dio omega=0 (porque no hay regla activa),
 % aplicar corrección proporcional directa
@@ -191,9 +200,9 @@ if isfield(params, 'Kp_wheel')
     Kd_wheel = params.Kd_wheel;
 else
     % Valores por defecto (si no están en params)
-    Kp_wheel = 15.0;
-    Ki_wheel = 7.0;
-    Kd_wheel = 0.09;
+    Kp_wheel = 30.0;
+    Ki_wheel = 50.0;
+    Kd_wheel = 0.0;
 end
 
 % Errores de velocidad
