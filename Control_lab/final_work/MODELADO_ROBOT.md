@@ -95,7 +95,7 @@ $$
 
 Donde:
 - $m$ = masa del robot (30 kg)
-- $\mathbf{I}$ = tensor de inercia (diagonal: $[0.5, 0.8, 0.8]$ kg·m²)
+- $\mathbf{I}$ = tensor de inercia (diagonal: $[1.41, 1.41, 1.80]$ kg·m²)
 - $\mathbf{v}_B = [u, v, w]^T$ = velocidad del cuerpo
 - $\boldsymbol{\omega} = [p, q, r]^T$ = velocidad angular
 
@@ -194,183 +194,215 @@ Esto produce componentes en X e Y que tienden a hacer que el robot se deslice pe
 | Parámetro            | Símbolo      | Valor | Unidades |
 | -------------------- | ------------ | ----- | -------- |
 | Masa                 | $m$          | 30    | kg       |
-| Inercia Ix           | $I_{xx}$     | 0.5   | kg·m²    |
-| Inercia Iy           | $I_{yy}$     | 0.8   | kg·m²    |
-| Inercia Iz           | $I_{zz}$     | 0.8   | kg·m²    |
+| Inercia Ix           | $I_{xx}$     | 1.41  | kg·m²    |
+| Inercia Iy           | $I_{yy}$     | 1.41  | kg·m²    |
+| Inercia Iz           | $I_{zz}$     | 1.80  | kg·m²    |
 | Radio rueda          | $r$          | 0.2   | m        |
 | Distancia entre ejes | $L$          | 0.6   | m        |
 | Ancho del robot      | $W$          | 0.6   | m        |
 | Altura chasis        | $h$          | 0.45  | m        |
-| Fricción estática    | $\mu_s$      | 0.5   | -        |
-| Fricción lateral     | $\mu_{lat}$  | 0.4   | -        |
+| Fricción estática    | $\mu_s$      | 0.6   | -        |
+| Fricción cinética    | $\mu_k$      | 0.5   | -        |
+| Fricción lateral     | $\mu_{lat}$  | 0.45  | -        |
+| Fricción viscosa     | $C_d$        | 5.0   | Ns/m     |
 | Torque máximo        | $\tau_{max}$ | 10    | Nm       |
 
 ---
 
-# Parte V: Modelado del Controlador Fuzzy
+# Parte V: Sistema de Control
 
 ## 5.1 Arquitectura de Control en Cascada
 
-El sistema utiliza una arquitectura de control jerárquica:
+El sistema utiliza una arquitectura de control jerárquica con múltiples etapas de corrección:
 
 ```mermaid
 flowchart TD
-    subgraph "Alto Nivel: Controlador Fuzzy"
-        A[Error de Heading<br/>e_ψ] --> FIS
-        B[Derivada de Error<br/>de_ψ/dt] --> FIS
-        C[Distancia al Objetivo<br/>d] --> FIS
+    subgraph "Nivel 1: Cálculo de Errores"
+        ERR_H[Error de Heading<br/>e_ψ = atan2 dy,dx - ψ]
+        ERR_CT[Cross-Track Error<br/>e_ct = dx·sin ψ - dy·cos ψ]
+        DIST[Distancia<br/>d = √ dx² + dy²]
+    end
+    
+    subgraph "Nivel 2: Compensador de Atraso"
+        LAG[Lag Compensator<br/>C s = s+z / s+p]
+        DIST --> LAG
+        LAG --> DIST_COMP[Distancia Compensada<br/>d_comp]
+    end
+    
+    subgraph "Nivel 3: Controlador Fuzzy FIS"
+        ERR_H --> FIS
+        DIST_COMP --> FIS
         FIS[Sistema de<br/>Inferencia Difusa] --> V[v_deseada]
         FIS --> W[ω_deseada]
     end
     
-    subgraph "Bajo Nivel: Control PID de Ruedas"
-        V --> TRANS[Transformación<br/>Unicycle→Diferencial]
-        W --> TRANS
-        TRANS --> PID_L[PID<br/>Ruedas Izq]
-        TRANS --> PID_R[PID<br/>Ruedas Der]
+    subgraph "Nivel 4: Correcciones Adicionales"
+        ERR_H --> PROP[Corrección Proporcional<br/>Kp = 60.5]
+        ERR_CT --> CT_CORR[Corrección Cross-Track<br/>Kp = 0.8]
+        PROP --> W_CORR[ω_corregida]
+        CT_CORR --> W_CORR
+        W --> W_CORR
+    end
+    
+    subgraph "Nivel 5: Control PID de Ruedas"
+        V --> TRANS[Transformación<br/>Unicycle-Diferencial]
+        W_CORR --> TRANS
+        TRANS --> PID_L[PID Ruedas Izq]
+        TRANS --> PID_R[PID Ruedas Der]
         PID_L --> T_L[τ_L]
         PID_R --> T_R[τ_R]
     end
     
-    T_L --> PLANT[Planta:<br/>Robot 4WD]
+    T_L --> PLANT[Planta: Robot 4WD]
     T_R --> PLANT
 ```
 
-## 5.2 Sistema de Inferencia Difusa (FIS)
+---
 
-### Configuración del FIS
+## 5.2 Compensador de Atraso (Lag Compensator)
 
-- **Tipo:** Mamdani
-- **Nombre:** YawRateController
-- **Método de defuzzificación:** Centroide
+El compensador de atraso se aplica **antes** del FIS para eliminar el error en estado estacionario.
 
-### 5.2.1 Variables de Entrada
-
-**Entrada 1: Error de Heading ($e_\psi$)**
-
-| Conjunto | Tipo  | Parámetros                   | Descripción                |
-| -------- | ----- | ---------------------------- | -------------------------- |
-| N_Large  | trimf | $[-\pi, -\pi, -\pi/2]$       | Error negativo grande      |
-| N_Med    | trimf | $[-2\pi/3, -\pi/3, -\pi/12]$ | Error negativo medio       |
-| Zero     | trimf | $[-\pi/6, 0, \pi/6]$         | Error aproximadamente cero |
-| P_Med    | trimf | $[\pi/12, \pi/3, 2\pi/3]$    | Error positivo medio       |
-| P_Large  | trimf | $[\pi/2, \pi, \pi]$          | Error positivo grande      |
-
-**Entrada 2: Derivada del Error ($\dot{e}_\psi$)**
-
-| Conjunto | Tipo  | Parámetros       | Descripción       |
-| -------- | ----- | ---------------- | ----------------- |
-| Neg      | trimf | $[-2, -2, -0.2]$ | Derivada negativa |
-| Zero     | trimf | $[-0.5, 0, 0.5]$ | Derivada cero     |
-| Pos      | trimf | $[0.2, 2, 2]$    | Derivada positiva |
-
-**Entrada 3: Distancia al Objetivo ($d$)**
-
-| Conjunto  | Tipo  | Parámetros    | Descripción       |
-| --------- | ----- | ------------- | ----------------- |
-| VeryClose | trimf | $[0, 0, 0.5]$ | Muy cerca (<0.5m) |
-| Close     | trimf | $[0.2, 2, 4]$ | Cerca (0.2-4m)    |
-| Medium    | trimf | $[3, 8, 15]$  | Media (3-15m)     |
-| Far       | trimf | $[8, 20, 20]$ | Lejos (>8m)       |
-
-### 5.2.2 Variables de Salida
-
-**Salida 1: Velocidad Deseada ($v_{ref}$)** - Rango: [0, 1.5] m/s
-
-| Conjunto | Parámetros        | Velocidad típica |
-| -------- | ----------------- | ---------------- |
-| Stop     | $[0, 0, 0.05]$    | 0 m/s            |
-| Slow     | $[0, 0.15, 0.3]$  | ~0.15 m/s        |
-| Medium   | $[0.2, 0.6, 1.0]$ | ~0.6 m/s         |
-| Fast     | $[0.8, 1.0, 1.5]$ | ~1.0 m/s         |
-
-**Salida 2: Velocidad Angular Deseada ($\omega_{ref}$)** - Rango: [-3, 3] rad/s
-
-| Conjunto       | Parámetros           | Acción                |
-| -------------- | -------------------- | --------------------- |
-| TurnLeft_Fast  | $[-3, -3, -2]$       | Giro rápido izquierda |
-| TurnLeft_Med   | $[-2.5, -1.5, -0.8]$ | Giro medio izquierda  |
-| TurnLeft_Slow  | $[-1.2, -0.8, -0.2]$ | Giro lento izquierda  |
-| Straight       | $[-0.3, 0, 0.3]$     | Línea recta           |
-| TurnRight_Slow | $[0.2, 0.8, 1.2]$    | Giro lento derecha    |
-| TurnRight_Med  | $[0.8, 1.5, 2.5]$    | Giro medio derecha    |
-| TurnRight_Fast | $[2, 3, 3]$          | Giro rápido derecha   |
-
-### 5.2.3 Base de Reglas
-
-| #   | Condición                          | Acción                                |
-| --- | ---------------------------------- | ------------------------------------- |
-| 1   | SI distancia = VeryClose           | ENTONCES v = Stop, ω = Straight       |
-| 2   | SI distancia = Close               | ENTONCES v = Slow                     |
-| 3   | SI e_ψ = N_Large                   | ENTONCES v = Stop, ω = TurnLeft_Fast  |
-| 4   | SI e_ψ = P_Large                   | ENTONCES v = Stop, ω = TurnRight_Fast |
-| 5   | SI e_ψ = N_Med                     | ENTONCES v = Stop, ω = TurnLeft_Med   |
-| 6   | SI e_ψ = P_Med                     | ENTONCES v = Stop, ω = TurnRight_Med  |
-| 7   | SI e_ψ = Zero                      | ENTONCES ω = Straight                 |
-| 8   | SI e_ψ = Zero Y distancia = Medium | ENTONCES v = Medium                   |
-| 9   | SI e_ψ = Zero Y distancia = Far    | ENTONCES v = Fast                     |
-| 10  | SI e_ψ = Zero Y de_ψ = Neg         | ENTONCES ω = TurnRight_Slow (damping) |
-| 11  | SI e_ψ = Zero Y de_ψ = Pos         | ENTONCES ω = TurnLeft_Slow (damping)  |
-
-## 5.3 Controlador PID de Velocidad de Ruedas
-
-El nivel bajo transforma las velocidades deseadas a torques individuales por rueda.
-
-### 5.3.1 Transformación Unicycle → Diferencial
+### 5.2.1 Función de Transferencia
 
 $$
-v_{L,cmd} = v_{ref} - \frac{\omega_{ref} \cdot W}{2}
+C_{lag}(s) = \frac{s + z}{s + p}, \quad z > p
+$$
+
+### 5.2.2 Parámetros Actuales
+
+| Parámetro        | Símbolo    | Valor         | Descripción     |
+| ---------------- | ---------- | ------------- | --------------- |
+| Factor de mejora | $\alpha$   | 15.5          | Ratio z/p       |
+| Frecuencia cruce | $\omega_c$ | 0.5 rad/s     | Estimación      |
+| Cero             | $z$        | 0.05 rad/s    | $\omega_c / 10$ |
+| Polo             | $p$        | 0.00323 rad/s | $z / \alpha$    |
+
+### 5.2.3 Implementación Discreta (Euler)
+
+$$
+x_{lag}[k+1] = (1 - p \cdot dt) \cdot x_{lag}[k] + dt \cdot d[k]
 $$
 
 $$
-v_{R,cmd} = v_{ref} + \frac{\omega_{ref} \cdot W}{2}
+d_{comp}[k] = d[k] + (z - p) \cdot x_{lag}[k]
 $$
 
-Luego se convierte a velocidades angulares de rueda:
+### 5.2.4 Condiciones de Activación
 
-$$
-\omega_{wheel} = \frac{v_{wheel}}{r}
-$$
+| Distancia      | Acción                  |
+| -------------- | ----------------------- |
+| $d < 2.0$ m    | Compensador activo      |
+| $d \geq 2.0$ m | Compensador desactivado |
 
-### 5.3.2 Ley de Control PID
-
-$$
-\tau = K_p e_\omega + K_i \int e_\omega \, dt + K_d \frac{de_\omega}{dt} + \tau_{ff}
-$$
-
-**Ganancias por defecto:**
-- $K_p = 15.0$
-- $K_i = 7.0$
-- $K_d = 0.09$
-
-### 5.3.3 Compensación Feedforward
-
-$$
-\tau_{ff} = I_{wheel} \cdot \frac{\omega_{desired} - \omega_{actual}}{\Delta t}
-$$
-
-Donde $I_{wheel} = 0.05$ kg·m² es la inercia de la rueda.
-
-### 5.3.4 Lógica Anti-Windup
-
-- Límite integral: $\pm 5.0$
-- Saturación de torque: $\pm \tau_{max}$
-
-## 5.4 Lógica de Parada Activa
-
-Para evitar oscilaciones cerca del objetivo:
-
-| Distancia         | Acción                               |
-| ----------------- | ------------------------------------ |
-| $d < 0.1$ m       | $v = 0$, $\omega = 0$ (parada total) |
-| $0.1 < d < 0.2$ m | $\omega = 0$, $v \leq 0.2$ m/s       |
-| $d \geq 0.2$ m    | Control normal                       |
+> [!TIP]
+> El compensador puede deshabilitarse con `params.use_lag_compensator = false`.
 
 ---
 
-## Referencias a Código Fuente
+## 5.3 Sistema de Inferencia Difusa (FIS)
 
-- Modelo dinámico: [skid_steer_robot_model.m](file:///home/hackbrian/Documents/gits/RoboticsLab_DRM/Control_lab/final_work/system/skid_steer_robot_model.m)
-- Controlador Fuzzy: [fuzzy_yaw_rate_controller.m](file:///home/hackbrian/Documents/gits/RoboticsLab_DRM/Control_lab/final_work/controllers/fuzzy_yaw_rate_controller.m)
-- Configuración FIS: [fuzzy_yaw_rate_controller_setup.m](file:///home/hackbrian/Documents/gits/RoboticsLab_DRM/Control_lab/final_work/controllers/fuzzy_yaw_rate_controller_setup.m)
-- Parámetros: [robot_parameters.m](file:///home/hackbrian/Documents/gits/RoboticsLab_DRM/Control_lab/final_work/config/robot_parameters.m)
+### Configuración
+
+- **Tipo:** Mamdani
+- **Nombre:** YawRateController
+- **Defuzzificación:** Centroide
+
+### 5.3.1 Variables de Entrada
+
+**Error de Heading ($e_\psi$)** - Rango: $[-\pi, \pi]$
+
+| Conjunto | Parámetros                  | Descripción            |
+| -------- | --------------------------- | ---------------------- |
+| N_Large  | $[-\pi, -\pi, -\pi/2]$      | Error negativo grande  |
+| N_Med    | $[-\pi/2, -\pi/4, -\pi/18]$ | Error negativo medio   |
+| Zero     | $[-\pi/12, 0, \pi/12]$      | Error ≈ 0 (±15°)       |
+| P_Med    | $[\pi/18, \pi/4, \pi/2]$    | Error positivo medio   |
+| P_Large  | $[\pi/2, \pi, \pi]$         | Error positivo grande  |
+| N_Small  | $[-\pi/6, -\pi/12, 0]$      | Error pequeño negativo |
+| P_Small  | $[0, \pi/12, \pi/6]$        | Error pequeño positivo |
+
+**Distancia ($d$)** - Rango: $[0, 20]$ m
+
+| Conjunto  | Parámetros    | Descripción |
+| --------- | ------------- | ----------- |
+| VeryClose | $[0, 0, 0.5]$ | Muy cerca   |
+| Close     | $[0.2, 2, 4]$ | Cerca       |
+| Medium    | $[3, 8, 15]$  | Media       |
+| Far       | $[8, 20, 20]$ | Lejos       |
+
+### 5.3.2 Variables de Salida
+
+**Velocidad Angular ($\omega$)** - Rango: $[-4, 4]$ rad/s
+
+| Conjunto       | Parámetros         | Acción              |
+| -------------- | ------------------ | ------------------- |
+| TurnLeft_Fast  | $[-4, -4, -2.5]$   | Giro rápido izq     |
+| TurnLeft_Med   | $[-3, -2, -1]$     | Giro medio izq      |
+| TurnLeft_Slow  | $[-1.5, -1, -0.3]$ | Giro lento izq      |
+| TurnLeft_Tiny  | $[-0.5, -0.25, 0]$ | Corrección fina izq |
+| Straight       | $[-0.15, 0, 0.15]$ | Recto               |
+| TurnRight_Tiny | $[0, 0.25, 0.5]$   | Corrección fina der |
+| TurnRight_Slow | $[0.3, 1, 1.5]$    | Giro lento der      |
+| TurnRight_Med  | $[1, 2, 3]$        | Giro medio der      |
+| TurnRight_Fast | $[2.5, 4, 4]$      | Giro rápido der     |
+
+---
+
+## 5.4 Corrección de Cross-Track Error
+
+$$
+e_{ct} = dx \cdot \sin(\psi) - dy \cdot \cos(\psi)
+$$
+
+$$
+\omega_{ct} = K_{p,ct} \cdot e_{ct}, \quad K_{p,ct} = 0.8 \text{ rad/s/m}
+$$
+
+---
+
+## 5.5 Corrección Proporcional de Heading
+
+$$
+\omega_{corr} = K_{p,\psi} \cdot e_\psi, \quad K_{p,\psi} = 60.5 \text{ rad/s/rad}
+$$
+
+Activación: $|e_\psi| > 0.03$ rad y $|\omega_{FIS}| < 0.1$ rad/s.
+
+---
+
+## 5.6 Controlador PID de Ruedas
+
+### Transformación Unicycle → Diferencial
+
+$$
+v_{L} = v_{ref} - \frac{\omega_{ref} \cdot W}{2}, \quad v_{R} = v_{ref} + \frac{\omega_{ref} \cdot W}{2}
+$$
+
+### Ganancias PID
+
+| Parámetro | Valor |
+| --------- | ----- |
+| $K_p$     | 30.0  |
+| $K_i$     | 50.0  |
+| $K_d$     | 0.0   |
+
+---
+
+## 5.7 Lógica de Parada Activa
+
+| Distancia            | Acción                         |
+| -------------------- | ------------------------------ |
+| $d < 0.005$ m        | Parada total                   |
+| $0.005 < d < 0.01$ m | $\omega = 0$, $v \leq 0.1$ m/s |
+| $d \geq 0.01$ m      | Control normal                 |
+
+---
+
+## Referencias
+
+- [skid_steer_robot_model.m](system/skid_steer_robot_model.m) - Modelo dinámico
+- [fuzzy_yaw_rate_controller.m](controllers/fuzzy_yaw_rate_controller.m) - Controlador
+- [fuzzy_yaw_rate_controller_setup.m](controllers/fuzzy_yaw_rate_controller_setup.m) - Config FIS
+- [robot_parameters.m](config/robot_parameters.m) - Parámetros
+- [test_step_response_closedloop.m](tests/test_step_response_closedloop.m) - Test comparativo
