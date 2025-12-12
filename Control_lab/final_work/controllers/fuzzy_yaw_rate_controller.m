@@ -22,7 +22,7 @@ x_ref = X_ref(1); y_ref = X_ref(2);
 x_ref_prev_val = X_ref_prev(1);
 y_ref_prev_val = X_ref_prev(2);
 
-%% 2. CALCULAR ERROR DE HEADING (como PID uniciclo)
+%% 2. CALCULAR ERRORES DE POSICIÓN Y HEADING
 dx = x_ref - x;
 dy = y_ref - y;
 distance = sqrt(dx^2 + dy^2);
@@ -34,8 +34,22 @@ heading_desired = atan2(dy, dx);
 error_heading = heading_desired - psi;
 error_heading = atan2(sin(error_heading), cos(error_heading));
 
+% ═══════════════════════════════════════════════════════════════════════
+%  CROSS-TRACK ERROR (Error lateral perpendicular a la trayectoria)
+%  Esto detecta cuando el robot "va recto" pero está desviado del camino
+% ═══════════════════════════════════════════════════════════════════════
+% Proyección del error de posición perpendicular al heading del robot
+% cross_track = dx * sin(psi) - dy * cos(psi)
+% Positivo = desviado a la derecha, Negativo = desviado a la izquierda
+cross_track_error = dx * sin(psi) - dy * cos(psi);
+
+% Añadir cross-track error al error de heading
+% Esto FUERZA corrección incluso si el robot "apunta" al objetivo
+Kp_crosstrack = 0.8;  % rad/s por metro de desviación lateral
+cross_track_omega = Kp_crosstrack * cross_track_error;
+cross_track_omega = max(-1.5, min(1.5, cross_track_omega));  % Saturar
+
 % Derivada de error (velocidad de cambio de heading)
-% Aproximación: cambio de error / dt
 persistent prev_error_heading
 if isempty(prev_error_heading)
     prev_error_heading = error_heading;
@@ -43,32 +57,97 @@ end
 derror_heading = (error_heading - prev_error_heading) / max(dt, 0.001);
 prev_error_heading = error_heading;
 
+% ═════════════════════════════════════════════════════════════════════
+%  COMPENSADOR DE ATRASO (LAG COMPENSATOR) - ANTES DEL FIS
+%  C_lag(s) = (s + z) / (s + p), donde z > p
+%  Modifica la "distancia percibida" para eliminar error estacionario
+% ═════════════════════════════════════════════════════════════════════
+persistent x_lag_state
+if isempty(x_lag_state)
+    x_lag_state = 0;
+end
+
+% Parámetros del compensador
+alpha_lag = 5.0;        % Factor de mejora del error estacionario
+wc_estimate = 0.5;      % Frecuencia de cruce estimada
+z_lag = wc_estimate / 10;
+p_lag = z_lag / alpha_lag;
+
+% Aplicar compensador a la distancia (entrada del FIS)
+% Esto hace que el FIS "perciba" una distancia mayor, evitando que frene demasiado pronto
+if distance < 3.0 && distance > 0.08
+    % Actualizar estado del compensador
+    x_lag_state = (1 - p_lag * dt) * x_lag_state + dt * distance;
+    distance_compensation = (z_lag - p_lag) * x_lag_state;
+    
+    % La distancia compensada es mayor que la real (empuja al robot más cerca)
+    distance_compensated = distance + max(0, min(0.5, distance_compensation));
+else
+    % Muy lejos o muy cerca: resetear y usar distancia real
+    x_lag_state = 0;
+    distance_compensated = distance;
+end
+
 %% 3. EVALUAR FIS (obtener velocidades deseadas)
 % Limitar entradas
 error_heading_clip = max(-pi, min(pi, error_heading));
 derror_heading_clip = max(-2, min(2, derror_heading));
-distance_clip = max(0, min(20, distance));
+distance_clip = max(0, min(20, distance_compensated));  % Usa distancia COMPENSADA
 
 output = evalfis(fis, [error_heading_clip, derror_heading_clip, distance_clip]);
 
 v_desired = output(1);      % m/s
 omega_desired = output(2);  % rad/s
 
-% --- REVISIÓN DE PARADA FINAL ---
-% ESTABILIZACIÓN: Problema de "Singularidad"
-% Cuando estamos muy cerca (<0.5m), el cálculo de ángulo varía drásticamente.
-% SIEMPRE debemos dejar de girar (omega=0) si estamos cerca para evitar "spinning".
+% --- CORRECCIÓN DE ORIENTACIÓN DURANTE MOVIMIENTO ---
+% Problema: El FIS solo da omega cuando hay error grande.
+% Solución: Agregar corrección proporcional CONTINUA para errores pequeños.
 
-if distance < 0.2
-    omega_desired = 0; % DEADZONE DE GIRO: Prohibido girar si estamos cerca
+% Ganancia proporcional para corrección de heading durante movimiento
+Kp_heading = 2.5;  % rad/s por radián de error (aumentado de 2.0)
+
+% Si hay error de heading pero el FIS dio omega=0 (porque no hay regla activa),
+% aplicar corrección proporcional directa
+if abs(error_heading) > 0.03 && abs(omega_desired) < 0.1
+    omega_correction = Kp_heading * error_heading;
+    omega_correction = max(-2.5, min(2.5, omega_correction));  % Saturar a ±2.5 rad/s
+    omega_desired = omega_desired + omega_correction;
+end
+
+% ═══════════════════════════════════════════════════════════════════════
+%  CORRECCIÓN CONTINUA DE CROSS-TRACK ERROR
+%  Esto fuerza corrección de deriva lateral MIENTRAS avanza
+% ═══════════════════════════════════════════════════════════════════════
+% Aplicar cross-track omega SIEMPRE que estemos moviéndonos
+% (ya se calculó arriba como cross_track_omega)
+if distance > 0.2 && abs(v_desired) > 0.05
+    omega_desired = omega_desired + cross_track_omega;
+end
+
+% Boost de omega: Si estamos moviéndonos y hay error, aumentar omega
+% Esto fuerza la corrección MIENTRAS avanza, no solo parado
+if v_desired > 0.1 && abs(error_heading) > 0.08
+    % Reducir velocidad proporcionalmente al error de heading
+    % (si el heading está muy mal, ir más lento para poder girar)
+    heading_factor = max(0.4, 1 - abs(error_heading) / (pi/6));
+    v_desired = v_desired * heading_factor;
     
-    % Solo permitimos movimiento lineal final (parking) si estamos alineados
-    % o simplemente paramos todo si estamos muy cerca (0.15m)
-    if distance < 0.1
-        v_desired = 0; % Parada total
+    % Aumentar omega para corregir mientras avanza
+    omega_boost = 0.8 * sign(error_heading) * min(abs(error_heading), pi/4);
+    omega_desired = omega_desired + omega_boost;
+end
+
+% --- REVISIÓN DE PARADA FINAL ---
+% IMPORTANTE: Usar distance (real) para la parada final, no la compensada
+% El compensador evita frenar demasiado pronto, pero la parada real
+% debe basarse en la distancia física verdadera
+if distance < 0.01
+    omega_desired = 0; % DEADZONE DE GIRO: Prohibido girar muy cerca
+    
+    if distance < 0.005
+        v_desired = 0; % Parada total MUY cerca (5cm)
     else
-        % Entre 0.15m y 0.5m: Acercarse recto y despacio
-        v_desired = min(v_desired, 0.2);
+        v_desired = min(v_desired, 0.1); % Arrastrar muy lento
     end
 end
 

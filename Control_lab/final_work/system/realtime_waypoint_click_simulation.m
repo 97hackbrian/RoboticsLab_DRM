@@ -93,18 +93,8 @@ addlistener(slider_Kp, 'Value', 'PostSet', @(s,e) set(lbl_Kp, 'String', sprintf(
 addlistener(slider_Ki, 'Value', 'PostSet', @(s,e) set(lbl_Ki, 'String', sprintf('%.1f', get(slider_Ki, 'Value'))));
 addlistener(slider_Kd, 'Value', 'PostSet', @(s,e) set(lbl_Kd, 'String', sprintf('%.1f', get(slider_Kd, 'Value'))));
 
-%% 3. COMPENSADOR DE ATRASO (LAG COMPENSATOR)
-% C_lag(s) = (s + z) / (s + p), donde z > p
-% Aumenta ganancia en DC para eliminar error estacionario sin afectar transitorio
-alpha_lag = 3;      % Factor de mejora del error estacionario
-wc_estimate = 0.5;   % Estimación de frecuencia de cruce (rad/s)
-z_lag = wc_estimate / 10;  % Cero: una década antes del cruce
-p_lag = z_lag / alpha_lag; % Polo: alpha veces más cerca del origen
-x_lag = 0;  % Estado interno del compensador
-
-fprintf('► Lag Compensator: C(s) = (s + %.4f) / (s + %.4f), α = %.0f\n', z_lag, p_lag, alpha_lag);
-
-%% 4. BUCLE DE SIMULACIÓN
+%% 3. BUCLE DE SIMULACIÓN
+% (Lag Compensator ahora está integrado en fuzzy_yaw_rate_controller.m)
 t_current = 0;
 last_tic = tic;
 
@@ -124,37 +114,18 @@ try
         dist_to_target = norm(X(1:2) - current_target);
         v_abs = abs(X(7));
         
-        % 2. Calcular Control (SIEMPRE activo para frenado)
-        % Construir vector de referencia
+        % 2. Construir vector de referencia (sin compensador externo)
         X_ref = zeros(12,1);
         X_ref(1) = current_target(1);
         X_ref(2) = current_target(2);
-        
-        % Calcular error de posición
-        error_x = current_target(1) - X(1);
-        error_y = current_target(2) - X(2);
-        
-        % ═══════════════════════════════════════════════════════════════
-        %  COMPENSADOR DE ATRASO - Discretización Euler
-        %  x_lag[k+1] = (1 - p*dt) * x_lag[k] + dt * error[k]
-        %  y_lag[k] = (z - p) * x_lag[k] + error[k]
-        % ═══════════════════════════════════════════════════════════════
-        x_lag = (1 - p_lag * dt) * x_lag + dt * error_x;
-        error_x_compensado = (z_lag - p_lag) * x_lag + error_x;
-        
-        % Referencia ajustada por el compensador
-        X_ref_compensado = X_ref;
-        X_ref_compensado(1) = X(1) + error_x_compensado;
         
         % Leer valores de los sliders para tuning en tiempo real
         params.Kp_wheel = get(slider_Kp, 'Value');
         params.Ki_wheel = get(slider_Ki, 'Value');
         params.Kd_wheel = get(slider_Kd, 'Value');
         
-        % Calcular control difuso CON referencia compensada
-        % NOTA: El controlador ya tiene logic interna para poner v=0 si dist < 0.7
-        % Esto genera frenado activo (torque opuesto).
-        u_control = fuzzy_yaw_rate_controller(X, X_ref_compensado, X_ref_prev, dt, fis, params);
+        % Calcular control difuso (Lag Compensator incluido internamente)
+        u_control = fuzzy_yaw_rate_controller(X, X_ref, X_ref_prev, dt, fis, params);
         
         % Estado de llegada (solo visual)
         if dist_to_target < 0.2
@@ -175,7 +146,7 @@ try
         % Guardar estela visual
         X_trail = [X_trail, X(1)];
         Y_trail = [Y_trail, X(2)];
-        if length(X_trail) > 500  % Limitar longitud de estela
+        if length(X_trail) > 800  % Limitar longitud de estela
             X_trail = X_trail(end-499:end);
             Y_trail = Y_trail(end-499:end);
         end
