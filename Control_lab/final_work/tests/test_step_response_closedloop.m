@@ -75,7 +75,7 @@ fprintf('║           DISEÑO DEL COMPENSADOR DE ATRASO                ║\n');
 fprintf('╚════════════════════════════════════════════════════════════╝\n\n');
 
 % Parámetros del compensador de atraso (discretizado para simulación)
-alpha_lag = 10;      % Factor de mejora del error estacionario
+alpha_lag = 3;      % Factor de mejora del error estacionario
 wc_estimate = 0.5;   % Estimación de frecuencia de cruce (rad/s) del sistema actual
 z_lag = wc_estimate / 10;  % Cero: una década antes del cruce
 p_lag = z_lag / alpha_lag; % Polo: alpha veces más cerca del origen
@@ -372,7 +372,7 @@ xlim([0 max_time]);
 % --- Subplot 2: Zoom en Estado Estacionario ---
 subplot(2,3,2);
 % Mostrar últimos 30 segundos
-t_zoom_start = max_time - 30;
+t_zoom_start = max_time - 10;
 idx_zoom_antes = t_history_antes >= t_zoom_start;
 idx_zoom_despues = t_history_despues >= t_zoom_start;
 
