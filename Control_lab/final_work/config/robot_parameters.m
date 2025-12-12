@@ -6,17 +6,25 @@ function params = robot_parameters()
 
 %% PARÁMETROS FÍSICOS DEL ROBOT
 params.m = 30;                      % Masa total (kg)
-params.I = diag([0.5, 0.8, 0.8]);   % Tensor de inercia [Ix, Iy, Iz] (kg·m²)
+
+% Tensor de Inercia calculado para cuerpo rectangular sólido:
+%   Ixx = (1/12)*m*(W² + h²) = (1/12)*30*(0.6² + 0.45²) = 1.41 kg·m²
+%   Iyy = (1/12)*m*(L² + h²) = (1/12)*30*(0.6² + 0.45²) = 1.41 kg·m²
+%   Izz = (1/12)*m*(L² + W²) = (1/12)*30*(0.6² + 0.6²)  = 1.80 kg·m²
+params.I = diag([1.41, 1.41, 1.80]); % Tensor de inercia [Ix, Iy, Iz] (kg·m²)
+
 params.r_wheel = 0.2;               % Radio de rueda (m)
 params.L = 0.6;                     % Distancia entre ejes (m)
 params.W = 0.6;                     % Ancho del robot (m)
 params.h_chassis = 0.45;            % Altura del chasis (m)
 
 %% PARÁMETROS DE TERRENO Y FRICCIÓN
-params.mu_static = 0.5;             % Coeficiente de fricción estática REDUCIDO
-params.mu_kinetic = 0.55;           % Coeficiente de fricción cinética REDUCIDO
-params.mu_lateral = 0.4;            % Fricción lateral (Skid-Steer) REDUCIDO
-params.Cd = 0.1;                    % Coeficiente de fricción viscosa
+% Coeficientes para goma sobre tierra/arena compacta
+% Nota: μ_kinetic DEBE ser menor que μ_static (física correcta)
+params.mu_static = 0.6;             % Coeficiente de fricción estática
+params.mu_kinetic = 0.5;            % Coeficiente de fricción cinética (< μ_static)
+params.mu_lateral = 0.45;           % Fricción lateral (resistencia al skid)
+params.Cd = 5.0;                    % Coeficiente de fricción viscosa (aumentado para realismo)
 
 %% PARÁMETROS DEL EKF (Extended Kalman Filter)
 % Matriz de covarianza de ruido de proceso Q (15x15)

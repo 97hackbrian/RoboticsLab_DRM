@@ -47,8 +47,8 @@ fprintf('► Referencia: Escalón de posición (0,0) → (%.1f, %.1f) m\n\n', X_
 
 %% 5. PARÁMETROS DE SIMULACIÓN
 dt_control = 0.01;  % 100 Hz
-max_time = 90;      % Tiempo máximo (s)
-threshold = 0.05;   % Umbral de llegada (m)
+max_time = 30;      % Tiempo máximo (s)
+threshold = 0.5;   % Umbral de llegada (m)
 
 %% ═══════════════════════════════════════════════════════════════════════
 %%  COMPENSADOR DE ATRASO (LAG COMPENSATOR) - DISEÑO
@@ -138,8 +138,8 @@ while step < max_steps && t_current < max_time
     error_history_antes(step) = error_dist;
     
     % Control ORIGINAL (sin compensador)
-    params.Kp_wheel = 12;
-    params.Ki_wheel = 45;
+    params.Kp_wheel = 30;
+    params.Ki_wheel = 50;
     params.Kd_wheel = 0;
     
     u_control = fuzzy_yaw_rate_controller(X_current, X_ref, X_ref_prev, ...
@@ -223,8 +223,8 @@ while step < max_steps && t_current < max_time
     X_ref_compensado(1) = X_current(1) + error_x_compensado;  % Referencia ajustada
     
     % Control con PID (usando referencia compensada)
-    params.Kp_wheel = 12;
-    params.Ki_wheel = 40;
+    params.Kp_wheel = 30;
+    params.Ki_wheel = 50;
     params.Kd_wheel = 0;
     
     u_control = fuzzy_yaw_rate_controller(X_current, X_ref_compensado, X_ref_prev, ...

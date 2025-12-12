@@ -21,6 +21,19 @@ fprintf('╚══════════════════════�
 %% 1. CARGAR PARÁMETROS
 params = robot_parameters();
 
+% ═══════════════════════════════════════════════════════════════════════
+%  AJUSTE DE FRICCIÓN PARA SIMULACIÓN REALISTA
+% ═══════════════════════════════════════════════════════════════════════
+%  El Cd original (0.1) es muy bajo para un robot terrestre.
+%  Con τ = 1 Nm y Cd = 0.1, la velocidad terminal sería ~40 m/s (irreal).
+%
+%  Velocidad terminal: v_ss = sqrt(F_total / Cd) donde F = τ/r
+%  Para un robot que alcance ~1-2 m/s con τ = 1 Nm:
+%    Cd = F / v² = (4 * 1/0.2) / (1.5)² ≈ 9
+%
+%  Aumentamos Cd para una simulación coherente:
+params.Cd = 5.0;  % Fricción viscosa ajustada (original: 0.1)
+
 %% 2. CONDICIONES INICIALES
 % Robot en reposo, plano (sin pendiente)
 X0 = zeros(12, 1);
