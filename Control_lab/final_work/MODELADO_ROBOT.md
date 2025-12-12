@@ -257,6 +257,97 @@ flowchart TD
     T_R --> PLANT
 ```
 
+### Diagrama de Bloques con Retroalimentación (Estilo Simulink)
+
+El siguiente diagrama muestra el sistema de control completo con los lazos de retroalimentación explícitos:
+
+```mermaid
+flowchart LR
+    subgraph INPUT["🎯 REFERENCIA"]
+        REF["x_ref, y_ref<br/>(Objetivo)"]
+    end
+    
+    subgraph FEEDBACK_CALC["📐 CÁLCULO DE ERROR"]
+        direction TB
+        SUM1(("Σ"))
+        SUM1 --> |"dx, dy"| ERR_CALC["Cálculo de Errores<br/>• e_ψ = atan2(dy,dx) - ψ<br/>• d = √(dx² + dy²)<br/>• e_ct = dx·sin(ψ) - dy·cos(ψ)"]
+    end
+    
+    subgraph COMPENSATOR["⚙️ COMPENSADORES"]
+        direction TB
+        LAG_C["LAG COMPENSATOR<br/>C(s) = (s+0.05)/(s+0.003)<br/>α = 15.5"]
+        PROP_C["PROPORCIONAL<br/>Kp_heading = 60.5<br/>Kp_crosstrack = 0.8"]
+    end
+    
+    subgraph CONTROLLER["🧠 CONTROLADOR FUZZY"]
+        direction TB
+        FIS_C["FIS MAMDANI<br/>21 Reglas<br/>Entradas: e_ψ, ė_ψ, d_comp<br/>Salidas: v, ω"]
+        SUM2(("Σ"))
+        FIS_C --> SUM2
+    end
+    
+    subgraph PID_CTRL["🔧 PID RUEDAS"]
+        direction TB
+        UNICYCLE["Unicycle → Diff<br/>v_L = v - ωW/2<br/>v_R = v + ωW/2"]
+        PID_WHEELS["PID<br/>Kp=30, Ki=50, Kd=0"]
+    end
+    
+    subgraph PLANT_BOX["🤖 PLANTA"]
+        direction TB
+        DYNAMICS["DINÁMICA DEL ROBOT<br/>Newton-Euler 12 Estados<br/>Interacción Neumático-Suelo"]
+        SENSORS["SENSORES<br/>x, y, z, ψ, v, ω"]
+    end
+    
+    %% Flujo principal
+    REF --> SUM1
+    ERR_CALC --> |"d"| LAG_C
+    ERR_CALC --> |"e_ψ, e_ct"| PROP_C
+    LAG_C --> |"d_comp"| FIS_C
+    ERR_CALC --> |"e_ψ, ė_ψ"| FIS_C
+    PROP_C --> |"ω_corr"| SUM2
+    SUM2 --> |"v, ω_total"| UNICYCLE
+    UNICYCLE --> |"v_L, v_R"| PID_WHEELS
+    PID_WHEELS --> |"τ_L, τ_R"| DYNAMICS
+    DYNAMICS --> SENSORS
+    
+    %% RETROALIMENTACIÓN
+    SENSORS --> |"x, y, ψ, v, ω<br/>📡 FEEDBACK"| SUM1
+    
+    %% Estilos
+    style INPUT fill:#e1f5fe,stroke:#0288d1
+    style FEEDBACK_CALC fill:#fff3e0,stroke:#ff9800
+    style COMPENSATOR fill:#f3e5f5,stroke:#9c27b0
+    style CONTROLLER fill:#e8f5e9,stroke:#4caf50
+    style PID_CTRL fill:#fce4ec,stroke:#e91e63
+    style PLANT_BOX fill:#eceff1,stroke:#607d8b
+```
+
+### Diagrama Simplificado de Lazo Cerrado
+
+```mermaid
+flowchart LR
+    R["r(t)<br/>Referencia<br/>(x_ref, y_ref)"] 
+    --> SUM(("−"))
+    --> |"e(t)"| LAG["C_lag(s)<br/>Lag Comp"]
+    --> FIS["G_c(s)<br/>Fuzzy+PID"]
+    --> PLANT["G_p(s)<br/>Robot 4WD"]
+    --> Y["y(t)<br/>Posición<br/>(x, y, ψ)"]
+    
+    Y --> |"Feedback<br/>H(s) = 1"| SUM
+    
+    style R fill:#4caf50,color:#fff
+    style Y fill:#2196f3,color:#fff
+    style FIS fill:#ff9800,color:#fff
+    style PLANT fill:#9c27b0,color:#fff
+    style LAG fill:#e91e63,color:#fff
+```
+
+**Función de Transferencia de Lazo Cerrado:**
+
+$$
+\frac{Y(s)}{R(s)} = \frac{C_{lag}(s) \cdot G_c(s) \cdot G_p(s)}{1 + C_{lag}(s) \cdot G_c(s) \cdot G_p(s)}
+$$
+
 ---
 
 ## 5.2 Compensador de Atraso (Lag Compensator)
