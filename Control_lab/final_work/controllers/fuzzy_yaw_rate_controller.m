@@ -68,7 +68,7 @@ if isempty(x_lag_state)
 end
 
 % Parámetros del compensador
-alpha_lag = 5.0;        % Factor de mejora del error estacionario
+alpha_lag = 3.5;        % Factor de mejora del error estacionario
 wc_estimate = 0.5;      % Frecuencia de cruce estimada
 z_lag = wc_estimate / 10;
 p_lag = z_lag / alpha_lag;
@@ -104,7 +104,7 @@ omega_desired = output(2);  % rad/s
 % Solución: Agregar corrección proporcional CONTINUA para errores pequeños.
 
 % Ganancia proporcional para corrección de heading durante movimiento
-Kp_heading = 2.5;  % rad/s por radián de error (aumentado de 2.0)
+Kp_heading = 20.5;  % rad/s por radián de error (aumentado de 2.0)
 
 % Si hay error de heading pero el FIS dio omega=0 (porque no hay regla activa),
 % aplicar corrección proporcional directa
