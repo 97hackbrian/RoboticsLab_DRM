@@ -11,6 +11,7 @@ log/
 .ignition/
 .ros/
 .sdformat/
+.sudo_as_admin_successful
 #lib/
 #msg_gen/
 #srv_gen/
@@ -119,3 +120,4 @@ COLCON_IGNORE
 *.lof
 #*.vrb
 #*.pdf
+Introduction_lab/robotnik_ws/src/robotnik_simulation
