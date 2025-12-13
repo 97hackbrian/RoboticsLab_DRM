@@ -36,11 +36,13 @@ fprintf('  Sensores: IMU + Encoders + Cámara (con ruido)\n\n');
 % Ejecutar desde el directorio system
 current_dir = pwd;
 cd(fullfile(project_root, 'system'));
-
+cd(fullfile(project_root, 'tests'));
 try
     diagnose_simulation;
     pause
-    open_loop_simulation;
+    test_step_response_openloop;
+    pause
+    test_step_response_closedloop;
     pause
     waypoint_navigation_simulation;
     pause
