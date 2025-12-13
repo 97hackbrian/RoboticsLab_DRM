@@ -61,6 +61,7 @@
 \fancyfoot{}
 
 \title{
+    \vspace*{-2.25cm}  % Ajusta este valor para subir/bajar el título
     \begin{center}
         \textbf{Path Planning with RRT* Algorithm \\ for Skid-Steer Mobile Robot} \\
         \vspace{0.3cm}
@@ -73,6 +74,7 @@
 
 \begin{document}
 	
+	
 	\maketitle
 	\tableofcontents
 	\newpage
@@ -84,7 +86,7 @@
 	\justify
 	This report presents the implementation of a path planning system using the \textbf{RRT* (Rapidly-exploring Random Tree Star)} algorithm for autonomous navigation of a skid-steer mobile robot. The system generates collision-free waypoints that are followed by an existing Fuzzy+PID+Lag Compensator controller.
 	
-	The implementation was developed in MATLAB and integrates seamlessly with the robot control system developed in the Control Laboratory module.
+	The implementation was developed in MATLAB and integrates seamlessly with the robot control system developed in the Control Laboratory module. \\Links is here: \\(\href{https://github.com/97hackbrian/RoboticsLab_DRM/tree/main/Control_lab/final_work}{GitHub: Control Final Project} \\ \href{https://github.com/97hackbrian/RoboticsLab_DRM/tree/main/Perception_and_planning_lab/final_work}{GitHub: Perception Final Project - Actual Report}).
 	
 	% ============================================================================
 	\section{Path Planning Method: RRT*}
@@ -251,31 +253,31 @@ Perception_and_planning_lab/final_work/
 	\end{itemize}
 	
 	\subsection{Visualization Results}
-	
+	The visualization results are shown in Figures~\ref{fig:rrt_tree}, \ref{fig:path_comparison}, \ref{fig:navigation}, and \ref{fig:labyrinth}. And the videos of the navigation are shown in~\href{https://drive.google.com/drive/folders/1W4KPytTfUeEQfveZ4PnIAgNbQ4YTOQv1?usp=sharing}{LINK}.
 	\begin{figure}[htpb]
 		\centering
-		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert RRT* tree expansion visualization here]}\vspace{3cm}}}
+		\includegraphics[width=\textwidth]{img/1_1.png}
 		\caption{RRT* tree expansion showing explored nodes and optimal path found.}
 		\label{fig:rrt_tree}
 	\end{figure}
 	
 	\begin{figure}[htpb]
 		\centering
-		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert path comparison: raw vs smoothed]}\vspace{3cm}}}
+		\includegraphics[width=\textwidth]{img/2_1.png}
 		\caption{Comparison between raw RRT* path and smoothed waypoints.}
 		\label{fig:path_comparison}
 	\end{figure}
 	
 	\begin{figure}[htpb]
 		\centering
-		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert robot navigation simulation screenshot]}\vspace{3cm}}}
+		\includegraphics[width=\textwidth]{img/3_1.png}
 		\caption{Real-time navigation simulation showing robot following RRT* generated waypoints.}
 		\label{fig:navigation}
 	\end{figure}
 	
 	\begin{figure}[htpb]
 		\centering
-		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert labyrinth scenario result]}\vspace{3cm}}}
+		\includegraphics[width=\textwidth]{img/4_1.png}
 		\caption{Path planning result in the labyrinth scenario with multiple possible routes.}
 		\label{fig:labyrinth}
 	\end{figure}
@@ -289,7 +291,7 @@ Perception_and_planning_lab/final_work/
 	\begin{itemize}
 		\item MATLAB R2020a or later
 		\item Fuzzy Logic Toolbox (for the robot controller)
-		\item The complete \texttt{RoboticsLab\_DRM} repository
+		\item The complete \texttt{RoboticsLab\_DRM} repository: \href{https://github.com/97hackbrian/RoboticsLab_DRM.git}{LINK}
 	\end{itemize}
 	
 	\subsection{Execution Steps}
