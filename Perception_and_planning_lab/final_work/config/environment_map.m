@@ -66,7 +66,7 @@ switch lower(scenario)
         map.y_min = -1;
         map.y_max = 22;
         
-        wall_thickness = 0.2;
+        wall_thickness = 0.15;
         
         map.obstacles = {
             % === PAREDES EXTERIORES (con aberturas) ===
