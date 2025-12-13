@@ -4,6 +4,13 @@ build/
 bin/
 install/
 log/
+.bashrc
+.bash_history
+
+.cache/
+.ignition/
+.ros/
+.sdformat/
 #lib/
 #msg_gen/
 #srv_gen/
