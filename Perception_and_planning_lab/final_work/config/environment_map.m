@@ -120,6 +120,50 @@ switch lower(scenario)
         map.start = [1; 1];
         map.goal = [18; 18];
         
+    case 'extreme'
+        % MAPA EXTREMO: Muchos obstáculos, inicio y meta en extremos opuestos
+        map.x_min = -2;
+        map.x_max = 25;
+        map.y_min = -2;
+        map.y_max = 25;
+        
+        map.obstacles = {
+            % Fila 1 - Barrera inferior
+            struct('type', 'circle', 'center', [5; 3], 'radius', 1.5)
+            struct('type', 'circle', 'center', [10; 4], 'radius', 1.8)
+            struct('type', 'rectangle', 'center', [16; 3], 'width', 3, 'height', 2)
+            struct('type', 'circle', 'center', [21; 4], 'radius', 1.5)
+            
+            % Fila 2 - Obstáculos medios-bajos
+            struct('type', 'rectangle', 'center', [3; 8], 'width', 2, 'height', 4)
+            struct('type', 'circle', 'center', [8; 7], 'radius', 2.0)
+            struct('type', 'circle', 'center', [13; 8], 'radius', 1.5)
+            struct('type', 'rectangle', 'center', [18; 7], 'width', 4, 'height', 2)
+            
+            % Fila 3 - Zona central densa
+            struct('type', 'circle', 'center', [5; 12], 'radius', 1.8)
+            struct('type', 'rectangle', 'center', [10; 12], 'width', 3, 'height', 3)
+            struct('type', 'circle', 'center', [15; 11], 'radius', 2.2)
+            struct('type', 'circle', 'center', [20; 12], 'radius', 1.5)
+            
+            % Fila 4 - Obstáculos medios-altos
+            struct('type', 'rectangle', 'center', [3; 16], 'width', 2, 'height', 3)
+            struct('type', 'circle', 'center', [8; 17], 'radius', 1.5)
+            struct('type', 'circle', 'center', [12; 16], 'radius', 1.8)
+            struct('type', 'rectangle', 'center', [17; 17], 'width', 3, 'height', 2)
+            struct('type', 'circle', 'center', [22; 16], 'radius', 1.2)
+            
+            % Fila 5 - Barrera superior
+            struct('type', 'circle', 'center', [5; 21], 'radius', 1.5)
+            struct('type', 'rectangle', 'center', [10; 20], 'width', 2, 'height', 3)
+            struct('type', 'circle', 'center', [15; 21], 'radius', 1.8)
+            struct('type', 'circle', 'center', [20; 20], 'radius', 1.5)
+            };
+        
+        % Inicio en esquina inferior izquierda, meta en esquina superior derecha
+        map.start = [0; 0];
+        map.goal = [23; 23];
+        
     otherwise
         warning('Escenario "%s" no reconocido. Usando "simple".', scenario);
         map = environment_map('simple');
