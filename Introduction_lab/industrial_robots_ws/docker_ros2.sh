@@ -3,6 +3,10 @@
 # Configuración de imagen
 export ROS2_IMG=ros2-humble-gazebo-fortress
 
+#permisos aceleracion grafica
+#sudo chmod 666 /dev/dri/renderD128
+#sudo chmod 666 /dev/dri/renderD129
+
 # --- LÓGICA DE DIRECTORIO UNIVERSAL ---
 
 # 1. Definir la acción
