@@ -1,0 +1,471 @@
+% !TeX spellcheck = en_US
+\documentclass[12pt,a4paper]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}  % Palatino
+\usepackage{geometry}
+\geometry{top=2.6cm, bottom=2.3cm, left=1.75cm, right=1.75cm}
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx, caption, subcaption}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue,
+	citecolor=black
+}
+
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{ragged2e}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% --- Colores personalizados ---
+\definecolor{matlabgreen}{rgb}{0.0,0.6,0.0}
+\definecolor{matlabblue}{rgb}{0.0,0.0,0.8}
+\definecolor{lightgray}{gray}{0.97}
+\definecolor{gray}{gray}{0.4}
+\definecolor{orange}{rgb}{1,0.5,0}
+\definecolor{purple}{rgb}{0.58,0,0.82}
+
+% --- Estilo para MATLAB ---
+\lstdefinestyle{matlabstyle}{
+	language=Matlab,
+	backgroundcolor=\color{lightgray!10},
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\color{blue}\bfseries,
+	stringstyle=\color{purple},
+	commentstyle=\color{matlabgreen}\itshape,
+	numberstyle=\tiny\color{gray},
+	numbers=left,
+	stepnumber=1,
+	showstringspaces=false,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4,
+	frame=single,
+	rulecolor=\color{gray!50},
+	morekeywords={function,end,if,else,elseif,for,while,switch,case,otherwise,return,break,continue,try,catch},
+}
+
+\pagestyle{fancy}
+\fancyhead[L]{Technical Report - Path Planning}
+\fancyhead[R]{\thepage}
+\fancyfoot{}
+
+\title{
+    \begin{center}
+        \textbf{Path Planning with RRT* Algorithm \\ for Skid-Steer Mobile Robot} \\
+        \vspace{0.3cm}
+        {\large Diploma in Robotics - Planning and Perception Module}
+    \end{center}
+}
+
+\author{Brayan Gerson Duran Toconas}
+\date{December, 2024}
+
+\begin{document}
+	
+	\maketitle
+	\tableofcontents
+	\newpage
+	
+	% ============================================================================
+	\section{Introduction}
+	% ============================================================================
+	
+	This report presents the implementation of a path planning system using the \textbf{RRT* (Rapidly-exploring Random Tree Star)} algorithm for autonomous navigation of a skid-steer mobile robot. The system generates collision-free waypoints that are followed by an existing Fuzzy+PID+Lag Compensator controller.
+	
+	The implementation was developed in MATLAB and integrates seamlessly with the robot control system developed in the Control Laboratory module.
+	
+	% ============================================================================
+	\section{Path Planning Method: RRT*}
+	% ============================================================================
+	
+	\subsection{Algorithm Selection}
+	
+	The \textbf{RRT* (Rapidly-exploring Random Tree Star)} algorithm was selected for this implementation. RRT* is an extension of the basic RRT algorithm that provides \textit{asymptotic optimality}, meaning it converges to the optimal path as the number of iterations increases.
+	
+	\subsection{Reasons for Selection}
+	
+	The following reasons justify the selection of RRT* over other path planning algorithms:
+	
+	\begin{enumerate}
+		\item \textbf{Asymptotic Optimality}: Unlike basic RRT, which finds \textit{any} feasible path, RRT* continuously optimizes the path through its rewiring mechanism, converging to the optimal solution.
+		
+		\item \textbf{Complex Environment Handling}: RRT* efficiently handles environments with multiple obstacles of various shapes (circles, rectangles, mazes) without requiring a grid discretization.
+		
+		\item \textbf{Rewiring Mechanism}: The algorithm continuously improves the tree structure by rewiring nodes when a shorter path is found, resulting in smoother and more efficient paths.
+		
+		\item \textbf{Probabilistic Completeness}: If a path exists, RRT* will find it given sufficient iterations.
+		
+		\item \textbf{Anytime Algorithm}: The algorithm can be stopped at any time and still provide a valid (though possibly suboptimal) path.
+	\end{enumerate}
+	
+	\subsection{Comparison with Other Algorithms}
+	
+	\begin{table}[htb]
+		\centering
+		\caption{Comparison of Path Planning Algorithms}
+		\begin{tabular}{lccc}
+			\toprule
+			\textbf{Algorithm} & \textbf{Optimality} & \textbf{Continuous Space} & \textbf{Complex Obstacles} \\
+			\midrule
+			Dijkstra / A* & Optimal (grid) & No & Limited \\
+			Potential Fields & Not guaranteed & Yes & Poor (local minima) \\
+			RRT (basic) & Not optimal & Yes & Good \\
+			\textbf{RRT*} & \textbf{Asymptotically Optimal} & \textbf{Yes} & \textbf{Excellent} \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:comparison}
+	\end{table}
+	
+	% ============================================================================
+	\section{Algorithm Description}
+	% ============================================================================
+	
+	\subsection{RRT* Pseudocode}
+	
+	\begin{algorithm}[H]
+		\caption{RRT* Algorithm}
+		\begin{algorithmic}[1]
+			\State Initialize tree $T$ with start node $x_{start}$
+			\For{$i = 1$ to $N_{max}$}
+				\State $x_{rand} \gets$ SampleRandom() \Comment{With goal bias}
+				\State $x_{nearest} \gets$ NearestNode($T$, $x_{rand}$)
+				\State $x_{new} \gets$ Steer($x_{nearest}$, $x_{rand}$, $\eta$)
+				\If{CollisionFree($x_{nearest}$, $x_{new}$)}
+					\State $X_{near} \gets$ NearNodes($T$, $x_{new}$, $r$)
+					\State $x_{min} \gets$ ChooseParent($X_{near}$, $x_{new}$) \Comment{Minimum cost}
+					\State AddNode($T$, $x_{new}$, $x_{min}$)
+					\State Rewire($T$, $X_{near}$, $x_{new}$) \Comment{Optimize tree}
+					\If{Distance($x_{new}$, $x_{goal}$) $<$ $\epsilon$}
+						\State MarkGoalReached()
+					\EndIf
+				\EndIf
+			\EndFor
+			\State \Return ExtractPath($T$, $x_{goal}$)
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\subsection{Key Components}
+	
+	\subsubsection{Random Sampling with Goal Bias}
+	The algorithm samples random points in the configuration space. A \textit{goal bias} parameter (default 10\%) causes the algorithm to occasionally sample the goal position directly, accelerating convergence.
+	
+	\subsubsection{Nearest Neighbor and Steering}
+	For each random sample, the nearest node in the tree is found using Euclidean distance. The tree is extended from this node toward the sample by a maximum step size $\eta$.
+	
+	\subsubsection{Collision Checking}
+	Before adding a new node, the algorithm verifies that the path segment is collision-free. This includes checking against:
+	\begin{itemize}
+		\item Circular obstacles (analytical distance check)
+		\item Rectangular obstacles (discretized segment check)
+		\item Robot radius safety margin
+	\end{itemize}
+	
+	\subsubsection{Parent Selection and Rewiring}
+	The key improvement of RRT* over RRT is the parent selection and rewiring:
+	\begin{enumerate}
+		\item Find all nodes within radius $r$ of the new node
+		\item Choose the parent that minimizes the total cost from start
+		\item Rewire neighboring nodes if connecting through the new node reduces their cost
+	\end{enumerate}
+	
+	\subsection{Path Smoothing}
+	
+	After finding a path, a smoothing algorithm is applied:
+	\begin{enumerate}
+		\item \textbf{Shortcut Smoothing}: Randomly select pairs of non-adjacent waypoints and connect them directly if collision-free
+		\item \textbf{Waypoint Spacing}: Filter waypoints to maintain a minimum spacing distance, reducing the total number of waypoints
+	\end{enumerate}
+	
+	% ============================================================================
+	\section{Implementation and Results}
+	% ============================================================================
+	
+	\subsection{Project Structure}
+	
+	The implementation is organized in the following directory structure:
+	
+	\begin{lstlisting}[style=matlabstyle,caption={Project Structure}]
+Perception_and_planning_lab/final_work/
+|-- config/
+|   |-- environment_map.m      % Map and obstacle configuration
+|   |-- planner_parameters.m   % RRT* parameters
+|-- planners/
+|   |-- rrt_star.m             % Core RRT* algorithm
+|   |-- generate_waypoints.m   % Waypoint generator wrapper
+|-- utils/
+|   |-- collision_check.m      % Collision detection
+|   |-- path_smoothing.m       % Path optimization
+|   |-- visualization_utils.m  % Plotting functions
+|-- simulation/
+|   |-- rrt_star_navigation_simulation.m  % Main simulation
+|   |-- demo_rrt_star_planner.m           % RRT* demo
+|-- tests/
+|   |-- test_rrt_star_algorithm.m   % Unit tests
+|   |-- test_full_navigation.m      % Integration tests
+	\end{lstlisting}
+	
+	\subsection{Configuration Parameters}
+	
+	The main parameters that control the algorithm behavior are shown in Table~\ref{tab:params}.
+	
+	\begin{table}[htb]
+		\centering
+		\caption{RRT* Configuration Parameters}
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
+			\midrule
+			max\_iterations & 4000 & Maximum tree expansion iterations \\
+			step\_size & 0.8 m & Maximum extension distance \\
+			goal\_bias & 10\% & Probability of sampling goal \\
+			goal\_tolerance & 0.5 m & Distance to consider goal reached \\
+			min\_waypoint\_spacing & 0.3 m & Minimum distance between waypoints \\
+			\bottomrule
+		\end{tabular}
+		\label{tab:params}
+	\end{table}
+	
+	\subsection{Available Scenarios}
+	
+	Multiple test scenarios are available:
+	
+	\begin{itemize}
+		\item \texttt{empty}: Empty environment for basic testing
+		\item \texttt{simple}: 4 obstacles (circles and rectangles)
+		\item \texttt{maze}: Simple maze with walls
+		\item \texttt{labyrinth}: Complete labyrinth with multiple routes
+		\item \texttt{narrow}: Narrow passages
+		\item \texttt{extreme}: 21 obstacles, corner-to-corner navigation
+	\end{itemize}
+	
+	\subsection{Visualization Results}
+	
+	\begin{figure}[htpb]
+		\centering
+		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert RRT* tree expansion visualization here]}\vspace{3cm}}}
+		\caption{RRT* tree expansion showing explored nodes and optimal path found.}
+		\label{fig:rrt_tree}
+	\end{figure}
+	
+	\begin{figure}[htpb]
+		\centering
+		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert path comparison: raw vs smoothed]}\vspace{3cm}}}
+		\caption{Comparison between raw RRT* path and smoothed waypoints.}
+		\label{fig:path_comparison}
+	\end{figure}
+	
+	\begin{figure}[htpb]
+		\centering
+		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert robot navigation simulation screenshot]}\vspace{3cm}}}
+		\caption{Real-time navigation simulation showing robot following RRT* generated waypoints.}
+		\label{fig:navigation}
+	\end{figure}
+	
+	\begin{figure}[htpb]
+		\centering
+		\fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}\textit{[Insert labyrinth scenario result]}\vspace{3cm}}}
+		\caption{Path planning result in the labyrinth scenario with multiple possible routes.}
+		\label{fig:labyrinth}
+	\end{figure}
+	
+	% ============================================================================
+	\section{How to Execute the Code}
+	% ============================================================================
+	
+	\subsection{Prerequisites}
+	
+	\begin{itemize}
+		\item MATLAB R2020a or later
+		\item Fuzzy Logic Toolbox (for the robot controller)
+		\item The complete \texttt{RoboticsLab\_DRM} repository
+	\end{itemize}
+	
+	\subsection{Execution Steps}
+	
+	\subsubsection{Step 1: Navigate to Simulation Directory}
+	
+	\begin{lstlisting}[style=matlabstyle,caption={Navigate to simulation folder}]
+% In MATLAB Command Window:
+cd Perception_and_planning_lab/final_work/simulation
+	\end{lstlisting}
+	
+	\subsubsection{Step 2: Run the Simulation}
+	
+	\begin{lstlisting}[style=matlabstyle,caption={Execute main simulation}]
+% Run with default scenario (labyrinth):
+rrt_star_navigation_simulation
+
+% Or specify a scenario:
+rrt_star_navigation_simulation('simple')
+rrt_star_navigation_simulation('maze')
+rrt_star_navigation_simulation('labyrinth')
+rrt_star_navigation_simulation('extreme')
+	\end{lstlisting}
+	
+	\subsubsection{Step 3: Observe the Results}
+	
+	The simulation will:
+	\begin{enumerate}
+		\item Generate the RRT* path with real-time tree visualization
+		\item Display the smoothed waypoints
+		\item Prompt to press any key to start navigation
+		\item Show real-time robot navigation following the waypoints
+		\item Display navigation statistics upon completion
+	\end{enumerate}
+	
+	\subsubsection{Alternative: RRT* Demo Only}
+	
+	To visualize only the path planning algorithm without robot navigation:
+	
+	\begin{lstlisting}[style=matlabstyle,caption={Run RRT* demo}]
+cd Perception_and_planning_lab/final_work/simulation
+demo_rrt_star_planner
+	\end{lstlisting}
+	
+	\subsubsection{Running Tests}
+	
+	\begin{lstlisting}[style=matlabstyle,caption={Execute tests}]
+cd Perception_and_planning_lab/final_work/tests
+
+% Unit tests for RRT* algorithm:
+test_rrt_star_algorithm
+
+% Integration test with robot controller:
+test_full_navigation
+	\end{lstlisting}
+	
+	% ============================================================================
+	\section{Conclusion}
+	% ============================================================================
+	
+	\justify
+	The RRT* algorithm was successfully implemented and integrated with the existing skid-steer robot controller. The implementation demonstrates:
+	
+	\begin{itemize}
+		\item Efficient path planning in complex environments with multiple obstacles
+		\item Asymptotically optimal paths through the rewiring mechanism
+		\item Real-time visualization of tree expansion and path optimization
+		\item Seamless integration with the Fuzzy+PID+Lag Compensator controller
+		\item Configurable parameters for different scenarios and requirements
+	\end{itemize}
+	
+	The modular architecture allows easy extension to include dynamic obstacles, multi-robot coordination, or alternative planning algorithms in future work.
+	
+	% ============================================================================
+	\newpage
+	\appendix
+	\section{Core Algorithm Code}
+	% ============================================================================
+	
+	\begin{lstlisting}[style=matlabstyle,caption={RRT* Main Function (rrt\_star.m) - Excerpt}]
+function [path, tree, stats] = rrt_star(start, goal, map, params)
+% RRT* Path Planning Algorithm
+% Finds asymptotically optimal path from start to goal
+
+%% Initialize tree
+tree.nodes = start';     % [x, y] for each node
+tree.parent = 0;         % Parent index (0 = root)
+tree.cost = 0;           % Cost from start
+
+goal_found = false;
+goal_idx = -1;
+
+%% Main loop
+for iter = 1:params.max_iterations
+    % Sample random point (with goal bias)
+    if rand() < params.goal_bias
+        x_rand = goal;
+    else
+        x_rand = [map.x_min + rand()*(map.x_max - map.x_min);
+                  map.y_min + rand()*(map.y_max - map.y_min)];
+    end
+    
+    % Find nearest node
+    [~, nearest_idx] = min(vecnorm(tree.nodes - x_rand', 2, 2));
+    x_nearest = tree.nodes(nearest_idx, :)';
+    
+    % Steer toward random point
+    direction = x_rand - x_nearest;
+    dist = norm(direction);
+    if dist > params.step_size
+        direction = direction / dist * params.step_size;
+    end
+    x_new = x_nearest + direction;
+    
+    % Check collision
+    if ~collision_check(x_nearest, x_new, map.obstacles, map.robot_radius)
+        % Find neighbors within radius
+        neighbor_radius = min(params.neighbor_radius_factor * ...
+            sqrt(log(size(tree.nodes,1)+1) / (size(tree.nodes,1)+1)), ...
+            params.step_size * 3);
+        
+        dists = vecnorm(tree.nodes - x_new', 2, 2);
+        neighbor_idxs = find(dists < neighbor_radius);
+        
+        % Choose best parent (minimum cost)
+        min_cost = tree.cost(nearest_idx) + norm(x_new - x_nearest);
+        best_parent = nearest_idx;
+        
+        for n = neighbor_idxs'
+            x_near = tree.nodes(n, :)';
+            cost_through_n = tree.cost(n) + norm(x_new - x_near);
+            if cost_through_n < min_cost
+                if ~collision_check(x_near, x_new, map.obstacles, map.robot_radius)
+                    min_cost = cost_through_n;
+                    best_parent = n;
+                end
+            end
+        end
+        
+        % Add new node
+        tree.nodes = [tree.nodes; x_new'];
+        tree.parent = [tree.parent; best_parent];
+        tree.cost = [tree.cost; min_cost];
+        new_idx = size(tree.nodes, 1);
+        
+        % Rewire neighbors
+        for n = neighbor_idxs'
+            x_near = tree.nodes(n, :)';
+            cost_through_new = min_cost + norm(x_near - x_new);
+            if cost_through_new < tree.cost(n)
+                if ~collision_check(x_new, x_near, map.obstacles, map.robot_radius)
+                    tree.parent(n) = new_idx;
+                    tree.cost(n) = cost_through_new;
+                end
+            end
+        end
+        
+        % Check if goal reached
+        if norm(x_new - goal) < params.goal_tolerance
+            goal_found = true;
+            goal_idx = new_idx;
+        end
+    end
+end
+
+% Extract path by backtracking
+if goal_found
+    path = [];
+    idx = goal_idx;
+    while idx > 0
+        path = [tree.nodes(idx, :); path];
+        idx = tree.parent(idx);
+    end
+else
+    path = [];
+end
+end
+	\end{lstlisting}
+	
+\end{document}
