@@ -59,6 +59,59 @@ switch lower(scenario)
             };
         map.goal = [18; 2];
         
+    case 'labyrinth'
+        % LABERINTO COMPLETO con múltiples rutas posibles
+        map.x_min = -1;
+        map.x_max = 22;
+        map.y_min = -1;
+        map.y_max = 22;
+        
+        wall_thickness = 0.2;
+        
+        map.obstacles = {
+            % === PAREDES EXTERIORES (con aberturas) ===
+            % Pared izquierda
+            struct('type', 'rectangle', 'center', [0; 5], 'width', wall_thickness, 'height', 10)
+            struct('type', 'rectangle', 'center', [0; 17], 'width', wall_thickness, 'height', 6)
+            % Pared derecha
+            struct('type', 'rectangle', 'center', [20; 8], 'width', wall_thickness, 'height', 14)
+            % Pared superior
+            struct('type', 'rectangle', 'center', [5; 20], 'width', 5, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [17; 20], 'width', 3, 'height', wall_thickness)
+            % Pared inferior
+            struct('type', 'rectangle', 'center', [12; 0], 'width', 5, 'height', wall_thickness)
+            
+            % === LABERINTO INTERNO - Fila 1 (abajo) ===
+            struct('type', 'rectangle', 'center', [4; 3], 'width', 2, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [4; 6], 'width', wall_thickness, 'height', 6)
+            struct('type', 'rectangle', 'center', [8; 4.5], 'width', wall_thickness, 'height', 3)
+            
+            % === LABERINTO INTERNO - Fila 2 ===
+            struct('type', 'rectangle', 'center', [12; 4], 'width', 3, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [16; 6], 'width', wall_thickness, 'height', 4)
+            struct('type', 'rectangle', 'center', [12; 7], 'width', 5, 'height', wall_thickness)
+            
+            % === LABERINTO INTERNO - Fila 3 (centro) ===
+            struct('type', 'rectangle', 'center', [3; 10], 'width', 4, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [8; 10], 'width', wall_thickness, 'height', 6)
+            struct('type', 'rectangle', 'center', [11; 10], 'width', 4, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [16; 10], 'width', 3, 'height', wall_thickness)
+            
+            % === LABERINTO INTERNO - Fila 4 ===
+            struct('type', 'rectangle', 'center', [4; 13], 'width', 3, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [12; 13], 'width', wall_thickness, 'height', 6)
+            struct('type', 'rectangle', 'center', [16; 14], 'width', 3, 'height', wall_thickness)
+            
+            % === LABERINTO INTERNO - Fila 5 (arriba) ===
+            struct('type', 'rectangle', 'center', [4; 16], 'width', wall_thickness, 'height', 6)
+            struct('type', 'rectangle', 'center', [7; 17], 'width', 4, 'height', wall_thickness)
+            struct('type', 'rectangle', 'center', [16; 17], 'width', wall_thickness, 'height', 6)
+            };
+        
+        % Inicio esquina inferior izquierda, meta esquina superior derecha
+        map.start = [1; 1];
+        map.goal = [19; 19];
+        
     case 'narrow'
         % Pasajes estrechos
         map.obstacles = {

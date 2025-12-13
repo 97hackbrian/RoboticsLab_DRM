@@ -37,7 +37,7 @@ fprintf('╚══════════════════════�
 %% ════════════════════════════════════════════════════════════════════════
 
 if nargin < 1
-    scenario = 'extreme';  % Escenario por defecto
+    scenario = 'challenge';  % Escenario por defecto
 end
 
 % Cargar mapa del entorno
