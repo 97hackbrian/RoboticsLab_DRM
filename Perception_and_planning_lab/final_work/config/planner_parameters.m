@@ -7,7 +7,7 @@ function params = planner_parameters()
 %% Parámetros del Algoritmo RRT*
 
 % Número máximo de iteraciones del árbol
-params.max_iterations = 3000;
+params.max_iterations = 4000; %3000
 
 % Tamaño máximo de paso para extender el árbol (metros)
 % Valores pequeños = paths más suaves pero más iteraciones necesarias
@@ -27,7 +27,7 @@ params.goal_tolerance = 0.5;  % metros
 
 % Número mínimo de iteraciones después de encontrar el objetivo
 % Permite optimizar el path encontrado
-params.min_iterations_after_goal = 500;
+params.min_iterations_after_goal = 1500; %500
 
 %% Parámetros de Suavizado de Path
 
