@@ -12,6 +12,10 @@ log/
 .ros/
 .sdformat/
 .sudo_as_admin_successful
+
+.rviz2
+.config
+core
 #lib/
 #msg_gen/
 #srv_gen/
