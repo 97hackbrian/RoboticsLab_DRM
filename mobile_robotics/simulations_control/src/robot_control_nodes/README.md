@@ -39,9 +39,39 @@ colcon build --packages-select robot_control_nodes
 source install/setup.bash
 ```
 
+## Launch File
+
+### Using Launch File (Recommended)
+
+Launch all three nodes with a single command:
+
+```bash
+ros2 launch robot_control_nodes robot_control.launch.py
+```
+
+### Custom Parameters
+
+You can override default parameters:
+
+```bash
+ros2 launch robot_control_nodes robot_control.launch.py \
+  max_linear_vel:=0.8 \
+  max_angular_vel:=1.5 \
+  sync_queue_size:=20 \
+  sync_slop:=0.2
+```
+
+Available parameters:
+- `max_linear_vel`: Maximum linear velocity (default: 0.5 m/s)
+- `max_angular_vel`: Maximum angular velocity (default: 1.0 rad/s)
+- `sync_queue_size`: Synchronizer queue size (default: 10)
+- `sync_slop`: Time synchronization window (default: 0.1 seconds)
+
 ## Usage
 
-Launch all three nodes in separate terminals:
+### Manual Launch (Alternative)
+
+Launch each node individually in separate terminals:
 
 ```bash
 # Terminal 1

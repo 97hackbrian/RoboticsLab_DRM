@@ -100,8 +100,8 @@ class TrackingAruco(Node):
             cmd_msg.twist.angular.z = 0.0
             self.pub.publish(cmd_msg)
 
-        # Display image (optional - comment out if running headless)
-        cv2.imshow("ArUco Tracking", cv_img)
+        # Display image (after all processing)
+        cv2.imshow("robot_vis", cv_img)
         cv2.waitKey(1)
 
 
