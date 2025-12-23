@@ -21,7 +21,7 @@ def generate_launch_description():
     # Declare launch arguments for mixer node parameters
     max_linear_vel_arg = DeclareLaunchArgument(
         'max_linear_vel',
-        default_value='0.5',
+        default_value='0.4',
         description='Maximum linear velocity in m/s'
     )
     
