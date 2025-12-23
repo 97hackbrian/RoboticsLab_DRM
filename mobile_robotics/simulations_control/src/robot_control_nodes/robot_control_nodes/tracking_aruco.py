@@ -59,48 +59,27 @@ class TrackingAruco(Node):
             cv_img, self.aruco_dict, parameters=self.aruco_params
         )
 
-        # Process detected markers
         if ids is not None and len(ids) > 0:
-            # Draw detected markers on image
             cv2.aruco.drawDetectedMarkers(cv_img, corners, ids)
-            
-            # Get marker center (use first detected marker)
             markers_corners = corners[0][0]
             marker_center = np.mean(markers_corners, axis=0)
 
-            # Calculate normalized error (marker position - image center)
             error = (marker_center[0] - self.center_img[0]) / self.img_width
 
-            # Apply proportional control
-            angular_velocity = self.k * error
+            p_out = self.k * error
 
-            # Clamp angular velocity to safe range
-            angular_velocity = np.clip(angular_velocity, -0.6, 0.6)
+            p_out = np.clip(p_out, -0.6, 0.6)
 
-            # Create and publish TwistStamped message
-            cmd_msg = TwistStamped()
-            cmd_msg.header.stamp = self.get_clock().now().to_msg()
-            cmd_msg.header.frame_id = 'base_link'
-            cmd_msg.twist.angular.z = -angular_velocity
+            print(p_out)
 
-            self.pub.publish(cmd_msg)
+            msg = TwistStamped()
+            msg.header.stamp = self.get_clock().now().to_msg()
+            msg.header.frame_id = 'base_link'
+            
+            msg.twist.angular.z = -p_out
 
-            # Debug logging (throttled)
-            if hasattr(self, '_last_log_time'):
-                if (self.get_clock().now().nanoseconds - self._last_log_time) > 1e9:  # 1 second
-                    self.get_logger().info(f'Tracking marker {ids[0][0]}: angular.z = {-angular_velocity:.3f}')
-                    self._last_log_time = self.get_clock().now().nanoseconds
-            else:
-                self._last_log_time = self.get_clock().now().nanoseconds
-        else:
-            # No markers detected - publish zero velocity
-            cmd_msg = TwistStamped()
-            cmd_msg.header.stamp = self.get_clock().now().to_msg()
-            cmd_msg.header.frame_id = 'base_link'
-            cmd_msg.twist.angular.z = 0.0
-            self.pub.publish(cmd_msg)
+            self.pub.publish(msg)
 
-        # Display image (after all processing)
         cv2.imshow("robot_vis", cv_img)
         cv2.waitKey(1)
 

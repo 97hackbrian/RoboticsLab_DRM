@@ -27,7 +27,7 @@ class LidarStop(Node):
 
         # Safety parameters
         self.safe_distance = 0.5  # meters - stop if obstacle within this distance
-        self.max_linear_velocity = 0.5  # m/s
+        self.max_linear_velocity = 0.4  # m/s
         self.front_angle_range = 30.0  # degrees - analyze ±30° in front of robot
         
         # Smoothing parameters
