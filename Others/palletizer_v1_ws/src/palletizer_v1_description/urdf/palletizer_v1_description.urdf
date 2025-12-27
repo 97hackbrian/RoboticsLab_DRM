@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version:   Build Version: 1.6.9335.19781
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="palletizer_v1_description">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.00333096469273619 0.0083363731202496 -7.05998821604048E-06"
+        rpy="0 0 0" />
+      <mass
+        value="111.552316494755" />
+      <inertia
+        ixx="3.69522354301021"
+        ixy="0.462525500928085"
+        ixz="0.000604195824504181"
+        iyy="7.6849769904481"
+        iyz="0.00101027432345744"
+        izz="6.83677126276043" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="wh1_link">
+    <inertial>
+      <origin
+        xyz="4.60624230447237E-06 -1.39017706225937E-06 0.00103861565548169"
+        rpy="0 0 0" />
+      <mass
+        value="1.16963327708568" />
+      <inertia
+        ixx="0.00513758375658071"
+        ixy="-1.06056698976315E-07"
+        ixz="-1.83557767891057E-07"
+        iyy="0.00513721206306172"
+        iyz="4.7327793948233E-08"
+        izz="0.00835667252463106" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j1"
+    type="continuous">
+    <origin
+      xyz="-0.14558 -0.19877 0.30516"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="wh1_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="wh2_link">
+    <inertial>
+      <origin
+        xyz="3.92629332124361E-06 2.78091989348514E-06 0.00103861562500163"
+        rpy="0 0 0" />
+      <mass
+        value="1.16963328379488" />
+      <inertia
+        ixx="0.00513745501205058"
+        ixy="2.06104403776097E-07"
+        ixz="-1.50099635196023E-07"
+        iyy="0.0051373404737964"
+        iyz="-1.15773920222458E-07"
+        izz="0.0083566723858764" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh2_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh2_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j2"
+    type="continuous">
+    <origin
+      xyz="0.30442 -0.19877 0.30516"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="wh2_link" />
+    <axis
+      xyz="0 0 -1" />
+  </joint>
+  <link
+    name="wh3_link">
+    <inertial>
+      <origin
+        xyz="4.75014823875242E-06 -8.0951322404231E-07 -0.00103893565212637"
+        rpy="0 0 0" />
+      <mass
+        value="1.16955011461694" />
+      <inertia
+        ixx="0.00513730359145455"
+        ixy="-5.71763557375585E-08"
+        ixz="1.88152675229107E-07"
+        iyy="0.00513689131918041"
+        iyz="-2.42130615914316E-08"
+        izz="0.00835611193645973" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh3_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh3_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j3"
+    type="continuous">
+    <origin
+      xyz="-0.14558 -0.19877 -0.30484"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="wh3_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="wh4_link">
+    <inertial>
+      <origin
+        xyz="-2.88859930108742E-06 -3.85683987606106E-06 -0.00103893565213689"
+        rpy="0 0 0" />
+      <mass
+        value="1.16955011461696" />
+      <inertia
+        ixx="0.00513702366989998"
+        ixy="2.00790822605879E-07"
+        ixz="-1.07431126802095E-07"
+        iyy="0.00513717124073298"
+        iyz="-1.56352980378686E-07"
+        izz="0.00835611193645932" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh4_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/wh4_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="j4"
+    type="continuous">
+    <origin
+      xyz="0.30442 -0.19877 -0.30484"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="wh4_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="lidar_link">
+    <inertial>
+      <origin
+        xyz="0.0413676083823298 -0.290389579841708 -0.000164679184994299"
+        rpy="0 0 0" />
+      <mass
+        value="0.1" />
+      <inertia
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="-0.044699 0.29873 0.00015762"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="0.233796640534236 -0.181564953118314 -0.000164679184994243"
+        rpy="0 0 0" />
+      <mass
+        value="0.1" />
+      <inertia
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+  </link>
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="-0.23713 0.1899 0.00015762"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="sensors_link">
+    <inertial>
+      <origin
+        xyz="0.284117008375572 0.0321104201582918 -0.000164679184994299"
+        rpy="0 0 0" />
+      <mass
+        value="0.1" />
+      <inertia
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+  </link>
+  <joint
+    name="sensors_joint"
+    type="fixed">
+    <origin
+      xyz="-0.28745 -0.023774 0.00015762"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="sensors_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

@@ -1,0 +1,27 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+joint_st1l_position_controller:
+  type: joint_position_controller/JointPositionController
+  joint: joint_st1l
+  command_interface: position
+  state_interface: position
+
+joint_st2l_position_controller:
+  type: joint_position_controller/JointPositionController
+  joint: joint_st2l
+  command_interface: position
+  state_interface: position
+
+joint_st1r_position_controller:
+  type: joint_position_controller/JointPositionController
+  joint: joint_st1r
+  command_interface: position
+  state_interface: position
+
+joint_st2r_position_controller:
+  type: joint_position_controller/JointPositionController
+  joint: joint_st2r
+  command_interface: position
+  state_interface: position
