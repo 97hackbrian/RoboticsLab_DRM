@@ -4,6 +4,16 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
   name="palletizer_v1_description">
+  <!-- Base footprint: nuevo link raíz para corregir orientación -->
+  <link name="base_footprint"/>
+  
+  <!-- Joint para rotar el robot -90° en eje X (Y apunta arriba) -->
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+
   <link
     name="base_link">
     <inertial>
