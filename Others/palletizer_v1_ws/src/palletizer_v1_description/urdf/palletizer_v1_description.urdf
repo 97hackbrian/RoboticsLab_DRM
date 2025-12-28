@@ -288,7 +288,7 @@
     type="fixed">
     <origin
       xyz="-0.044699 0.29873 0.00015762"
-      rpy="0 0 0" />
+      rpy="1.5708 0 0" />
     <parent
       link="base_link" />
     <child
@@ -450,7 +450,7 @@
   <!-- ==================== LIDAR 3D SENSOR ==================== -->
   <gazebo reference="lidar_link">
     <sensor name="lidar_3d" type="gpu_lidar">
-      <pose>0 0 0 1.5708 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>
       <topic>/lidar/points</topic>
       <update_rate>10</update_rate>
       <always_on>true</always_on>
