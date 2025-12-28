@@ -368,8 +368,8 @@
       <right_joint>j3</right_joint>
       <right_joint>j4</right_joint>
       <!-- Geometría del robot -->
-      <wheel_separation>0.61</wheel_separation>
-      <wheel_radius>0.1065</wheel_radius>
+      <wheel_separation>0.76</wheel_separation>
+      <wheel_radius>0.107</wheel_radius>
       <!-- Límites de velocidad -->
       <max_linear_acceleration>1.5</max_linear_acceleration>
       <max_angular_acceleration>2.0</max_angular_acceleration>
