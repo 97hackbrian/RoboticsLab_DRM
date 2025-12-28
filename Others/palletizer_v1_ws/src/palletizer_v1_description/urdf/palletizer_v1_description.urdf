@@ -333,7 +333,7 @@
   
   <joint name="camera_left_optical_joint" type="fixed">
     <!-- Baseline: 6cm to the left -->
-    <origin xyz="0 0 0.08" rpy="-1.5708 0 -1.5708"/>
+    <origin xyz="0 0 -0.08" rpy="-1.5708 0 -1.5708"/>
     <parent link="camera_link"/>
     <child link="camera_left_optical_frame"/>
   </joint>
@@ -343,7 +343,7 @@
   
   <joint name="camera_right_optical_joint" type="fixed">
     <!-- Baseline: 6cm to the right -->
-    <origin xyz="0 0 -0.08" rpy="-1.5708 0 -1.5708"/>
+    <origin xyz="0 0 0.08" rpy="-1.5708 0 -1.5708"/>
     <parent link="camera_link"/>
     <child link="camera_right_optical_frame"/>
   </joint>
@@ -565,25 +565,6 @@
         </noise>
       </camera>
     </sensor>
-  </gazebo>
-
-  <!-- Visual Odometry - Pose Publisher Plugin -->
-  <gazebo>
-    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
-      <publish_link_pose>true</publish_link_pose>
-      <publish_sensor_pose>false</publish_sensor_pose>
-      <publish_collision_pose>false</publish_collision_pose>
-      <publish_visual_pose>false</publish_visual_pose>
-      <publish_nested_model_pose>false</publish_nested_model_pose>
-      <use_pose_vector_msg>true</use_pose_vector_msg>
-      <static_publisher>false</static_publisher>
-      <static_update_frequency>1</static_update_frequency>
-      <!-- Publish camera_link pose as visual odometry -->
-      <link>
-        <name>camera_link</name>
-        <topic>/camera/odom</topic>
-      </link>
-    </plugin>
   </gazebo>
 
 </robot>

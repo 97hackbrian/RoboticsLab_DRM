@@ -62,10 +62,3 @@
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: "GZ_TO_ROS"
-
-# Visual Odometry (camera_link pose)
-- ros_topic_name: "/camera/odom"
-  gz_topic_name: "/model/palletizer_v1/pose"
-  ros_type_name: "geometry_msgs/msg/PoseStamped"
-  gz_type_name: "gz.msgs.Pose"
-  direction: "GZ_TO_ROS"
