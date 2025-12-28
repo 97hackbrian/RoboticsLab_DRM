@@ -33,21 +33,26 @@ class VisualOdometryPublisher(Node):
         
         # Parameters
         self.declare_parameter('camera_frame', 'camera_link')
-        self.declare_parameter('odom_frame', 'odom_wheel')
+        self.declare_parameter('odom_frame', 'odom_vo')
+        self.declare_parameter('child_frame_id', 'base_link_vo')
         self.declare_parameter('publish_rate', 30.0)
         
         self.camera_frame = self.get_parameter('camera_frame').value
         self.odom_frame = self.get_parameter('odom_frame').value
+        self.child_frame_id = self.get_parameter('child_frame_id').value
         publish_rate = self.get_parameter('publish_rate').value
         
         # TF Buffer and Listener
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+
+        # TF Broadcaster
+        self.tf_broadcaster = tf2_ros.TransformBroadcaster(self)
         
         # Odometry Publisher
-        self.odom_pub = self.create_publisher(Odometry, '/camera/odom', 10)
+        self.odom_pub = self.create_publisher(Odometry, 'odom_vo', 10)
         
-        # Rotation offset: -90 degrees around Z axis
+        # Rotation offset: -90 degrees around Z axis (to align camera frame with robot base)
         # q = [x, y, z, w] for rotation around Z by -90°
         self.z_rotation_90 = Quaternion()
         self.z_rotation_90.x = 0.0
@@ -59,35 +64,63 @@ class VisualOdometryPublisher(Node):
         self.timer = self.create_timer(1.0 / publish_rate, self.publish_odometry)
         
         self.get_logger().info(f'Visual Odometry Publisher started')
-        self.get_logger().info(f'Publishing {self.camera_frame} pose as odometry at {publish_rate} Hz')
-        self.get_logger().info(f'Applying -90° rotation in Z axis')
+        self.get_logger().info(f'Publishing {self.odom_frame} -> {self.child_frame_id}')
+        self.get_logger().info(f'Using source: {self.camera_frame}')
         
     def publish_odometry(self):
         try:
-            # Lookup transform from odom to camera_link
+            # We want to publish odom_vo -> base_link_vo
+            # We assume odom_wheel -> camera_link is available from the main tree + sensor
+            # And we treat camera_link as the "proxy" for location, but rotated.
+            
+            # Lookup transform from odom_wheel (the world) to camera_link
+            # Note: We use the *simulated* world frame (odom_wheel) to *simulate* the VO result.
+            # In a real robot, 'odom_wheel' here would be the output of the VO algorithm relative to its start.
+            source_frame = 'odom_wheel' 
+            
             transform: TransformStamped = self.tf_buffer.lookup_transform(
-                self.odom_frame,
+                source_frame,
                 self.camera_frame,
                 rclpy.time.Time()
             )
             
-            # Create Odometry message
-            odom = Odometry()
-            odom.header.stamp = transform.header.stamp
-            odom.header.frame_id = self.odom_frame
-            odom.child_frame_id = self.camera_frame
+            # --- Prepare Data ---
+            # 1. Position: Same as camera
+            pos_x = transform.transform.translation.x
+            pos_y = transform.transform.translation.y
+            pos_z = transform.transform.translation.z
             
-            # Set position from transform
-            odom.pose.pose.position.x = transform.transform.translation.x
-            odom.pose.pose.position.y = transform.transform.translation.y
-            odom.pose.pose.position.z = transform.transform.translation.z
-            
-            # Apply 90° Z rotation to orientation
-            # q_final = q_original * q_z90
-            odom.pose.pose.orientation = quaternion_multiply(
+            # 2. Orientation: Camera orientation rotated by -90 Z to match robot front
+            q_rot = quaternion_multiply(
                 transform.transform.rotation,
                 self.z_rotation_90
             )
+
+            current_time = self.get_clock().now().to_msg()
+
+            # --- 1. Publish TF: odom_vo -> base_link_vo ---
+            t_vo = TransformStamped()
+            t_vo.header.stamp = current_time
+            t_vo.header.frame_id = self.odom_frame
+            t_vo.child_frame_id = self.child_frame_id
+            
+            t_vo.transform.translation.x = pos_x
+            t_vo.transform.translation.y = pos_y
+            t_vo.transform.translation.z = pos_z
+            t_vo.transform.rotation = q_rot
+            
+            self.tf_broadcaster.sendTransform(t_vo)
+            
+            # --- 2. Publish Odometry Message ---
+            odom = Odometry()
+            odom.header.stamp = current_time
+            odom.header.frame_id = self.odom_frame
+            odom.child_frame_id = self.child_frame_id
+            
+            odom.pose.pose.position.x = pos_x
+            odom.pose.pose.position.y = pos_y
+            odom.pose.pose.position.z = pos_z
+            odom.pose.pose.orientation = q_rot
             
             # Publish
             self.odom_pub.publish(odom)

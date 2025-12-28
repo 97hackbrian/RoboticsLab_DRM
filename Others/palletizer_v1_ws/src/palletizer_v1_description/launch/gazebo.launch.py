@@ -78,7 +78,8 @@ def generate_launch_description():
             cmd=['python3', visual_odom_script,
                  '--ros-args',
                  '-p', 'camera_frame:=camera_link',
-                 '-p', 'odom_frame:=odom_wheel',
+                 '-p', 'odom_frame:=odom_vo',
+                 '-p', 'child_frame_id:=base_link_vo',
                  '-p', 'publish_rate:=30.0',
                  '-p', 'use_sim_time:=true'],
             output='screen'
