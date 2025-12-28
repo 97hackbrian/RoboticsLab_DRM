@@ -9,7 +9,7 @@
   
   <!-- Joint para rotar el robot 90° en eje X (Y apunta arriba) -->
   <joint name="base_footprint_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+    <origin xyz="0 0 0" rpy="1.5708 0 3.14159"/>
     <parent link="base_footprint"/>
     <child link="base_link"/>
   </joint>
@@ -381,7 +381,7 @@
       <frame_id>odom</frame_id>
       <child_frame_id>base_footprint</child_frame_id>
       <!-- Publicar odometría -->
-      <odom_publish_frequency>10</odom_publish_frequency>
+      <odom_publish_frequency>50</odom_publish_frequency>
     </plugin>
   </gazebo>
 
@@ -393,7 +393,7 @@
       <joint_name>j3</joint_name>
       <joint_name>j4</joint_name>
       <topic>joint_states</topic>
-      <update_rate>10</update_rate>
+      <update_rate>50</update_rate>
     </plugin>
   </gazebo>
 
@@ -452,7 +452,7 @@
     <sensor name="lidar_3d" type="gpu_lidar">
       <pose>0 0 0 0 0 0</pose>
       <topic>/lidar/points</topic>
-      <update_rate>10</update_rate>
+      <update_rate>50</update_rate>
       <always_on>true</always_on>
       <visualize>true</visualize>
       <gz_frame_id>lidar_link</gz_frame_id>
