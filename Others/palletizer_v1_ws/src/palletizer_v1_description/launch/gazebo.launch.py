@@ -68,8 +68,17 @@ def generate_launch_description():
                 '/odom@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
                 '/clock@rosgraph_msgs/msg/Clock@ignition.msgs.Clock',
                 '/joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model',
-                # LiDAR 3D PointCloud (de Gazebo a ROS2)
-                '/lidar/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked',
+            ],
+            output='screen'
+        ),
+        
+        # Bridge separado para LiDAR PointCloud
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='lidar_bridge',
+            arguments=[
+                '/lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
             ],
             output='screen'
         ),
