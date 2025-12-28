@@ -105,7 +105,7 @@
     <child
       link="wh1_link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="wh2_link">
@@ -158,7 +158,7 @@
     <child
       link="wh2_link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="wh3_link">
@@ -353,7 +353,91 @@
       link="base_link" />
     <child
       link="sensors_link" />
-    <axis
-      xyz="0 0 0" />
+    <axis xyz="0 0 0" />
   </joint>
+
+  <!-- ==================== GAZEBO PLUGINS ==================== -->
+  
+  <!-- Plugin de control diferencial/skid-steer para 4 ruedas -->
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <!-- Ruedas izquierdas (wh1 y wh3) -->
+      <left_joint>j1</left_joint>
+      <left_joint>j2</left_joint>
+      <!-- Ruedas derechas (wh2 y wh4) -->
+      <right_joint>j3</right_joint>
+      <right_joint>j4</right_joint>
+      <!-- Geometría del robot -->
+      <wheel_separation>0.61</wheel_separation>
+      <wheel_radius>0.12</wheel_radius>
+      <!-- Límites de velocidad -->
+      <max_linear_acceleration>1.5</max_linear_acceleration>
+      <max_angular_acceleration>2.0</max_angular_acceleration>
+      <!-- Topics -->
+      <topic>cmd_vel</topic>
+      <odom_topic>odom</odom_topic>
+      <tf_topic>tf</tf_topic>
+      <!-- Frame IDs -->
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_footprint</child_frame_id>
+      <!-- Publicar odometría -->
+      <odom_publish_frequency>10</odom_publish_frequency>
+    </plugin>
+  </gazebo>
+
+  <!-- Plugin para publicar estados de los joints -->
+  <gazebo>
+    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+      <joint_name>j1</joint_name>
+      <joint_name>j2</joint_name>
+      <joint_name>j3</joint_name>
+      <joint_name>j4</joint_name>
+      <topic>joint_states</topic>
+      <update_rate>10</update_rate>
+    </plugin>
+  </gazebo>
+
+  <!-- Propiedades de fricción para las ruedas -->
+  <gazebo reference="wh1_link">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>1000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="wh2_link">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>1000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="wh3_link">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>1000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="wh4_link">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>1000.0</kp>
+    <kd>100.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <!-- Color del cuerpo principal -->
+  <gazebo reference="base_link">
+    <visual>
+      <material>
+        <ambient>0.2 0.2 0.8 1</ambient>
+        <diffuse>0.2 0.2 0.8 1</diffuse>
+      </material>
+    </visual>
+  </gazebo>
+
 </robot>
