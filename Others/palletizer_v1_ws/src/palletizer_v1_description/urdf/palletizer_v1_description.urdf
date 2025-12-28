@@ -323,9 +323,32 @@
       link="base_link" />
     <child
       link="camera_link" />
-    <axis
-      xyz="0 0 0" />
+    <axis xyz="0 0 0" />
   </joint>
+
+  <!-- ==================== STEREO CAMERA OPTICAL FRAMES ==================== -->
+  
+  <!-- Left camera optical frame -->
+  <link name="camera_left_optical_frame"/>
+  
+  <joint name="camera_left_optical_joint" type="fixed">
+    <!-- Baseline: 6cm to the left -->
+    <origin xyz="0 0.06 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="camera_link"/>
+    <child link="camera_left_optical_frame"/>
+  </joint>
+
+  <!-- Right camera optical frame -->
+  <link name="camera_right_optical_frame"/>
+  
+  <joint name="camera_right_optical_joint" type="fixed">
+    <!-- Baseline: 6cm to the right -->
+    <origin xyz="0 -0.06 0" rpy="-1.5708 0 -1.5708"/>
+    <parent link="camera_link"/>
+    <child link="camera_right_optical_frame"/>
+  </joint>
+
+  
   <link
     name="sensors_link">
     <inertial>
@@ -484,6 +507,83 @@
         </noise>
       </ray>
     </sensor>
+  </gazebo>
+
+  <!-- ==================== STEREO CAMERA SENSORS ==================== -->
+  
+  <!-- Left Camera Sensor -->
+  <gazebo reference="camera_left_optical_frame">
+    <sensor name="camera_left" type="camera">
+      <pose>0 0 0 0 0 0</pose>
+      <topic>/camera/left</topic>
+      <update_rate>30</update_rate>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+    </sensor>
+  </gazebo>
+
+  <!-- Right Camera Sensor -->
+  <gazebo reference="camera_right_optical_frame">
+    <sensor name="camera_right" type="camera">
+      <pose>0 0 0 0 0 0</pose>
+      <topic>/camera/right</topic>
+      <update_rate>30</update_rate>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+    </sensor>
+  </gazebo>
+
+  <!-- Visual Odometry - Pose Publisher Plugin -->
+  <gazebo>
+    <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <publish_sensor_pose>false</publish_sensor_pose>
+      <publish_collision_pose>false</publish_collision_pose>
+      <publish_visual_pose>false</publish_visual_pose>
+      <publish_nested_model_pose>false</publish_nested_model_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <static_publisher>false</static_publisher>
+      <static_update_frequency>1</static_update_frequency>
+      <!-- Publish camera_link pose as visual odometry -->
+      <link>
+        <name>camera_link</name>
+        <topic>/camera/odom</topic>
+      </link>
+    </plugin>
   </gazebo>
 
 </robot>
