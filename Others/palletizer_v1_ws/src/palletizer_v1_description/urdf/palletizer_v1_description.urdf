@@ -398,10 +398,10 @@
       <max_angular_acceleration>2.0</max_angular_acceleration>
       <!-- Topics -->
       <topic>cmd_vel</topic>
-      <odom_topic>odom</odom_topic>
+      <odom_topic>odom_wheel</odom_topic>
       <tf_topic>tf</tf_topic>
       <!-- Frame IDs -->
-      <frame_id>odom</frame_id>
+      <frame_id>odom_wheel</frame_id>
       <child_frame_id>base_footprint</child_frame_id>
       <!-- Publicar odometría -->
       <odom_publish_frequency>50</odom_publish_frequency>

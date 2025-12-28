@@ -33,7 +33,7 @@ class VisualOdometryPublisher(Node):
         
         # Parameters
         self.declare_parameter('camera_frame', 'camera_link')
-        self.declare_parameter('odom_frame', 'odom')
+        self.declare_parameter('odom_frame', 'odom_wheel')
         self.declare_parameter('publish_rate', 30.0)
         
         self.camera_frame = self.get_parameter('camera_frame').value

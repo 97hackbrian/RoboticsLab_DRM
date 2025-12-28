@@ -42,7 +42,10 @@ def generate_launch_description():
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
-            parameters=[{'robot_description': open(urdf_file).read()}],
+            parameters=[
+                {'robot_description': open(urdf_file).read()},
+                {'use_sim_time': True}
+            ],
             output='screen'
         ),
 
@@ -75,8 +78,9 @@ def generate_launch_description():
             cmd=['python3', visual_odom_script,
                  '--ros-args',
                  '-p', 'camera_frame:=camera_link',
-                 '-p', 'odom_frame:=odom',
-                 '-p', 'publish_rate:=30.0'],
+                 '-p', 'odom_frame:=odom_wheel',
+                 '-p', 'publish_rate:=30.0',
+                 '-p', 'use_sim_time:=true'],
             output='screen'
         ),
     ])
