@@ -15,6 +15,7 @@ def generate_launch_description():
 
     urdf_file = os.path.join(pkg_palletizer, 'urdf', 'palletizer_v1_description.urdf')
     world = os.path.join(pkg_palletizer, 'worlds', 'small_warehouse.world')
+    bridge_config = os.path.join(pkg_palletizer, 'config', 'gz_bridge.yaml')
 
     # Configurar paths para que Gazebo encuentre los modelos y meshes
     ign_resource_path = os.pathsep.join([
@@ -59,27 +60,12 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # Bridge para comunicación ROS2 <-> Gazebo
+        # Bridge ROS2 <-> Gazebo usando archivo de configuración YAML
         Node(
             package='ros_gz_bridge',
             executable='parameter_bridge',
-            arguments=[
-                '/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
-                '/odom@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
-                '/clock@rosgraph_msgs/msg/Clock@ignition.msgs.Clock',
-                '/joint_states@sensor_msgs/msg/JointState@ignition.msgs.Model',
-            ],
-            output='screen'
-        ),
-        
-        # Bridge separado para LiDAR PointCloud
-        Node(
-            package='ros_gz_bridge',
-            executable='parameter_bridge',
-            name='lidar_bridge',
-            arguments=[
-                '/lidar/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
-            ],
+            name='gz_bridge',
+            parameters=[{'config_file': bridge_config}],
             output='screen'
         ),
     ])
