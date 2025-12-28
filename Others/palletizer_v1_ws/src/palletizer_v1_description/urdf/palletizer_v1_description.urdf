@@ -318,7 +318,7 @@
     type="fixed">
     <origin
       xyz="-0.23713 0.1899 0.00015762"
-      rpy="0 0 0" />
+      rpy="3.14159 0 1.5708" />
     <parent
       link="base_link" />
     <child
@@ -333,7 +333,7 @@
   
   <joint name="camera_left_optical_joint" type="fixed">
     <!-- Baseline: 6cm to the left -->
-    <origin xyz="0 0.06 0" rpy="-1.5708 0 -1.5708"/>
+    <origin xyz="0 0 0.08" rpy="-1.5708 0 -1.5708"/>
     <parent link="camera_link"/>
     <child link="camera_left_optical_frame"/>
   </joint>
@@ -343,7 +343,7 @@
   
   <joint name="camera_right_optical_joint" type="fixed">
     <!-- Baseline: 6cm to the right -->
-    <origin xyz="0 -0.06 0" rpy="-1.5708 0 -1.5708"/>
+    <origin xyz="0 0 -0.08" rpy="-1.5708 0 -1.5708"/>
     <parent link="camera_link"/>
     <child link="camera_right_optical_frame"/>
   </joint>
