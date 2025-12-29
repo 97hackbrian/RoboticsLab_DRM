@@ -85,7 +85,7 @@ def generate_launch_description():
         'Grid/Sensor': '0',  # 0=laser scan
         'Grid/CellSize': '0.05',
         'Grid/RangeMax': '20.0',
-        'Grid/RangeMin': '0.3',
+        'Grid/RangeMin': '0.5',
         'Grid/ClusterRadius': '0.1',
         'Grid/GroundIsObstacle': 'false',
         'Grid/MaxGroundHeight': '0.1',
@@ -184,7 +184,7 @@ def generate_launch_description():
                 'angle_max': 3.14159,
                 'angle_increment': 0.0087,  # ~0.5 degree
                 'scan_time': 0.1,
-                'range_min': 0.3,
+                'range_min': 0.5,
                 'range_max': 50.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0,
