@@ -31,7 +31,7 @@ using namespace std::chrono_literals;
  * 
  * This node subscribes to /tf_ground_truth which contains world->model transforms
  * from Gazebo's pose/info system. It extracts the robot's pose and republishes it
- * as the odom->base_footprint TF and /odom Odometry message.
+ * as the odom_vo_frame->base_footprint TF and /odom_vo Odometry message.
  */
 class VisualOdometryPublisher : public rclcpp::Node
 {
@@ -45,9 +45,10 @@ public:
     {
         // Declare parameters with default values
         this->declare_parameter<std::string>("model_name", "palletizer_v1");
-        this->declare_parameter<std::string>("odom_frame", "odom");
+        this->declare_parameter<std::string>("odom_frame", "odom_vo_frame");
         this->declare_parameter<std::string>("child_frame_id", "base_footprint");
         this->declare_parameter<std::string>("tf_ground_truth_topic", "/tf_ground_truth");
+        this->declare_parameter<std::string>("odom_topic", "/odom_vo");
         this->declare_parameter<double>("publish_rate", 50.0);
         
         // Get parameter values
@@ -55,13 +56,14 @@ public:
         odom_frame_ = this->get_parameter("odom_frame").as_string();
         child_frame_id_ = this->get_parameter("child_frame_id").as_string();
         tf_topic_ = this->get_parameter("tf_ground_truth_topic").as_string();
+        odom_topic_ = this->get_parameter("odom_topic").as_string();
         double publish_rate = this->get_parameter("publish_rate").as_double();
         
         // Initialize TF Broadcaster
         tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
         
         // Initialize Odometry Publisher
-        odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
+        odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>(odom_topic_, 10);
         
         // Subscribe to ground truth TF from Gazebo
         // This comes from /world/default/pose/info bridged as TFMessage
@@ -84,7 +86,7 @@ public:
                     model_name_.c_str(), tf_topic_.c_str());
         RCLCPP_INFO(this->get_logger(), "Publishing TF: %s -> %s", 
                     odom_frame_.c_str(), child_frame_id_.c_str());
-        RCLCPP_INFO(this->get_logger(), "Publishing odometry on: /odom");
+        RCLCPP_INFO(this->get_logger(), "Publishing odometry on: %s", odom_topic_.c_str());
     }
 
 private:
@@ -179,6 +181,7 @@ private:
     std::string odom_frame_;
     std::string child_frame_id_;
     std::string tf_topic_;
+    std::string odom_topic_;
     
     // Latest transform data
     geometry_msgs::msg::TransformStamped latest_transform_;

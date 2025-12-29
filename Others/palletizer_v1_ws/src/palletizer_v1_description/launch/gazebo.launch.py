@@ -76,6 +76,7 @@ def generate_launch_description():
         # Pseudo Visual Odometry Publisher using Ground Truth (C++ node)
         # Simulates drift-free visual odometry like Intel T265
         # Listens to /tf_ground_truth and extracts palletizer_v1 pose
+        # Publishes TF: odom_vo_frame -> base_footprint
         Node(
             package='palletizer_v1_description',
             executable='visual_odometry_publisher',
@@ -83,7 +84,8 @@ def generate_launch_description():
             parameters=[
                 {'model_name': 'palletizer_v1'},
                 {'tf_ground_truth_topic': '/tf_ground_truth'},
-                {'odom_frame': 'odom'},
+                {'odom_frame': 'odom_vo_frame'},
+                {'odom_topic': '/odom_vo'},
                 {'child_frame_id': 'base_footprint'},
                 {'publish_rate': 50.0},
                 {'use_sim_time': True}

@@ -383,7 +383,7 @@
   
   <!-- Plugin de control diferencial/skid-steer para 4 ruedas -->
   <!-- NOTA: La odometría de rueda tiene drift. El TF principal usa ground truth (visual odom). -->
-  <!-- Esta rama TF es independiente: odom_wheel -> base_footprint_wheel -->
+  <!-- Esta rama TF es independiente: odom_wheel_frame -> base_footprint_wheel -->
   <gazebo>
     <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
       <!-- Ruedas izquierdas (wh1 y wh3) -->
@@ -404,7 +404,7 @@
       <!-- TF para wheel odom - RAMA SEPARADA (con drift) -->
       <tf_topic>tf_wheel</tf_topic>
       <!-- Frame IDs - Rama independiente del árbol principal -->
-      <frame_id>odom_wheel</frame_id>
+      <frame_id>odom_wheel_frame</frame_id>
       <child_frame_id>base_footprint_wheel</child_frame_id>
       <!-- Publicar odometría -->
       <odom_publish_frequency>50</odom_publish_frequency>
