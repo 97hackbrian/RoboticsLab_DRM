@@ -2,17 +2,25 @@
 RTAB-Map Stereo Visual Odometry Launch File
 Provides stereo odometry for palletizer_v1 robot using RTAB-Map's stereo_odometry node.
 Publishes odom -> base_footprint TF and /odom topic.
+
+NOTE: TF is published by odom_tf_corrector node which applies the inverse rotation
+of base_footprint_joint (rpy="1.5708 0 3.14159") to correct axis alignment.
 """
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+from ament_index_python.packages import get_package_share_directory
+import os
 
 
 def generate_launch_description():
     # Launch arguments
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
+    
+    # Get package directory for scripts
+    pkg_palletizer = get_package_share_directory('palletizer_v1_description')
     
     # RTAB-Map stereo odometry parameters
     # These are tuned for simulated environment
@@ -20,7 +28,8 @@ def generate_launch_description():
         # Frame configuration
         'frame_id': 'base_footprint',
         'odom_frame_id': 'odom',
-        'publish_tf': True,
+        # TF disabled - odom_tf_corrector handles TF with axis correction
+        'publish_tf': False,
         'wait_for_transform': 0.2,
         
         # Synchronization
@@ -72,6 +81,16 @@ def generate_launch_description():
         ],
     )
     
+    # Odometry TF Corrector node
+    # This node applies the inverse rotation of base_footprint_joint to correct axis alignment
+    odom_tf_corrector_node = Node(
+        package='palletizer_v1_description',
+        executable='odom_tf_corrector.py',
+        name='odom_tf_corrector',
+        output='screen',
+        parameters=[{'use_sim_time': use_sim_time}],
+    )
+    
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
@@ -79,4 +98,6 @@ def generate_launch_description():
             description='Use simulation time'
         ),
         stereo_odometry_node,
+        odom_tf_corrector_node,
     ])
+
