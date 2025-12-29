@@ -64,7 +64,7 @@ qtcreator-*
 #vscode
 *.code-workspace
 .vscode/
-
+.agent
 # Catkin custom files
 CATKIN_IGNORE
 COLCON_IGNORE
