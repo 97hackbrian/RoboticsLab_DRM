@@ -16,6 +16,7 @@ def generate_launch_description():
     urdf_file = os.path.join(pkg_palletizer, 'urdf', 'palletizer_v1_description.urdf')
     world = os.path.join(pkg_palletizer, 'worlds', 'small_warehouse.world')
     bridge_config = os.path.join(pkg_palletizer, 'config', 'gz_bridge.yaml')
+    rviz_config = os.path.join(pkg_palletizer, 'rviz2', 'conf.rviz')
 
     # Configurar paths para que Gazebo encuentre los modelos y meshes
     ign_resource_path = os.pathsep.join([
@@ -72,7 +73,7 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # Visual Odometry Publisher (C++ node)
+        # Pseudo Visual Odometry Publisher in camera like a intel t265 (C++ node)
         Node(
             package='palletizer_v1_description',
             executable='visual_odometry_publisher',
@@ -84,6 +85,16 @@ def generate_launch_description():
                 {'publish_rate': 30.0},
                 {'use_sim_time': True}
             ],
+            output='screen'
+        ),
+
+        # RViz2 visualization
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            name='rviz2',
+            arguments=['-d', rviz_config],
+            parameters=[{'use_sim_time': True}],
             output='screen'
         ),
     ])

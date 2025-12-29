@@ -41,7 +41,7 @@ install(TARGETS
 
 # Install resource directories
 install(
-  DIRECTORY config launch meshes urdf worlds models textures
+  DIRECTORY config launch meshes urdf worlds models textures rviz2
   DESTINATION share/${PROJECT_NAME}
   USE_SOURCE_PERMISSIONS
 )
