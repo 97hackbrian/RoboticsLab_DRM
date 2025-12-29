@@ -371,7 +371,7 @@
     type="fixed">
     <origin
       xyz="-0.28745 -0.023774 0.00015762"
-      rpy="0 0 0" />
+      rpy="1.5708 0 3.14159" />
     <parent
       link="base_link" />
     <child
@@ -510,6 +510,54 @@
           <type>gaussian</type>
           <mean>0.0</mean>
           <stddev>0.001</stddev>
+        </noise>
+      </ray>
+    </sensor>
+  </gazebo>
+
+  <!-- ==================== SHARP IR DISTANCE SENSOR ==================== -->
+  <!-- Sensor de distancia óptico tipo Sharp GP2Y0A02YK0F -->
+  <!-- Montado en sensors_link, apunta hacia adelante (+X) -->
+  <!-- Rango: 2cm - 150cm, similar a un sensor Sharp real -->
+  <gazebo reference="sensors_link">
+    <sensor name="sharp_distance_sensor" type="gpu_lidar">
+      <!-- Pose relativa al sensors_link: apunta hacia adelante (+X del robot) -->
+      <pose>0 0 0 0 0 0</pose>
+      <topic>/sharp_distance</topic>
+      <update_rate>30</update_rate>
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <gz_frame_id>sensors_link</gz_frame_id>
+      
+      <!-- Configuración como sensor de un solo rayo (Sharp IR) -->
+      <ray>
+        <scan>
+          <horizontal>
+            <!-- Un solo rayo central -->
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </horizontal>
+          <vertical>
+            <!-- Un solo rayo vertical (sin escaneo vertical) -->
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <!-- Rango típico de sensor Sharp GP2Y0A02YK0F -->
+          <min>0.02</min>
+          <max>1.5</max>
+          <resolution>0.001</resolution>
+        </range>
+        <noise>
+          <!-- Ruido gaussiano para simular sensor real -->
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.005</stddev>
         </noise>
       </ray>
     </sensor>

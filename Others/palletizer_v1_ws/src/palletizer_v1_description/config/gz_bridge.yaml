@@ -41,6 +41,23 @@
   gz_type_name: "gz.msgs.PointCloudPacked"
   direction: "GZ_TO_ROS"
 
+# Sharp IR Distance Sensor (single ray range sensor)
+# Simulates optical distance sensor like Sharp GP2Y0A02YK0F
+# Tópico en GZ: /sharp_distance (LaserScan)
+- ros_topic_name: "/sharp_distance"
+  gz_topic_name: "/sharp_distance"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: "GZ_TO_ROS"
+
+# Sharp IR Distance Sensor - Range (single distance value)
+# Convierte LaserScan a Range para facilidad de uso
+- ros_topic_name: "/sharp_distance/range"
+  gz_topic_name: "/sharp_distance"
+  ros_type_name: "sensor_msgs/msg/Range"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: "GZ_TO_ROS"
+
 # Stereo Camera - Left Image
 - ros_topic_name: "/camera/left/image_raw"
   gz_topic_name: "/camera/left"
