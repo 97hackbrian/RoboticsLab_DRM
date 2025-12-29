@@ -16,9 +16,17 @@
   gz_type_name: "gz.msgs.Odometry"
   direction: "GZ_TO_ROS"
 
-# NOTA: El TF principal (odom->base_footprint) ahora viene del nodo C++ usando ground truth
+# TF de odometría de encoders (con drift) - RAMA SEPARADA
+# Publica: odom_wheel -> base_footprint_wheel
+# Esta rama es independiente del árbol principal del robot
+- ros_topic_name: "/tf"
+  gz_topic_name: "/tf_wheel"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
+  direction: "GZ_TO_ROS"
+
+# NOTA: El TF principal (odom->base_footprint) viene del nodo C++ usando ground truth
 # Los TFs de joints (base_link->wheels, etc.) vienen del robot_state_publisher
-# Ya no se necesita bridge de /tf desde Gazebo
 
 - ros_topic_name: "/cmd_vel"
   gz_topic_name: "/cmd_vel"
