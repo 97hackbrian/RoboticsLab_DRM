@@ -1,5 +1,5 @@
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable, OpaqueFunction, ExecuteProcess
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable, OpaqueFunction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -16,7 +16,6 @@ def generate_launch_description():
     urdf_file = os.path.join(pkg_palletizer, 'urdf', 'palletizer_v1_description.urdf')
     world = os.path.join(pkg_palletizer, 'worlds', 'small_warehouse.world')
     bridge_config = os.path.join(pkg_palletizer, 'config', 'gz_bridge.yaml')
-    visual_odom_script = os.path.join(pkg_palletizer, 'scripts', 'visual_odometry_publisher.py')
 
     # Configurar paths para que Gazebo encuentre los modelos y meshes
     ign_resource_path = os.pathsep.join([
@@ -73,15 +72,18 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # Visual Odometry Publisher (ejecutado con python3)
-        ExecuteProcess(
-            cmd=['python3', visual_odom_script,
-                 '--ros-args',
-                 '-p', 'camera_frame:=camera_link',
-                 '-p', 'odom_frame:=odom_vo',
-                 '-p', 'child_frame_id:=base_link_vo',
-                 '-p', 'publish_rate:=30.0',
-                 '-p', 'use_sim_time:=true'],
+        # Visual Odometry Publisher (C++ node)
+        Node(
+            package='palletizer_v1_description',
+            executable='visual_odometry_publisher',
+            name='visual_odometry_publisher',
+            parameters=[
+                {'camera_frame': 'camera_link'},
+                {'odom_frame': 'odom_vo'},
+                {'child_frame_id': 'base_link_vo'},
+                {'publish_rate': 30.0},
+                {'use_sim_time': True}
+            ],
             output='screen'
         ),
     ])
