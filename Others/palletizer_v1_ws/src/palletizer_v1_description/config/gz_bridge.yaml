@@ -16,11 +16,9 @@
   gz_type_name: "gz.msgs.Odometry"
   direction: "GZ_TO_ROS"
 
-- ros_topic_name: "/tf"
-  gz_topic_name: "/tf"
-  ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "gz.msgs.Pose_V"
-  direction: "GZ_TO_ROS"
+# NOTA: El TF principal (odom->base_footprint) ahora viene del nodo C++ usando ground truth
+# Los TFs de joints (base_link->wheels, etc.) vienen del robot_state_publisher
+# Ya no se necesita bridge de /tf desde Gazebo
 
 - ros_topic_name: "/cmd_vel"
   gz_topic_name: "/cmd_vel"
@@ -61,4 +59,12 @@
   gz_topic_name: "/camera/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
+  direction: "GZ_TO_ROS"
+
+# Ground Truth Poses de todos los modelos (desde el sistema de poses del mundo)
+# Esto publica TF de world->model_name para todos los modelos
+- ros_topic_name: "/tf_ground_truth"
+  gz_topic_name: "/world/default/pose/info"
+  ros_type_name: "tf2_msgs/msg/TFMessage"
+  gz_type_name: "gz.msgs.Pose_V"
   direction: "GZ_TO_ROS"

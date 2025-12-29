@@ -382,6 +382,7 @@
   <!-- ==================== GAZEBO PLUGINS ==================== -->
   
   <!-- Plugin de control diferencial/skid-steer para 4 ruedas -->
+  <!-- NOTA: La odometría de rueda tiene drift. El TF principal usa ground truth. -->
   <gazebo>
     <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
       <!-- Ruedas izquierdas (wh1 y wh3) -->
@@ -399,7 +400,8 @@
       <!-- Topics -->
       <topic>cmd_vel</topic>
       <odom_topic>odom_wheel</odom_topic>
-      <tf_topic>tf</tf_topic>
+      <!-- TF separado para wheel odom (con drift) - no se usa como principal -->
+      <tf_topic>tf_wheel</tf_topic>
       <!-- Frame IDs -->
       <frame_id>odom_wheel</frame_id>
       <child_frame_id>base_footprint</child_frame_id>
@@ -426,6 +428,9 @@
       <render_engine>ogre2</render_engine>
     </plugin>
   </gazebo>
+
+  <!-- NOTA: Ground truth pose se obtiene de /world/default/pose/info (siempre disponible) -->
+  <!-- El bridge convierte Pose_V a TFMessage en /tf_ground_truth -->
 
   <!-- Propiedades de fricción para las ruedas -->
   <gazebo reference="wh1_link">

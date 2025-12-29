@@ -165,27 +165,17 @@ Visualization Manager:
         base_footprint:
           base_link:
             camera_link:
-              camera_left_optical_frame:
-                {}
-              camera_right_optical_frame:
-                {}
-            lidar_link:
-              {}
-            sensors_link:
-              {}
-            wh1_link:
-              {}
-            wh2_link:
-              {}
-            wh3_link:
-              {}
-            wh4_link:
-              {}
+              camera_left_optical_frame: {}
+              camera_right_optical_frame: {}
+            lidar_link: {}
+            sensors_link: {}
+            wh1_link: {}
+            wh2_link: {}
+            wh3_link: {}
+            wh4_link: {}
         odom_vo:
-          base_link_vo:
-            {}
-        odom_wheel:
-          {}
+          base_link_vo: {}
+        odom_wheel: {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -259,12 +249,12 @@ Visualization Manager:
         Filter size: 10
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /odom_vo
+        Value: /odom
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: odom_wheel
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:

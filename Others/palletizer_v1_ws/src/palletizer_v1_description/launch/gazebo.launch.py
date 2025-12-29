@@ -73,16 +73,19 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # Pseudo Visual Odometry Publisher in camera like a intel t265 (C++ node)
+        # Pseudo Visual Odometry Publisher using Ground Truth (C++ node)
+        # Simulates drift-free visual odometry like Intel T265
+        # Listens to /tf_ground_truth and extracts palletizer_v1 pose
         Node(
             package='palletizer_v1_description',
             executable='visual_odometry_publisher',
             name='visual_odometry_publisher',
             parameters=[
-                {'camera_frame': 'camera_link'},
-                {'odom_frame': 'odom_vo'},
-                {'child_frame_id': 'base_link_vo'},
-                {'publish_rate': 30.0},
+                {'model_name': 'palletizer_v1'},
+                {'tf_ground_truth_topic': '/tf_ground_truth'},
+                {'odom_frame': 'odom'},
+                {'child_frame_id': 'base_footprint'},
+                {'publish_rate': 50.0},
                 {'use_sim_time': True}
             ],
             output='screen'

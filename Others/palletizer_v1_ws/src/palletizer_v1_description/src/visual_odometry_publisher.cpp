@@ -1,9 +1,11 @@
 /**
  * @file visual_odometry_publisher.cpp
- * @brief Visual Odometry Publisher Node for ROS2
+ * @brief Pseudo Visual Odometry Publisher Node for ROS2
  * 
- * Converts camera_link TF to Odometry message for visual odometry tracking.
- * This is a C++ translation of the original Python implementation.
+ * Simulates visual odometry by using ground truth pose from Gazebo.
+ * This provides drift-free odometry similar to what an Intel T265 would provide.
+ * 
+ * Uses TF from /tf_ground_truth which contains world->model_name transforms.
  * 
  * @author Translated from Python to C++ for ROS2 Humble
  */
@@ -12,39 +14,24 @@
 #include <nav_msgs/msg/odometry.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <geometry_msgs/msg/quaternion.hpp>
-#include <tf2_ros/transform_listener.h>
-#include <tf2_ros/buffer.h>
+#include <tf2_msgs/msg/tf_message.hpp>
 #include <tf2_ros/transform_broadcaster.h>
-#include <tf2/exceptions.h>
+#include <tf2/LinearMath/Quaternion.h>
+#include <tf2/LinearMath/Matrix3x3.h>
 #include <chrono>
 #include <memory>
 #include <string>
+#include <mutex>
 
 using namespace std::chrono_literals;
 
 /**
- * @brief Multiply two quaternions
- * @param q1 First quaternion
- * @param q2 Second quaternion
- * @return Result quaternion (q1 * q2)
- */
-geometry_msgs::msg::Quaternion quaternion_multiply(
-    const geometry_msgs::msg::Quaternion& q1,
-    const geometry_msgs::msg::Quaternion& q2)
-{
-    geometry_msgs::msg::Quaternion result;
-    
-    result.w = q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z;
-    result.x = q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y;
-    result.y = q1.w * q2.y - q1.x * q2.z + q1.y * q2.w + q1.z * q2.x;
-    result.z = q1.w * q2.z + q1.x * q2.y - q1.y * q2.x + q1.z * q2.w;
-    
-    return result;
-}
-
-/**
  * @class VisualOdometryPublisher
- * @brief ROS2 Node that publishes visual odometry based on camera TF transforms
+ * @brief ROS2 Node that publishes pseudo visual odometry using ground truth from Gazebo
+ * 
+ * This node subscribes to /tf_ground_truth which contains world->model transforms
+ * from Gazebo's pose/info system. It extracts the robot's pose and republishes it
+ * as the odom->base_footprint TF and /odom Odometry message.
  */
 class VisualOdometryPublisher : public rclcpp::Node
 {
@@ -54,39 +41,37 @@ public:
      */
     VisualOdometryPublisher()
         : Node("visual_odometry_publisher"),
-          tf_buffer_(this->get_clock()),
-          tf_listener_(tf_buffer_)
+          pose_received_(false)
     {
         // Declare parameters with default values
-        this->declare_parameter<std::string>("camera_frame", "camera_link");
-        this->declare_parameter<std::string>("odom_frame", "odom_vo");
-        this->declare_parameter<std::string>("child_frame_id", "base_link_vo");
-        this->declare_parameter<double>("publish_rate", 30.0);
+        this->declare_parameter<std::string>("model_name", "palletizer_v1");
+        this->declare_parameter<std::string>("odom_frame", "odom");
+        this->declare_parameter<std::string>("child_frame_id", "base_footprint");
+        this->declare_parameter<std::string>("tf_ground_truth_topic", "/tf_ground_truth");
+        this->declare_parameter<double>("publish_rate", 50.0);
         
         // Get parameter values
-        camera_frame_ = this->get_parameter("camera_frame").as_string();
+        model_name_ = this->get_parameter("model_name").as_string();
         odom_frame_ = this->get_parameter("odom_frame").as_string();
         child_frame_id_ = this->get_parameter("child_frame_id").as_string();
+        tf_topic_ = this->get_parameter("tf_ground_truth_topic").as_string();
         double publish_rate = this->get_parameter("publish_rate").as_double();
         
         // Initialize TF Broadcaster
         tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
         
         // Initialize Odometry Publisher
-        odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("odom_vo", 10);
+        odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
         
-        // Initialize rotation offset: -90 degrees around Z axis
-        // This aligns camera frame with robot base
-        // q = [x, y, z, w] for rotation around Z by -90°
-        z_rotation_90_.x = 0.0;
-        z_rotation_90_.y = 0.0;
-        z_rotation_90_.z = -0.7071067811865476;  // sin(-45°)
-        z_rotation_90_.w = 0.7071067811865476;   // cos(45°)
+        // Subscribe to ground truth TF from Gazebo
+        // This comes from /world/default/pose/info bridged as TFMessage
+        tf_sub_ = this->create_subscription<tf2_msgs::msg::TFMessage>(
+            tf_topic_,
+            rclcpp::QoS(10).reliable(),
+            std::bind(&VisualOdometryPublisher::tf_callback, this, std::placeholders::_1)
+        );
         
-        // Initialize last error time for throttled logging
-        last_error_time_ = this->now();
-        
-        // Create timer for periodic odometry publishing
+        // Create timer for periodic TF/Odom publishing
         auto timer_period = std::chrono::duration<double>(1.0 / publish_rate);
         timer_ = this->create_wall_timer(
             std::chrono::duration_cast<std::chrono::nanoseconds>(timer_period),
@@ -94,110 +79,121 @@ public:
         );
         
         // Log startup information
-        RCLCPP_INFO(this->get_logger(), "Visual Odometry Publisher started");
-        RCLCPP_INFO(this->get_logger(), "Publishing %s -> %s", 
+        RCLCPP_INFO(this->get_logger(), "Pseudo Visual Odometry Publisher started");
+        RCLCPP_INFO(this->get_logger(), "Listening for model '%s' on %s", 
+                    model_name_.c_str(), tf_topic_.c_str());
+        RCLCPP_INFO(this->get_logger(), "Publishing TF: %s -> %s", 
                     odom_frame_.c_str(), child_frame_id_.c_str());
-        RCLCPP_INFO(this->get_logger(), "Using source: %s", camera_frame_.c_str());
+        RCLCPP_INFO(this->get_logger(), "Publishing odometry on: /odom");
     }
 
 private:
     /**
-     * @brief Timer callback to publish odometry data
-     * 
-     * Looks up TF transform from odom_wheel to camera_link and publishes
-     * the corresponding visual odometry TF and Odometry message.
+     * @brief Callback for TF messages from ground truth
+     * @param msg The TFMessage containing all model poses
      */
-    void publish_odometry()
+    void tf_callback(const tf2_msgs::msg::TFMessage::SharedPtr msg)
     {
-        try {
-            // We want to publish odom_vo -> base_link_vo
-            // We assume odom_wheel -> camera_link is available from the main tree + sensor
-            // And we treat camera_link as the "proxy" for location, but rotated.
-            
-            // Lookup transform from odom_wheel (the world) to camera_link
-            // Note: We use the *simulated* world frame (odom_wheel) to *simulate* the VO result.
-            // In a real robot, 'odom_wheel' here would be the output of the VO algorithm relative to its start.
-            const std::string source_frame = "odom_wheel";
-            
-            geometry_msgs::msg::TransformStamped transform;
-            transform = tf_buffer_.lookupTransform(
-                source_frame,
-                camera_frame_,
-                tf2::TimePointZero
-            );
-            
-            // --- Prepare Data ---
-            // 1. Position: Same as camera
-            double pos_x = transform.transform.translation.x;
-            double pos_y = transform.transform.translation.y;
-            double pos_z = transform.transform.translation.z;
-            
-            // 2. Orientation: Camera orientation rotated by -90 Z to match robot front
-            geometry_msgs::msg::Quaternion q_rot = quaternion_multiply(
-                transform.transform.rotation,
-                z_rotation_90_
-            );
-            
-            rclcpp::Time current_time = this->now();
-            
-            // --- 1. Publish TF: odom_vo -> base_link_vo ---
-            geometry_msgs::msg::TransformStamped t_vo;
-            t_vo.header.stamp = current_time;
-            t_vo.header.frame_id = odom_frame_;
-            t_vo.child_frame_id = child_frame_id_;
-            
-            t_vo.transform.translation.x = pos_x;
-            t_vo.transform.translation.y = pos_y;
-            t_vo.transform.translation.z = pos_z;
-            t_vo.transform.rotation = q_rot;
-            
-            tf_broadcaster_->sendTransform(t_vo);
-            
-            // --- 2. Publish Odometry Message ---
-            nav_msgs::msg::Odometry odom;
-            odom.header.stamp = current_time;
-            odom.header.frame_id = odom_frame_;
-            odom.child_frame_id = child_frame_id_;
-            
-            odom.pose.pose.position.x = pos_x;
-            odom.pose.pose.position.y = pos_y;
-            odom.pose.pose.position.z = pos_z;
-            odom.pose.pose.orientation = q_rot;
-            
-            // Publish odometry
-            odom_pub_->publish(odom);
-            
-        } catch (const tf2::TransformException& ex) {
-            // Throttled logging: only log every 5 seconds to avoid spam
-            rclcpp::Time now = this->now();
-            if ((now - last_error_time_).seconds() > 5.0) {
-                RCLCPP_WARN(this->get_logger(), "Could not get transform: %s", ex.what());
-                last_error_time_ = now;
+        std::lock_guard<std::mutex> lock(pose_mutex_);
+        
+        // Search for our model in the TF message
+        for (const auto& transform : msg->transforms) {
+            if (transform.child_frame_id == model_name_) {
+                latest_transform_ = transform;
+                pose_received_ = true;
+                return;
             }
         }
     }
     
+    /**
+     * @brief Timer callback to publish odometry data
+     * 
+     * Uses the latest ground truth pose to publish TF and Odometry.
+     */
+    void publish_odometry()
+    {
+        std::lock_guard<std::mutex> lock(pose_mutex_);
+        
+        if (!pose_received_) {
+            // Only log occasionally to avoid spam
+            static int wait_count = 0;
+            if (++wait_count % 100 == 1) {
+                RCLCPP_WARN(this->get_logger(), 
+                    "Waiting for ground truth TF for model '%s' on %s...", 
+                    model_name_.c_str(), tf_topic_.c_str());
+            }
+            return;
+        }
+        
+        rclcpp::Time current_time = this->now();
+        
+        // Extract position from ground truth
+        double pos_x = latest_transform_.transform.translation.x;
+        double pos_y = latest_transform_.transform.translation.y;
+        double pos_z = latest_transform_.transform.translation.z;
+        
+        // Extract orientation from ground truth
+        geometry_msgs::msg::Quaternion orientation = latest_transform_.transform.rotation;
+        
+        // --- 1. Publish TF: odom -> base_footprint ---
+        geometry_msgs::msg::TransformStamped t_odom;
+        t_odom.header.stamp = current_time;
+        t_odom.header.frame_id = odom_frame_;
+        t_odom.child_frame_id = child_frame_id_;
+        
+        t_odom.transform.translation.x = pos_x;
+        t_odom.transform.translation.y = pos_y;
+        t_odom.transform.translation.z = pos_z;
+        t_odom.transform.rotation = orientation;
+        
+        tf_broadcaster_->sendTransform(t_odom);
+        
+        // --- 2. Publish Odometry Message ---
+        nav_msgs::msg::Odometry odom;
+        odom.header.stamp = current_time;
+        odom.header.frame_id = odom_frame_;
+        odom.child_frame_id = child_frame_id_;
+        
+        odom.pose.pose.position.x = pos_x;
+        odom.pose.pose.position.y = pos_y;
+        odom.pose.pose.position.z = pos_z;
+        odom.pose.pose.orientation = orientation;
+        
+        // Set covariance (very low since this is ground truth)
+        // Position covariance
+        odom.pose.covariance[0] = 0.001;   // x
+        odom.pose.covariance[7] = 0.001;   // y
+        odom.pose.covariance[14] = 0.001;  // z
+        // Orientation covariance
+        odom.pose.covariance[21] = 0.001;  // roll
+        odom.pose.covariance[28] = 0.001;  // pitch
+        odom.pose.covariance[35] = 0.001;  // yaw
+        
+        // Publish odometry
+        odom_pub_->publish(odom);
+    }
+    
     // Member variables
-    std::string camera_frame_;
+    std::string model_name_;
     std::string odom_frame_;
     std::string child_frame_id_;
+    std::string tf_topic_;
     
-    // TF2 components
-    tf2_ros::Buffer tf_buffer_;
-    tf2_ros::TransformListener tf_listener_;
+    // Latest transform data
+    geometry_msgs::msg::TransformStamped latest_transform_;
+    bool pose_received_;
+    std::mutex pose_mutex_;
+    
+    // TF Broadcaster
     std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
     
-    // Publishers
+    // Publishers and Subscribers
     rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
-    
-    // Rotation offset quaternion
-    geometry_msgs::msg::Quaternion z_rotation_90_;
+    rclcpp::Subscription<tf2_msgs::msg::TFMessage>::SharedPtr tf_sub_;
     
     // Timer
     rclcpp::TimerBase::SharedPtr timer_;
-    
-    // Error throttling
-    rclcpp::Time last_error_time_;
 };
 
 /**
