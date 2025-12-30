@@ -17,8 +17,10 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
+find_package(tf2_msgs REQUIRED)
 
 # Build visual_odometry_publisher executable
 add_executable(visual_odometry_publisher
@@ -31,11 +33,23 @@ ament_target_dependencies(visual_odometry_publisher
   geometry_msgs
   tf2
   tf2_ros
+  tf2_msgs
 )
 
-# Install executable
+# Build stereo_camera_info_publisher executable
+add_executable(stereo_camera_info_publisher
+  src/stereo_camera_info_publisher.cpp
+)
+
+ament_target_dependencies(stereo_camera_info_publisher
+  rclcpp
+  sensor_msgs
+)
+
+# Install executables
 install(TARGETS
   visual_odometry_publisher
+  stereo_camera_info_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 
