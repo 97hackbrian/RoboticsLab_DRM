@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version:   Build Version: 1.6.9335.19781
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="caja1">
+  <link
+    name="base_link_caja">
+    <inertial>
+      <origin
+        xyz="-1.5473E-10 1.3009E-10 0.30355"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="0.57343"
+        ixy="-2.5473E-12"
+        ixz="-7.7732E-12"
+        iyy="0.64792"
+        iyz="1.9357E-12"
+        izz="0.42048" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/base_link_caja.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/base_link_caja.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="-2.1175E-07 0.01406 0.037948"
+        rpy="0 0 0" />
+      <mass
+        value="0.028235" />
+      <inertia
+        ixx="1.9996E-05"
+        ixy="-8.0646E-11"
+        ixz="1.4679E-10"
+        iyy="1.6497E-05"
+        iyz="5.884E-06"
+        izz="8.1543E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="0.135 0.10943 0.05"
+      rpy="0 0 0" />
+    <parent
+      link="base_link_caja" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14159"
+      upper="3.14159"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="linkwh1">
+    <inertial>
+      <origin
+        xyz="2.1772E-06 -0.0014267 4.3565E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.204" />
+      <inertia
+        ixx="9.0741E-05"
+        ixy="3.2255E-09"
+        ixz="1.2715E-09"
+        iyy="0.00015413"
+        iyz="5.1009E-10"
+        izz="9.0733E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="jointwh1"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link1" />
+    <child
+      link="linkwh1" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="-2.1175E-07 0.01406 0.037948"
+        rpy="0 0 0" />
+      <mass
+        value="0.028235" />
+      <inertia
+        ixx="1.9996E-05"
+        ixy="-8.0646E-11"
+        ixz="1.4679E-10"
+        iyy="1.6497E-05"
+        iyz="5.884E-06"
+        izz="8.1543E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="-0.135 0.10943 0.05"
+      rpy="0 0 0" />
+    <parent
+      link="base_link_caja" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14159"
+      upper="3.14159"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="linkwh2">
+    <inertial>
+      <origin
+        xyz="-2.1772E-06 -0.0014267 -4.3564E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.204" />
+      <inertia
+        ixx="9.0741E-05"
+        ixy="-3.2255E-09"
+        ixz="1.2715E-09"
+        iyy="0.00015413"
+        iyz="-5.1009E-10"
+        izz="9.0733E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="jointwh2"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link2" />
+    <child
+      link="linkwh2" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="2.1175E-07 -0.01406 0.037948"
+        rpy="0 0 0" />
+      <mass
+        value="0.028235" />
+      <inertia
+        ixx="1.9996E-05"
+        ixy="-8.0646E-11"
+        ixz="-1.4679E-10"
+        iyy="1.6497E-05"
+        iyz="-5.884E-06"
+        izz="8.1543E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0.135 -0.10943 0.05"
+      rpy="0 0 0" />
+    <parent
+      link="base_link_caja" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14159"
+      upper="3.14159"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="linkwh3">
+    <inertial>
+      <origin
+        xyz="-8.0681E-07 0.0014267 -2.0685E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.204" />
+      <inertia
+        ixx="9.0734E-05"
+        ixy="1.0627E-09"
+        ixz="2.4716E-09"
+        iyy="0.00015413"
+        iyz="3.0879E-09"
+        izz="9.074E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="jointwh3"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link3" />
+    <child
+      link="linkwh3" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/link4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="-0.135 -0.10943 0.05"
+      rpy="0 0 0" />
+    <parent
+      link="base_link_caja" />
+    <child
+      link="link4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.14159"
+      upper="3.14159"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="linkwh4">
+    <inertial>
+      <origin
+        xyz="-8.0681E-07 0.0014267 -2.0685E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.204" />
+      <inertia
+        ixx="9.0734E-05"
+        ixy="1.0627E-09"
+        ixz="2.4716E-09"
+        iyy="0.00015413"
+        iyz="3.0879E-09"
+        izz="9.074E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/linkwh4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="jointwh4"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link4" />
+    <child
+      link="linkwh4" />
+    <axis
+      xyz="0 -1 0" />
+  </joint>
+</robot>
