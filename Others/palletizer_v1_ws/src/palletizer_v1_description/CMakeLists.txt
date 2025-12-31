@@ -46,10 +46,21 @@ ament_target_dependencies(stereo_camera_info_publisher
   sensor_msgs
 )
 
+# Build pointcloud_transform_publisher executable
+add_executable(pointcloud_transform_publisher
+  src/pointcloud_transform_publisher.cpp
+)
+
+ament_target_dependencies(pointcloud_transform_publisher
+  rclcpp
+  sensor_msgs
+)
+
 # Install executables
 install(TARGETS
   visual_odometry_publisher
   stereo_camera_info_publisher
+  pointcloud_transform_publisher
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -212,8 +212,28 @@ def generate_launch_description():
             ]
         ),
         
+        # ============================================================
+        # POINT CLOUD TRANSFORM
+        # Transform from optical frame to robot base frame
+        # Transformation: x=z, y=-x, z=-y (based on actual TF)
+        # ============================================================
+        
+        Node(
+            package='palletizer_v1_description',
+            executable='pointcloud_transform_publisher',
+            name='pointcloud_transform',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'input_topic': '/camera/depth/points',
+                'output_topic': '/camera/depth/points_robot',
+                'output_frame_id': 'base_footprint',  # Use robot base frame
+            }],
+        ),
+        
         # NOTA: Disparity está disponible en /stereo/disparity
-        # Point cloud está disponible en /camera/depth/points
+        # Point cloud original: /camera/depth/points (frame óptico)
+        # Point cloud transformado: /camera/depth/points_robot (frame robot)
         # Depth image está disponible en /camera/depth/image
         
         # ============================================================
