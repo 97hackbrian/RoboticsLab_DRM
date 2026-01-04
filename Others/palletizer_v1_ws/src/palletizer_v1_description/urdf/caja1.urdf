@@ -488,4 +488,28 @@
     <axis
       xyz="0 -1 0" />
   </joint>
+
+  <!-- ArUco marker on front face of the box -->
+  <link name="aruco_marker_link">
+    <visual>
+      <origin
+        xyz="0.01 0 0"
+        rpy="1.5708 0 1.5708" />
+      <geometry>
+        <mesh
+          filename="package://palletizer_v1_description/meshes/aruco_marker_1.dae" />
+      </geometry>
+    </visual>
+  </link>
+  <joint
+    name="aruco_marker_joint"
+    type="fixed">
+    <origin
+      xyz="0.145 0 0.30"
+      rpy="0 0 0" />
+    <parent
+      link="base_link_caja" />
+    <child
+      link="aruco_marker_link" />
+  </joint>
 </robot>

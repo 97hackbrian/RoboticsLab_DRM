@@ -14,6 +14,7 @@ def generate_launch_description():
     pkg_palletizer = get_package_share_directory('palletizer_v1_description')
 
     urdf_file = os.path.join(pkg_palletizer, 'urdf', 'palletizer_v1_description.urdf')
+    caja_urdf_file = os.path.join(pkg_palletizer, 'urdf', 'caja1.urdf')
     world = os.path.join(pkg_palletizer, 'worlds', 'small_warehouse.world')
     bridge_config = os.path.join(pkg_palletizer, 'config', 'gz_bridge.yaml')
     rviz_config = os.path.join(pkg_palletizer, 'rviz2', 'conf.rviz')
@@ -59,6 +60,21 @@ def generate_launch_description():
                 '-x', '0.0',
                 '-y', '0.0',
                 '-z', '0.5',
+                '-Y', '0.0'
+            ],
+            output='screen'
+        ),
+
+        # Spawn de la caja con ArUco marker
+        Node(
+            package='ros_gz_sim',
+            executable='create',
+            arguments=[
+                '-string', open(caja_urdf_file).read(),
+                '-name', 'caja1',
+                '-x', '1.5',
+                '-y', '0.0',
+                '-z', '0.1',
                 '-Y', '0.0'
             ],
             output='screen'
