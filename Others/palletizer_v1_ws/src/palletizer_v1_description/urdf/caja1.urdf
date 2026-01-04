@@ -11,7 +11,7 @@
         xyz="-1.5473E-10 1.3009E-10 0.30355"
         rpy="0 0 0" />
       <mass
-        value="30" />
+        value="40" />
       <inertia
         ixx="0.57343"
         ixy="-2.5473E-12"
@@ -499,32 +499,32 @@
 
   <!-- Gazebo friction settings for caster wheels -->
   <gazebo reference="linkwh1">
-    <mu1>0.01</mu1>
-    <mu2>0.01</mu2>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
     <minDepth>0.001</minDepth>
   </gazebo>
   
   <gazebo reference="linkwh2">
-    <mu1>0.01</mu1>
-    <mu2>0.01</mu2>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
     <minDepth>0.001</minDepth>
   </gazebo>
   
   <gazebo reference="linkwh3">
-    <mu1>0.01</mu1>
-    <mu2>0.01</mu2>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
     <minDepth>0.001</minDepth>
   </gazebo>
   
   <gazebo reference="linkwh4">
-    <mu1>0.01</mu1>
-    <mu2>0.01</mu2>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
     <kp>1000000.0</kp>
     <kd>100.0</kd>
     <minDepth>0.001</minDepth>
