@@ -381,17 +381,17 @@
     name="link4">
     <inertial>
       <origin
-        xyz="0 0 0"
+        xyz="2.1175E-07 -0.01406 0.037948"
         rpy="0 0 0" />
       <mass
-        value="0" />
+        value="0.028235" />
       <inertia
-        ixx="0"
-        ixy="0"
-        ixz="0"
-        iyy="0"
-        iyz="0"
-        izz="0" />
+        ixx="1.9996E-05"
+        ixy="-8.0646E-11"
+        ixz="-1.4679E-10"
+        iyy="1.6497E-05"
+        iyz="-5.884E-06"
+        izz="8.1543E-06" />
     </inertial>
     <visual>
       <origin
