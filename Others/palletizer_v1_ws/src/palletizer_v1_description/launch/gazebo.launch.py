@@ -65,7 +65,7 @@ def generate_launch_description():
             output='screen'
         ),
 
-        # Spawn de la caja con ArUco marker
+        # Spawn de la caja 1 con ArUco marker
         Node(
             package='ros_gz_sim',
             executable='create',
@@ -76,6 +76,36 @@ def generate_launch_description():
                 '-y', '0.0',
                 '-z', '0.1',
                 '-Y', '3.1416'
+            ],
+            output='screen'
+        ),
+
+        # Spawn de la caja 2 con ArUco marker
+        Node(
+            package='ros_gz_sim',
+            executable='create',
+            arguments=[
+                '-string', open(caja_urdf_file).read(),
+                '-name', 'caja2',
+                '-x', '1.33',
+                '-y', '1.6',
+                '-z', '0.1',
+                '-Y', '0.0'
+            ],
+            output='screen'
+        ),
+
+        # Spawn de la caja 3 con ArUco marker
+        Node(
+            package='ros_gz_sim',
+            executable='create',
+            arguments=[
+                '-string', open(caja_urdf_file).read(),
+                '-name', 'caja3',
+                '-x', '-1.5',
+                '-y', '0.5',
+                '-z', '0.1',
+                '-Y', '2.999'
             ],
             output='screen'
         ),

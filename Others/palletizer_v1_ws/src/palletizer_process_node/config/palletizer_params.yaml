@@ -5,9 +5,11 @@
 palletizer_state_machine:
   ros__parameters:
     auto_start: true
-    aruco_cooldown: 7.0 # segundos
+    aruco_cooldown: 4.0 # segundos
     navigation_speed: 0.45
     approach_speed: 0.35
+    reverse_duration: 3.0
+    reverse_speed: 0.25
 
 # Navigation Node
 navigation_node:
@@ -39,7 +41,7 @@ box_approach_node:
 # Wall Approach Node
 wall_approach_node:
   ros__parameters:
-    wall_distance: 1.1 # 150cm
+    wall_distance: 1.0 # 150cm 1.1
     front_cone_angle: 0.52 # ~30 degrees
     min_height: 0.3
     max_height: 1.5
