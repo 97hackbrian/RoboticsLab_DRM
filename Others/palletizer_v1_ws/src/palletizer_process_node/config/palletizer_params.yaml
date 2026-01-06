@@ -7,7 +7,7 @@ palletizer_state_machine:
     auto_start: true
     aruco_cooldown: 4.0 # segundos
     navigation_speed: 0.45
-    approach_speed: 0.35
+    approach_speed: 0.55
     reverse_duration: 3.0
     reverse_speed: 0.25
 
@@ -16,7 +16,7 @@ navigation_node:
   ros__parameters:
     # Initial goal (box position)
     goal_x: 1.5
-    goal_y: 2.5
+    goal_y: 1.0
     goal_tolerance: 0.15
     # Control gains
     linear_kp: 0.5
