@@ -6,8 +6,8 @@ palletizer_state_machine:
   ros__parameters:
     auto_start: true
     aruco_cooldown: 7.0 # segundos
-    navigation_speed: 0.4
-    approach_speed: 0.3
+    navigation_speed: 0.45
+    approach_speed: 0.35
 
 # Navigation Node
 navigation_node:
