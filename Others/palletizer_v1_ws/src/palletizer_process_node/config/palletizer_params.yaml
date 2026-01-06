@@ -1,0 +1,45 @@
+# Palletizer Process Node Parameters
+# Configuration for all palletizer nodes
+
+# State Machine
+palletizer_state_machine:
+  ros__parameters:
+    auto_start: true
+    navigation_speed: 0.3
+    approach_speed: 0.15
+
+# Navigation Node
+navigation_node:
+  ros__parameters:
+    # Initial goal (box position)
+    goal_x: 1.5
+    goal_y: 3.0
+    goal_tolerance: 0.15
+    # Control gains
+    linear_kp: 0.5
+    angular_kp: 1.5
+    max_linear_vel: 0.4
+    max_angular_vel: 0.8
+
+# ArUco Tracker Node
+aruco_tracker_node:
+  ros__parameters:
+    camera_topic: "/camera/left/image_raw"
+    angular_kp: 2.0
+    max_angular_vel: 0.6
+    show_image: true
+
+# Box Approach Node
+box_approach_node:
+  ros__parameters:
+    capture_distance: 0.05 # 5cm
+    sensor_topic: "/sharp_distance/range"
+
+# Wall Approach Node
+wall_approach_node:
+  ros__parameters:
+    wall_distance: 1.5 # 15cm
+    front_cone_angle: 0.52 # ~30 degrees
+    min_height: 0.3
+    max_height: 1.5
+    lidar_topic: "/lidar/points"
