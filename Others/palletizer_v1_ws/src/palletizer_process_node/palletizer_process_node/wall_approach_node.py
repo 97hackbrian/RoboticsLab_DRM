@@ -3,25 +3,31 @@
 Wall Approach Node for Palletizer
 
 Uses 3D LiDAR to detect the closest wall in front of the robot.
-Signals when the robot is close enough to the wall.
+Uses TF2 to transform points from lidar_link to base_footprint frame.
+Publishes debug point cloud for visualization.
 
 Author: hackbrian
 """
 
 import rclpy
 from rclpy.node import Node
-from sensor_msgs.msg import PointCloud2
-from std_msgs.msg import Bool
+from sensor_msgs.msg import PointCloud2, PointField
+from std_msgs.msg import Bool, Header
 import numpy as np
 import struct
+import tf2_ros
+from tf2_ros import TransformException
+import tf2_geometry_msgs
+from geometry_msgs.msg import PointStamped
+from scipy.spatial.transform import Rotation
 
 
 class WallApproachNode(Node):
     """
     Wall proximity detection using 3D LiDAR.
     
-    Analyzes /lidar/points to find the closest obstacle
-    in the front cone and signals when within threshold.
+    Transforms points to base_footprint frame and finds closest
+    obstacle in the front cone.
     """
 
     def __init__(self):
@@ -30,15 +36,17 @@ class WallApproachNode(Node):
         # Parameters
         self.declare_parameter('wall_distance', 0.30)  # 30cm
         self.declare_parameter('front_cone_angle', 0.52)  # ~30 degrees half-angle
-        self.declare_parameter('min_height', 0.25)  # Minimum point height relative to robot
-        self.declare_parameter('max_height', 1.5)   # Maximum point height relative to robot
+        self.declare_parameter('min_height', 0.1)   # Minimum point height (Z in base_footprint)
+        self.declare_parameter('max_height', 1.5)   # Maximum point height
         self.declare_parameter('lidar_topic', '/lidar/points')
+        self.declare_parameter('target_frame', 'base_footprint')
         
         self.wall_distance = self.get_parameter('wall_distance').value
         self.front_cone_angle = self.get_parameter('front_cone_angle').value
         self.min_height = self.get_parameter('min_height').value
         self.max_height = self.get_parameter('max_height').value
         lidar_topic = self.get_parameter('lidar_topic').value
+        self.target_frame = self.get_parameter('target_frame').value
         
         # Current minimum distance
         self.min_front_distance = float('inf')
@@ -49,9 +57,21 @@ class WallApproachNode(Node):
         self.debug_height_pts = 0
         self.debug_front_pts = 0
         
+        # TF2 Buffer and Listener
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+        
+        # Cached transform matrix (lidar_link -> base_footprint)
+        self.transform_matrix = None
+        self.transform_valid = False
+        
         # --- Publishers ---
         self.wall_close_pub = self.create_publisher(
             Bool, '/palletizer/wall_close', 10
+        )
+        # Debug: publish filtered front points
+        self.debug_cloud_pub = self.create_publisher(
+            PointCloud2, '/palletizer/wall_debug_cloud', 10
         )
         
         # --- Subscribers ---
@@ -62,20 +82,55 @@ class WallApproachNode(Node):
         # Status update timer (10 Hz)
         self.timer = self.create_timer(0.1, self.status_update)
         
+        # TF lookup timer (1 Hz)
+        self.tf_timer = self.create_timer(1.0, self.update_transform)
+        
         self.get_logger().info(
             f'Wall Approach node initialized. Wall distance: {self.wall_distance*100:.1f}cm'
         )
+        self.get_logger().info(
+            f'Will transform points to frame: {self.target_frame}'
+        )
+
+    def update_transform(self):
+        """Update cached transform from lidar_link to base_footprint."""
+        try:
+            # Lookup transform: lidar_link -> base_footprint
+            transform = self.tf_buffer.lookup_transform(
+                self.target_frame,  # target frame
+                'lidar_link',       # source frame
+                rclpy.time.Time(),  # latest
+                timeout=rclpy.duration.Duration(seconds=1.0)
+            )
+            
+            # Build 4x4 transformation matrix
+            t = transform.transform.translation
+            r = transform.transform.rotation
+            
+            # Rotation quaternion to matrix
+            rot = Rotation.from_quat([r.x, r.y, r.z, r.w])
+            rot_matrix = rot.as_matrix()
+            
+            # Build 4x4 transform matrix
+            self.transform_matrix = np.eye(4)
+            self.transform_matrix[:3, :3] = rot_matrix
+            self.transform_matrix[:3, 3] = [t.x, t.y, t.z]
+            self.transform_valid = True
+            
+            if not hasattr(self, '_tf_logged'):
+                self._tf_logged = True
+                self.get_logger().info(
+                    f'TF acquired: lidar_link -> {self.target_frame}'
+                )
+                
+        except TransformException as ex:
+            self.transform_valid = False
+            self.get_logger().warn(f'Could not get transform: {ex}')
 
     def parse_pointcloud2(self, msg: PointCloud2):
-        """
-        Parse PointCloud2 message and extract XYZ points.
-        
-        Returns numpy array of shape (N, 3) with X, Y, Z coordinates.
-        """
-        # Get field offsets
+        """Parse PointCloud2 message and extract XYZ points."""
         field_names = [field.name for field in msg.fields]
         
-        # Find x, y, z field indices
         try:
             x_idx = field_names.index('x')
             y_idx = field_names.index('y')
@@ -91,7 +146,6 @@ class WallApproachNode(Node):
         point_step = msg.point_step
         data = msg.data
         
-        # Parse points
         points = []
         for i in range(0, len(data), point_step):
             try:
@@ -99,7 +153,6 @@ class WallApproachNode(Node):
                 y = struct.unpack_from('f', data, i + y_offset)[0]
                 z = struct.unpack_from('f', data, i + z_offset)[0]
                 
-                # Skip NaN and infinite values
                 if not (np.isnan(x) or np.isnan(y) or np.isnan(z) or
                         np.isinf(x) or np.isinf(y) or np.isinf(z)):
                     points.append([x, y, z])
@@ -108,36 +161,96 @@ class WallApproachNode(Node):
         
         return np.array(points)
 
+    def transform_points(self, points):
+        """Transform points from lidar_link to base_footprint using cached matrix."""
+        if not self.transform_valid or self.transform_matrix is None:
+            return None
+        
+        # Add homogeneous coordinate
+        ones = np.ones((points.shape[0], 1))
+        points_h = np.hstack([points, ones])
+        
+        # Apply transform
+        transformed = (self.transform_matrix @ points_h.T).T
+        
+        return transformed[:, :3]
+
+    def create_debug_cloud(self, points, frame_id):
+        """Create a PointCloud2 message from numpy points for debugging."""
+        msg = PointCloud2()
+        msg.header = Header()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = frame_id
+        
+        msg.height = 1
+        msg.width = len(points)
+        msg.is_dense = True
+        msg.is_bigendian = False
+        msg.point_step = 12  # 3 floats * 4 bytes
+        msg.row_step = msg.point_step * msg.width
+        
+        msg.fields = [
+            PointField(name='x', offset=0, datatype=PointField.FLOAT32, count=1),
+            PointField(name='y', offset=4, datatype=PointField.FLOAT32, count=1),
+            PointField(name='z', offset=8, datatype=PointField.FLOAT32, count=1),
+        ]
+        
+        # Pack points into bytes
+        buffer = []
+        for p in points:
+            buffer.append(struct.pack('fff', float(p[0]), float(p[1]), float(p[2])))
+        msg.data = b''.join(buffer)
+        
+        return msg
+
     def lidar_callback(self, msg: PointCloud2):
         """Process LiDAR point cloud to find closest front obstacle."""
-        points = self.parse_pointcloud2(msg)
+        points_lidar = self.parse_pointcloud2(msg)
         
-        self.debug_total_pts = len(points)
+        self.debug_total_pts = len(points_lidar)
         
-        if len(points) == 0:
+        if len(points_lidar) == 0:
             self.debug_height_pts = 0
             self.debug_front_pts = 0
             return
         
-        # Log raw point cloud statistics once (first frame only)
+        # Transform to base_footprint frame
+        if not self.transform_valid:
+            return
+        
+        points = self.transform_points(points_lidar)
+        if points is None:
+            return
+        
+        # Log stats once
         if not hasattr(self, '_logged_stats'):
             self._logged_stats = True
             self.get_logger().info(
-                f'[DEBUG] Raw point cloud stats: '
+                f'[DEBUG] Transformed points (base_footprint): '
                 f'X=[{points[:,0].min():.2f}, {points[:,0].max():.2f}] '
                 f'Y=[{points[:,1].min():.2f}, {points[:,1].max():.2f}] '
                 f'Z=[{points[:,2].min():.2f}, {points[:,2].max():.2f}]'
             )
         
-        # CORRECTED: LiDAR X axis points to robot's RIGHT
-        # LiDAR -Y was still detecting RIGHT, so try +Y
-        # Robot forward = LiDAR +Y axis
-        forward_coord = points[:, 1]  # Robot forward = +lidar_Y
-        forward_mask = forward_coord > 0.3
-        forward_points = points[forward_mask]
-        forward_coords = forward_coord[forward_mask]
+        # In base_footprint frame:
+        # X = forward
+        # Y = left
+        # Z = up
         
-        self.debug_height_pts = len(forward_points)  # Reuse variable
+        # Filter by height (Z in base_footprint)
+        height_mask = (points[:, 2] > self.min_height) & (points[:, 2] < self.max_height)
+        points_filtered = points[height_mask]
+        
+        self.debug_height_pts = len(points_filtered)
+        
+        if len(points_filtered) == 0:
+            self.debug_front_pts = 0
+            self.min_front_distance = float('inf')
+            return
+        
+        # Filter by X > 0.3 (forward points only)
+        forward_mask = points_filtered[:, 0] > 0.3
+        forward_points = points_filtered[forward_mask]
         
         if len(forward_points) == 0:
             self.debug_front_pts = 0
@@ -145,20 +258,25 @@ class WallApproachNode(Node):
             return
         
         # Filter by angle - only points in front cone
-        # Lateral = X in lidar frame (robot's right/left)
-        angles = np.arctan2(np.abs(forward_points[:, 0]), forward_coords)
+        # angle = atan2(|Y|, X)
+        angles = np.arctan2(np.abs(forward_points[:, 1]), forward_points[:, 0])
         front_mask = angles < self.front_cone_angle
-        front_points_filtered = forward_points[front_mask]
-        front_distances = forward_coords[front_mask]
+        front_points = forward_points[front_mask]
         
-        self.debug_front_pts = len(front_points_filtered)
+        self.debug_front_pts = len(front_points)
         
-        if len(front_points_filtered) == 0:
+        # Publish debug cloud
+        if len(front_points) > 0:
+            debug_msg = self.create_debug_cloud(front_points, self.target_frame)
+            self.debug_cloud_pub.publish(debug_msg)
+        
+        if len(front_points) == 0:
             self.min_front_distance = float('inf')
             return
         
-        # Distance is the forward coordinate (-Y)
-        self.min_front_distance = float(np.min(front_distances))
+        # Distance is X coordinate (forward in base_footprint)
+        distances = front_points[:, 0]
+        self.min_front_distance = float(np.min(distances))
         
         # Check if wall is close
         was_close = self.wall_close
