@@ -35,7 +35,7 @@ aruco_tracker_node:
 # Box Approach Node
 box_approach_node:
   ros__parameters:
-    capture_distance: 0.075 # 5cm
+    capture_distance: 0.075 # 7.5cm
     sensor_topic: "/sharp_distance/range"
 
 # Wall Approach Node
