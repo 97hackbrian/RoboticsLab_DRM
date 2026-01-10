@@ -16,7 +16,7 @@ potential_field_node:
     # Velocity limits
     max_linear_speed: 0.2 # TurtleBot3 max
     min_linear_speed: 0.001
-    max_angular_speed: 0.55 # TurtleBot3 max 2.0
+    max_angular_speed: 1.55 # TurtleBot3 max 2.0
 
     # Local minima escape parameters
     stuck_threshold: 0.15 # If moved less than 15cm in 3 seconds = stuck
