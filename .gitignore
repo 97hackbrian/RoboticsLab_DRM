@@ -125,3 +125,5 @@ COLCON_IGNORE
 #*.vrb
 #*.pdf
 Introduction_lab/robotnik_ws/src/robotnik_simulation
+mobile_robotics/.ssh/known_hosts
+*.ssh

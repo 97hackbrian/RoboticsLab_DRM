@@ -35,3 +35,9 @@
 [submodule "mobile_robotics/simulations_control/src/gazebo_robot_simulation"]
 	path = mobile_robotics/simulations_control/src/gazebo_robot_simulation
 	url = git@github.com:97hackbrian/gazebo_robot_simulation.git
+[submodule "mobile_robotics/dqn_ros2_ws/src/stage_ros2"]
+	path = mobile_robotics/dqn_ros2_ws/src/stage_ros2
+	url = https://github.com/tuw-robotics/stage_ros2.git
+[submodule "mobile_robotics/dqn_ros2_ws/src/Stage"]
+	path = mobile_robotics/dqn_ros2_ws/src/Stage
+	url = https://github.com/tuw-robotics/Stage.git
