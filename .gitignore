@@ -4,8 +4,12 @@ build/
 bin/
 install/
 log/
+.local/
 .bashrc
 .bash_history
+
+joblib/*
+sklearn/
 
 .cache/
 .ignition/
@@ -128,3 +132,6 @@ Introduction_lab/robotnik_ws/src/robotnik_simulation
 mobile_robotics/.ssh/known_hosts
 *.ssh
 mobile_robotics/.fltk/fltk.org/fltk.prefs
+
+
+..gitignore.swp
