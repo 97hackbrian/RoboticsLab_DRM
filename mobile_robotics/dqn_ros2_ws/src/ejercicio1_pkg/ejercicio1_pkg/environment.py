@@ -6,12 +6,15 @@ el agente DQN y el simulador Stage.
 
 Funcionalidades:
 - Suscripción a /base_scan (LiDAR) y /odom o /odom/sim (odometría)
-- Publicación de comandos de velocidad en /cmd_vel
+- Publicación de comandos de velocidad en /cmd_vel CON TIMER
 - Sistema de recompensas: +200 meta, -100 colisión, intermedias por progreso
 - Reset de episodio usando servicio /reset_positions de Stage
 
 NOTA CRÍTICA: Stage NO tiene /reset_world como Gazebo. 
 Usamos /reset_positions para teletransportar al robot + nueva meta aleatoria.
+
+NOTA: Usamos un TIMER para publicar cmd_vel continuamente y evitar
+el watchdog timeout de Stage.
 
 Autor: Proyecto Académico DQN Navigation
 """
@@ -27,6 +30,7 @@ from std_srvs.srv import Empty
 import numpy as np
 import math
 import random
+import time
 from typing import Tuple, Optional
 
 from .state_processor import StateProcessor
@@ -66,6 +70,9 @@ ACTIONS = {
 }
 NUM_ACTIONS = len(ACTIONS)
 
+# Frecuencia de publicación de cmd_vel (Hz) - debe ser alta para evitar watchdog
+CMD_VEL_PUBLISH_RATE = 20.0
+
 
 class EnvironmentNode(Node):
     """
@@ -74,6 +81,9 @@ class EnvironmentNode(Node):
     Proporciona una interfaz tipo Gym con métodos:
     - step(action): Ejecuta acción, retorna (state, reward, done, info)
     - reset(): Reinicia episodio, retorna estado inicial
+    
+    IMPORTANTE: Usa un timer para publicar cmd_vel continuamente
+    y evitar el watchdog timeout de Stage.
     """
     
     def __init__(self):
@@ -87,11 +97,16 @@ class EnvironmentNode(Node):
         self.current_odom: Optional[Odometry] = None
         self.previous_distance = float('inf')
         
+        # Comando de velocidad actual (se publica continuamente)
+        self.current_linear_x = 0.0
+        self.current_angular_z = 0.0
+        
         # Flags de estado
         self.data_ready = False
         self.episode_done = False
         self.collision = False
         self.goal_reached = False
+        self.is_resetting = False
         
         # QoS para sensores
         sensor_qos = QoSProfile(
@@ -111,7 +126,6 @@ class EnvironmentNode(Node):
         )
         
         # Odometría - Usamos /odom/sim si está disponible (del reset wrapper)
-        # Si no, usamos /odom directo
         self.odom_sub = self.create_subscription(
             Odometry,
             '/odom/sim',
@@ -125,6 +139,13 @@ class EnvironmentNode(Node):
         self.cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
         
         # ====================================================================
+        # TIMER PARA PUBLICAR CMD_VEL CONTINUAMENTE
+        # Esto evita el watchdog timeout de Stage
+        # ====================================================================
+        timer_period = 1.0 / CMD_VEL_PUBLISH_RATE  # 50ms por defecto
+        self.cmd_vel_timer = self.create_timer(timer_period, self._publish_cmd_vel)
+        
+        # ====================================================================
         # CLIENTE DE SERVICIO PARA RESET
         # Stage usa /reset_positions en lugar de /reset_world
         # ====================================================================
@@ -136,6 +157,17 @@ class EnvironmentNode(Node):
         self.get_logger().info('Environment Node initialized')
         self.get_logger().info(f'Action space: {NUM_ACTIONS} actions')
         self.get_logger().info(f'State size: {self.state_processor.get_state_size()}')
+        self.get_logger().info(f'Cmd_vel publish rate: {CMD_VEL_PUBLISH_RATE} Hz')
+    
+    def _publish_cmd_vel(self):
+        """
+        Callback del timer para publicar cmd_vel continuamente.
+        Esto evita el watchdog timeout de Stage.
+        """
+        cmd = Twist()
+        cmd.linear.x = self.current_linear_x
+        cmd.angular.z = self.current_angular_z
+        self.cmd_vel_pub.publish(cmd)
     
     def scan_callback(self, msg: LaserScan):
         """Callback para datos del LiDAR."""
@@ -196,9 +228,9 @@ class EnvironmentNode(Node):
         """Retorna el número de acciones disponibles."""
         return NUM_ACTIONS
     
-    def execute_action(self, action: int):
+    def set_action(self, action: int):
         """
-        Ejecuta una acción publicando comando de velocidad.
+        Establece la acción actual (se publicará continuamente por el timer).
         
         Args:
             action: Índice de la acción (0 a NUM_ACTIONS-1)
@@ -207,20 +239,12 @@ class EnvironmentNode(Node):
             self.get_logger().warn(f'Invalid action: {action}')
             action = 0
         
-        linear_x, angular_z = ACTIONS[action]
-        
-        cmd = Twist()
-        cmd.linear.x = linear_x
-        cmd.angular.z = angular_z
-        
-        self.cmd_vel_pub.publish(cmd)
+        self.current_linear_x, self.current_angular_z = ACTIONS[action]
     
     def stop_robot(self):
-        """Detiene el robot publicando velocidades cero."""
-        cmd = Twist()
-        cmd.linear.x = 0.0
-        cmd.angular.z = 0.0
-        self.cmd_vel_pub.publish(cmd)
+        """Detiene el robot estableciendo velocidades cero."""
+        self.current_linear_x = 0.0
+        self.current_angular_z = 0.0
     
     def _calculate_reward(self) -> Tuple[float, bool, str]:
         """
@@ -248,7 +272,7 @@ class EnvironmentNode(Node):
             done = True
             self.collision = True
             info = "COLLISION"
-            self.get_logger().warn(f'Collision detected! Min distance: {min_obstacle_dist:.2f}m')
+            self.get_logger().warn(f'Collision! Min dist: {min_obstacle_dist:.2f}m')
         
         # Verificar META ALCANZADA (+200 puntos)
         elif distance_to_goal < GOAL_THRESHOLD:
@@ -256,7 +280,7 @@ class EnvironmentNode(Node):
             done = True
             self.goal_reached = True
             info = "GOAL_REACHED"
-            self.get_logger().info(f'Goal reached! Distance: {distance_to_goal:.2f}m')
+            self.get_logger().info(f'Goal reached! Dist: {distance_to_goal:.2f}m')
         
         # Recompensa INTERMEDIA (progreso hacia la meta)
         else:
@@ -284,14 +308,15 @@ class EnvironmentNode(Node):
         Returns:
             Tuple de (next_state, reward, done, info)
         """
-        # Ejecutar acción
-        self.execute_action(action)
+        # Establecer acción (el timer la publicará continuamente)
+        self.set_action(action)
         
-        # Esperar un poco para que el robot se mueva
-        # (esto se maneja en el loop principal con rate)
-        
-        # Procesar callbacks pendientes
-        rclpy.spin_once(self, timeout_sec=0.1)
+        # Esperar un tiempo para que el robot se mueva y recibir datos
+        # Usamos spin para procesar callbacks mientras esperamos
+        step_duration = 0.1  # 100ms por step
+        end_time = time.time() + step_duration
+        while time.time() < end_time:
+            rclpy.spin_once(self, timeout_sec=0.01)
         
         # Obtener nuevo estado
         next_state = self.get_state()
@@ -316,6 +341,7 @@ class EnvironmentNode(Node):
         Returns:
             Estado inicial del nuevo episodio
         """
+        self.is_resetting = True
         self.get_logger().info('Resetting episode...')
         
         # Detener el robot
@@ -325,14 +351,26 @@ class EnvironmentNode(Node):
         if self.reset_client.wait_for_service(timeout_sec=2.0):
             request = Empty.Request()
             future = self.reset_client.call_async(request)
-            rclpy.spin_until_future_complete(self, future, timeout_sec=2.0)
-            self.get_logger().info('Reset service called successfully')
+            
+            # Esperar con spin para mantener el timer activo
+            timeout = 2.0
+            start = time.time()
+            while not future.done() and (time.time() - start) < timeout:
+                rclpy.spin_once(self, timeout_sec=0.05)
+            
+            if future.done():
+                self.get_logger().info('Reset service called successfully')
+            else:
+                self.get_logger().warn('Reset service timeout')
         else:
             self.get_logger().warn('Reset service not available')
         
         # Esperar un momento para que Stage procese el reset
-        for _ in range(10):
-            rclpy.spin_once(self, timeout_sec=0.1)
+        # Seguimos haciendo spin para que el timer publique
+        wait_time = 0.5
+        end_time = time.time() + wait_time
+        while time.time() < end_time:
+            rclpy.spin_once(self, timeout_sec=0.05)
         
         # Reset flags
         self.episode_done = False
@@ -345,12 +383,15 @@ class EnvironmentNode(Node):
         
         # Esperar datos frescos
         self.data_ready = False
-        while not self.data_ready:
-            rclpy.spin_once(self, timeout_sec=0.1)
+        timeout = 2.0
+        start = time.time()
+        while not self.data_ready and (time.time() - start) < timeout:
+            rclpy.spin_once(self, timeout_sec=0.05)
         
         # Inicializar distancia anterior
         self.previous_distance = self.state_processor.get_distance_to_goal()
         
+        self.is_resetting = False
         return self.get_state()
     
     def wait_for_data(self, timeout_sec: float = 5.0) -> bool:
@@ -363,11 +404,10 @@ class EnvironmentNode(Node):
         Returns:
             True si hay datos disponibles
         """
-        import time
         start_time = time.time()
         
         while not self.data_ready:
-            rclpy.spin_once(self, timeout_sec=0.1)
+            rclpy.spin_once(self, timeout_sec=0.05)
             if time.time() - start_time > timeout_sec:
                 self.get_logger().error('Timeout waiting for sensor data')
                 return False
