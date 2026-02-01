@@ -135,3 +135,7 @@ mobile_robotics/.fltk/fltk.org/fltk.prefs
 
 
 ..gitignore.swp
+
+.python_history
+mobile_robotics/.fltk/fltk.org/filechooser.prefs
+mobile_robotics/dqn_models/*
