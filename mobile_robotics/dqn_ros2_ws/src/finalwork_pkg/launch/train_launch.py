@@ -84,7 +84,7 @@ def generate_launch_description():
     
     model_name_arg = DeclareLaunchArgument(
         'model_name',
-        default_value='dqn_model.pkl',
+        default_value='dqn_modelV2.pkl',
         description='Name of the model file'
     )
     

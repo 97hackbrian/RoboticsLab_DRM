@@ -32,8 +32,8 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # =============================================================================
 GAMMA = 0.99                # Factor de descuento
 EPSILON_START = 1.0         # Exploración inicial (100%)
-EPSILON_MIN = 0.02          # Exploración mínima (2%) - mantener exploración
-EPSILON_DECAY = 0.998       # Decaimiento más rápido (llega a 0.02 en ~1500 episodios)
+EPSILON_MIN = 0.001          # Exploración mínima (2%) - mantener exploración
+EPSILON_DECAY = 0.9985       # Decaimiento más rápido (llega a 0.02 en ~1500 episodios)
 LEARNING_RATE = 0.0005      # Tasa de aprendizaje aumentada
 BATCH_SIZE = 256            # Batch size estándar
 MEMORY_SIZE = 70000        # Buffer más grande
@@ -244,7 +244,7 @@ class DQNAgent:
             learning_rate='adaptive',  # Adapta learning rate cuando se estanca
             learning_rate_init=LEARNING_RATE,
             warm_start=True,
-            max_iter=10  # 10 iteraciones por partial_fit (CRÍTICO para aprendizaje)
+            max_iter=20  # 10 iteraciones por partial_fit (CRÍTICO para aprendizaje)
         )
         
         # Inicializar redes

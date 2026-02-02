@@ -27,6 +27,7 @@ from nav_msgs.msg import Odometry
 NUM_LIDAR_SECTORS = 20       # Número de sectores para discretizar LIDAR
 LIDAR_MAX_RANGE = 50.0       # Rango máximo del LIDAR (metros)
 GOAL_MAX_DISTANCE = 20.0     # Distancia máxima esperada al objetivo
+LIDAR_FOV = 100.0            # Campo de visión LIDAR en grados (±60° desde el frente)
 
 
 @dataclass
@@ -74,16 +75,16 @@ class StateProcessor:
     
     def process_lidar(self, scan: LaserScan) -> np.ndarray:
         """
-        Procesa un escaneo LIDAR de 360 grados en sectores discretos.
+        Procesa solo el arco FRONTAL del LIDAR según LIDAR_FOV.
         
-        Para cada sector, toma la DISTANCIA MÍNIMA como representación,
-        lo cual es conservador para evitar colisiones.
+        Funciona con FOV de LIDAR variable (e.g., Stage Hokuyo = 270°).
+        Usa angle_min y angle_max del scan para calcular correctamente el frente.
         
         Args:
             scan: Mensaje LaserScan de ROS2
             
         Returns:
-            Array de num_sectors distancias normalizadas [0, 1]
+            Array de num_sectors distancias normalizadas [0, 1] solo del frente
             - 0 = muy cerca (peligro)
             - 1 = lejos (seguro)
         """
@@ -98,15 +99,39 @@ class StateProcessor:
         ranges = np.where(np.isnan(ranges), LIDAR_MAX_RANGE, ranges)
         ranges = np.clip(ranges, 0.0, LIDAR_MAX_RANGE)
         
-        # Dividir lecturas en sectores
-        readings_per_sector = num_readings // self.num_sectors
+        # Calcular ángulo por lectura
+        # Stage Hokuyo: angle_min = -135°, angle_max = 135°, FOV_real = 270°
+        angle_min = scan.angle_min  # radianes
+        angle_max = scan.angle_max  # radianes
+        angle_increment = (angle_max - angle_min) / num_readings
+        
+        # Encontrar índice que corresponde al frente (0 grados)
+        # El índice del frente está donde angle = 0
+        front_index = int(-angle_min / angle_increment)
+        
+        # Calular cuántas lecturas corresponden a nuestro FOV frontal deseado
+        half_fov_rad = np.radians(LIDAR_FOV / 2.0)  # LIDAR_FOV = 120° → ±60°
+        half_fov_readings = int(half_fov_rad / abs(angle_increment))
+        
+        # Extraer índices de arco frontal centrado en front_index
+        start_idx = max(0, front_index - half_fov_readings)
+        end_idx = min(num_readings, front_index + half_fov_readings + 1)
+        
+        frontal_ranges = ranges[start_idx:end_idx]
+        num_frontal_readings = len(frontal_ranges)
+        
+        if num_frontal_readings == 0:
+            return np.ones(self.num_sectors)
+        
+        # Dividir lecturas frontales en sectores
+        readings_per_sector = max(1, num_frontal_readings // self.num_sectors)
         sectors = np.zeros(self.num_sectors)
         
         for i in range(self.num_sectors):
-            start_idx = i * readings_per_sector
-            end_idx = min(start_idx + readings_per_sector, num_readings)
+            start = i * readings_per_sector
+            end = min(start + readings_per_sector, num_frontal_readings)
             
-            sector_readings = ranges[start_idx:end_idx]
+            sector_readings = frontal_ranges[start:end]
             if len(sector_readings) > 0:
                 # Distancia MÍNIMA del sector (más conservador)
                 sectors[i] = np.min(sector_readings)

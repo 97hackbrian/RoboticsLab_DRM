@@ -84,10 +84,10 @@ ROBOT_INITIAL_YAW = math.radians(45)  # 45 grados
 # =============================================================================
 # UMBRALES Y LÍMITES
 # =============================================================================
-COLLISION_THRESHOLD = 0.30      # Metros - distancia mínima para colisión
-GOAL_THRESHOLD = 0.8            # Metros - distancia para considerar goal alcanzado
+COLLISION_THRESHOLD = 0.31      # Metros - distancia mínima para colisión
+GOAL_THRESHOLD = 0.85            # Metros - distancia para considerar goal alcanzado
 MAX_DISTANCE_FROM_GOAL = 20.0   # Metros - límite antes de terminar episodio (sincronizado con state normalization)
-MAX_STEPS_PER_EPISODE = 400     # Pasos máximos por episodio (permite navegación larga)
+MAX_STEPS_PER_EPISODE = 500     # Pasos máximos por episodio (permite navegación larga)
 
 
 # =============================================================================
@@ -97,7 +97,7 @@ MAX_STEPS_PER_EPISODE = 400     # Pasos máximos por episodio (permite navegaci�
 # para evitar sesgo hacia "no hacer nada". El agente debe arriesgar para alcanzar goals.
 
 REWARD_GOAL = 200.0             # Recompensa por alcanzar objetivo (BALANCEADO con colisión)
-REWARD_COLLISION = -200.0       # Penalización por colisión (balanceada 1:1 con goal)
+REWARD_COLLISION = -210.0       # Penalización por colisión (balanceada 1:1 con goal)
 REWARD_TIMEOUT = -14.0          # Penalización por timeout
 REWARD_TOO_FAR = -30.0          # Penalización por alejarse demasiado
 REWARD_STEP = -0.001            # Penalización por paso (muy pequeña)
@@ -113,17 +113,15 @@ REWARD_DANGER_ZONE = -5.0       # Penalización por zona de peligro (muy cerca)
 # =============================================================================
 # Acciones combinadas para evitar oscilación pura
 ACTIONS = {
-    0: (0.5, 0.0),      # Avanzar recto (acción principal)
-    1: (0.45, 0.25),      # Avanzar + girar izquierda suave
-    2: (0.45, -0.25),     # Avanzar + girar derecha suave
-    3: (0.1, 0.65),      # Avanzar lento + girar izquierda fuerte
-    4: (0.1, -0.65),     # Avanzar lento + girar derecha fuerte
+    0: (0.25, 1.2),      # Avanzar + girar izquierda suave
+    1: (0.25, -1.2),     # Avanzar + girar derecha suave
+    2: (0.4, 0.0),
 }
 NUM_ACTIONS = len(ACTIONS)
 
 # Frecuencia de publicación de cmd_vel
 # NOTA: No usar más de 100Hz para evitar sobrecargar Stage
-CMD_VEL_PUBLISH_RATE = 10.0  # Hz - valor seguro para simulación acelerada
+CMD_VEL_PUBLISH_RATE = 50.0  # Hz - valor seguro para simulación acelerada
 
 
 class EnvironmentManager(Node):
@@ -154,6 +152,10 @@ class EnvironmentManager(Node):
         self.fixed_goal = goal_x is not None and goal_y is not None
         self.fixed_goal_x = goal_x
         self.fixed_goal_y = goal_y
+        
+        # Curriculum Learning: DEBE inicializarse ANTES de StateProcessor
+        # porque _generate_goal() puede llamarse durante __init__
+        self.current_episode = 0
         
         # Procesador de estados
         self.state_processor = StateProcessor()
@@ -358,32 +360,71 @@ class EnvironmentManager(Node):
         self.state_processor.set_goal(goal_x, goal_y)
         self.get_logger().info(f'Goal set (GLOBAL): ({goal_x:.2f}, {goal_y:.2f})')
     
+    def set_episode_number(self, episode: int):
+        """
+        Establece el número de episodio actual para curriculum learning.
+        
+        Args:
+            episode: Número de episodio actual
+        """
+        self.current_episode = episode
+    
     def _generate_random_goal_in_free_zone(self) -> Tuple[float, float]:
         """
-        Genera un goal aleatorio en una zona libre del mapa.
+        Genera un goal aleatorio usando CURRICULUM LEARNING.
         
-        Evita generar goals muy cerca de la posición actual del robot.
+        La dificultad aumenta progresivamente según el episodio:
+        - Fase 1 (0-250): Goals cercanos 2-5m (FÁCIL)
+        - Fase 2 (250-500): Goals medios 5-10m (MEDIO)  
+        - Fase 3 (500-750): Goals lejanos 10-15m (DIFÍCIL)
+        - Fase 4 (750+): Goals completos 10-20m (EXPERTO)
         
         Returns:
             Tuple (x, y) del goal
         """
-        max_attempts = 100
+        # Determinar rango de distancia según curriculum
+        if self.current_episode < 250:
+            min_dist, max_dist = 2.0, 5.0
+            phase = "FÁCIL"
+        elif self.current_episode < 500:
+            min_dist, max_dist = 5.0, 10.0
+            phase = "MEDIO"
+        elif self.current_episode < 750:
+            min_dist, max_dist = 10.0, 15.0
+            phase = "DIFÍCIL"
+        else:
+            min_dist, max_dist = 10.0, 20.0
+            phase = "EXPERTO"
         
+        # Posición inicial del robot (fija en cave.world)
+        start_x, start_y = -7.0, -7.0
+        
+        max_attempts = 100
         for _ in range(max_attempts):
             # Seleccionar zona aleatoria
             zone = random.choice(FREE_ZONES)
             goal_x, goal_y = zone.random_point()
             
-            # Verificar que no está muy cerca del robot
-            robot_x = self.state_processor.robot_pose.x
-            robot_y = self.state_processor.robot_pose.y
-            dist = math.sqrt((goal_x - robot_x)**2 + (goal_y - robot_y)**2)
+            # Calcular distancia desde posición inicial
+            dist_from_start = math.sqrt((goal_x - start_x)**2 + (goal_y - start_y)**2)
             
-            if dist > 2.0:  # Al menos 2 metros de distancia
+            # Aceptar si está en el rango del curriculum actual
+            if min_dist <= dist_from_start <= max_dist:
+                self.get_logger().info(f'[Curriculum {phase}] Goal a {dist_from_start:.1f}m (rango: {min_dist}-{max_dist}m)')
                 return goal_x, goal_y
         
-        # Fallback: usar primera zona
-        return FREE_ZONES[0].random_point()
+        # Fallback: generar goal en el rango válido más cercano
+        self.get_logger().warn(f'[Curriculum] No encontró goal en rango, usando fallback')
+        angle = random.uniform(0, 2 * math.pi)
+        dist = random.uniform(min_dist, max_dist)
+        goal_x = start_x + dist * math.cos(angle)
+        goal_y = start_y + dist * math.sin(angle)
+        
+        # Clampear a límites del mapa
+        goal_x = np.clip(goal_x, -7.0, 7.0)
+        goal_y = np.clip(goal_y, -7.0, 7.0)
+        
+        return goal_x, goal_y
     
     # =========================================================================
     # PUBLICACIÓN DE COMANDOS
@@ -600,25 +641,27 @@ class EnvironmentManager(Node):
         self.stop_robot()
         
         # Llamar al servicio de reset de Stage
-        if self.reset_client.wait_for_service(timeout_sec=2.0):
+        if self.reset_client.wait_for_service(timeout_sec=5.0):  # Aumentado de 2s a 5s
             request = Empty.Request()
             future = self.reset_client.call_async(request)
             
             # Esperar con spin para mantener timer activo
-            timeout = 2.0
+            timeout = 5.0  # Aumentado de 2s a 5s para dar más tiempo a Stage
             start = time.time()
             while not future.done() and (time.time() - start) < timeout:
-                rclpy.spin_once(self, timeout_sec=0.05)
+                rclpy.spin_once(self, timeout_sec=0.1)
             
             if future.done():
                 self.get_logger().info('Reset service called successfully')
             else:
-                self.get_logger().warn('Reset service timeout')
+                self.get_logger().error('Reset service TIMEOUT - Stage may have crashed!')
+                raise RuntimeError('Stage reset service timeout - check if Stage is running')
         else:
-            self.get_logger().warn('Reset service not available')
+            self.get_logger().error('Reset service NOT AVAILABLE - Stage crashed!')
+            raise RuntimeError('Stage reset service not available - Stage node is dead')
         
-        # Esperar que Stage procese el reset
-        wait_time = 0.5
+        # Esperar que Stage procese el reset - CRÍTICO para estabilidad
+        wait_time = 1.0  # Aumentado de 0.5s a 1.0s
         end_time = time.time() + wait_time
         while time.time() < end_time:
             rclpy.spin_once(self, timeout_sec=0.05)

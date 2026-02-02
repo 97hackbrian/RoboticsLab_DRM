@@ -139,9 +139,12 @@ class TrainNode(Node):
         
         training_start_time = time.time()
         
-        # Loop de entrenamiento
+        # Loop de entrenam iento
         for episode in range(1, self.num_episodes + 1):
             episode_start_time = time.time()
+            
+            # Establecer número de episodio para curriculum learning
+            env.set_episode_number(episode - 1)  # 0-indexed
             
             # Reset del episodio
             state = env.reset()
