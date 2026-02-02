@@ -132,6 +132,33 @@ class TrainNode(Node):
         action_size = env.get_action_size()
         agent = DQNAgent(state_size, action_size, use_per=True)
         
+        # Intentar cargar modelo si existe
+        start_episode = 1
+        if os.path.exists(self.model_path):
+            try:
+                loaded_episode = agent.load(self.model_path)
+                start_episode = loaded_episode + 1  # Continuar desde el siguiente
+                self.get_logger().info('='*60)
+                self.get_logger().info(f'✅ MODEL LOADED from {self.model_path}')
+                self.get_logger().info(f'   Last episode: {loaded_episode}')
+                self.get_logger().info(f'   Resuming from: {start_episode}')
+                self.get_logger().info(f'   Epsilon: {agent.epsilon:.4f}')
+                try:
+                    buffer_size = len(agent.memory.buffer) if hasattr(agent.memory, 'buffer') else len(agent.memory.memory)
+                    self.get_logger().info(f'   Memory size: {buffer_size}')
+                except:
+                    self.get_logger().info(f'   Memory: Loaded')
+                self.get_logger().info('='*60)
+            except Exception as e:
+                self.get_logger().error(f'Failed to load model: {e}')
+                self.get_logger().warn('Starting with fresh model')
+                agent = DQNAgent(state_size, action_size, use_per=True)
+                start_episode = 1
+        else:
+            self.get_logger().info('='*60)
+            self.get_logger().info('No existing model found - starting fresh')
+            self.get_logger().info('='*60)
+        
         self.get_logger().info(f'Agent created: state_size={state_size}, action_size={action_size}')
         self.get_logger().info('='*60)
         self.get_logger().info('Starting Training...')
@@ -139,8 +166,8 @@ class TrainNode(Node):
         
         training_start_time = time.time()
         
-        # Loop de entrenam iento
-        for episode in range(1, self.num_episodes + 1):
+        # Loop de entrenamiento (desde start_episode)
+        for episode in range(start_episode, self.num_episodes + 1):
             episode_start_time = time.time()
             
             # Establecer número de episodio para curriculum learning
@@ -235,7 +262,7 @@ class TrainNode(Node):
             base, ext = os.path.splitext(self.model_path)
             filepath = f"{base}_ep{episode}{ext}"
         
-        agent.save(filepath)
+        agent.save(filepath, episode)
         self.get_logger().info(f'Model saved: {filepath}')
     
     def _save_metrics(self):

@@ -406,8 +406,8 @@ class DQNAgent:
         
         return stats
     
-    def save(self, filepath: str):
-        """Guarda el modelo entrenado."""
+    def save(self, filepath: str, episode: int = 0):
+        """Guarda el modelo con número de episodio."""
         save_data = {
             'model': self.model,
             'target_model': self.target_model,
@@ -418,13 +418,14 @@ class DQNAgent:
             'use_per': self.use_per,
             'train_step': self.train_step,
             'td_errors_history': self.td_errors_history[-1000:],
-            'q_values_history': self.q_values_history[-1000:]
+            'q_values_history': self.q_values_history[-1000:],
+            'episode': episode
         }
         with open(filepath, 'wb') as f:
             pickle.dump(save_data, f)
     
-    def load(self, filepath: str):
-        """Carga un modelo previamente entrenado."""
+    def load(self, filepath: str) -> int:
+        """Carga modelo y retorna episodio."""
         with open(filepath, 'rb') as f:
             save_data = pickle.load(f)
         
@@ -438,3 +439,5 @@ class DQNAgent:
         self.train_step = save_data.get('train_step', 0)
         self.td_errors_history = save_data.get('td_errors_history', [])
         self.q_values_history = save_data.get('q_values_history', [])
+        
+        return save_data.get('episode', 0)
