@@ -27,9 +27,9 @@ from nav_msgs.msg import Odometry
 # ============================================================================
 # PARÁMETROS DE PROCESAMIENTO
 # ============================================================================
-NUM_LIDAR_SECTORS = 20       # Número de sectores para discretizar LiDAR
-LIDAR_MAX_RANGE = 10.0       # Rango máximo del LiDAR (metros)
-GOAL_MAX_DISTANCE = 15.0     # Distancia máxima esperada al objetivo
+NUM_LIDAR_SECTORS = 50       # Número de sectores para discretizar LiDAR
+LIDAR_MAX_RANGE = 50.0       # Rango máximo del LiDAR (metros)
+GOAL_MAX_DISTANCE = 1.0     # Distancia máxima esperada al objetivo
 
 
 class StateProcessor:
@@ -141,6 +141,12 @@ class StateProcessor:
         """
         self.goal_x = x
         self.goal_y = y
+    
+    def get_goal_vector(self) -> Tuple[float, float]:
+        """
+        Retorna el vector al objetivo (dx, dy).
+        """
+        return (self.goal_x - self.robot_x), (self.goal_y - self.robot_y)
     
     def get_goal_info(self) -> Tuple[float, float]:
         """

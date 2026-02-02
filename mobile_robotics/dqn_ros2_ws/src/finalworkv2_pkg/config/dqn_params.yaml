@@ -1,0 +1,33 @@
+# DQN Navigation Parameters
+# Configuration file for training and testing
+
+train_node:
+  ros__parameters:
+    # ========== Training Parameters ==========
+    max_episodes: 500           # Maximum number of training episodes
+    max_steps_per_episode: 500  # Maximum steps per episode
+    batch_size: 64              # Training batch size
+    save_interval: 50           # Save model every N episodes
+    
+    # ========== DQN Hyperparameters ==========
+    gamma: 0.99                 # Discount factor for future rewards
+    epsilon_start: 1.0          # Initial exploration rate
+    epsilon_end: 0.01           # Minimum exploration rate
+    epsilon_decay: 0.995        # Epsilon decay per episode
+    learning_rate: 0.001        # Neural network learning rate
+    
+    # ========== Neural Network Architecture ==========
+    hidden_layers: [128, 64]    # Hidden layer sizes for MLPRegressor
+    
+    # ========== Replay Buffer ==========
+    buffer_size: 10000          # Maximum buffer capacity
+    target_update_freq: 100     # Update target network every N steps
+    
+    # ========== Environment Parameters ==========
+    goal_radius: 0.3            # Distance to consider goal reached (meters)
+    collision_distance: 0.25    # Minimum distance before collision (meters)
+    max_linear_vel: 0.5         # Maximum linear velocity (m/s)
+    max_angular_vel: 1.5        # Maximum angular velocity (rad/s)
+    
+    # ========== Model Paths ==========
+    model_path: "models/dqn_model.pkl"  # Path to save/load model

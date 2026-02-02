@@ -139,3 +139,5 @@ mobile_robotics/.fltk/fltk.org/fltk.prefs
 .python_history
 mobile_robotics/.fltk/fltk.org/filechooser.prefs
 mobile_robotics/dqn_models/*
+mobile_robotics/dqn_ros2_ws/src/finalwork_pkg/models/dqn_model_ep100.pkl
+*.pkl

@@ -1,58 +1,65 @@
 """
-DQN Agent Mejorado con Double DQN y Prioritized Experience Replay
+DQN Agent con sklearn MLPRegressor
 
-Este módulo implementa un agente Deep Q-Network (DQN) mejorado usando 
-MLPRegressor de scikit-learn.
+Implementa un agente Deep Q-Network (DQN) mejorado usando MLPRegressor
+de scikit-learn como aproximador de función.
 
-Características implementadas:
-- Experience Replay Buffer con Priorización (PER)
-- Double DQN (reduce sobreestimación de Q-values)
-- Target Network para estabilidad
-- Política Epsilon-Greedy con decaimiento adaptativo
-- Reward Clipping para gradientes estables
-- Soft Update de Target Network
+Características:
+- Double DQN: Reduce sobreestimación de Q-values
+- Prioritized Experience Replay (PER): Enfoca en experiencias importantes
+- Target Network: Proporciona targets estables para entrenamiento
+- Epsilon-Greedy: Exploración con decaimiento adaptativo
+- Reward Clipping: Estabiliza gradientes
 
-Autor: Proyecto Académico DQN Navigation
+Autor: Proyecto DQN Navigation - finalwork_pkg
 """
 
 import numpy as np
 import random
-from collections import deque
-from sklearn.neural_network import MLPRegressor
-import warnings
 import pickle
+import warnings
+from collections import deque
+from typing import Optional, Tuple, List, Dict, Any
 
-# Suppress sklearn warnings about partial_fit
-warnings.filterwarnings("ignore")
+from sklearn.neural_network import MLPRegressor
+
+# Suprimir warnings de sklearn sobre partial_fit
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
-# ============================================================================
-# HIPERPARÁMETROS DQN OPTIMIZADOS
-# ============================================================================
-GAMMA = 0.99               # Factor de descuento para recompensas futuras
-EPSILON_START = 1.0        # Exploración inicial (100%)
-EPSILON_MIN = 0.05         # Exploración mínima (5%) - mantener algo de exploración
-EPSILON_DECAY = 0.999      # Decaimiento MUY lento (más exploración)
-LEARNING_RATE = 0.0001     # Tasa muy baja para estabilidad
-BATCH_SIZE = 64            # Pequeño para actualizaciones frecuentes
-MEMORY_SIZE = 50000        # Tamaño del buffer de experiencia
+# =============================================================================
+# HIPERPARÁMETROS
+# =============================================================================
+GAMMA = 0.99                # Factor de descuento
+EPSILON_START = 1.0         # Exploración inicial (100%)
+EPSILON_MIN = 0.02          # Exploración mínima (2%) - mantener exploración
+EPSILON_DECAY = 0.998       # Decaimiento más rápido (llega a 0.02 en ~1500 episodios)
+LEARNING_RATE = 0.0005      # Tasa de aprendizaje aumentada
+BATCH_SIZE = 256            # Batch size estándar
+MEMORY_SIZE = 70000        # Buffer más grande
 
-# Parámetros adicionales para mejoras
-REWARD_CLIP_MIN = -10.0    # Clipping mínimo de recompensa
-REWARD_CLIP_MAX = 10.0     # Clipping máximo de recompensa
-PER_ALPHA = 0.6            # Prioridad de experiencias (0 = uniforme, 1 = full priority)
-PER_BETA_START = 0.4       # Importance sampling inicial
-PER_BETA_INCREMENT = 0.001 # Incremento de beta por episodio
-PER_EPSILON = 0.01         # Pequeño valor para evitar prioridad 0
+# Reward clipping - DEBE cubrir las recompensas terminales
+# REWARD_GOAL=200 y REWARD_COLLISION=-200, los límites deben cubrirlos con margen
+REWARD_CLIP_MIN = -250.0    # Cubre colisión completa (-200) con margen
+REWARD_CLIP_MAX = 250.0     # Cubre goal completo (200) con margen
+
+# Prioritized Experience Replay
+PER_ALPHA = 0.6             # Prioridad (0 = uniforme, 1 = full priority)
+PER_BETA_START = 0.4        # Importance sampling inicial
+PER_BETA_INCREMENT = 0.0006  # Incremento de beta por episodio (llega a 1.0 en ~1000 eps)
+PER_EPSILON = 0.000001          # Valor mínimo para evitar prioridad 0
 
 # Double DQN
-USE_DOUBLE_DQN = True      # Usar Double DQN para reducir sobreestimación
+USE_DOUBLE_DQN = True
 
 
+# =============================================================================
+# SUM TREE PARA PER
+# =============================================================================
 class SumTree:
     """
     Estructura de datos para Prioritized Experience Replay.
-    Permite muestreo eficiente proporcional a prioridades.
+    Permite muestreo eficiente proporcional a prioridades O(log n).
     """
     
     def __init__(self, capacity: int):
@@ -62,7 +69,7 @@ class SumTree:
         self.data_pointer = 0
         self.n_entries = 0
     
-    def add(self, priority: float, data):
+    def add(self, priority: float, data: Any):
         """Añade experiencia con prioridad."""
         tree_idx = self.data_pointer + self.capacity - 1
         self.data[self.data_pointer] = data
@@ -81,7 +88,7 @@ class SumTree:
             tree_idx = (tree_idx - 1) // 2
             self.tree[tree_idx] += change
     
-    def get(self, value: float):
+    def get(self, value: float) -> Tuple[int, float, Any]:
         """Obtiene experiencia basada en valor de muestreo."""
         parent_idx = 0
         
@@ -107,6 +114,9 @@ class SumTree:
         return self.tree[0]
 
 
+# =============================================================================
+# PRIORITIZED REPLAY BUFFER
+# =============================================================================
 class PrioritizedReplayBuffer:
     """
     Buffer de experiencia con priorización.
@@ -119,18 +129,19 @@ class PrioritizedReplayBuffer:
         self.alpha = alpha
         self.max_priority = 1.0
     
-    def add(self, state, action: int, reward: float, next_state, done: bool):
+    def add(self, state: np.ndarray, action: int, reward: float, 
+            next_state: np.ndarray, done: bool):
         """Añade experiencia con prioridad máxima inicial."""
         experience = (state, action, reward, next_state, done)
         priority = self.max_priority ** self.alpha
         self.tree.add(priority, experience)
     
-    def sample(self, batch_size: int, beta: float = PER_BETA_START):
+    def sample(self, batch_size: int, beta: float = PER_BETA_START) -> Tuple[List, List, np.ndarray]:
         """
         Muestrea batch con prioridades.
         
         Returns:
-            batch, indices, weights (para importance sampling)
+            Tuple de (batch, indices, weights)
         """
         batch = []
         indices = []
@@ -157,41 +168,43 @@ class PrioritizedReplayBuffer:
         
         return batch, indices, weights
     
-    def update_priorities(self, indices: list, td_errors: np.ndarray):
+    def update_priorities(self, indices: List[int], td_errors: np.ndarray):
         """Actualiza prioridades basadas en errores TD."""
         for idx, td_error in zip(indices, td_errors):
             priority = (abs(td_error) + PER_EPSILON) ** self.alpha
             self.tree.update(idx, priority)
             self.max_priority = max(self.max_priority, priority)
     
-    def __len__(self):
+    def __len__(self) -> int:
         return self.tree.n_entries
 
 
+# =============================================================================
+# DQN AGENT
+# =============================================================================
 class DQNAgent:
     """
-    Agente DQN Mejorado con:
-    - Double DQN (reduce sobreestimación de Q-values)
-    - Prioritized Experience Replay (enfoca en experiencias importantes)
-    - Reward Clipping (estabiliza gradientes)
-    - Epsilon decay adaptativo
+    Agente DQN con Double DQN y Prioritized Experience Replay.
     
-    Usa dos redes neuronales (MLPRegressor):
-    - Main Network: Se entrena activamente
-    - Target Network: Proporciona targets estables
+    Usa MLPRegressor de sklearn como red neuronal.
+    
+    Arquitectura:
+    - Input: Vector de estado (22 dims)
+    - Hidden: (256, 256, 128) con ReLU
+    - Output: Q-values para cada acción
     
     Double DQN:
-    - Selección de acción: Main Network
-    - Evaluación de Q-value: Target Network
+    - Main Network selecciona la mejor acción
+    - Target Network evalúa el Q-value de esa acción
     - y_j = r + γ * Q_target(s', argmax_a Q_main(s', a))
     """
     
     def __init__(self, state_size: int, action_size: int, use_per: bool = True):
         """
-        Inicializa el agente DQN mejorado.
+        Inicializa el agente DQN.
         
         Args:
-            state_size: Dimensión del vector de estado (22 para nuestro caso)
+            state_size: Dimensión del vector de estado
             action_size: Número de acciones discretas
             use_per: Usar Prioritized Experience Replay
         """
@@ -199,7 +212,7 @@ class DQNAgent:
         self.action_size = action_size
         self.use_per = use_per
         
-        # Buffer de experiencia (con o sin priorización)
+        # Buffer de experiencia
         if use_per:
             self.memory = PrioritizedReplayBuffer(MEMORY_SIZE)
         else:
@@ -207,57 +220,56 @@ class DQNAgent:
         
         # Parámetros de exploración
         self.epsilon = EPSILON_START
-        self.beta = PER_BETA_START  # Para importance sampling
+        self.beta = PER_BETA_START
         
-        # Contador de steps para actualización de target
+        # Contador de pasos de entrenamiento
         self.train_step = 0
         
-        # ====================================================================
-        # MAIN NETWORK (Q-Network) - Red más grande para mejor capacidad
-        # ====================================================================
+        # Main Network (Q-Network)
         self.model = MLPRegressor(
-            hidden_layer_sizes=(256, 256, 128),  # 3 capas, más neuronas
+            hidden_layer_sizes=(256, 256, 128),
             activation='relu',
             solver='adam',
+            learning_rate='adaptive',  # Adapta learning rate cuando se estanca
             learning_rate_init=LEARNING_RATE,
             warm_start=True,
-            max_iter=1
+            max_iter=10  # 10 iteraciones por partial_fit (CRÍTICO para aprendizaje)
         )
         
-        # ====================================================================
-        # TARGET NETWORK (Red Objetivo)
-        # ====================================================================
+        # Target Network
         self.target_model = MLPRegressor(
             hidden_layer_sizes=(256, 256, 128),
             activation='relu',
             solver='adam',
+            learning_rate='adaptive',  # Adapta learning rate cuando se estanca
             learning_rate_init=LEARNING_RATE,
             warm_start=True,
-            max_iter=1
+            max_iter=10  # 10 iteraciones por partial_fit (CRÍTICO para aprendizaje)
         )
         
-        # Inicialización
+        # Inicializar redes
         self._initialize_networks()
         
-        # Estadísticas de entrenamiento
-        self.td_errors_history = []
-        self.q_values_history = []
+        # Estadísticas
+        self.td_errors_history: List[float] = []
+        self.q_values_history: List[float] = []
     
     def _initialize_networks(self):
-        """Inicializa las redes con datos dummy."""
-        dummy_X = np.zeros((1, self.state_size))
-        dummy_y = np.zeros((1, self.action_size))
+        """Inicializa las redes con datos random pequeños."""
+        # Usar valores aleatorios pequeños en vez de zeros para evitar sesgo inicial
+        dummy_X = np.random.rand(10, self.state_size) * 0.1
+        dummy_y = np.random.rand(10, self.action_size) * 0.1
         
         self.model.partial_fit(dummy_X, dummy_y)
         self.target_model.partial_fit(dummy_X, dummy_y)
     
-    def remember(self, state, action: int, reward: float, next_state, done: bool):
+    def remember(self, state: np.ndarray, action: int, reward: float,
+                 next_state: np.ndarray, done: bool):
         """
         Almacena una experiencia en el buffer.
         
         Aplica reward clipping para estabilidad.
         """
-        # REWARD CLIPPING - evita gradientes explosivos
         clipped_reward = np.clip(reward, REWARD_CLIP_MIN, REWARD_CLIP_MAX)
         
         if self.use_per:
@@ -265,13 +277,16 @@ class DQNAgent:
         else:
             self.memory.append((state, action, clipped_reward, next_state, done))
     
-    def act(self, state, training: bool = True) -> int:
+    def act(self, state: np.ndarray, training: bool = True) -> int:
         """
         Selecciona una acción usando política Epsilon-Greedy.
         
         Args:
             state: Estado actual
-            training: Si es False, usa epsilon mínimo (explotación)
+            training: Si False, usa epsilon mínimo (explotación)
+            
+        Returns:
+            Índice de la acción seleccionada
         """
         eps = self.epsilon if training else EPSILON_MIN
         
@@ -282,28 +297,24 @@ class DQNAgent:
         q_values = self.model.predict(state_reshaped)
         
         # Guardar estadísticas
-        self.q_values_history.append(np.max(q_values[0]))
+        self.q_values_history.append(float(np.max(q_values[0])))
         
-        return np.argmax(q_values[0])
+        return int(np.argmax(q_values[0]))
     
     def replay(self, batch_size: int = BATCH_SIZE):
         """
         Entrena la red con Double DQN y PER.
         
-        Double DQN:
-        - Main network selecciona la mejor acción
-        - Target network evalúa el Q-value de esa acción
-        
-        Esto reduce la sobreestimación sistemática de Q-values.
+        Double DQN reduce la sobreestimación sistemática de Q-values.
         """
         # Verificar memoria suficiente
+        if len(self.memory) < batch_size:
+            return
+        
+        # Muestrear batch
         if self.use_per:
-            if len(self.memory) < batch_size:
-                return
             minibatch, indices, weights = self.memory.sample(batch_size, self.beta)
         else:
-            if len(self.memory) < batch_size:
-                return
             minibatch = random.sample(self.memory, batch_size)
             weights = np.ones(batch_size)
             indices = None
@@ -319,8 +330,8 @@ class DQNAgent:
         
         # Predicciones en batch
         current_qs = self.model.predict(states)
-        next_qs_main = self.model.predict(next_states)      # Para selección de acción
-        next_qs_target = self.target_model.predict(next_states)  # Para evaluación
+        next_qs_main = self.model.predict(next_states)
+        next_qs_target = self.target_model.predict(next_states)
         
         X_train = []
         y_train = []
@@ -331,7 +342,7 @@ class DQNAgent:
                 target = reward
             else:
                 if USE_DOUBLE_DQN:
-                    # DOUBLE DQN: Seleccionar acción con main, evaluar con target
+                    # Double DQN: seleccionar con main, evaluar con target
                     best_action = np.argmax(next_qs_main[i])
                     target = reward + GAMMA * next_qs_target[i][best_action]
                 else:
@@ -342,9 +353,10 @@ class DQNAgent:
             td_error = abs(target - current_qs[i][action])
             td_errors.append(td_error)
             
-            # Actualizar Q-value (con weight para importance sampling)
+            # Actualizar Q-value (SIN aplicar weight al target)
+            # Los weights solo afectan el muestreo, no el target Q-value
             target_f = current_qs[i].copy()
-            target_f[action] = target * weights[i]
+            target_f[action] = target
             
             X_train.append(states[i])
             y_train.append(target_f)
@@ -357,7 +369,7 @@ class DQNAgent:
             self.memory.update_priorities(indices, np.array(td_errors))
         
         # Guardar estadísticas
-        self.td_errors_history.append(np.mean(td_errors))
+        self.td_errors_history.append(float(np.mean(td_errors)))
         
         # Decaimiento de epsilon
         if self.epsilon > EPSILON_MIN:
@@ -370,40 +382,15 @@ class DQNAgent:
     
     def update_target_network(self):
         """
-        Actualiza la Target Network.
-        En sklearn aproximamos copiando predicciones de main a target.
+        Actualiza Target Network usando HARD COPY (deep copy real).
+        
+        Esto es crítico para estabilidad: la target network debe proporcionar
+        targets ESTABLES, no targets que cambian continuamente.
         """
-        if self.use_per:
-            if len(self.memory) < BATCH_SIZE:
-                return
-            sample_size = min(len(self.memory), BATCH_SIZE * 2)
-            # Muestreo uniforme para sincronización
-            if hasattr(self.memory, 'tree'):
-                sample = []
-                for _ in range(sample_size):
-                    _, _, data = self.memory.tree.get(
-                        random.uniform(0, self.memory.tree.total_priority)
-                    )
-                    if data != 0:
-                        sample.append(data)
-                if len(sample) < sample_size // 2:
-                    return
-            else:
-                sample = random.sample(list(self.memory), sample_size)
-        else:
-            if len(self.memory) < BATCH_SIZE:
-                return
-            sample_size = min(len(self.memory), BATCH_SIZE * 2)
-            sample = random.sample(self.memory, sample_size)
-        
-        states = np.array([exp[0] for exp in sample])
-        if len(states.shape) == 3:
-            states = states.reshape(len(sample), -1)
-        
-        predictions = self.model.predict(states)
-        self.target_model.partial_fit(states, predictions)
+        # Realizar deep copy usando pickle (única forma con MLPRegressor)
+        self.target_model = pickle.loads(pickle.dumps(self.model))
     
-    def get_training_stats(self) -> dict:
+    def get_training_stats(self) -> Dict[str, Any]:
         """Retorna estadísticas de entrenamiento."""
         stats = {
             'epsilon': self.epsilon,

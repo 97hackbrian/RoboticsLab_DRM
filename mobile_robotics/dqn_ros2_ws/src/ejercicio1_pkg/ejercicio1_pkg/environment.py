@@ -41,37 +41,49 @@ from .state_processor import StateProcessor
 # ============================================================================
 
 # Límites del mapa (cave.world es aproximadamente 16x16 metros)
-MAP_X_MIN = -6.0
-MAP_X_MAX = 6.0
-MAP_Y_MIN = -6.0
-MAP_Y_MAX = 6.0
+MAP_X_MIN = 7.0
+MAP_X_MAX = 7.6
+MAP_Y_MIN = 1.0
+MAP_Y_MAX = 2.0
 
 # Umbrales de distancia
-COLLISION_THRESHOLD = 0.30    # Distancia para considerar colisión (metros)
-GOAL_THRESHOLD = 0.50         # Distancia para considerar meta alcanzada (metros)
+# Umbrales
+COLLISION_THRESHOLD = 0.30     # Metros
+GOAL_THRESHOLD = 1.1666          # Metros
+MAX_DISTANCE_FROM_GOAL = 10.0  # Metros
+
+# Límite de pasos
+MAX_STEPS_PER_EPISODE = 500    # Default 500
 
 # ============================================================================
-# SISTEMA DE RECOMPENSAS (según especificaciones del proyecto)
+# SISTEMA DE RECOMPENSAS SIMPLIFICADO (Estabilidad)
 # ============================================================================
-REWARD_GOAL = 200.0           # Recompensa: +200 por alcanzar objetivo
-REWARD_COLLISION = -100.0     # Recompensa: -100 por colisión
-REWARD_PROGRESS_SCALE = 5.0   # Escala para recompensas intermedias
+REWARD_GOAL = 100.0           # Meta (Valor alto pero controlado)
+REWARD_COLLISION = -100.0     # Colisión
+REWARD_TIMEOUT = -10.0        # Timeout
+REWARD_TOO_FAR = -20.0        # Alejarse demasiado
+
+# Recompensas densas (pequeños valores normalizados)
+REWARD_STEP = -0.05           # Penalización por paso (incentiva rapidez)
+REWARD_PROGRESS = 50.0         # Multiplicador de progreso (acercarse)
+REWARD_HEADING = 0.1          # Bonus por orientación correcta
+REWARD_SAFETY = 0.01           # Bonus por seguridad (>1m obstáculos)
+
+# Nota: Eliminamos "momentum" y "distracción" porque introducen ruido/inestabilidad
 
 # ============================================================================
-# ESPACIO DE ACCIONES (5 acciones discretas)
+# ESPACIO DE ACCIONES (5 acciones básicas)
+# Simplificado para facilitar aprendizaje
 # ============================================================================
-# Cada acción es una tupla (linear_x, angular_z)
 ACTIONS = {
-    0: (0.3, 0.0),     # Avanzar recto
-    1: (0.2, 0.3),     # Avanzar + rotar izquierda suave
-    2: (0.2, -0.3),    # Avanzar + rotar derecha suave
-    3: (0.1, 0.6),     # Rotar izquierda fuerte
-    4: (0.1, -0.6),    # Rotar derecha fuerte
+    0: (0.5, 0.0),     # Avanzar
+    1: (0.0, 0.2),     # Giro Izquierda (en sitio)
+    2: (0.0, -0.2),    # Giro Derecha (en sitio)
 }
 NUM_ACTIONS = len(ACTIONS)
 
-# Frecuencia de publicación de cmd_vel (Hz) - debe ser alta para evitar watchdog
-CMD_VEL_PUBLISH_RATE = 20.0
+# Frecuencia de publicación de cmd_vel (Hz) - suficiente para evitar watchdog
+CMD_VEL_PUBLISH_RATE = 30.0  # 30Hz es suficiente, 190Hz era excesivo
 
 
 class EnvironmentNode(Node):
@@ -95,7 +107,8 @@ class EnvironmentNode(Node):
         # Estado actual del entorno
         self.current_scan: Optional[LaserScan] = None
         self.current_odom: Optional[Odometry] = None
-        self.previous_distance = float('inf')
+        self.previous_distance_x = float('inf')
+        self.previous_distance_y = float('inf')
         
         # Comando de velocidad actual (se publica continuamente)
         self.current_linear_x = 0.0
@@ -107,6 +120,26 @@ class EnvironmentNode(Node):
         self.collision = False
         self.goal_reached = False
         self.is_resetting = False
+        
+        # Contador de pasos del episodio
+        self.steps_in_episode = 0
+        
+        # ====================================================================
+        # SISTEMA DE MEMORIA DE TRAYECTORIAS
+        # Guarda las rutas que se acercan al goal para análisis/replay
+        # ====================================================================
+        self.current_trajectory = []  # Trayectoria del episodio actual
+        self.successful_trajectories = []  # Lista de trayectorias exitosas
+        self.best_trajectory = None  # Mejor trayectoria (más corta al goal)
+        self.best_trajectory_steps = float('inf')  # Pasos de la mejor ruta
+        
+        # ====================================================================
+        # SISTEMA DE MEMORIA DE TRAYECTORIAS
+        # ====================================================================
+        self.current_trajectory = [] 
+        self.successful_trajectories = []
+        self.best_trajectory = None
+        self.best_trajectory_steps = float('inf')
         
         # QoS para sensores
         sensor_qos = QoSProfile(
@@ -189,11 +222,18 @@ class EnvironmentNode(Node):
         Genera una nueva posición objetivo aleatoria dentro del mapa.
         Evita generar metas muy cerca de los bordes o del robot.
         """
-        margin = 1.0  # Margen desde los bordes
+        margin = 0.05  # Margen pequeño para áreas reducidas
         
         while True:
-            goal_x = random.uniform(MAP_X_MIN + margin, MAP_X_MAX - margin)
-            goal_y = random.uniform(MAP_Y_MIN + margin, MAP_Y_MAX - margin)
+            # Asegurar que min < max incluso con margen
+            x_min = MAP_X_MIN + margin
+            x_max = max(x_min + 0.1, MAP_X_MAX - margin)
+            
+            y_min = MAP_Y_MIN + margin
+            y_max = max(y_min + 0.1, MAP_Y_MAX - margin)
+            
+            goal_x = random.uniform(x_min, x_max)
+            goal_y = random.uniform(y_min, y_max)
             
             # Verificar que no esté muy cerca del robot
             if self.current_odom is not None:
@@ -250,21 +290,32 @@ class EnvironmentNode(Node):
         """
         Calcula la recompensa basada en el estado actual.
         
-        Implementa el sistema de recompensas especificado:
+        Sistema de recompensas mejorado:
         - +200: Alcanzar objetivo (distancia < GOAL_THRESHOLD)
         - -100: Colisión (distancia mínima < COLLISION_THRESHOLD)
-        - Intermedia: +5 * (distancia_anterior - distancia_actual)
+        - -50: Alejarse demasiado del objetivo
+        - -20: Timeout (exceder MAX_STEPS_PER_EPISODE)
+        - Shaped rewards: progreso, orientación, seguridad
         
         Returns:
             Tuple de (reward, done, info_string)
         """
-        # Obtener distancias
+        # Obtener distancias Euclidianas (para terminal conditions)
         distance_to_goal = self.state_processor.get_distance_to_goal()
         min_obstacle_dist = self.state_processor.get_min_obstacle_distance()
+        
+        # Obtener componentes vectoriales (para progreso por ejes)
+        goal_dx, goal_dy = self.state_processor.get_goal_vector()
+        dist_x = abs(goal_dx)
+        dist_y = abs(goal_dy)
         
         reward = 0.0
         done = False
         info = ""
+        
+        # ================================================================
+        # CONDICIONES TERMINALES
+        # ================================================================
         
         # Verificar COLISIÓN (-100 puntos)
         if min_obstacle_dist < COLLISION_THRESHOLD:
@@ -282,19 +333,61 @@ class EnvironmentNode(Node):
             info = "GOAL_REACHED"
             self.get_logger().info(f'Goal reached! Dist: {distance_to_goal:.2f}m')
         
-        # Recompensa INTERMEDIA (progreso hacia la meta)
-        else:
-            # Recompensa proporcional a la mejora en distancia
-            progress = self.previous_distance - distance_to_goal
-            reward = REWARD_PROGRESS_SCALE * progress  # +5 * (prev - curr)
-            
-            # Pequeña penalización por paso para incentivar eficiencia
-            reward -= 0.1
-            
-            info = f"progress: {progress:.3f}"
+        # Verificar demasiado LEJOS del objetivo (-50 puntos)
+        elif distance_to_goal > MAX_DISTANCE_FROM_GOAL:
+            reward = REWARD_TOO_FAR  # -50
+            done = True
+            info = "TOO_FAR_FROM_GOAL"
+            self.get_logger().warn(f'Too far from goal! Dist: {distance_to_goal:.2f}m')
         
-        # Actualizar distancia anterior para siguiente paso
-        self.previous_distance = distance_to_goal
+        # Verificar TIMEOUT (-20 puntos)
+        elif self.steps_in_episode >= MAX_STEPS_PER_EPISODE:
+            reward = REWARD_TIMEOUT  # -20
+            done = True
+            info = "TIMEOUT"
+            self.get_logger().warn(f'Episode timeout after {self.steps_in_episode} steps')
+        
+        # ================================================================
+        # RECOMPENSAS INTERMEDIAS (Shaped Rewards)
+        # ================================================================
+        else:
+            # 1. Recompensa por PROGRESO (Component-wise)
+            # Recompensa si reduce error en X y si reduce error en Y
+            prog_x = self.previous_distance_x - dist_x
+            prog_y = self.previous_distance_y - dist_y
+            
+            # Limitar spikes
+            prog_x = np.clip(prog_x, -0.5, 0.5)
+            prog_y = np.clip(prog_y, -0.5, 0.5)
+            
+            # Sumar progresos (si te acercas en ambos, ganas más)
+            total_progress = prog_x + prog_y
+            
+            reward += REWARD_PROGRESS * total_progress
+            
+            # 2. Recompensa por ORIENTACIÓN
+            # Solo aplicamos si estamos a cierta distancia para evitar inestabilidad (singularidad)
+            if distance_to_goal > 1.0:
+                _, goal_angle = self.state_processor.get_goal_info()
+                heading_bonus = 1.0 - abs(goal_angle)
+                reward += REWARD_HEADING * heading_bonus
+            
+            # 3. Recompensa por SEGURIDAD
+            # Solo premiar si está holgadamente seguro
+            if min_obstacle_dist > 0.8:
+                reward += REWARD_SAFETY
+            elif min_obstacle_dist < 0.4:
+                reward -= 0.2
+            
+            # 4. Costo por paso
+            reward += REWARD_STEP
+            
+            # Info string con detalles de ejes
+            info = f"dX:{dist_x:.2f} dY:{dist_y:.2f} progX:{prog_x:.3f} progY:{prog_y:.3f}"
+        
+        # Actualizar distancias anteriores para siguiente paso
+        self.previous_distance_x = dist_x
+        self.previous_distance_y = dist_y
         
         return reward, done, info
     
@@ -308,6 +401,9 @@ class EnvironmentNode(Node):
         Returns:
             Tuple de (next_state, reward, done, info)
         """
+        # Incrementar contador de pasos
+        self.steps_in_episode += 1
+        
         # Establecer acción (el timer la publicará continuamente)
         self.set_action(action)
         
@@ -323,6 +419,24 @@ class EnvironmentNode(Node):
         
         # Calcular recompensa
         reward, done, info = self._calculate_reward()
+        
+        # ================================================================
+        # GRABAR POSICIÓN EN LA TRAYECTORIA
+        # ================================================================
+        if self.current_odom is not None:
+            trajectory_point = {
+                'step': self.steps_in_episode,
+                'x': self.current_odom.pose.pose.position.x,
+                'y': self.current_odom.pose.pose.position.y,
+                'action': action,
+                'reward': reward,
+                'distance_to_goal': self.state_processor.get_distance_to_goal()
+            }
+            self.current_trajectory.append(trajectory_point)
+        
+        # Guardar trayectoria si llegó al goal
+        if done and self.goal_reached:
+            self._save_successful_trajectory()
         
         if done:
             self.stop_robot()
@@ -377,6 +491,8 @@ class EnvironmentNode(Node):
         self.collision = False
         self.goal_reached = False
         self.previous_distance = float('inf')
+        self.steps_in_episode = 0  # Reset step counter
+        self.current_trajectory = []  # Limpiar trayectoria del episodio
         
         # Generar nueva meta aleatoria
         self._generate_random_goal()
@@ -388,8 +504,10 @@ class EnvironmentNode(Node):
         while not self.data_ready and (time.time() - start) < timeout:
             rclpy.spin_once(self, timeout_sec=0.05)
         
-        # Inicializar distancia anterior
-        self.previous_distance = self.state_processor.get_distance_to_goal()
+        # Inicializar distancia anterior separada por ejes
+        goal_dx, goal_dy = self.state_processor.get_goal_vector()
+        self.previous_distance_x = abs(goal_dx)
+        self.previous_distance_y = abs(goal_dy)
         
         self.is_resetting = False
         return self.get_state()
@@ -412,7 +530,109 @@ class EnvironmentNode(Node):
                 self.get_logger().error('Timeout waiting for sensor data')
                 return False
         
-        # Inicializar distancia anterior
-        self.previous_distance = self.state_processor.get_distance_to_goal()
+        # Inicializar distancia anterior separada por ejes
+        goal_dx, goal_dy = self.state_processor.get_goal_vector()
+        self.previous_distance_x = abs(goal_dx)
+        self.previous_distance_y = abs(goal_dy)
         
         return True
+    
+    # ========================================================================
+    # MÉTODOS DE GESTIÓN DE TRAYECTORIAS
+    # ========================================================================
+    
+    def _save_successful_trajectory(self):
+        """
+        Guarda la trayectoria actual como exitosa si llegó al goal.
+        También actualiza la mejor trayectoria si esta es más corta.
+        """
+        if not self.current_trajectory:
+            return
+        
+        trajectory_data = {
+            'steps': len(self.current_trajectory),
+            'goal_x': self.state_processor.goal_x,
+            'goal_y': self.state_processor.goal_y,
+            'trajectory': self.current_trajectory.copy()
+        }
+        
+        self.successful_trajectories.append(trajectory_data)
+        
+        # Actualizar mejor trayectoria si esta es más corta
+        if len(self.current_trajectory) < self.best_trajectory_steps:
+            self.best_trajectory = trajectory_data
+            self.best_trajectory_steps = len(self.current_trajectory)
+            self.get_logger().info(f'Nueva mejor trayectoria! {self.best_trajectory_steps} pasos')
+        
+        self.get_logger().info(f'Trayectoria guardada ({len(self.current_trajectory)} pasos). '
+                               f'Total exitosas: {len(self.successful_trajectories)}')
+    
+    def get_successful_trajectories(self) -> list:
+        """
+        Retorna todas las trayectorias exitosas guardadas.
+        
+        Returns:
+            Lista de diccionarios con datos de trayectorias
+        """
+        return self.successful_trajectories
+    
+    def get_best_trajectory(self) -> Optional[dict]:
+        """
+        Retorna la mejor trayectoria (más corta) que llegó al goal.
+        
+        Returns:
+            Diccionario con la mejor trayectoria o None
+        """
+        return self.best_trajectory
+    
+    def save_trajectories_to_file(self, filepath: str):
+        """
+        Guarda todas las trayectorias exitosas en un archivo.
+        
+        Args:
+            filepath: Ruta del archivo (ej: 'trajectories.pkl')
+        """
+        import pickle
+        save_data = {
+            'successful_trajectories': self.successful_trajectories,
+            'best_trajectory': self.best_trajectory,
+            'best_steps': self.best_trajectory_steps
+        }
+        with open(filepath, 'wb') as f:
+            pickle.dump(save_data, f)
+        self.get_logger().info(f'Trayectorias guardadas en {filepath}')
+    
+    def load_trajectories_from_file(self, filepath: str):
+        """
+        Carga trayectorias desde un archivo.
+        
+        Args:
+            filepath: Ruta del archivo pickle
+        """
+        import pickle
+        with open(filepath, 'rb') as f:
+            save_data = pickle.load(f)
+        
+        self.successful_trajectories = save_data['successful_trajectories']
+        self.best_trajectory = save_data['best_trajectory']
+        self.best_trajectory_steps = save_data['best_steps']
+        self.get_logger().info(f'Cargadas {len(self.successful_trajectories)} trayectorias')
+    
+    def get_trajectory_stats(self) -> dict:
+        """
+        Retorna estadísticas de las trayectorias guardadas.
+        
+        Returns:
+            Diccionario con estadísticas
+        """
+        if not self.successful_trajectories:
+            return {'total': 0, 'best_steps': None, 'avg_steps': None}
+        
+        steps_list = [t['steps'] for t in self.successful_trajectories]
+        return {
+            'total': len(self.successful_trajectories),
+            'best_steps': self.best_trajectory_steps,
+            'avg_steps': sum(steps_list) / len(steps_list),
+            'min_steps': min(steps_list),
+            'max_steps': max(steps_list)
+        }
