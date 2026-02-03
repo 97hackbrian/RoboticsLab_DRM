@@ -6,7 +6,6 @@ This directory contains trained DQN models.
 
 - `dqn_model.pkl` - Final trained model
 - `dqn_model_epN.pkl` - Checkpoint at episode N
-- `dqn_model_metrics.pkl` - Training metrics (rewards, steps, etc.)
 
 ## Usage
 
