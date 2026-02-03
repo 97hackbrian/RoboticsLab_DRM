@@ -40,7 +40,7 @@ Neural Network: MLPRegressor (scikit-learn)
 
 ### Prerequisites
 
-- Ubuntu 22.04 (recommended)
+- Ubuntu 24.04 (recommended)
 - ROS2 Jazzy
 - Python 3.10+
 
@@ -53,24 +53,20 @@ Follow official installation guide:
 
 ### 2. Install Stage Simulator
 
-#### Install from GitHub (Required)
-
+#### Clone from GitHub (Required)
+In your ros2 workspace. Example: ros2_ws
 ```bash
-cd ~/
+mkdir src
+cd src
 git clone https://github.com/rtv/Stage.git
-cd Stage
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
+git clone https://github.com/tuw-robotics/stage_ros2.git
 ```
 
-#### Install stage_ros2
+#### Compile stage_ros2
 
 ```bash
-cd ~/dqn_ros2_ws/src
-git clone https://github.com/tuw-robotics/stage_ros2.git
+cd ../
+colcon build
 ```
 
 ### 3. Install Python Dependencies
@@ -79,11 +75,19 @@ git clone https://github.com/tuw-robotics/stage_ros2.git
 pip install numpy scikit-learn
 ```
 
-### 4. Clone This Package
-
+### 4. Clone This Package (IMPORTANT)
+In your ws again...
 ```bash
-cd ~/dqn_ros2_ws/src
-git clone <your-repo-url> finalwork_pkg
+cd src
+
+git clone --depth 1 --filter=blob:none --sparse https://github.com/97hackbrian/RoboticsLab_DRM.git && \
+cd RoboticsLab_DRM && \
+git sparse-checkout set mobile_robotics/dqn_ros2_ws/src/finalwork_pkg && \
+\
+mv mobile_robotics/dqn_ros2_ws/src/finalwork_pkg ../ && \
+\
+cd .. && \
+rm -rf RoboticsLab_DRM
 ```
 
 ---
@@ -386,20 +390,6 @@ finalwork_pkg/
 
 ---
 
-## 📖 References
-
-### Deep Q-Learning
-
-- Mnih et al. (2015) - "Human-level control through deep reinforcement learning"
-- Van Hasselt et al. (2016) - "Deep Reinforcement Learning with Double Q-learning"
-- Schaul et al. (2016) - "Prioritized Experience Replay"
-
-### Curriculum Learning
-
-- Bengio et al. (2009) - "Curriculum Learning"
-- Florensa et al. (2017) - "Reverse Curriculum Generation for RL"
-
----
 
 ## 🚀 Future Improvements
 
