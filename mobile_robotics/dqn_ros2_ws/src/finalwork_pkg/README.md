@@ -428,10 +428,3 @@ Jhon Larico Macha
 Victor Gutierrez Kaisler
 
 ---
-
-## 🙏 Acknowledgments
-
-- Stage Simulator by Richard Vaughan
-- ROS2 Community
-- OpenAI Gym for RL inspiration
-
