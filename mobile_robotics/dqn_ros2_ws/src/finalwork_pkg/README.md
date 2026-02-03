@@ -5,6 +5,7 @@ Deep Q-Learning Navigation system for autonomous robot navigation in complex env
 ## 📋 Overview
 
 This package implements a **Deep Q-Network (DQN)** agent with **Curriculum Learning** for autonomous robot navigation. The robot learns to navigate through obstacle-filled environments by progressively increasing task difficulty, achieving up to **65% success rate** in reaching random goals while avoiding collisions.
+Evidence, VIDEOS/IMAGES of training model ---> [GOOGLE_DRIVE](https://drive.google.com/drive/folders/1SHUMdBbEsVmSy_YKkFauzaBjfG7Z24A5?usp=sharing)
 
 ### Key Features
 
