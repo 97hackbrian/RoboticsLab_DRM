@@ -54,7 +54,7 @@ Follow official installation guide:
 ### 2. Install Stage Simulator
 
 #### Clone from GitHub (Required)
-In your ros2 workspace. Example: ros2_ws
+In your ros2 workspace. Example: ros2_ws o dqn_ros2_ws
 ```bash
 mkdir src
 cd src
@@ -95,9 +95,8 @@ rm -rf RoboticsLab_DRM
 ## 🔨 Compilation
 
 ### Build the Package
-
+In your workspace again.....
 ```bash
-cd ~/dqn_ros2_ws
 colcon build --packages-select finalwork_pkg
 source install/setup.bash
 ```
@@ -285,10 +284,10 @@ LIDAR_FOV = 100.0  # Front arc in degrees (±50°)
 
 | Phase | Episodes | Success Rate | Avg Reward |
 |-------|----------|--------------|------------|
-| Phase 1 | 0-250 | 60-80% | +100 to +200 |
-| Phase 2 | 250-500 | 50-70% | +50 to +150 |
-| Phase 3 | 500-750 | 40-60% | +20 to +100 |
-| Phase 4 | 750+ | 60-70% | +50 to +150 |
+| Phase 1 | 0-250 | 50-65% | +100 to +200 |
+| Phase 2 | 250-500 | 40-50% | +50 to +150 |
+| Phase 3 | 500-750 | 40-55% | +20 to +100 |
+| Phase 4 | 750+ | 50-65% | +50 to +150 |
 
 ---
 
