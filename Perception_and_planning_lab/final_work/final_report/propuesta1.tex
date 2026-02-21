@@ -1,0 +1,540 @@
+% !TeX program = pdflatex
+\documentclass[12pt,a4paper]{article}
+
+% ==========================================
+% 1. CODIFICACIÓN E IDIOMA
+% ==========================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel} % 'es-tabla' usa "Tabla" en lugar de "Cuadro"
+
+%gannt conf
+\usepackage{pgfgantt}
+% Definición de colores corporativos/técnicos
+\definecolor{barblue}{RGB}{51, 102, 254}
+\definecolor{groupblue}{RGB}{51, 102, 254}
+\definecolor{linkred}{RGB}{165, 0, 33}
+\setlength{\headheight}{15pt} % Soluciona el warning: \headheight is too small
+
+% ==========================================
+% 2. TIPOGRAFÍA Y GEOMETRÍA
+% ==========================================
+\usepackage{mathpazo} % Fuente Palatino (Elegante y profesional)
+\usepackage[scaled=0.95]{helvet} % Fuente Helvetica para sans-serif
+\usepackage{courier} % Fuente Courier para código
+
+\usepackage{geometry}
+% Márgenes optimizados basados en tus documentos (Doc 1)
+\geometry{
+	top=2.3cm, 
+	bottom=1.4cm, 
+	left=1.7cm, 
+	right=1.7cm
+}
+
+\usepackage{microtype} % Mejora sutilmente el espaciado entre letras y palabras
+\usepackage{ragged2e}  % Para justificación de texto mejorada
+
+% ==========================================
+% 3. MATEMÁTICAS Y CIENCIA
+% ==========================================
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{siunitx} % Para unidades del SI correctamente formataedas
+\usepackage{bm}      % Para negritas en matemáticas
+
+
+% Macros personalizadas (extraídas del Doc 1)
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+
+% ==========================================
+% 4. GRÁFICOS Y FIGURAS
+% ==========================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning, calc, fit, backgrounds}
+
+% ==========================================
+% 5. TABLAS Y ALGORITMOS
+% ==========================================
+\usepackage{booktabs} % Para tablas profesionales (toprule, midrule, bottomrule)
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% ==========================================
+% 6. CÓDIGO FUENTE (LISTINGS)
+% ==========================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+
+% Definición de colores del Doc 2 (Estilo MATLAB)
+\definecolor{codeGreen}{rgb}{0,0.6,0}
+\definecolor{codeGray}{rgb}{0.5,0.5,0.5}
+\definecolor{codePurple}{rgb}{0.58,0,0.82}
+\definecolor{backColour}{rgb}{0.97,0.97,0.97} % Gris muy suave de fondo
+
+\lstdefinestyle{professionalStyle}{
+	language=Matlab,
+	backgroundcolor=\color{backColour},   
+	commentstyle=\color{codeGreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codeGray},
+	stringstyle=\color{codePurple},
+	basicstyle=\ttfamily\footnotesize, % Fuente monoespaciada pequeña
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=4,
+	frame=single,                    % Marco alrededor del código
+	rulecolor=\color{black!30},      % Color del marco suave
+	escapeinside={\%*}{*)},          % Permite LaTeX dentro del código (Doc 1)
+	literate=
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{ñ}{{\~n}}1 {Ñ}{{\~N}}1          % Soporte básico para tildes en código
+}
+
+\lstset{style=professionalStyle}
+
+% ==========================================
+% 7. CABECERAS Y PIES DE PÁGINA
+% ==========================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Limpia cabeceras y pies actuales
+
+% Configuración estilo Doc 1 pero más genérica
+\fancyhead[L]{\footnotesize \textsc{\leftmark}} % Nombre de la sección a la izquierda
+\fancyhead[R]{\textbf{\thepage}}                % Número de página a la derecha
+\renewcommand{\headrulewidth}{0.4pt}            % Línea horizontal superior
+
+% ==========================================
+% 8. HIPERVÍNCULOS (PDF)
+% ==========================================
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,    % Negro para enlaces internos (TOC, Figuras) - Más formal para imprimir
+	citecolor=black,    % Negro para citas
+	urlcolor=blue,      % Azul para URLs externas (Estilo Doc 2)
+	pdfauthor={Tu Nombre},
+	pdftitle={Título del Reporte},
+	pdfpagemode=FullScreen,
+}
+
+\usepackage[nameinlink, noabbrev, spanish]{cleveref}
+
+\usepackage{longtable}
+\usepackage{comment}
+% ==========================================
+%  INICIO DEL DOCUMENTO
+% ==========================================
+
+\title{\textbf{Título del Proyecto o Reporte Técnico} \\ \large Subtítulo o Nombre de la Asignatura}
+\author{\textbf{Tu Nombre Completo} \\ \textit{Departamento de Ingeniería / Universidad}}
+\date{\today}
+
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\listalgorithmname}{Índice de algoritmos}
+
+\begin{document}
+	
+	%\maketitle
+	
+	\begin{titlepage}
+		\centering
+		% LOGO (Asegúrate de tener un archivo logo.png en tu carpeta)
+		% \includegraphics[width=0.3\textwidth]{logo.png}\par\vspace{1cm}
+		
+		{\scshape\LARGE Universidad Católica del Norte \par}
+		\vspace{1cm}
+		{\scshape\Large Departamento de Ingeniería de Sistemas y Computación \par}
+		\vspace{1.5cm}
+		
+		% TÍTULO
+		{\huge\bfseries Percepción Activa Basada en Incertidumbre Radiométrica y Razonamiento VLA para el Monitoreo Eficiente de Taludes en Minería a Cielo Abierto. \par}
+		\vspace{2cm}
+		
+		\includegraphics[width=\linewidth]{}
+		
+		% AUTOR
+		{\Large\itshape Postulante: Brayan Gerson Duran Toconas \par}
+		
+		{\Large\itshape Tutor: PhD. Álvaro Prado Romo \par}
+		
+		\vfill
+		
+		
+		
+		% INFORMACIÓN DEL CURSO / PROYECTO
+		Reporte Técnico Final\par
+		Diploma en Robótica - Módulo de Percepción\par
+		
+		\vfill
+		
+		% FECHA
+		{\large \today \par}
+	\end{titlepage}
+	
+	% Resumen
+	\begin{abstract}
+		\noindent Aquí va el resumen ejecutivo del documento. Este entorno utiliza la configuración predeterminada para abstracts, ideal para papers y reportes técnicos. Resume el objetivo, la metodología y los resultados principales en un solo párrafo conciso.
+	\end{abstract}
+	
+	% Tabla de contenidos (Opcional, estilo Doc 2)
+	\tableofcontents
+	\newpage
+	
+	% ----------------------------------------------------------------------
+	\section{Introducción}
+	\label{sec:intro}
+	
+	En la actualidad, la inspección autónoma de infraestructuras críticas en entornos a gran escala, como la minería a cielo abierto, representa uno de los desafíos más complejos para la robótica móvil y sus ramas asociadas. La monitorización de la estabilidad de taludes y la integridad estructural no solo requieren de un mapeo preciso, sino de una comprensión del entorno con altos niveles de certeza fotorrealista y precisión métrica.
+	
+	No obstante, la reciente aparición del \textit{3D Gaussian Splatting} (3DGS) ha marcado un cambio de paradigma al permitir el renderizado y la optimización de escenas en tiempo real, superando las limitaciones computacionales de los campos de radiancia neural (\textit{NeRF}). A pesar de esta eficiencia, el despliegue de vehículos aéreos no tripulados (UAV) en misiones de mapeo sigue condicionado por la autonomía \textbf{energética limitada}. Los métodos actuales de planificación de vista óptima (\textit{Next-Best-View}, NBV) —incluso aquellos de naturaleza predictiva como \textit{Pred-NBV}— operan bajo una \textbf{ceguera semántica}: priorizan la completitud geométrica de los espacios no mapeados sin discernir la relevancia técnica o el riesgo de las estructuras que reconstruyen.
+	
+	Esta propuesta de investigación doctoral propone una arquitectura disruptiva de percepción activa que unifica modelos de Visión-Lenguaje-Acción (VLA) con el framework de 3DGS. El núcleo de la propuesta reside en un mecanismo de \textbf{atención semántica} que permite al robot razonar sobre la escena en tiempo real, priorizando la densificación de áreas críticas (como fisuras o anomalías estructurales) y optimizando la trayectoria de vuelo mediante inferencia predictiva. De este modo, se busca transformar el mapeo robótico de una tarea de exploración exhaustiva a un proceso de toma de decisiones inteligente y \textbf{energéticamente eficiente}.
+	
+	A continuación, se exponen los fundamentos teóricos, el estado del arte y la propuesta metodológica que estructurarán el presente trabajo de investigación.
+	
+	
+	
+	
+	\section{Estado del Arte}
+	\label{sec:estado_arte}
+	La literatura reciente ha evolucionado desde métodos pasivos de reconstrucción hacia enfoques de percepción activa guiados por incertidumbre y, más recientemente, por modelos de razonamiento multimodal.
+	
+	\subsection{Evolución de la Reconstrucción 3D: De NeRF a 3D Gaussian Splatting}
+	Tradicionalmente, la fotogrametría y los métodos \textit{Structure-from-Motion} (SfM) han sido el estándar para la generación de nubes de puntos en minería y topografía. Sin embargo, el advenimiento de los campos de radiancia neural (\textit{Neural Radiance Fields} - NeRF) introdujo una capacidad sin precedentes para la síntesis de vistas fotorrealistas mediante redes neuronales implícitas~\cite{mildenhall2021nerf, atik2025comparative}. A pesar de su alta fidelidad visual, los métodos basados en NeRF presentan limitaciones significativas para aplicaciones robóticas en tiempo real, principalmente debido a sus altos costos computacionales de entrenamiento e inferencia, así como a la dificultad de editar o actualizar el mapa dinámicamente~\cite{liu2025survey, atik2025comparative}.
+	
+	Recientemente, el \textit{3D Gaussian Splatting} (3DGS) ha emergido como una alternativa superior, utilizando primitivas explícitas (elipsoides gaussianos) para representar la escena. A diferencia de NeRF, 3DGS permite renderizado en tiempo real ($>100$ FPS) y una actualización eficiente del mapa, características críticas para la navegación segura de UAVs en entornos complejos~\cite{kerbl20233dgs, zhang2025autonomous}. Estudios comparativos recientes demuestran que arquitecturas como \textit{Splatfacto} superan a las variantes de NeRF (\textit{Nerfacto}, \textit{Instant-NGP}) en calidad de reconstrucción y eficiencia de entrenamiento para imágenes aéreas capturadas por drones~\cite{atik2025comparative}. Además, enfoques como \textit{Horizon-GS} han propuesto estrategias de \textit{Level-of-Detail} (LOD) para manejar las drásticas diferencias de escala entre vistas aéreas y terrestres, un desafío común en la topografía de grandes minas~\cite{horizongs2025}.
+	
+	\subsection{Sistemas SLAM Multicámara y Mapeo Denso}
+	Para operar en entornos sin GPS o con señal degradada (como el fondo de un tajo), la localización robusta es fundamental. Los sistemas modernos han comenzado a integrar 3DGS directamente en el pipeline de SLAM. Frameworks como \textit{MCGS-SLAM} demuestran que la fusión de entradas RGB de múltiples cámaras con un mapa global de gaussianas permite una reconstrucción de alta fidelidad y una estimación de pose robusta, superando a los métodos monoculares que sufren de ambigüedad de escala~\cite{cao2024mcgs}. Asimismo, arquitecturas como \textit{MVS-GS} utilizan estimación de profundidad estéreo multi-vista en línea para inicializar gaussianas con alta precisión geométrica, reduciendo el ruido y mejorando la convergencia en exteriores~\cite{lee2025mvsgs}. Estos avances permiten generar "gemelos digitales" densos en tiempo real, esenciales para la detección temprana de fallas en taludes.
+	
+	\subsection{Percepción Activa y Planificación de Vistas (NBV)}
+	La navegación autónoma en inspección no debe ser pasiva; requiere algoritmos de \textit{Next-Best-View} (NBV) que maximicen la ganancia de información. Los enfoques geométricos tradicionales, que buscan llenar "fronteras" vacías en el mapa de ocupación, son ineficientes para inspecciones detalladas. Investigaciones recientes como \textit{Pred-NBV} proponen el uso de redes neuronales para predecir la forma completa de objetos de interés a partir de observaciones parciales, guiando al robot hacia vistas que reducen la incertidumbre geométrica con un menor costo de movimiento~\cite{dhami2023prednbv}.
+	
+	En el contexto de 3DGS, la incertidumbre no es solo geométrica, sino radiométrica. Métodos emergentes explotan la incertidumbre en el renderizado de las gaussianas (e.g., varianza en la opacidad o el color) para identificar áreas mal reconstruidas o con texturas débiles, priorizando su re-escaneo~\cite{zhang2025autonomous, horizongs2025}.
+	
+	\subsection{Razonamiento Semántico con Modelos VLA}
+	La integración de modelos de Visión-Lenguaje-Acción (VLA) representa el salto hacia la autonomía cognitiva. Mientras que los sistemas clásicos navegan ciegamente siguiendo coordenadas, los modelos VLA permiten al robot interpretar comandos de alto nivel (ej. "Inspeccionar grietas en el sector norte") y razonar sobre la semántica de la escena. Aunque la literatura específica de VLA en minería es incipiente, trabajos en conducción autónoma como \textit{DrivingForward} y \textit{UrbanGS} muestran cómo la semántica puede guiar la reconstrucción, separando elementos dinámicos de la estructura estática crítica~\cite{li2024drivingforward, urbangs2024}. La combinación de la capacidad de generalización \textit{zero-shot} de los VLA con la precisión métrica de 3DGS permite enfocar los recursos computacionales y de vuelo en las "Regiones de Interés" (ROI) semánticas, ignorando zonas irrelevantes y cerrando la brecha entre la percepción visual y la toma de decisiones experta~\cite{zhang2025autonomous}.
+	
+	
+
+	
+	
+	\section{Planteamiento del Problema}
+	
+	La monitorización de estabilidad de taludes en la minería a cielo abierto exige un equilibrio crítico entre la fidelidad de la reconstrucción tridimensional y las restricciones energéticas de los vehículos aéreos no tripulados (UAV). A pesar de los avances en percepción robótica, la inspección autónoma en escenarios de gran escala enfrenta desafíos fundamentales derivados de la desconexión entre la predicción geométrica y la comprensión semántica:
+	
+	\subsection{Riesgos Geotécnicos}
+	
+	La naturaleza dinámica y de gran escala de las explotaciones mineras introduce riesgos inherentes que los sistemas de monitorización actuales no logran mitigar de forma eficiente:
+	
+	\begin{itemize}
+		\item \textbf{Inestabilidad de Taludes y Seguridad Humana:} Las fallas en los taludes (desprendimientos, fallas circulares o grietas de tracción) representan la mayor amenaza para la integridad física de los operadores y la preservación de activos de alto valor. La inspección visual manual expone al personal a zonas de riesgo de caída de rocas, mientras que la monitorización fija (radares o prismas) suele dejar "zonas ciegas" debido a la compleja topografía del rajo.
+	\end{itemize}
+	
+	
+	\subsection{Desafíos Técnicos}
+	\begin{itemize}
+		\item \textbf{Limitación de la Exploración Predictiva Tradicional:} Los enfoques de \textit{Next-Best-View} guiados por predicción (\textit{Pred-NBV}) se centran exclusivamente en el completado de nubes de puntos para descubrir espacios no mapeados. Al operar bajo métricas puramente volumétricas, estos métodos carecen de la capacidad para discernir la relevancia de las estructuras reconstruidas, resultando en trayectorias que priorizan la completitud geométrica sobre la importancia técnica o de seguridad.
+		
+		\item \textbf{Ineficiencia Energética en Escenarios Masivos:} En entornos mineros de extensiones kilométricas, la cobertura exhaustiva o la exploración basada solo en "huecos" geométricos genera una carga energética redundante. Al no integrar un razonamiento semántico, el sistema desperdicia autonomía en zonas de baja criticidad estructural, ignorando que no todas las áreas del rajo minero requieren el mismo nivel de densidad informativa.
+		
+		\item \textbf{Degradación de Representaciones en Zonas Complejas:} Si bien el \textit{3D Gaussian Splatting} (3DGS) permite un renderizado fotorrealista, su precisión decae ante oclusiones severas. Los modelos predictivos actuales no logran utilizar el contexto semántico para inferir la continuidad de patologías (como la trayectoria de una grieta tras una roca), limitando la capacidad del robot para posicionarse de forma óptima y resolver la incertidumbre donde realmente importa.
+	\end{itemize}
+	
+	En consecuencia, se propone un sistema de navegación activa que trasciende el simple completado geométrico mediante la integración de modelos de Visión-Lenguaje-Acción (VLA). Esta arquitectura introduce un mecanismo de \textbf{atención semántica} que guía la densificación de primitivos gaussianos basándose en el valor estructural identificado en tiempo real. El objetivo es optimizar el lazo de percepción-acción para que el UAV priorice áreas de riesgo geológico, minimizando el costo energético y garantizando la integridad de la reconstrucción en entornos críticos.
+	
+	
+	
+	
+	\section{Objetivos}
+	
+	\subsection{Objetivo General}
+	Desarrollar un framework integral de navegación activa y reconstrucción fotorrealista para entornos mineros de gran escala, mediante la convergencia de modelos de Visión-Lenguaje-Acción (VLA) y 3D Gaussian Splatting (3DGS), con el fin de optimizar la eficiencia energética del UAV y la precisión en la identificación de riesgos estructurales.
+	
+	\subsection{Objetivos Específicos}
+	\begin{enumerate}
+		\item \textbf{Diseñar una arquitectura de percepción volumétrica basada en 3DGS-SLAM} capaz de cuantificar la incertidumbre radiométrica y geométrica en tiempo real, sirviendo como base para la densificación selectiva de los primitivos gaussianos.
+		
+		\item \textbf{Integrar un módulo de razonamiento semántico mediante modelos VLA} que permita al agente robótico interpretar instrucciones complejas y priorizar regiones de interés (como grietas de tensión o fallas geológicas) sobre áreas de baja relevancia técnica.
+		
+		\item \textbf{Desarrollar un algoritmo de planificación del siguiente mejor vistazo (Pred-NBV)} que incorpore una función de atención semántica, permitiendo al UAV predecir la geometría de zonas ocluidas y reducir las trayectorias de vuelo redundantes.
+		
+		\item \textbf{Implementar un lazo de control de lazo cerrado (Closed-loop)} que traduzca las decisiones de alto nivel del modelo VLA en comandos de acción para el UAV, garantizando una navegación segura y aversa al riesgo en las proximidades de los taludes mineros.
+		
+		\item \textbf{Evaluar y cuantificar la eficiencia energética y la calidad de la reconstrucción} del sistema propuesto frente a métodos de exploración exhaustiva tradicionales, utilizando métricas de ganancia de información y consumo de batería en misiones de larga duración.
+		
+		\item \textbf{Validar el framework en entornos de simulación de alta fidelidad} (e.g., NVIDIA Isaac Sim) y escenarios mineros reales, demostrando la escalabilidad del sistema y su robustez ante condiciones de iluminación y textura desafiantes.
+	\end{enumerate}
+	
+	
+	
+	% ----------------------------------------------------------------------
+	\section{Marco teórico}
+	\label{sec:modelo}
+	\begin{comment}
+	
+	Gracias a los paquetes `amsmath` y las macros personalizadas, podemos escribir ecuaciones complejas de forma limpia. Por ejemplo, el vector de estado definido en los documentos originales:
+	
+	\begin{equation}
+		\vect{X} = \left[ x, y, z, \phi, \theta, \psi, u, v, w, p, q, r \right]^T
+	\end{equation}
+	
+	Y la matriz de rotación $\mat{R}_{IB}$:
+	\begin{equation}
+		\mat{R}_{IB} = \begin{bmatrix}
+			c_\theta c_\psi & s_\phi s_\theta c_\psi - c_\phi s_\psi & c_\phi s_\theta c_\psi + s_\phi s_\psi \\
+			c_\theta s_\psi & s_\phi s_\theta s_\psi + c_\phi c_\psi & c_\phi s_\theta s_\psi - s_\phi c_\psi \\
+			s_\theta & -s_\phi c_\theta & c_\phi c_\theta
+		\end{bmatrix}
+	\end{equation}
+	
+	\end{comment}
+	% ----------------------------------------------------------------------
+	\section{Tabla de actividades Gannt}
+	
+	\vspace{0.5cm}
+	
+	\begin{center}
+		% Usamos resizebox para ajustar al ancho exacto del texto
+		\resizebox{0.9\textwidth}{!}{%
+			\begin{ganttchart}[
+				canvas/.append style={fill=none, draw=black!5, line width=.75pt},
+				hgrid style/.style={draw=black!5, line width=.75pt},
+				vgrid={*1{draw=black!5, line width=.75pt}},
+				title/.style={draw=none, fill=none},
+				title label font=\bfseries\footnotesize,
+				title label node/.append style={below=7pt},
+				include title in canvas=false,
+				bar label font=\mdseries\small\color{black!70},
+				bar label node/.append style={left=2cm},
+				bar/.append style={draw=none, fill=barblue, rounded corners=2pt}, % Agregué bordes redondeados
+				bar incomplete/.append style={fill=barblue!40},
+				bar progress label font=\mdseries\footnotesize\color{black!70},
+				group incomplete/.append style={fill=groupblue},
+				group left shift=0,
+				group right shift=0,
+				group height=.5,
+				group peaks tip position=0,
+				group label node/.append style={left=.9cm},
+				milestone/.append style={fill=linkred, rounded corners=2pt}, 
+				link/.style={-latex, line width=1.5pt, linkred},
+				link label font=\scriptsize\bfseries,
+				x unit=1.2cm, 
+				y unit title=1.5cm,
+				y unit chart=0.65cm
+				]{1}{12} % 12 Meses
+				
+				% --- CORRECCIÓN AQUÍ: Cabecera Explícita ---
+				% Esto evita el error de "Unknown function"
+				\gantttitle{Jun 2026}{1} 
+				\gantttitle{Jul}{1} 
+				\gantttitle{Ago}{1} 
+				\gantttitle{Sep}{1} 
+				\gantttitle{Oct}{1} 
+				\gantttitle{Nov}{1} 
+				\gantttitle{Dic}{1} 
+				\gantttitle{Ene 2027}{1} 
+				\gantttitle{Feb}{1} 
+				\gantttitle{Mar}{1} 
+				\gantttitle{Abr}{1} 
+				\gantttitle{May}{1} \\
+				
+				% --- FASE 1: Fundamentación y Diseño ---
+				\ganttgroup{I. Fundamentación y Diseño}{1}{3} \\
+				\ganttbar{Revisión Bibliográfica}{1}{2} \\
+				\ganttbar{Formulación Matemática}{2}{3} \\
+				\ganttbar{Config. Entorno Simulación}{3}{3} \\
+				\ganttmilestone{Definición Arquitectura}{3} \ganttnewline[thick, black!20]
+				
+				% --- FASE 2: Desarrollo del Núcleo (Core) ---
+				\ganttgroup{II. Implementación Algorítmica}{4}{8} \\
+				\ganttbar{Implementación 3DGS-SLAM}{4}{5} \\
+				\ganttbar{Integración Módulo VLA}{5}{6} \\
+				\ganttbar{Desarrollo Algoritmo Pred-NBV}{6}{7} \\
+				\ganttbar{Fusión: Atención Semántica}{7}{8} \\
+				\ganttbar{Control Lazo Cerrado (ROS2)}{8}{8} \\
+				\ganttmilestone{Prototipo Funcional}{8} \ganttnewline[thick, black!20]
+				
+				% --- FASE 3: Validación y Optimización ---
+				\ganttgroup{III. Validación Experimental}{9}{11} \\
+				\ganttbar{Pruebas en Simulación}{9}{10} \\
+				\ganttbar{Comparativa Energética}{10}{10} \\
+				\ganttbar{Pruebas Hardware (HIL)}{10}{11} \\
+				\ganttbar{Ablation Studies}{11}{11} \ganttnewline[thick, black!20]
+				
+				% --- FASE 4: Cierre ---
+				\ganttgroup{IV. Escritura y Defensa}{11}{12} \\
+				\ganttbar{Redacción Tesis/Papers}{11}{12} \\
+				\ganttbar{Preparación Defensa}{12}{12} \\
+				\ganttmilestone{Defensa Final}{12}
+				
+				% --- Relaciones ---
+				%\ganttlink{elem1}{elem2} 
+				%\ganttlink{elem2}{elem5} 
+				%\ganttlink{elem3}{elem9} 
+				%\ganttlink{elem5}{elem6} 
+				%\ganttlink{elem6}{elem7} 
+				%\ganttlink{elem7}{elem8} 
+				%\ganttlink{elem8}{elem10} 
+				%\ganttlink{elem10}{elem11} 
+				%\ganttlink{elem12}{elem14} 
+				
+			\end{ganttchart}
+		}
+	\end{center}
+	
+	
+	\begin{comment}
+	A continuación se muestra un ejemplo de código utilizando el estilo visual mejorado (colores de MATLAB definidos en el preámbulo):
+	
+	\begin{lstlisting}[caption={Algoritmo de control RRT*}, label={lst:rrt}]
+		function [path, tree] = rrt_star(start, goal, map)
+		% Inicialización del árbol
+		tree.nodes = start;
+		tree.parent = 0;
+		
+		for i = 1:max_iter
+		% 1. Samplear punto aleatorio
+		if rand() < goal_bias
+		x_rand = goal;
+		else
+		x_rand = random_state(map);
+		end
+		
+		% 2. Encontrar nodo más cercano
+		[idx_near, dist] = nearest_neighbor(tree, x_rand);
+		
+		% 3. Verificar colisiones (Collision Check)
+		if ~check_collision(tree.nodes(idx_near), x_rand, map)
+		tree = add_node(tree, x_rand, idx_near);
+		end
+		end
+		end
+	\end{lstlisting}
+	\end{comment}
+	% ----------------------------------------------------------------------
+	\section{Resultados esperados}
+	
+	\begin{comment}
+	
+	Las tablas utilizan el paquete `booktabs` para un acabado profesional (sin líneas verticales excesivas):
+	
+	\begin{table}[H]
+		\centering
+		\caption{Comparación de métricas de desempeño.}
+		\label{tab:resultados}
+		\begin{tabular}{lccc}
+			\toprule
+			\textbf{Métrica} & \textbf{Solo Fuzzy} & \textbf{Fuzzy+PID} & \textbf{Completo} \\
+			\midrule
+			Rise Time (s)     & 13.83 & 13.77 & \textbf{6.06} \\
+			Settling Time (s) & 20.73 & 20.60 & 9.85 \\
+			Overshoot (\%)    & 0.00  & 0.00  & 0.00 \\
+			Error ess (m)     & 0.004 & 0.005 & 0.005 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\begin{algorithm}[H]
+		\caption{RRT* Algorithm}
+		\begin{algorithmic}[1]
+			\State Initialize tree $T$ with start node $x_{start}$
+			\For{$i = 1$ to $N_{max}$}
+			\State $x_{rand} \gets$ SampleRandom() \Comment{With goal bias}
+			\State $x_{nearest} \gets$ NearestNode($T$, $x_{rand}$)
+			\State $x_{new} \gets$ Steer($x_{nearest}$, $x_{rand}$, $\eta$)
+			\If{CollisionFree($x_{nearest}$, $x_{new}$)}
+			\State $X_{near} \gets$ NearNodes($T$, $x_{new}$, $r$)
+			\State $x_{min} \gets$ ChooseParent($X_{near}$, $x_{new}$) \Comment{Minimum cost}
+			\State AddNode($T$, $x_{new}$, $x_{min}$)
+			\State Rewire($T$, $X_{near}$, $x_{new}$) \Comment{Optimize tree}
+			\If{Distance($x_{new}$, $x_{goal}$) $<$ $\epsilon$}
+			\State MarkGoalReached()
+			\EndIf
+			\EndIf
+			\EndFor
+			\State \Return ExtractPath($T$, $x_{goal}$)
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\section*{Nomenclatura} % El * evita que salga numerada como sección 1
+	\begin{longtable}{p{2.5cm} p{10cm}}
+		\toprule
+		\textbf{Símbolo} & \textbf{Descripción} \\
+		\midrule
+		$\vect{X}$       & Vector de estado del robot $[x, y, z, \phi, \theta, \psi]^T$ \\
+		$\omega$         & Velocidad angular [rad/s] \\
+		$v$              & Velocidad lineal [m/s] \\
+		$\tau$           & Torque aplicado a las ruedas [Nm] \\
+		$RRT^*$          & Rapidly-exploring Random Tree Star \\
+		\bottomrule
+	\end{longtable}
+	\newpage
+	
+	\end{comment}
+	
+	\section{Conclusiones}
+	Esta plantilla está diseñada para ser flexible. Puedes cambiar entre el idioma inglés y español simplemente ajustando el paquete `babel` en el preámbulo. La geometría de la página está ajustada para aprovechar el papel A4 al máximo, ideal para reportes técnicos densos.
+	
+	% Bibliografía (Si usas BibTeX)
+	% \bibliographystyle{ieeetr}
+	% \bibliography{referencias}
+	
+	\bibliographystyle{IEEEtran}
+	\begin{thebibliography}{1}
+		
+		\bibitem{mildenhall2021nerf}
+		B. Mildenhall, P. P. Srinivasan, M. Tancik, J. T. Barron, R. Ramamoorthi, and R. Ng, ``NeRF: Representing scenes as neural radiance fields for view synthesis,'' \textit{Communications of the ACM}, vol. 65, no. 1, pp. 99--106, 2021.
+		
+		\bibitem{atik2025comparative}
+		M. E. Atik, ``Comparative Assessment of Neural Radiance Fields and 3D Gaussian Splatting for Point Cloud Generation from UAV Imagery,'' \textit{Sensors}, vol. 25, no. 10, p. 2995, 2025.
+		
+		\bibitem{liu2025survey}
+		S. Liu, M. Yang, T. Xing, and R. Yang, ``A Survey of 3D Reconstruction: The Evolution from Multi-View Geometry to NeRF and 3DGS,'' \textit{Sensors}, vol. 25, p. 5748, 2025.
+		
+		\bibitem{kerbl20233dgs}
+		B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, ``3D Gaussian Splatting for Real-Time Radiance Field Rendering,'' \textit{ACM Transactions on Graphics}, vol. 42, no. 4, 2023.
+		
+		\bibitem{zhang2025autonomous}
+		H. X. Zhang, Y. Yang, and Z. Zou, ``Autonomous unmanned aerial vehicles exploration for semantic indoor reconstruction using 3D Gaussian splatting,'' \textit{Data-Centric Engineering}, vol. 6, e38, 2025.
+		
+		\bibitem{horizongs2025}
+		T. Lu et al., ``Horizon-GS: Unified 3D Gaussian Splatting for Large-Scale Aerial-to-Ground Scenes,'' \textit{CVF Open Access}, 2025.
+		
+		\bibitem{cao2024mcgs}
+		Z. Cao et al., ``MCGS-SLAM: A Multi-Camera SLAM Framework Using Gaussian Splatting for High-Fidelity Mapping,'' \textit{arXiv preprint}, 2024.
+		
+		\bibitem{lee2025mvsgs}
+		B. Lee, J. Park, K. T. Giang, S. Jo, and S. Song, ``MVS-GS: High-Quality 3D Gaussian Splatting Mapping via Online Multi-View Stereo,'' \textit{IEEE Access}, vol. 13, pp. 1--13, 2025.
+		
+		\bibitem{dhami2023prednbv}
+		H. Dhami, V. D. Sharma, and P. Tokekar, ``Pred-NBV: Prediction-guided Next-Best-View Planning for 3D Object Reconstruction,'' \textit{arXiv preprint arXiv:2304.11465v2}, 2023.
+		
+		\bibitem{li2024drivingforward}
+		X. Li et al., ``DrivingForward: Feed-forward 3D Gaussian Splatting for Driving Scene Reconstruction from Flexible Surround-view Input,'' \textit{AAAI Publications}, 2025.
+		
+		\bibitem{urbangs2024}
+		Z. Li et al., ``UrbanGS: Semantic-Guided Gaussian Splatting for Urban Scene Reconstruction,'' \textit{arXiv preprint arXiv:2412.03473}, 2024.
+		
+	\end{thebibliography}
+	
+\end{document}
