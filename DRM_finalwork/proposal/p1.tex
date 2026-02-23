@@ -1,0 +1,319 @@
+% !TeX program = pdflatex
+\documentclass[12pt,a4paper]{article}
+
+% ==========================================
+% 1. CODIFICACIÓN E IDIOMA
+% ==========================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel} % 'es-tabla' usa "Tabla" en lugar de "Cuadro"
+
+%gannt conf
+\usepackage{pgfgantt}
+% Definición de colores corporativos/técnicos
+\definecolor{barblue}{RGB}{51, 102, 254}
+\definecolor{groupblue}{RGB}{51, 102, 254}
+\definecolor{linkred}{RGB}{165, 0, 33}
+\setlength{\headheight}{15pt} % Soluciona el warning: \headheight is too small
+
+% ==========================================
+% 2. TIPOGRAFÍA Y GEOMETRÍA
+% ==========================================
+\usepackage{mathpazo} % Fuente Palatino (Elegante y profesional)
+\usepackage[scaled=0.95]{helvet} % Fuente Helvetica para sans-serif
+\usepackage{courier} % Fuente Courier para código
+
+\usepackage{geometry}
+% Márgenes optimizados basados en tus documentos
+\geometry{
+	top=2.3cm,
+	bottom=1.4cm,
+	left=1.7cm,
+	right=1.7cm
+}
+
+\usepackage{microtype} % Mejora sutilmente el espaciado entre letras y palabras
+\usepackage{ragged2e}  % Para justificación de texto mejorada
+
+% ==========================================
+% 3. MATEMÁTICAS Y CIENCIA
+% ==========================================
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{siunitx} % Para unidades del SI correctamente formateadas
+\usepackage{bm}      % Para negritas en matemáticas
+
+% Macros personalizadas
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\abs}[1]{\left|#1\right|}
+
+% ==========================================
+% 4. GRÁFICOS Y FIGURAS
+% ==========================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows.meta, positioning, calc, fit, backgrounds}
+
+% ==========================================
+% 5. TABLAS Y ALGORITMOS
+% ==========================================
+\usepackage{booktabs} % Para tablas profesionales (toprule, midrule, bottomrule)
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+% ==========================================
+% 6. CÓDIGO FUENTE (LISTINGS)
+% ==========================================
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Definición de colores (Estilo MATLAB)
+\definecolor{codeGreen}{rgb}{0,0.6,0}
+\definecolor{codeGray}{rgb}{0.5,0.5,0.5}
+\definecolor{codePurple}{rgb}{0.58,0,0.82}
+\definecolor{backColour}{rgb}{0.97,0.97,0.97} % Gris muy suave de fondo
+
+\lstdefinestyle{professionalStyle}{
+	language=Matlab,
+	backgroundcolor=\color{backColour},
+	commentstyle=\color{codeGreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codeGray},
+	stringstyle=\color{codePurple},
+	basicstyle=\ttfamily\footnotesize, % Fuente monoespaciada pequeña
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=4,
+	frame=single,                    % Marco alrededor del código
+	rulecolor=\color{black!30},      % Color del marco suave
+	escapeinside={\%*}{*)},          % Permite LaTeX dentro del código
+	literate=
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{ñ}{{\~n}}1 {Ñ}{{\~N}}1          % Soporte básico para tildes en código
+}
+
+\lstset{style=professionalStyle}
+
+% ==========================================
+% 7. CABECERAS Y PIES DE PÁGINA
+% ==========================================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Limpia cabeceras y pies actuales
+
+\fancyhead[L]{\footnotesize \textsc{\leftmark}} % Nombre de la sección a la izquierda
+\fancyhead[R]{\textbf{\thepage}}                % Número de página a la derecha
+\renewcommand{\headrulewidth}{0.4pt}            % Línea horizontal superior
+
+% ==========================================
+% 8. HIPERVÍNCULOS (PDF)
+% ==========================================
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,    % Negro para enlaces internos (TOC, Figuras)
+	citecolor=black,    % Negro para citas
+	urlcolor=blue,      % Azul para URLs externas
+	pdfauthor={Brayan Gerson Duran Toconas},
+	pdftitle={Mapeo Autónomo Guiado por Semántica: Revisión de Modelos VLA},
+	pdfpagemode=UseNone,
+}
+
+\usepackage[nameinlink, noabbrev, spanish]{cleveref}
+\usepackage{longtable}
+\usepackage{comment}
+
+% ==========================================
+%  INICIO DEL DOCUMENTO
+% ==========================================
+
+\title{\textbf{Mapeo Autónomo Guiado por Semántica: Revisión de Modelos VLA y su Integración con ViSLAM para Exploración PRed-NBV en el Edge Computing}}
+\author{\textbf{Brayan Gerson Duran Toconas}}
+\date{\today}
+
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\listalgorithmname}{Índice de algoritmos}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		{\scshape\LARGE Universidad Católica Boliviana San Pablo \par}
+		\vspace{1cm}
+		{\scshape\Large Departamento de Ingeniería Mecatrónica \par}
+		\vspace{1.2cm}
+		
+		% TÍTULO NUEVO
+		{\huge\bfseries Mapeo Autónomo Guiado por Semántica: Revisión de Modelos VLA y su Integración con ViSLAM para Exploración PRed-NBV en el Edge Computing. \par}
+		\vspace{1.3cm}
+		
+		% LOGO
+		\includegraphics[width=0.4666\linewidth]{cropped-logo-UCB.png}
+		\vspace{1.3cm}
+		
+		% AUTOR
+		{\Large\itshape Diplomante: Ing. Brayan Gerson Duran Toconas \par}
+		{\Large\itshape Tutor: Ing. Miguel Clavijo \par}
+		
+		\vfill
+		
+		% INFORMACIÓN DEL CURSO / PROYECTO
+		Propuesta de revisión bibliográfica\par
+		Diplomado en Robótica\par
+		
+		\vfill
+		
+		% FECHA
+		{\large \today \par}
+	\end{titlepage}
+	
+	% Resumen
+	\begin{abstract}
+		\noindent El presente documento expone una propuesta de investigación para la obtención del Diploma en Robótica. La monografía propone estructurar el conocimiento sobre la integración de tecnologías de reconstrucción geométrica (VISLAM y 3DGS) con modelos cognitivos de Visión-Lenguaje-Acción (VLA). Se aborda la transición del mapeo tradicional a la exploración semántica predictiva (PRed-NBV) enfocada en el \textit{Edge Computing} para robots móviles o vehículos aéreos no tripulados (UAVs), sentando las bases para sistemas robóticos autónomos y energéticamente eficientes.
+	\end{abstract}
+	
+	\tableofcontents
+	\newpage
+	
+	% ----------------------------------------------------------------------
+	\section{Justificación}
+	\label{sec:justificacion}
+	
+	La exploración autónoma de infraestructuras enfrenta una brecha científica crítica: los sistemas de percepción espacial y mapeo de alta fidelidad (como el emergente \textit{3D Gaussian Splatting} - 3DGS, que supera a NeRF en eficiencia para robótica~\cite{atik2025comparative, liu2025survey3dgs}) operan de forma aislada del razonamiento cognitivo. Aunque los modelos \textit{Vision-Language-Action} (VLA) dotados de comprensión espacial (ej. arquitecturas basadas en Qwen-VL~\cite{bai2025qwen3vl} o Lumo-1~\cite{astribot2025lumo}) superan la navegación ``ciega'' al interpretar instrucciones complejas, suelen depender de nubes computacionales y carecen de noción de incertidumbre geométrica en tiempo real.
+	
+	La realización de este proyecto es necesaria para estructurar el conocimiento hacia una solución unificada de lazo cerrado. El aporte central radica en articular cómo la inteligencia semántica del VLA puede guiar proactivamente la reconstrucción métrica mediante algoritmos predictivos (Pred-NBV o GenNBV~\cite{dhami2023prednbv, chen2024gennbv}) que reducen la entropía del mapa optimizando el esfuerzo de vuelo.
+	
+	A diferencia de revisiones aisladas de SLAM o LLMs, este trabajo se diferencia al enfocarse en la transición hacia el \textit{Edge Computing} en hardware embebido~\cite{zhang2025autonomous}. Al sistematizar técnicas de adaptación de bajos recursos (\textit{Parameter-Efficient Fine-Tuning} - LoRA) y arquitecturas eficientes, el proyecto traza una hoja de ruta para implementar autonomía semántica real.
+	
+	% ----------------------------------------------------------------------
+	\section{Explicación breve del entregable}
+	\label{sec:entregable}
+	
+	El entregable principal será un documento formal de revisión técnica (Monografía) estructurado académicamente. El documento entregará:
+	
+	\begin{enumerate}
+		\item \textbf{Taxonomía teórica:} Clasificación de modelos VLA modernos (ej. integraciones con Qwen-VL~\cite{bai2025qwen3vl}) y su acoplamiento con sistemas de reconstrucción explícita en tiempo real (3DGS-SLAM~\cite{cao2024mcgs}, MVS-GS~\cite{lee2025mvsgs}).
+		\item \textbf{Análisis de viabilidad:} Comparativas sobre eficiencia, latencia y coste computacional aplicando técnicas de cuantización y LoRA para hardware de borde (\textit{Edge Computing}).
+		\item \textbf{Propuesta arquitectónica:} Diagramas que representen el ciclo cerrado entre la percepción métrica densa (3DGS), el razonamiento semántico (VLA) y la exploración activa (Pred-NBV/GenNBV).
+	\end{enumerate}
+	
+	% ----------------------------------------------------------------------
+	\section{Análisis de Métricas y Viabilidad}
+	\label{sec:metricas}
+	
+	Para validar la propuesta arquitectónica y sustentar la transición de sistemas en la nube a dispositivos de borde, el documento analizará exhaustivamente las siguientes métricas extraídas del estado del arte:
+	
+	\subsection{Métricas de Calidad de Reconstrucción y Renderizado (3DGS / VISLAM)}
+	Se evalúa la capacidad del sistema para mapear el entorno con precisión geométrica y visual:
+	\begin{itemize}
+		\item \textbf{PSNR (\textit{Peak Signal-to-Noise Ratio}):} Mide la relación señal-ruido. En aplicaciones urbanas, 3DGS alcanza valores de hasta 28.93 dB, superando métodos clásicos~\cite{lu2025horizongs}.
+		\item \textbf{SSIM (\textit{Structural Similarity Index Measure}):} Evalúa la similitud estructural. Modelos 3DGS logran índices de hasta 0.918~\cite{atik2025comparative}.
+		\item \textbf{LPIPS (\textit{Learned Perceptual Image Patch Similarity}):} 3DGS demuestra puntuaciones bajas (ej. 0.056), lo que indica un altísimo fotorrealismo frente a NeRF~\cite{atik2025comparative}.
+		\item \textbf{Precisión Métrica:} Se analizará el ATE (\textit{Absolute Trajectory Error}) para el SLAM, junto con la \textit{Chamfer Distance} (CD) para la fidelidad de la nube de puntos.
+	\end{itemize}
+	
+	\subsection{Métricas de Eficiencia de Exploración y Planificación (Pred-NBV)}
+	Se cuantifica el ahorro energético logrado por la inteligencia semántica:
+	\begin{itemize}
+		\item \textbf{Tasa de Cobertura y AUC:} Evalúa la rapidez con la que se cubre un objeto.
+		\item \textbf{Ganancia de Puntos Observados:} Algoritmos como Pred-NBV logran observar hasta un 25.46\% más de puntos superficiales en el mismo presupuesto de tiempo~\cite{dhami2023prednbv}.
+		\item \textbf{Longitud de Vuelo vs. Tiempo:} Relación crucial para UAVs, donde un NBV óptimo reduce la distancia en metros sin sacrificar cobertura~\cite{chen2024gennbv}.
+	\end{itemize}
+	
+	\subsection{Métricas de Desempeño Cognitivo y Semántico (Modelos VLA)}
+	Evalúan el "cerebro" del robot:
+	\begin{itemize}
+		\item \textbf{Tasa de Éxito (\textit{Success Rate}):} Modelos avanzados logran tasas superiores al 90\% en transiciones de tareas (\textit{Task Switching})~\cite{li2025switchvla}.
+		\item \textbf{Razonamiento Espacial:} En benchmarks como EmbSpatial, arquitecturas basadas en Qwen2.5-VL alcanzan precisiones entre 75.6\% y 86.3\%~\cite{bai2025qwen3vl, astribot2025lumo}.
+	\end{itemize}
+	
+	\subsection{Métricas de Viabilidad de Hardware (\textit{Edge Computing})}
+	Justifican el despliegue a bordo de UAVs (ej. NVIDIA Jetson):
+	\begin{itemize}
+		\item \textbf{FPS (\textit{Frames Per Second}):} 3DGS permite renderizado superior a 100 FPS (hasta 200 FPS en ciertas configuraciones), frente a los limitados FPS de NeRF~\cite{li2025drivingforward}.
+		\item \textbf{Tiempo de Inferencia:} Reconstrucciones \textit{feed-forward} logran latencias de 0.29 a 0.63 segundos por escena~\cite{li2025drivingforward}.
+		\item \textbf{Uso de VRAM:} Vital para el \textit{Edge Computing}. Se presentarán comparativas como la mostrada en la \cref{tab:comparativa_vram}.
+	\end{itemize}
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Comparativa teórica de Latencia y Consumo VRAM entre arquitecturas.}
+		\label{tab:comparativa_vram}
+		\begin{tabularx}{\textwidth}{l >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+			\toprule
+			\textbf{Arquitectura VLA} & \textbf{Método de Ajuste} & \textbf{Latencia Promedio (s)} & \textbf{Consumo VRAM (GB)} \\
+			\midrule
+			VLA Tradicional (Cloud) & Full Fine-Tuning & $> 2.50$ & $\approx 40 - 80$ \\ \addlinespace
+			VLA Optimizado (Edge) & Cuantización 8-bit + LoRA & $0.60 - 0.85$ & $\approx 8 - 12$ \\
+			\bottomrule
+		\end{tabularx}
+	\end{table}
+	
+
+	% ----------------------------------------------------------------------
+	\section{Conclusiones Esperadas}
+	
+	Se prevé que el documento final consolide el estado del arte demostrando que la integración de modelos VLA optimizados mediante LoRA y sistemas geométricos como 3DGS no solo es viable computacionalmente en hardware de borde, sino que resulta imperativa para la siguiente generación de robots móviles y UAVs en misiones de inspección autónoma y mitigación de riesgos.
+	
+	\newpage
+	% ----------------------------------------------------------------------
+	% BIBLIOGRAFÍA UNIFICADA
+	% ----------------------------------------------------------------------
+	\bibliographystyle{IEEEtran}
+	\begin{thebibliography}{10}
+		
+		\bibitem{liu2025survey3dgs}
+		S. Liu, M. Yang, T. Xing, and R. Yang, ``A Survey of 3D Reconstruction: The Evolution from Multi-View Geometry to NeRF and 3DGS,'' \textit{Sensors}, vol. 25, no. 5748, 2025.
+		
+		\bibitem{atik2025comparative}
+		M. E. Atik, ``Comparative Assessment of Neural Radiance Fields and 3D Gaussian Splatting for Point Cloud Generation from UAV Imagery,'' \textit{Sensors}, vol. 25, no. 10, p. 2995, 2025.
+		
+		\bibitem{bai2025qwen3vl}
+		S. Bai et al., ``Qwen3-VL Technical Report: The most powerful vision-language model in the Qwen model family,'' \textit{arXiv preprint arXiv:2511.21631}, 2025.
+		
+		\bibitem{astribot2025lumo}
+		Astribot Team, ``Mind to Hand: Purposeful Robotic Control via Embodied Reasoning (Lumo-1),'' \textit{arXiv preprint arXiv:2512.08580}, 2025.
+		
+		\bibitem{dhami2023prednbv}
+		H. Dhami, V. D. Sharma, and P. Tokekar, ``Pred-NBV: Prediction-guided Next-Best-View Planning for 3D Object Reconstruction,'' \textit{arXiv preprint arXiv:2304.11465}, 2023.
+		
+		\bibitem{chen2024gennbv}
+		X. Chen, Q. Li, T. Wang, T. Xue, and J. Pang, ``GenNBV: Generalizable Next-Best-View Policy for Active 3D Reconstruction,'' \textit{Shanghai AI Laboratory / CUHK}, 2024.
+		
+		\bibitem{zhang2025autonomous}
+		H. X. Zhang, Y. Yang, and Z. Zou, ``Autonomous unmanned aerial vehicles exploration for semantic indoor reconstruction using 3D Gaussian splatting,'' \textit{Data-Centric Engineering}, vol. 6, e38, 2025.
+		
+		\bibitem{cao2024mcgs}
+		Z. Cao, H. Wu, L. W. Tang, Z. Luo, Z. Zhu, W. Zhang, M. Pollefeys, and M. R. Oswald, ``MCGS-SLAM: A Multi-Camera SLAM Framework Using Gaussian Splatting for High-Fidelity Mapping,'' \textit{arXiv preprint}, 2024.
+		
+		\bibitem{lee2025mvsgs}
+		B. Lee, J. Park, K. T. Giang, S. Jo, and S. Song, ``MVS-GS: High-Quality 3D Gaussian Splatting Mapping via Online Multi-View Stereo,'' \textit{IEEE Access}, vol. 13, pp. 1--13, 2025.
+		
+		\bibitem{lu2025horizongs}
+		T. Lu, M. Yu, L. Xu, Y. Xiangli, L. Wang, D. Lin, and B. Dai, ``Horizon-GS: Unified 3D Gaussian Splatting for Large-Scale Aerial-to-Ground Scenes,'' \textit{CVF Open Access}, 2025.
+		
+		\bibitem{li2025switchvla}
+		G. Li et al., ``SwitchVLA: Execution-Aware Task Switching for Vision-Language-Action Models,'' \textit{X-Humanoid}, 2025.
+		
+		\bibitem{li2025drivingforward}
+		X. Li et al., ``DrivingForward: Feed-forward 3D Gaussian Splatting for Driving Scene Reconstruction from Flexible Surround-view Input,'' \textit{AAAI Publications}, 2025.
+		
+	\end{thebibliography}
+	
+\end{document}
