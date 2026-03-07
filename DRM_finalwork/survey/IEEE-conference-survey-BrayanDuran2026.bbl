@@ -46,8 +46,10 @@ S.~Bai \emph{et~al.}, ``{Qwen3-VL} technical report: The most powerful
   reasoning ({Lumo-1}),'' \emph{arXiv preprint arXiv:2512.08580}, 2025.
 
 \bibitem{li2025switchvla}
-G.~Li \emph{et~al.}, ``{SwitchVLA}: Execution-aware task switching for
-  vision-language-action models,'' \emph{arXiv preprint}, 2025, x-Humanoid.
+M.~Li, Z.~Zhao, Z.~Che, F.~Liao, K.~Wu, Z.~Xu, P.~Ren, Z.~Jin, N.~Liu, and
+  J.~Tang, ``{SwitchVLA}: Execution-aware task switching for
+  vision-language-action models,'' \emph{arXiv preprint}, 2025, beijing
+  Innovation Center of Humanoid Robotics.
 
 \bibitem{chen2024gennbv}
 X.~Chen, Q.~Li, T.~Wang, T.~Xue, and J.~Pang, ``{GenNBV}: Generalizable
@@ -80,5 +82,10 @@ T.~Lu, M.~Yu, L.~Xu, Y.~Xiangli, L.~Wang, D.~Lin, and B.~Dai, ``{Horizon-GS}:
   Unified {3D Gaussian Splatting} for large-scale aerial-to-ground scenes,'' in
   \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
   Recognition (CVPR)}, 2025.
+
+\bibitem{dhami2024mapnbv}
+H.~Dhami, V.~D. Sharma, and P.~Tokekar, ``{MAP-NBV}: Multi-agent
+  prediction-guided next-best-view planning for active {3D} object
+  reconstruction,'' \emph{arXiv preprint}, 2024, university of Maryland.
 
 \end{thebibliography}

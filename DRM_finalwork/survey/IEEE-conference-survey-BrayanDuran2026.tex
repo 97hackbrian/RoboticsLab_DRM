@@ -22,7 +22,7 @@
 % ==============================================================================
 % TITLE
 % ==============================================================================
-\title{Semantic-Guided Autonomous Mapping: A Survey of Vision-Language-Action Models and Their Integration with Visual SLAM for Predictive Next-Best-View Exploration on Edge Devices%
+\title{Autonomous Semantic Mapping on Edge Devices: A Survey of VLA and Predictive NBV%
 \thanks{\rule{0.94\columnwidth}{0.4pt}\\
 Este trabajo fue entregado para su revisi\'{o}n en fecha 7 de marzo de 2026.
 El autor declara que el trabajo es de su completa autor\'{\i}a y referencia adecuadamente otros trabajos.\\[6pt]
@@ -115,9 +115,11 @@ Key evaluation metrics include Absolute Trajectory Error (ATE) for localisation,
 In urban-scale scenes, 3DGS achieves PSNR values of up to 28.93\,dB, SSIM scores of 0.918, and LPIPS as low as 0.056, outperforming NeRF baselines~\cite{atik2025comparative, lu2025horizongs}.
 Liu~et~al.~\cite{liu2025survey3dgs} trace the evolution from classical multi-view geometry through NeRF to 3DGS.
 
+Beyond the high rendering throughput, a critical challenge in infrastructure inspection is the drastic difference in scale and resolution between global aerial views (drone) and close-range terrestrial views (street-level or detailed inspection), which generates conflicts in geometric densification.
+Recent frameworks such as Horizon-GS~\cite{lu2025horizongs} address this limitation by unifying both perspectives through a coarse-to-fine training strategy coupled with Level-of-Detail (LOD) structures, achieving consistent photorealism regardless of the camera distance and perspective.
+
 % TODO: Describe 3DGS representation details (anisotropic Gaussians,
 % spherical harmonics, differentiable alpha-blending).
-% TODO: Discuss Horizon-GS for aerial-to-ground unification~\cite{lu2025horizongs}.
 % TODO: Discuss DrivingForward feed-forward variants (0.29--0.63s per scene
 % latency)~\cite{li2025drivingforward}.
 % TODO: Compare 3DGS vs. NeRF advantages for robotic applications
@@ -172,24 +174,19 @@ Zhang~et~al.~\cite{zhang2025autonomous} demonstrate NBV-driven exploration with 
 \subsection{Closed-Loop Architecture}
 \label{subsec:closed_loop}
 
-% The central contribution: a closed-loop unifying three subsystems:
-% (i) Dense metric perception (ViSLAM + 3DGS)
-% (ii) Cognitive reasoning (VLA model)
-% (iii) Predictive exploration (Pred-NBV / GenNBV)
-%
-% From p1.tex: "solución unificada de lazo cerrado" where "la inteligencia
-% semántica del VLA puede guiar proactivamente la reconstrucción métrica
-% mediante algoritmos predictivos que reducen la entropía del mapa
-% optimizando el esfuerzo de vuelo."
+True autonomy demands that perception and action operate synergistically.
+We propose a continuous five-stage cycle for active exploration:
+\begin{enumerate}
+    \item \textbf{Semantics (VLA):} The model processes complex natural-language instructions (e.g., ``inspect the corrosion''), filters the background, and defines the Region of Interest (ROI)~\cite{astribot2025lumo}.
+    \item \textbf{Localisation (ViSLAM):} A visual SLAM system (such as MCGS-SLAM~\cite{cao2024mcgs}) provides a robust estimate of the UAV pose together with an initial sparse point cloud.
+    \item \textbf{Reconstruction (3DGS):} Using the estimated pose, the explicit Gaussian map is densified and optimised in real time~\cite{liu2025survey3dgs}.
+    \item \textbf{Uncertainty (Pred-NBV):} The planner evaluates the partial 3DGS map to predict the next best view, maximising information gain while minimising flight effort~\cite{dhami2023prednbv}.
+    \item \textbf{Action (Control):} The VLA model validates the safety of the generated trajectory before issuing motor commands to the drone controller, thereby closing the loop~\cite{li2025switchvla}.
+\end{enumerate}
 
-% TODO: Describe the perception module (incremental 3DGS map, rendered views,
-% depth estimates, semantic uncertainty map).
-% TODO: Describe the VLA cognitive module (mission-level objectives in natural
-% language → region-of-interest proposals with semantic priority scores).
-% TODO: Describe how Pred-NBV planner is modulated by VLA semantic priorities
-% to bias viewpoint selection toward salient regions.
 % TODO: Include a block diagram (figure) illustrating the data flow among
-% the three subsystems and their interfaces.
+% the five stages and their interfaces.
+% TODO: Discuss failure modes and fallback strategies within the loop.
 
 % ---- III-B -------------------------------------------------------------------
 \subsection{Edge Computing Deployment}
@@ -224,10 +221,13 @@ Zhang~et~al.~\cite{zhang2025autonomous} have demonstrated the feasibility of 3DG
 \subsection{Semantic Uncertainty Modulation}
 \label{subsec:uncertainty}
 
-% TODO: Formalise how the VLA's spatial understanding (75.6%--86.3% accuracy
-% on EmbSpatial~\cite{bai2025qwen3vl}) modulates the geometric uncertainty
-% map to produce a semantic uncertainty field.
-% TODO: Discuss how this field biases the Pred-NBV objective function.
+Unlike traditional geometric frontier approaches, uncertainty in a 3DGS environment encompasses both geometric and radiometric factors.
+This includes depth estimation uncertainty, position gradients (the magnitude of changes in the Gaussian centres $\mu$ during optimisation), and entropy along rendered rays~\cite{liu2025survey3dgs}.
+In the proposed architecture, the VLA's semantic understanding modulates these uncertainty metrics by assigning a substantially higher probabilistic weight to zones that match the user's instruction.
+Consequently, the system prioritises uncertainty reduction (re-scanning) over critical elements such as pillars or cracks, while ignoring high entropy in semantically irrelevant regions such as the sky or background foliage~\cite{bai2025qwen3vl}.
+
+% TODO: Formalise the mathematical formulation of the semantic-weighted
+% uncertainty field and its integration into the Pred-NBV objective function.
 % TODO: Propose evaluation methodology for semantic-geometric fusion quality.
 
 % ==============================================================================
@@ -308,13 +308,25 @@ Key metrics from the literature:
 
 \subsection{Latency--Accuracy Trade-offs on Edge Devices}
 \label{subsec:disc_latency}
-% TODO: Analyse quantisation-induced accuracy loss vs. latency gains.
-% TODO: Discuss mixed-precision strategies.
+
+The simultaneous deployment of VLA models and 3DGS reconstruction on-board edge devices (e.g., NVIDIA Jetson) presents a severe computational bottleneck.
+While cloud-based systems can accommodate massive models and unconstrained rendering, a UAV operates under strict battery and payload limits, with a typical VRAM budget of 8--12\,GB.
+This makes parameter-efficient adaptations imperative, including LoRA and 8-bit quantisation for VLA models.
+By applying these optimisation techniques, inference latency can be reduced to sub-second levels (0.60--0.85\,s), maintaining a viable balance between the accuracy of semantic actions and the response speed required for safe flight~\cite{zhang2025autonomous}.
+
+% TODO: Discuss mixed-precision strategies and their impact on accuracy.
+% TODO: Present quantitative benchmarks comparing INT8, INT4, and FP16 on Jetson.
 
 \subsection{Dynamic Environments and Scene Changes}
 \label{subsec:disc_dynamic}
-% TODO: Discuss limitations of 3DGS maps in non-static environments.
-% TODO: Review incremental map update strategies.
+
+Operational infrastructures are dynamic environments where inspection priorities may change abruptly.
+Traditional VLA models assume a static intent from start to finish, causing oscillations or failures if the operator modifies the instruction mid-task.
+Recent advances such as SwitchVLA~\cite{li2025switchvla} demonstrate that it is possible to endow the system with reactive \emph{task-switching} capabilities.
+By modelling task changes as a behaviour-modulation problem conditioned on the execution state, the VLA can reverse, advance, or switch tasks fluidly and autonomously with success rates exceeding 90\%, without relying on external planners or manual scripts.
+
+% TODO: Discuss limitations of 3DGS maps with moving objects.
+% TODO: Review incremental Gaussian map update strategies for dynamic scenes.
 
 \subsection{Safety-Critical Certification}
 \label{subsec:disc_safety}
@@ -333,11 +345,24 @@ Key metrics from the literature:
 
 \subsection{Multi-Robot Cooperative Exploration}
 \label{subsec:disc_multirobot}
-% TODO: Discuss task allocation and map merging for multi-UAV systems.
+
+The inspection of massive infrastructures demands scalability, achievable through cooperative deployment of UAV swarms.
+When adapting predictive planning to multiple platforms, a key challenge is the redundant overlap of observed areas.
+Emerging frameworks such as MAP-NBV (Multi-Agent Prediction-guided Next-Best-View)~\cite{dhami2024mapnbv} address this problem by sharing partial observations to build a joint team representation.
+Simulations demonstrate that, by simultaneously optimising joint information gain and control effort, the collaborative method observes on average 22.75\% more unique surface points in its first iteration compared with single-agent predictive approaches.
+
+% TODO: Discuss communication constraints and bandwidth in multi-UAV systems.
+% TODO: Review decentralised vs. centralised map merging strategies.
 
 \subsection{Long-Horizon Mission Planning}
 \label{subsec:disc_longhorizon}
+
+In prolonged, long-horizon mapping missions, traditional decision-making systems are susceptible to state-error accumulation and stagnation in repetitive loops (e.g., scanning the same area repeatedly).
+To mitigate this problem, advanced VLA models such as Lumo-1~\cite{astribot2025lumo} have integrated chain-of-thought reasoning modules that explicitly predict ``sub-task completeness'' before generating a new command.
+By introducing this short-term history and context, the system reliably discriminates already-inspected areas, maintaining exploration consistency over extended time windows.
+
 % TODO: Discuss energy-aware long-horizon planning under battery constraints.
+% TODO: Analyse re-planning strategies when battery levels drop below thresholds.
 
 % ==============================================================================
 % VI. CONCLUSION
