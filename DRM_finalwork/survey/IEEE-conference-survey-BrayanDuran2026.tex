@@ -31,7 +31,7 @@
 La Paz, Bolivia \\
 brayan.duran@ucb.edu.bo}
 \and
-\IEEEauthorblockN{Miguel Clavijo}
+\IEEEauthorblockN{Miguel A. Clavijo Quispe}
 \IEEEauthorblockA{\textit{Department of Mechatronics Engineering} \\
 \textit{Universidad Cat\'{o}lica Boliviana San Pablo}\\
 La Paz, Bolivia \\
@@ -61,31 +61,26 @@ survey, visual SLAM, 3D Gaussian Splatting, vision-language-action models, next-
 \section{Introduction}
 \label{sec:introduction}
 
-Autonomous inspection of built environments---ranging from industrial plants and bridges to disaster-stricken buildings---requires robotic platforms capable of constructing dense, geometrically faithful maps while reasoning about \emph{what} to observe next and \emph{why}.
-Traditional pipelines decouple spatial perception from high-level cognition: a Simultaneous Localisation and Mapping (SLAM) front-end densifies the map, and a separate planner selects viewpoints purely on the basis of geometric information gain~\cite{dhami2023prednbv}.
-This decoupling introduces two critical limitations.
-First, the planner remains ``blind'' to semantic context---it cannot distinguish a crack in a load-bearing column from an irrelevant texture on a floor tile.
-Second, the computational cost of both dense reconstruction and large vision-language models (VLMs) has historically confined these systems to cloud-based deployments, precluding real-time autonomy on weight- and power-constrained platforms such as unmanned aerial vehicles (UAVs).
+Autonomous inspection of built environments requires robotic platforms capable of constructing dense, geometrically faithful maps while reasoning about \emph{what} to observe next and \emph{why}.
+Traditional pipelines decouple spatial perception from high-level cognition: a SLAM front-end densifies the map, and a separate planner selects viewpoints purely on the basis of geometric information gain~\cite{dhami2023prednbv}.
+This decoupling introduces two critical limitations: the planner remains ``blind'' to semantic context, and the computational cost of both dense reconstruction and large vision-language models has historically confined these systems to cloud-based deployments, precluding real-time autonomy on UAVs.
 
-Recent advances across three complementary fronts motivate a re-examination of this architecture.
-On the reconstruction side, 3D~Gaussian Splatting (3DGS) has emerged as a compelling alternative to Neural Radiance Fields (NeRF), achieving superior photorealistic rendering at frame rates exceeding 100\,fps while maintaining competitive geometric accuracy~\cite{liu2025survey3dgs, atik2025comparative}.
-On the cognitive side, Vision-Language-Action (VLA) models---exemplified by architectures grounded in Qwen-VL~\cite{bai2025qwen3vl} and embodied reasoning frameworks such as Lumo-1~\cite{astribot2025lumo}---have demonstrated the ability to interpret complex natural-language instructions with spatial awareness, achieving success rates above 90\% in task-switching benchmarks~\cite{li2025switchvla}.
-On the planning side, predictive Next-Best-View (Pred-NBV) and generalizable NBV (GenNBV) algorithms leverage learned priors to observe up to 25.46\% more surface points within the same time budget compared with classical information-gain planners~\cite{dhami2023prednbv, chen2024gennbv}.
+Recent advances motivate a re-examination of this architecture.
+3D~Gaussian Splatting (3DGS) surpasses NeRF in efficiency for robotic applications~\cite{liu2025survey3dgs, atik2025comparative}.
+Vision-Language-Action (VLA) models---such as those built on Qwen-VL~\cite{bai2025qwen3vl} and Lumo-1~\cite{astribot2025lumo}---interpret complex instructions with spatial awareness, achieving success rates above 90\% in task switching~\cite{li2025switchvla}.
+Predictive NBV algorithms observe up to 25.46\% more surface points within the same budget~\cite{dhami2023prednbv, chen2024gennbv}.
 
-Despite these individual breakthroughs, no existing survey comprehensively addresses their \emph{joint} integration---specifically, how VLA-driven semantic reasoning can close the loop with metric reconstruction and predictive exploration under edge-computing constraints.
-This paper fills that gap by:
-
+This paper fills the gap of a unified survey by:
 \begin{enumerate}
-    \item Providing a structured taxonomy of modern VLA models and their coupling with real-time 3DGS-based SLAM systems (e.g., MCGS-SLAM~\cite{cao2024mcgs}, MVS-GS~\cite{lee2025mvsgs}).
-    \item Analysing the computational feasibility of deploying these architectures on embedded hardware through Low-Rank Adaptation (LoRA) and quantisation strategies~\cite{zhang2025autonomous}.
-    \item Proposing a reference closed-loop architecture that unifies dense metric perception (3DGS), semantic cognition (VLA), and active exploration (Pred-NBV / GenNBV) for energy-efficient autonomous mapping.
+    \item Providing a taxonomy of modern VLA models and their coupling with real-time 3DGS-based SLAM systems (e.g., MCGS-SLAM~\cite{cao2024mcgs}, MVS-GS~\cite{lee2025mvsgs}).
+    \item Analysing computational feasibility on embedded hardware through LoRA and quantisation~\cite{zhang2025autonomous}.
+    \item Proposing a closed-loop architecture unifying dense perception (3DGS), semantic cognition (VLA), and active exploration (Pred-NBV / GenNBV).
 \end{enumerate}
 
-The remainder of this paper is organised as follows.
-Section~\ref{sec:background} surveys the foundational technologies.
-Section~\ref{sec:semantic_mapping} presents the proposed semantic-guided mapping framework.
-Section~\ref{sec:comparative} provides a quantitative comparative analysis.
-Section~\ref{sec:discussion} discusses open challenges, and Section~\ref{sec:conclusion} concludes the paper.
+% TODO: Expand introduction with broader context on infrastructure inspection
+% applications (industrial plants, bridges, disaster scenarios).
+% TODO: Add a paragraph reviewing existing surveys and explicitly stating
+% how this work differs from isolated SLAM or LLM surveys.
 
 % ==============================================================================
 % II. BACKGROUND AND RELATED WORK
@@ -93,66 +88,73 @@ Section~\ref{sec:discussion} discusses open challenges, and Section~\ref{sec:con
 \section{Background and Related Work}
 \label{sec:background}
 
+% ---- II-A --------------------------------------------------------------------
 \subsection{Visual SLAM and 3D Reconstruction}
 \label{subsec:vislam}
 
-Visual Simultaneous Localisation and Mapping (ViSLAM) constitutes the perceptual backbone of autonomous mobile robots.
-Classical feature-based methods (e.g., ORB-SLAM) track sparse landmarks to estimate camera trajectories, whereas direct methods minimise photometric error over dense or semi-dense image regions.
-More recently, learning-based SLAM systems have incorporated deep feature extraction and end-to-end pose regression, improving robustness under challenging illumination and texture-poor conditions.
+Visual SLAM constitutes the perceptual backbone of autonomous mobile robots.
+Multi-camera frameworks such as MCGS-SLAM~\cite{cao2024mcgs} fuse observations from multiple viewpoints into a unified Gaussian map, while MVS-GS~\cite{lee2025mvsgs} combines online multi-view stereo with Gaussian-based scene representations.
+Key evaluation metrics include Absolute Trajectory Error (ATE) for localisation, Chamfer Distance (CD) for geometric fidelity, and rendering indicators such as PSNR, SSIM, and LPIPS~\cite{atik2025comparative}.
 
-A critical evolution is the integration of explicit 3D reconstruction pipelines that produce dense, renderable scene representations.
-Multi-view stereo (MVS) approaches, such as MVS-GS~\cite{lee2025mvsgs}, combine online depth estimation with Gaussian-based scene representations to achieve high-quality mapping at interactive rates.
-Multi-camera SLAM frameworks such as MCGS-SLAM~\cite{cao2024mcgs} further extend fidelity by fusing observations from multiple viewpoints into a unified Gaussian map, enabling high-fidelity reconstruction suitable for downstream inspection tasks.
+% TODO: Expand with classical feature-based methods (e.g., ORB-SLAM, LSD-SLAM).
+% TODO: Discuss direct vs. indirect methods and learning-based SLAM.
+% TODO: Add a taxonomy table of ViSLAM approaches classified by representation
+% (sparse, semi-dense, dense) and front-end type (feature-based, direct, hybrid).
 
-Key evaluation metrics in this domain include the Absolute Trajectory Error (ATE) for localisation accuracy, the Chamfer Distance (CD) for geometric fidelity, and rendering quality indicators such as PSNR, SSIM, and LPIPS~\cite{atik2025comparative}.
-
+% ---- II-B --------------------------------------------------------------------
 \subsection{3D Gaussian Splatting}
 \label{subsec:3dgs}
 
-3D Gaussian Splatting (3DGS) represents scenes as collections of anisotropic 3D Gaussians, each parameterised by a mean position, covariance matrix, opacity, and view-dependent colour encoded via spherical harmonics.
-Rendering is performed through differentiable $\alpha$-blending of the splatted Gaussians, enabling real-time novel-view synthesis at rates exceeding 100\,fps---and up to 200\,fps in optimised configurations---while maintaining photorealistic quality~\cite{li2025drivingforward}.
+3DGS represents scenes as collections of 3D Gaussians, enabling real-time novel-view synthesis at rates exceeding 100\,fps---and up to 200\,fps in optimised configurations~\cite{li2025drivingforward}.
+In urban-scale scenes, 3DGS achieves PSNR values of up to 28.93\,dB, SSIM scores of 0.918, and LPIPS as low as 0.056, outperforming NeRF baselines~\cite{atik2025comparative, lu2025horizongs}.
+Liu~et~al.~\cite{liu2025survey3dgs} trace the evolution from classical multi-view geometry through NeRF to 3DGS.
 
-Compared with NeRF-based implicit representations, 3DGS offers several advantages for robotic applications: (i)~explicit geometry that can be directly queried for collision checking and path planning; (ii)~incremental scene updates without full network retraining; and (iii)~significantly lower inference latency.
-In urban-scale scenes, 3DGS achieves PSNR values of up to 28.93\,dB and SSIM scores of 0.918, with LPIPS as low as 0.056, outperforming NeRF baselines across all perceptual metrics~\cite{atik2025comparative, lu2025horizongs}.
+% TODO: Describe 3DGS representation details (anisotropic Gaussians,
+% spherical harmonics, differentiable alpha-blending).
+% TODO: Discuss Horizon-GS for aerial-to-ground unification~\cite{lu2025horizongs}.
+% TODO: Discuss DrivingForward feed-forward variants (0.29--0.63s per scene
+% latency)~\cite{li2025drivingforward}.
+% TODO: Compare 3DGS vs. NeRF advantages for robotic applications
+% (explicit geometry, incremental updates, lower latency).
 
-Recent works have extended 3DGS to large-scale aerial-to-ground reconstruction.
-Horizon-GS~\cite{lu2025horizongs} unifies multi-altitude observations into a single Gaussian field, enabling seamless transitions between bird's-eye and street-level views.
-Feed-forward variants such as DrivingForward~\cite{li2025drivingforward} eliminate per-scene optimisation entirely, achieving reconstruction latencies between 0.29 and 0.63\,seconds per scene---a critical enabler for real-time autonomous exploration.
-
-A comprehensive survey by Liu~et~al.~\cite{liu2025survey3dgs} traces the evolution from classical multi-view geometry through NeRF to 3DGS, consolidating the theoretical underpinnings and benchmarking methodologies that inform the present work.
-
+% ---- II-C --------------------------------------------------------------------
 \subsection{Vision-Language-Action Models}
 \label{subsec:vla}
 
-Vision-Language-Action (VLA) models extend large vision-language models (VLMs) by incorporating an action output head, enabling end-to-end mapping from visual observations and language instructions to robot control commands.
-These models serve as the ``cognitive brain'' of the robotic system, interpreting high-level mission objectives (e.g., ``inspect the underside of the bridge deck for corrosion'') and translating them into actionable behaviours.
+VLA models extend large vision-language models by incorporating an action output head, mapping visual observations and language instructions to robot control commands.
+Qwen2.5-VL~\cite{bai2025qwen3vl} achieves spatial reasoning accuracies between 75.6\% and 86.3\% on the EmbSpatial benchmark.
+Lumo-1~\cite{astribot2025lumo} integrates purposeful robotic control with multi-modal perception via chain-of-thought reasoning.
+SwitchVLA~\cite{li2025switchvla} achieves task-switching success rates above 90\%.
 
-State-of-the-art VLA architectures build upon powerful VLM backbones.
-Qwen2.5-VL~\cite{bai2025qwen3vl} demonstrates spatial reasoning accuracies between 75.6\% and 86.3\% on the EmbSpatial benchmark, providing a robust foundation for grounded instruction following.
-Lumo-1~\cite{astribot2025lumo}, developed for embodied reasoning, integrates purposeful robotic control with multi-modal perception, enabling complex manipulation and navigation tasks through chain-of-thought reasoning.
+% TODO: Expand with a comprehensive taxonomy table of VLA architectures
+% classified by: backbone VLM, action space, training paradigm, and
+% deployment target (cloud vs. edge).
+% TODO: Discuss grounding mechanisms and how VLAs achieve spatial understanding.
+% TODO: Review additional VLA models beyond Qwen-VL, Lumo-1, SwitchVLA.
 
-A key challenge for deployment on mobile platforms is task switching.
-SwitchVLA~\cite{li2025switchvla} addresses this by introducing execution-aware mechanisms that achieve success rates above 90\% when transitioning between heterogeneous tasks---a capability essential for multi-objective inspection missions where the robot must dynamically reprioritise between mapping, anomaly inspection, and return-to-base objectives.
-
-% TODO: Expand with additional VLA architectures and a taxonomy table
-% classifying models by backbone, action space, and deployment target.
-
+% ---- II-D --------------------------------------------------------------------
 \subsection{Next-Best-View Planning}
 \label{subsec:nbv}
 
-Next-Best-View (NBV) planning determines the optimal sensor placement to maximise information gain per observation, subject to motion and energy constraints.
-Classical NBV approaches rely on volumetric information-gain heuristics computed over an occupancy grid, selecting the viewpoint that maximises expected entropy reduction.
+Pred-NBV~\cite{dhami2023prednbv} learns to predict information gain of candidate viewpoints, observing up to 25.46\% more surface points than conventional planners within the same temporal budget.
+GenNBV~\cite{chen2024gennbv} generalises NBV planning across object categories via a policy network, optimising the flight path length versus coverage trade-off.
+Zhang~et~al.~\cite{zhang2025autonomous} demonstrate NBV-driven exploration with 3DGS-based reconstruction for semantic indoor mapping using autonomous UAVs.
 
-Pred-NBV~\cite{dhami2023prednbv} advances this paradigm by learning to \emph{predict} the information gain of candidate viewpoints using a neural network trained on partial reconstructions.
-This prediction-guided strategy observes up to 25.46\% more surface points than conventional planners within the same temporal budget, while simultaneously reducing unnecessary exploratory motions.
+% TODO: Discuss classical NBV approaches (volumetric information-gain heuristics,
+% occupancy grids, entropy-based viewpoint selection).
+% TODO: Compare frontier-based exploration vs. learned NBV planners.
+% TODO: Discuss energy-aware NBV for battery-constrained UAV missions.
 
-GenNBV~\cite{chen2024gennbv} further generalises NBV planning across object categories by training a policy network on diverse 3D assets, enabling zero-shot transfer to unseen objects.
-The resulting policy optimises the trade-off between flight path length and surface coverage, a metric of paramount importance for battery-constrained UAVs.
+% ---- II-E (NEW) --------------------------------------------------------------
+\subsection{Edge-Optimised Inference for Robotics}
+\label{subsec:edge_inference}
 
-Zhang~et~al.~\cite{zhang2025autonomous} demonstrate the integration of NBV-driven exploration with 3DGS-based reconstruction for semantic indoor mapping using autonomous UAVs, representing one of the first end-to-end systems that couples active view planning with Gaussian scene representations.
-
-% TODO: Add discussion of frontier-based exploration methods and
-% their limitations compared with learned NBV planners.
+% TODO: Review parameter-efficient fine-tuning methods (LoRA, QLoRA, adapters).
+% TODO: Discuss quantisation techniques (INT8, INT4, mixed-precision) and their
+% impact on VLA model accuracy.
+% TODO: Survey edge-computing platforms used in robotics (NVIDIA Jetson family,
+% Intel NCS, Google Coral) and their computational budgets.
+% TODO: Cite Zhang et al.~\cite{zhang2025autonomous} on edge deployment for 3DGS.
 
 % ==============================================================================
 % III. SEMANTIC-GUIDED AUTONOMOUS MAPPING
@@ -160,32 +162,34 @@ Zhang~et~al.~\cite{zhang2025autonomous} demonstrate the integration of NBV-drive
 \section{Semantic-Guided Autonomous Mapping}
 \label{sec:semantic_mapping}
 
+% ---- III-A -------------------------------------------------------------------
 \subsection{Closed-Loop Architecture}
 \label{subsec:closed_loop}
 
-The central contribution of this survey is the articulation of a closed-loop architecture that unifies three subsystems: (i)~a dense metric perception module based on ViSLAM with 3DGS scene representation, (ii)~a cognitive reasoning module instantiated by a VLA model, and (iii)~a predictive exploration module driven by Pred-NBV or GenNBV algorithms.
+% The central contribution: a closed-loop unifying three subsystems:
+% (i) Dense metric perception (ViSLAM + 3DGS)
+% (ii) Cognitive reasoning (VLA model)
+% (iii) Predictive exploration (Pred-NBV / GenNBV)
+%
+% From p1.tex: "solución unificada de lazo cerrado" where "la inteligencia
+% semántica del VLA puede guiar proactivamente la reconstrucción métrica
+% mediante algoritmos predictivos que reducen la entropía del mapa
+% optimizando el esfuerzo de vuelo."
 
-The perception module continuously maintains an incremental 3DGS map, providing the VLA module with rendered views, depth estimates, and a semantic uncertainty map.
-The VLA module interprets mission-level objectives expressed in natural language (e.g., ``prioritise structural joints and load-bearing elements'') and generates region-of-interest proposals annotated with semantic priority scores.
-These proposals modulate the information-gain objective of the Pred-NBV planner, biasing viewpoint selection toward semantically salient regions with high reconstruction uncertainty.
+% TODO: Describe the perception module (incremental 3DGS map, rendered views,
+% depth estimates, semantic uncertainty map).
+% TODO: Describe the VLA cognitive module (mission-level objectives in natural
+% language → region-of-interest proposals with semantic priority scores).
+% TODO: Describe how Pred-NBV planner is modulated by VLA semantic priorities
+% to bias viewpoint selection toward salient regions.
+% TODO: Include a block diagram (figure) illustrating the data flow among
+% the three subsystems and their interfaces.
 
-This closed-loop formulation transforms the exploration problem from a purely geometric optimisation into a \emph{semantically informed} decision-making process.
-The VLA's spatial understanding---demonstrated at accuracies between 75.6\% and 86.3\% on spatial reasoning benchmarks~\cite{bai2025qwen3vl}---enables the system to reason about occluded regions, predict the likely location of inspection-relevant features, and allocate observation budgets accordingly.
-
-% TODO: Include a block diagram (figure) illustrating the data flow
-% among the three subsystems and their interfaces.
-
+% ---- III-B -------------------------------------------------------------------
 \subsection{Edge Computing Deployment}
 \label{subsec:edge}
 
-Deploying the proposed architecture on edge devices such as the NVIDIA Jetson Orin is essential for achieving true on-board autonomy in UAVs and mobile robots.
-The principal bottleneck is the memory footprint and inference latency of VLA models, which in their full-precision, cloud-deployed configurations require 40--80\,GB of VRAM and exhibit inference latencies exceeding 2.50\,seconds.
-
-Two complementary techniques enable viable edge deployment.
-First, \emph{Parameter-Efficient Fine-Tuning} via Low-Rank Adaptation (LoRA) reduces the number of trainable parameters by decomposing weight updates into low-rank matrices, enabling domain-specific adaptation (e.g., to infrastructure inspection) without retraining the full model.
-Second, \emph{8-bit quantisation} compresses model weights from 32-bit floating point to 8-bit integers, reducing VRAM consumption by approximately $4\times$ with minimal accuracy degradation.
-
-Table~\ref{tab:edge_comparison} summarises the expected performance characteristics under cloud and edge deployment scenarios.
+Table~\ref{tab:edge_comparison} summarises the expected performance characteristics under cloud and edge deployment scenarios, based on LoRA fine-tuning and 8-bit quantisation strategies for VLA models.
 
 \begin{table}[htbp]
 \caption{Comparison of VLA Deployment Configurations}
@@ -202,9 +206,23 @@ Edge (Optimised)    & 8-bit + LoRA     & $0.60$--$0.85$ & $8$--$12$ \\
 \end{center}
 \end{table}
 
-The 3DGS rendering pipeline itself is inherently suitable for edge deployment, achieving frame rates above 100\,fps on modern GPUs~\cite{li2025drivingforward}.
-Feed-forward reconstruction variants further reduce per-scene latency to sub-second levels (0.29--0.63\,s), eliminating the iterative optimisation loop that would otherwise dominate on-board computation~\cite{li2025drivingforward}.
-Zhang~et~al.~\cite{zhang2025autonomous} have demonstrated the feasibility of 3DGS-based semantic reconstruction on autonomous UAV platforms, validating that the computational requirements are compatible with current embedded hardware.
+The 3DGS rendering pipeline achieves frame rates above 100\,fps~\cite{li2025drivingforward}, while feed-forward reconstruction variants reduce per-scene latency to 0.29--0.63\,s~\cite{li2025drivingforward}.
+Zhang~et~al.~\cite{zhang2025autonomous} have demonstrated the feasibility of 3DGS-based semantic reconstruction on autonomous UAV platforms.
+
+% TODO: Expand discussion of LoRA mechanics and VRAM reduction factors.
+% TODO: Discuss specific edge platforms (NVIDIA Jetson AGX Orin) and
+% their memory/compute envelopes.
+% TODO: Analyse trade-offs between quantisation level and model accuracy.
+
+% ---- III-C (NEW) -------------------------------------------------------------
+\subsection{Semantic Uncertainty Modulation}
+\label{subsec:uncertainty}
+
+% TODO: Formalise how the VLA's spatial understanding (75.6%--86.3% accuracy
+% on EmbSpatial~\cite{bai2025qwen3vl}) modulates the geometric uncertainty
+% map to produce a semantic uncertainty field.
+% TODO: Discuss how this field biases the Pred-NBV objective function.
+% TODO: Propose evaluation methodology for semantic-geometric fusion quality.
 
 % ==============================================================================
 % IV. COMPARATIVE ANALYSIS
@@ -212,46 +230,69 @@ Zhang~et~al.~\cite{zhang2025autonomous} have demonstrated the feasibility of 3DG
 \section{Comparative Analysis}
 \label{sec:comparative}
 
-This section presents a quantitative synthesis of performance metrics extracted from the surveyed literature, organised along four evaluation axes.
+This section synthesises quantitative performance metrics from the surveyed literature along four evaluation axes.
 
+% ---- IV-A --------------------------------------------------------------------
 \subsection{Reconstruction Quality Metrics}
 \label{subsec:reconstruction_metrics}
 
-The quality of 3DGS-based scene reconstruction is evaluated through three complementary metrics.
-\emph{Peak Signal-to-Noise Ratio} (PSNR) measures pixel-level fidelity; in urban reconstruction tasks, 3DGS achieves values of up to 28.93\,dB, surpassing classical multi-view stereo methods~\cite{lu2025horizongs}.
-\emph{Structural Similarity Index Measure} (SSIM) captures perceptual structural similarity, with 3DGS models attaining scores of 0.918~\cite{atik2025comparative}.
-\emph{Learned Perceptual Image Patch Similarity} (LPIPS) quantifies high-level perceptual differences; 3DGS achieves scores as low as 0.056, indicating photorealistic rendering quality that markedly exceeds NeRF baselines~\cite{atik2025comparative}.
+Key metrics from the literature:
+\begin{itemize}
+    \item \textbf{PSNR:} 3DGS achieves up to 28.93\,dB in urban scenes~\cite{lu2025horizongs}.
+    \item \textbf{SSIM:} Structural similarity scores of 0.918~\cite{atik2025comparative}.
+    \item \textbf{LPIPS:} Perceptual similarity as low as 0.056~\cite{atik2025comparative}.
+    \item \textbf{ATE:} Absolute Trajectory Error for SLAM localisation accuracy.
+    \item \textbf{CD:} Chamfer Distance for point cloud geometric fidelity.
+\end{itemize}
 
-For geometric evaluation, the Absolute Trajectory Error (ATE) assesses localisation accuracy of the underlying SLAM system, while the Chamfer Distance (CD) measures the fidelity of the reconstructed point cloud against ground-truth geometry.
+% TODO: Expand into full comparative table with rows for each surveyed method
+% and columns for PSNR, SSIM, LPIPS, ATE, CD, dataset used.
+% TODO: Discuss which metrics are most relevant for robotic inspection tasks.
 
+% ---- IV-B --------------------------------------------------------------------
 \subsection{Exploration Efficiency Metrics}
 \label{subsec:exploration_metrics}
 
-Exploration efficiency is critical for energy-constrained UAV missions.
-The \emph{Coverage Rate} and its integral, the Area Under the Coverage Curve (AUC), quantify how rapidly the planner achieves full object or scene coverage.
-Pred-NBV~\cite{dhami2023prednbv} demonstrates a 25.46\% improvement in observed surface points relative to classical information-gain planners within identical time budgets.
+Key metrics from the literature:
+\begin{itemize}
+    \item \textbf{Coverage Rate / AUC:} Measures how rapidly the planner achieves full coverage.
+    \item \textbf{Surface Point Gain:} Pred-NBV achieves 25.46\% more observed points~\cite{dhami2023prednbv}.
+    \item \textbf{Flight Path Length vs. Coverage:} GenNBV optimises this trade-off across object categories~\cite{chen2024gennbv}.
+\end{itemize}
 
-The \emph{Flight Path Length} versus coverage trade-off is equally important.
-GenNBV~\cite{chen2024gennbv} optimises this ratio by learning a viewpoint selection policy that transfers across object categories, reducing total flight distance without sacrificing reconstruction completeness---a property directly translatable to extended UAV mission endurance.
+% TODO: Add quantitative comparison table between classical NBV, Pred-NBV,
+% and GenNBV across standard benchmarks.
+% TODO: Discuss energy consumption implications for UAV missions.
 
+% ---- IV-C --------------------------------------------------------------------
 \subsection{Cognitive Performance Metrics}
 \label{subsec:cognitive_metrics}
 
-The cognitive capabilities of VLA models are assessed through task-level success rates and spatial reasoning benchmarks.
-SwitchVLA~\cite{li2025switchvla} achieves task-switching success rates exceeding 90\%, demonstrating robust multi-objective execution.
-On the EmbSpatial benchmark, Qwen2.5-VL~\cite{bai2025qwen3vl} achieves spatial reasoning accuracies between 75.6\% and 86.3\%, while Lumo-1~\cite{astribot2025lumo} exhibits comparable performance with additional chain-of-thought reasoning capabilities.
+Key metrics from the literature:
+\begin{itemize}
+    \item \textbf{Task Switching Success Rate:} SwitchVLA achieves $>90\%$~\cite{li2025switchvla}.
+    \item \textbf{Spatial Reasoning Accuracy:} Qwen2.5-VL achieves 75.6\%--86.3\% on EmbSpatial~\cite{bai2025qwen3vl}; Lumo-1 exhibits comparable performance~\cite{astribot2025lumo}.
+\end{itemize}
 
 % TODO: Add a summary table comparing VLA models across benchmarks
-% (spatial reasoning accuracy, task success rate, inference latency).
+% (spatial reasoning, task success rate, inference latency, model size).
+% TODO: Discuss generalisation capabilities across domains.
 
+% ---- IV-D --------------------------------------------------------------------
 \subsection{Hardware Feasibility Metrics}
 \label{subsec:hardware_metrics}
 
-Hardware feasibility governs the practical deployability of the proposed architecture.
-3DGS rendering achieves frame rates exceeding 100\,fps on desktop GPUs and up to 200\,fps in optimised configurations~\cite{li2025drivingforward}, comfortably above the 30\,fps real-time threshold even when accounting for the reduced throughput of embedded GPUs.
-Feed-forward reconstruction methods achieve inference latencies of 0.29--0.63\,seconds per scene~\cite{li2025drivingforward}, enabling quasi-real-time map updates.
+Key metrics from the literature:
+\begin{itemize}
+    \item \textbf{Rendering FPS:} 3DGS exceeds 100\,fps (up to 200\,fps)~\cite{li2025drivingforward}.
+    \item \textbf{Reconstruction Latency:} Feed-forward methods achieve 0.29--0.63\,s per scene~\cite{li2025drivingforward}.
+    \item \textbf{VLA VRAM:} Cloud $\approx 40$--$80$\,GB $\rightarrow$ Edge $\approx 8$--$12$\,GB (8-bit + LoRA).
+    \item \textbf{VLA Latency:} Cloud $> 2.50$\,s $\rightarrow$ Edge $0.60$--$0.85$\,s.
+\end{itemize}
 
-As summarised in Table~\ref{tab:edge_comparison}, the combination of LoRA fine-tuning and 8-bit quantisation reduces VLA VRAM requirements from $\sim\!80$\,GB to $\sim\!8$--12\,GB, bringing them within the memory envelope of platforms such as the NVIDIA Jetson AGX Orin (32--64\,GB unified memory).
+% TODO: Expand into full table comparing hardware platforms (desktop GPU vs.
+% Jetson AGX Orin vs. Jetson Nano) for each pipeline component.
+% TODO: Discuss thermal and power constraints for UAV deployment.
 
 % ==============================================================================
 % V. DISCUSSION
@@ -259,14 +300,38 @@ As summarised in Table~\ref{tab:edge_comparison}, the combination of LoRA fine-t
 \section{Discussion}
 \label{sec:discussion}
 
-% TODO: Discuss open challenges, including:
-% - Latency-accuracy trade-offs in VLA inference on edge devices
-% - Handling dynamic objects and scene changes in 3DGS maps
-% - Safety-critical certification of VLA-driven exploration
-% - Transferability of Pred-NBV policies to unstructured outdoor environments
-% - Benchmark standardisation for joint perception-cognition-planning evaluation
-% - Multi-robot cooperative semantic exploration
-% - Long-horizon mission planning under energy constraints
+\subsection{Latency--Accuracy Trade-offs on Edge Devices}
+\label{subsec:disc_latency}
+% TODO: Analyse quantisation-induced accuracy loss vs. latency gains.
+% TODO: Discuss mixed-precision strategies.
+
+\subsection{Dynamic Environments and Scene Changes}
+\label{subsec:disc_dynamic}
+% TODO: Discuss limitations of 3DGS maps in non-static environments.
+% TODO: Review incremental map update strategies.
+
+\subsection{Safety-Critical Certification}
+\label{subsec:disc_safety}
+% TODO: Discuss verification and validation challenges for VLA-driven autonomy.
+% TODO: Review regulatory frameworks for autonomous UAV inspection.
+
+\subsection{Transferability to Unstructured Environments}
+\label{subsec:disc_transfer}
+% TODO: Discuss generalisation of Pred-NBV policies from indoor to outdoor.
+% TODO: Review sim-to-real transfer challenges.
+
+\subsection{Benchmark Standardisation}
+\label{subsec:disc_benchmarks}
+% TODO: Propose evaluation protocols that jointly assess perception,
+% cognition, and planning performance.
+
+\subsection{Multi-Robot Cooperative Exploration}
+\label{subsec:disc_multirobot}
+% TODO: Discuss task allocation and map merging for multi-UAV systems.
+
+\subsection{Long-Horizon Mission Planning}
+\label{subsec:disc_longhorizon}
+% TODO: Discuss energy-aware long-horizon planning under battery constraints.
 
 % ==============================================================================
 % VI. CONCLUSION
@@ -274,15 +339,11 @@ As summarised in Table~\ref{tab:edge_comparison}, the combination of LoRA fine-t
 \section{Conclusion}
 \label{sec:conclusion}
 
-This survey has reviewed the convergence of three transformative technologies---3D~Gaussian Splatting for dense real-time reconstruction, Vision-Language-Action models for semantic cognition, and predictive Next-Best-View planning for efficient exploration---toward a unified framework for semantic-guided autonomous mapping.
+This survey has reviewed the convergence of 3D~Gaussian Splatting, Vision-Language-Action models, and predictive Next-Best-View planning toward a unified framework for semantic-guided autonomous mapping.
+The quantitative evidence consolidated from the literature demonstrates that the integration of VLA models optimised via LoRA with geometric systems such as 3DGS is not only computationally feasible on edge hardware (VRAM $\approx 8$--$12$\,GB, latency $< 1$\,s) but imperative for the next generation of mobile robots and UAVs in autonomous inspection missions.
 
-The quantitative evidence consolidated from the literature demonstrates that 3DGS-based SLAM systems achieve photorealistic reconstruction quality (PSNR~$\leq$~28.93\,dB, SSIM~$\leq$~0.918, LPIPS~$\geq$~0.056) at frame rates exceeding 100\,fps, while VLA models attain spatial reasoning accuracies above 75\% and task-switching success rates above 90\%.
-Prediction-guided NBV planners further improve surface coverage by up to 25.46\% under fixed time budgets.
-
-Crucially, the combination of Low-Rank Adaptation and 8-bit quantisation reduces the computational footprint of VLA models to levels compatible with embedded platforms such as the NVIDIA Jetson Orin, with VRAM requirements of 8--12\,GB and inference latencies below one second.
-This computational feasibility, coupled with the inherent efficiency of Gaussian-based rendering, establishes a credible pathway toward fully on-board, semantically aware autonomy for mobile robots and UAVs engaged in infrastructure inspection and autonomous exploration.
-
-Future work should address the open challenges identified in Section~\ref{sec:discussion}, with particular emphasis on safety-critical certification, multi-robot cooperative exploration, and the development of standardised benchmarks that jointly evaluate perception, cognition, and planning performance.
+% TODO: Expand conclusion with specific future work directions.
+% TODO: Summarise key open challenges from Section V.
 
 % ==============================================================================
 % ACKNOWLEDGMENT
