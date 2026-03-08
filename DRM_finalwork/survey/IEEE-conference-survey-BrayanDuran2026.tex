@@ -51,7 +51,7 @@ mclavijo@ucb.edu.bo}
 % ==============================================================================
 \begin{abstract}
 Autonomous exploration of complex infrastructures demands the seamless integration of high-fidelity spatial perception with cognitive reasoning capabilities.
-This survey systematically reviews the convergence of three rapidly evolving research threads: (i)~visual Simultaneous Localisation and Mapping (ViSLAM) augmented with 3D~Gaussian Splatting (3DGS) for real-time, photorealistic scene reconstruction; (ii)~Vision-Language-Action (VLA) foundation models that endow robots with grounded spatial understanding and natural-language instruction following; and (iii)~predictive Next-Best-View (Pred-NBV) planners that minimise exploration entropy under energy-constrained budgets.
+This survey systematically reviews the convergence of three rapidly evolving research threads: (i)~visual inertial Simultaneous Localisation and Mapping (VISLAM) augmented with 3D~Gaussian Splatting (3DGS) for real-time, photorealistic scene reconstruction; (ii)~Vision-Language-Action (VLA) foundation models that endow robots with grounded spatial understanding and natural-language instruction following; and (iii)~predictive Next-Best-View (Pred-NBV) planners that minimise exploration entropy under energy-constrained budgets.
 We articulate how VLA-driven semantic intelligence can proactively guide metric reconstruction through closed-loop Pred-NBV strategies, reducing flight effort while maximising surface coverage.
 Moreover, we analyse the feasibility of deploying these architectures on edge-computing hardware (e.g., NVIDIA~Jetson) via parameter-efficient fine-tuning techniques such as Low-Rank Adaptation (LoRA) and 8-bit quantisation.
 A comparative analysis of reconstruction quality, exploration efficiency, cognitive performance, and hardware utilisation metrics consolidates the state of the art and identifies open challenges toward fully autonomous, semantically aware mobile robots and unmanned aerial vehicles (UAVs).
@@ -78,15 +78,24 @@ Predictive NBV algorithms observe up to 25.46\% more surface points within the s
 
 This paper fills the gap of a unified survey by:
 \begin{enumerate}
-    \item Providing a taxonomy of modern VLA models and their coupling with real-time 3DGS-based SLAM systems (e.g., MCGS-SLAM~\cite{cao2024mcgs}, MVS-GS~\cite{lee2025mvsgs}).
-    \item Analysing computational feasibility on embedded hardware through LoRA and quantisation~\cite{zhang2025autonomous}.
-    \item Proposing a closed-loop architecture unifying dense perception (3DGS), semantic cognition (VLA), and active exploration (Pred-NBV / GenNBV).
+    \item Providing a taxonomy of modern VLA models and their coupling with real-time 3DGS-based SLAM systems (e.g., MCGS-SLAM~\cite{cao2024mcgs}, MVS-GS~\cite{lee2025mvsgs}). Review in section \ref{sec:semantic_mapping}.
+    \item Analysing computational feasibility on embedded hardware through LoRA and quantisation~\cite{zhang2025autonomous}. Review in section \ref{sec:comparative}.
+    \item Proposing a closed-loop architecture unifying dense perception (3DGS), semantic cognition (VLA), and active exploration (Pred-NBV / GenNBV). Review in section \ref{sec:discussion}.
 \end{enumerate}
+
+
+In highly unstructured environments such as open-pit mining, the absence of defined lanes and conventional traffic signals hinders autonomous navigation. Current topographic mapping systems rely on the reconstruction of purely geometric mesh maps to provide a visual interface that allows human operators to manually label road features. This reliance on human-in-the-loop semantic interpretation highlights a critical gap in autonomy. Integrating VLA models eliminates this barrier, automating the extraction of semantics directly from the environment and enabling the vehicle to reason about regions of interest without human intervention, \cite{9921997}.
 
 % TODO: Expand introduction with broader context on infrastructure inspection
 % applications (industrial plants, bridges, disaster scenarios).
 % TODO: Add a paragraph reviewing existing surveys and explicitly stating
 % how this work differs from isolated SLAM or LLM surveys.
+
+
+
+
+
+
 
 % ==============================================================================
 % II. BACKGROUND AND RELATED WORK
@@ -102,6 +111,9 @@ Visual SLAM constitutes the perceptual backbone of autonomous mobile robots.
 Multi-camera frameworks such as MCGS-SLAM~\cite{cao2024mcgs} fuse observations from multiple viewpoints into a unified Gaussian map, while MVS-GS~\cite{lee2025mvsgs} combines online multi-view stereo with Gaussian-based scene representations.
 Key evaluation metrics include Absolute Trajectory Error (ATE) for localisation, Chamfer Distance (CD) for geometric fidelity, and rendering indicators such as PSNR, SSIM, and LPIPS~\cite{atik2025comparative}.
 
+
+
+%aumetar mi referencia
 % TODO: Expand with classical feature-based methods (e.g., ORB-SLAM, LSD-SLAM).
 % TODO: Discuss direct vs. indirect methods and learning-based SLAM.
 % TODO: Add a taxonomy table of ViSLAM approaches classified by representation
@@ -178,7 +190,7 @@ True autonomy demands that perception and action operate synergistically.
 We propose a continuous five-stage cycle for active exploration:
 \begin{enumerate}
     \item \textbf{Semantics (VLA):} The model processes complex natural-language instructions (e.g., ``inspect the corrosion''), filters the background, and defines the Region of Interest (ROI)~\cite{astribot2025lumo}.
-    \item \textbf{Localisation (ViSLAM):} A visual SLAM system (such as MCGS-SLAM~\cite{cao2024mcgs}) provides a robust estimate of the UAV pose together with an initial sparse point cloud.
+    \item \textbf{Localisation (VISLAM):} A visual SLAM system (such as MCGS-SLAM~\cite{cao2024mcgs}) provides a robust estimate of the UAV pose together with an initial sparse point cloud.
     \item \textbf{Reconstruction (3DGS):} Using the estimated pose, the explicit Gaussian map is densified and optimised in real time~\cite{liu2025survey3dgs}.
     \item \textbf{Uncertainty (Pred-NBV):} The planner evaluates the partial 3DGS map to predict the next best view, maximising information gain while minimising flight effort~\cite{dhami2023prednbv}.
     \item \textbf{Action (Control):} The VLA model validates the safety of the generated trajectory before issuing motor commands to the drone controller, thereby closing the loop~\cite{li2025switchvla}.
