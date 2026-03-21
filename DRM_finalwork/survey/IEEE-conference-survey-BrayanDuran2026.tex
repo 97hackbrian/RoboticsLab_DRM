@@ -2,7 +2,6 @@
 
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
-
 % --- Packages ----------------------------------------------------------------
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
@@ -15,25 +14,15 @@
 \usepackage{url}
 \usepackage{hyperref}
 \hypersetup{hidelinks}
-
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows.meta,positioning,shadows,fit,backgrounds}
-
-
-
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-
-
-
 \renewcommand{\today}{\number\day\ de \ifcase\month\or
 	enero\or febrero\or marzo\or abril\or mayo\or junio\or
 	julio\or agosto\or septiembre\or octubre\or noviembre\or diciembre\fi
 	\ de \number\year}
-
-
 \begin{document}
-
 % ==============================================================================
 % TITLE
 % ==============================================================================
@@ -44,7 +33,6 @@ El autor declara que el trabajo es de su completa autor\'{\i}a y referencia adec
 B.~G.~Duran Toconas. Estudiante del Diplomado en Robótica de la carrera de Ingenier\'{\i}a Mecatr\'{o}nica de la Universidad Cat\'{o}lica Boliviana ``San Pablo'', La Paz, Av.~14 de septiembre \#4807, Bolivia (e-mail: brayan.duran.t@ucb.edu.bo).\\[3pt]
 M.~A.~Clavijo Quispe Docente y afiliado al Centro de Investigaci\'{o}n, Desarrollo e Innovaci\'{o}n en Ingenier\'{\i}a Mecatr\'{o}nica de la Universidad Cat\'{o}lica Boliviana ``San Pablo'', La Paz, Av.~14 de septiembre \#4807, Bolivia (e-mail: mclavijo@ucb.edu.bo).}%
 }
-
 \author{
 \IEEEauthorblockN{Brayan G. Duran Toconas}
 \IEEEauthorblockA{\textit{Department of Mechatronics Engineering} \\
@@ -58,7 +46,6 @@ brayan.duran.t@ucb.edu.bo}
 La Paz, Bolivia \\
 mclavijo@ucb.edu.bo}
 }
-
 \maketitle
 
 % ==============================================================================
@@ -71,18 +58,15 @@ We articulate how VLA-driven semantic intelligence can proactively guide metric 
 Moreover, we analyse the feasibility of deploying these architectures on edge-computing hardware (e.g., NVIDIA~Jetson) via parameter-efficient fine-tuning techniques such as Low-Rank Adaptation (LoRA) and 8-bit quantisation.
 A comparative analysis of reconstruction quality, exploration efficiency, cognitive performance, and hardware utilisation metrics consolidates the state of the art and identifies open challenges toward fully autonomous, semantically aware mobile robots and unmanned aerial vehicles (UAVs).
 \end{abstract}
-
 \begin{IEEEkeywords}
 Visual SLAM, 3D Gaussian Splatting, vision-language-action models, next-best-view planning, edge computing, autonomous exploration, UAV
 \end{IEEEkeywords}
-
 % % ==============================================================================
 % I. INTRODUCTION
 % ==============================================================================
 \section{Introduction}
 \label{sec:introduction}
-
-Autonomous inspection of built environments requires robotic platforms capable of constructing dense, geometrically faithful maps while reasoning about \emph{what} to observe next and \emph{why}.
+\IEEEPARstart{A}{utonomous} inspection of built environments requires robotic platforms capable of constructing dense, geometrically faithful maps while reasoning about \emph{what} to observe next and \emph{why}.
 Traditional pipelines decouple spatial perception from high-level cognition: a SLAM front-end densifies the map, and a separate planner selects viewpoints purely on the basis of geometric information gain~\cite{dhami2023prednbv}.
 This decoupling introduces two critical limitations: the planner remains ``blind'' to semantic context, and the computational cost of both dense reconstruction and large vision-language models has historically confined these systems to cloud-based deployments, precluding real-time autonomy on UAVs.
 
@@ -129,13 +113,6 @@ In contrast to the implicit coordinate-based representation of NeRF, 3DGS parame
 Beyond the high rendering throughput, a critical challenge in infrastructure inspection is the drastic difference in scale and resolution between global aerial views (drone) and close-range terrestrial views (street-level or detailed inspection), which generates conflicts in geometric densification.
 Recent frameworks such as Horizon-GS~\cite{lu2025horizongs} address this limitation by unifying both perspectives through a coarse-to-fine training strategy coupled with Level-of-Detail (LOD) structures, achieving consistent photorealism regardless of the camera distance and perspective.
 
-% TODO: Describe 3DGS representation details (anisotropic Gaussians,
-% spherical harmonics, differentiable alpha-blending).
-% TODO: Discuss DrivingForward feed-forward variants (0.29--0.63s per scene
-% latency)~\cite{li2025drivingforward}.
-% TODO: Compare 3DGS vs. NeRF advantages for robotic applications
-% (explicit geometry, incremental updates, lower latency).
-
 % ---- II-C --------------------------------------------------------------------
 \subsection{Vision-Language-Action Models}
 \label{subsec:vla}
@@ -145,12 +122,6 @@ Qwen2.5-VL~\cite{bai2025qwen25vltechnicalreport} achieves spatial reasoning accu
 Lumo-1~\cite{astribot2025lumo} integrates purposeful robotic control with multi-modal perception via chain-of-thought reasoning.
 SwitchVLA~\cite{li2025switchvla} achieves task-switching success rates above 90\%.
 
-% TODO: Expand with a comprehensive taxonomy table of VLA architectures
-% classified by: backbone VLM, action space, training paradigm, and
-% deployment target (cloud vs. edge).
-% TODO: Discuss grounding mechanisms and how VLAs achieve spatial understanding.
-% TODO: Review additional VLA models beyond Qwen-VL, Lumo-1, SwitchVLA.
-
 % ---- II-D --------------------------------------------------------------------
 \subsection{Next-Best-View Planning}
 \label{subsec:nbv}
@@ -158,11 +129,6 @@ SwitchVLA~\cite{li2025switchvla} achieves task-switching success rates above 90\
 Pred-NBV~\cite{dhami2023prednbv} learns to predict information gain of candidate viewpoints, observing up to 25.46\% more surface points than conventional planners within the same temporal budget.
 GenNBV~\cite{chen2024gennbv} generalises NBV planning across object categories via a policy network, optimising the flight path length versus coverage trade-off.
 Zhang~et~al.~\cite{zhang2025autonomous} demonstrate NBV-driven exploration with 3DGS-based reconstruction for semantic indoor mapping using autonomous UAVs.
-
-% TODO: Discuss classical NBV approaches (volumetric information-gain heuristics,
-% occupancy grids, entropy-based viewpoint selection).
-% TODO: Compare frontier-based exploration vs. learned NBV planners.
-% TODO: Discuss energy-aware NBV for battery-constrained UAV missions.
 
 % ---- II-E (NEW) --------------------------------------------------------------
 \subsection{Edge-Optimised Inference for Robotics}
@@ -181,7 +147,6 @@ Beyond GPU-centric optimizations, the landscape of edge inference is rapidly inc
 % ==============================================================================
 \section{Semantic-Guided Autonomous Mapping}
 \label{sec:semantic_mapping}
-
 
 To establish a clear structural foundation before detailing the closed-loop mechanics, Fig. \ref{fig:comprehensive_topology} illustrates the holistic conceptual diagram of the proposed architecture. This diagram delineates the explicit data flow from multimodal sensory acquisition to edge-based control actuation.
 
@@ -249,10 +214,6 @@ We propose a continuous five-stage cycle for active exploration:
     \item \textbf{Action (Control):} The VLA model validates the safety of the generated trajectory before issuing motor commands to the drone controller, thereby closing the loop~\cite{li2025switchvla}.
 \end{enumerate}
 
-% TODO: Include a block diagram (figure) illustrating the data flow among
-% the five stages and their interfaces.
-% TODO: Discuss failure modes and fallback strategies within the loop.
-
 % ---- III-B -------------------------------------------------------------------
 \subsection{Edge Computing Deployment}
 \label{subsec:edge}
@@ -277,11 +238,6 @@ Edge (Optimised)    & 8-bit + LoRA     & $0.60$--$0.85$ & $8$--$12$ \\
 The 3DGS rendering pipeline achieves frame rates above 100\,fps~\cite{li2025drivingforward}, while feed-forward reconstruction variants reduce per-scene latency to 0.29--0.63\,s~\cite{li2025drivingforward}.
 Zhang~et~al.~\cite{zhang2025autonomous} have demonstrated the feasibility of 3DGS-based semantic reconstruction on autonomous UAV platforms.
 
-% TODO: Expand discussion of LoRA mechanics and VRAM reduction factors.
-% TODO: Discuss specific edge platforms (NVIDIA Jetson AGX Orin) and
-% their memory/compute envelopes.
-% TODO: Analyse trade-offs between quantisation level and model accuracy.
-
 % ---- III-C (NEW) -------------------------------------------------------------
 \subsection{Semantic Uncertainty Modulation}
 \label{subsec:uncertainty}
@@ -305,10 +261,6 @@ where:
 \end{itemize}
 
 Consequently, the system prioritises uncertainty reduction (re-scanning) over critical elements such as pillars or cracks where $w_{vla}$ is high, while effectively ignoring high entropy in semantically irrelevant regions such as the sky or background foliage~\cite{bai2025qwen3vl}. This tightly couples the Pred-NBV objective function directly to the cognitive intent of the operator.
-
-% TODO: Formalise the mathematical formulation of the semantic-weighted
-% uncertainty field and its integration into the Pred-NBV objective function.
-% TODO: Propose evaluation methodology for semantic-geometric fusion quality.
 
 % % ==============================================================================
 % IV. COMPARATIVE ANALYSIS
@@ -414,8 +366,6 @@ Table~\ref{tab:vram_comparison} contrasts the computational overhead of traditio
 
 By applying 8-bit quantization and LoRA, VLA VRAM footprints shrink to $8$--$12$\,GB, bringing inference latency down to sub-second levels natively on the edge. Concurrently, feed-forward 3DGS variants can process scene updates in $0.29$--$0.63$\,s~\cite{li2025drivingforward}. This multi-process orchestration proves that the semantic-guided mapping loop is computationally viable today on industrial drones.
 
-
-
 \subsection{State-of-the-Art Synthesis}
 \label{subsec:sota_synthesis}
 
@@ -473,9 +423,6 @@ However, resolving this ``memory wall'' introduces a strict latency-accuracy tra
 
 To mitigate this, edge deployments must adopt asymmetric precision strategies: utilizing INT4 for the heavier vision encoder to maximize throughput, while maintaining INT8 or FP16 for the action-head multi-layer perceptrons (MLPs) to ensure precise motor commands. Ultimately, achieving latencies between $0.60$--$0.85$\,s represents the current viable "sweet spot"—fast enough to safely update the Pred-NBV planner before the drone drifts, yet accurate enough to ensure robust semantic grounding~\cite{zhang2025autonomous}.
 
-% TODO: Discuss mixed-precision strategies and their impact on accuracy.
-% TODO: Present quantitative benchmarks comparing INT8, INT4, and FP16 on Jetson.
-
 \subsection{Dynamic Environments and Scene Changes}
 \label{subsec:disc_dynamic}
 
@@ -485,9 +432,6 @@ Recent advances such as SwitchVLA~\cite{li2025switchvla} demonstrate that it is 
 By modelling task changes as a behaviour-modulation problem conditioned on the execution state, the VLA can reverse, advance, or switch tasks fluidly and autonomously with success rates exceeding 90\%, without relying on external planners or manual scripts.
 
 Despite these advances, standard 3DGS natively assumes static scenes. In active mining sites, moving objects (e.g., excavators, haul trucks) introduce severe visual artifacts into the Gaussian map. Future pipelines must incorporate dynamic masking or 4D Gaussian Splatting (4D-GS) to incrementally update and isolate moving elements from the static topographic reconstruction, ensuring the Pred-NBV planner does not target transient objects.
-
-% TODO: Discuss limitations of 3DGS maps with moving objects.
-% TODO: Review incremental Gaussian map update strategies for dynamic scenes.
 
 To systematically address these dynamic disturbances, the transition from 3DGS to 4D Gaussian Splatting (4D-GS) incorporates a deformation field that maps the canonical Gaussian attributes to temporal states. By utilizing a multi-resolution continuous neural representation to model the temporal evolution of the Gaussians, 4D-GS allows the SLAM backend to distinguish between the static infrastructure and transient agents \cite{11321396}. This spatio-temporal isolation ensures that the predictive planner calculates information gain exclusively on the static topography, drastically reducing the occurrence of hazardous trajectory generation towards moving heavy machinery.
 
@@ -500,7 +444,6 @@ Ensuring safety in safety-critical inspection tasks requires the implementation 
 
 These architectural safety nets utilise Formal Methods or Control Barrier Functions (CBF) to strictly validate the VLA-generated waypoints against the VISLAM-recovered metric geometry before execution. Furthermore, establishing regulatory frameworks for autonomous UAV inspection will necessitate standardized benchmarks, such as the Physical Vulnerability Evaluation Procedures (PVEP), which reveal and mitigate vulnerabilities to adversarial patches or visual distribution shifts, guaranteeing bounded error rates in these semantic-to-metric control pipelines~\cite{cheng2024manipulation}.
 
-
 \subsection{Transferability to Unstructured Environments}
 \label{subsec:disc_transfer}
 
@@ -509,7 +452,6 @@ Training VLA models typically relies on massive, well-structured datasets (e.g.,
 The gap between simulation and reality (sim-to-real transfer) remains a significant hurdle. Pred-NBV policies trained on synthetic indoor datasets often struggle to generalise to unbounded outdoor scenes with varying illumination and severe occlusions. To mitigate this, recent approaches like GenNBV expand the active exploration to a 5D free space combined with multi-source state embeddings (geometric, semantic, and action), enabling better zero-shot generalization to unseen building-scale geometries without being constrained to object-centric capturing~\cite{chen2024gennbv}. 
 
 Furthermore, while domain randomization and synthetic data augmentation are critical for resilience~\cite{zhang2025purevla}, the explicit nature of 3DGS offers a distinct advantage: it allows for rapid, localized fine-tuning of the perception head directly on the target domain using parameter-efficient techniques like LoRA. This adaptability significantly reduces the domain shift compared to purely implicit neural representations (NeRFs) or traditional voxel grids, enabling resilient semantic exploration in dynamically changing industrial environments.
-
 
 Bridging the perception gap for autonomous exploration necessitates robust data infrastructure and algorithms capable of handling real-world disturbances. To overcome the scarcity of annotated 3D data, large-scale simulated point cloud datasets have been introduced to successfully validate the sim-to-real transferability of semantic segmentation and object detection models \cite{10120633}. However, transitioning these perception models to active, real-world operations requires mapping systems that can maintain geometric fidelity in the presence of moving obstacles. To address this, recent visual SLAM frameworks utilizing Gaussian Splatting have integrated adaptive feature extraction and prior image masking strategies to actively filter out dynamic objects, enabling real-time, photorealistic reconstruction even in highly dynamic scenes \cite{11208982}. Together, these advancements in simulated training environments and dynamic-aware SLAM ensure the reliable deployment of spatial policies in unpredictable operational settings.
 
@@ -532,11 +474,7 @@ Simulations demonstrate that, by simultaneously optimising joint information gai
 
 However, multi-UAV coordination is heavily bottlenecked by communication bandwidth. Transmitting dense 3DGS maps across a decentralized swarm is prohibitive in remote industrial sites. Consequently, map merging strategies must evolve to transmit only latent semantic embeddings or sparse Gaussian updates, enabling consensus and collaborative planning without saturating wireless links.
 
-
 To overcome the challenges of decentralized coordination under severe communication and resource constraints, alternative adaptive strategies must be employed. For instance, multi-UAV teams can utilize state-based coordination algorithms that dynamically switch between exploration, rendezvous, and relay behaviors to mitigate unreliable communication networks and limited battery life \cite{7139494}. Rather than relying on continuous data transmission or complex latent consensus, agents can take on specialized, heterogeneous roles—such as acting as stationary communication relays to bridge network gaps, or deliberately sacrificing their return-trip battery to maximize frontier coverage \cite{7139494}. This adaptive behavioral approach provides a highly practical framework for maximizing exploration efficiency in communication-denied environments without the bandwidth overhead of massive data sharing.
-
-% TODO: Discuss communication constraints and bandwidth in multi-UAV systems.
-% TODO: Review decentralised vs. centralised map merging strategies.
 
 \subsection{Long-Horizon Mission Planning}
 \label{subsec:disc_longhorizon}
@@ -546,10 +484,6 @@ To mitigate this problem, advanced VLA models such as Lumo-1~\cite{astribot2025l
 By introducing this short-term history and context, the system reliably discriminates already-inspected areas, maintaining exploration consistency over extended time windows.
 
 Furthermore, energy-aware planning is critical. Pred-NBV planners must integrate battery discharge curves as hard constraints within their objective functions. This ensures the system can autonomously trigger return-to-base maneuvers or re-planning strategies when energy levels drop below critical safety thresholds, rather than abandoning the mission mid-flight.
-
-% TODO: Discuss energy-aware long-horizon planning under battery constraints.
-% TODO: Analyse re-planning strategies when battery levels drop below thresholds.
-
 
 \subsection{Proposed Unified Architecture: The Semantic-Metric Loop}
 \label{subsec:disc_proposed_arch}
@@ -610,21 +544,14 @@ By maintaining all processes on-board via parameter-efficient fine-tuning (LoRA)
 This survey has reviewed the convergence of 3D~Gaussian Splatting, Vision-Language-Action models, and predictive Next-Best-View planning toward a unified framework for semantic-guided autonomous mapping. The quantitative evidence consolidated from the literature demonstrates that the integration of VLA models optimised via LoRA with geometric systems such as 3DGS is not only computationally feasible on edge hardware (VRAM $\approx 8$--$12$\,GB, latency $< 1$\,s) but imperative for the next generation of mobile robots and UAVs in autonomous inspection missions.
 
 However, realizing this vision requires overcoming several open challenges. The sim-to-real transfer gap for semantic policies remains substantial, and robust safety certification frameworks are urgently needed to validate non-deterministic VLA outputs. Furthermore, handling highly dynamic scenes with moving machinery requires the evolution of static 3DGS into 4D representations. Future work should prioritize decentralized multi-agent coordination under bandwidth constraints and energy-aware long-horizon planning. Solving these challenges will ensure that semantic-guided drones can operate persistently and safely in the world's most demanding industrial environments, such as open-pit mining.
-
-% TODO: Expand conclusion with specific future work directions.
-% TODO: Summarise key open challenges from Section V.
-
 % ==============================================================================
 % ACKNOWLEDGMENT
 % ==============================================================================
 \section*{Acknowledgment}
-
 The authors thank the Department of Mechatronics Engineering at Universidad Cat\'{o}lica Boliviana San Pablo for supporting this research within the Robotics Diploma programme.
-
 % ==============================================================================
 % REFERENCES
 % ==============================================================================
 \bibliographystyle{IEEEtranBST2/IEEEtran}
 \bibliography{references}
-
 \end{document}

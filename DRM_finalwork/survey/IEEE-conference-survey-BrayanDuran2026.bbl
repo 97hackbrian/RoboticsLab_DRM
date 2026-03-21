@@ -169,9 +169,9 @@ S.~Bai, K.~Chen, X.~Liu, J.~Wang, W.~Ge, S.~Song, K.~Dang, P.~Wang, S.~Wang,
 \bibitem{zhang2025autonomous}
 \BIBentryALTinterwordspacing
 H.~X. Zhang, Y.~Yang, and Z.~Zou, ``Autonomous unmanned aerial vehicles
-  exploration for semantic indoor reconstruction using {3D Gaussian
-  Splatting},'' \emph{Data-Centric Engineering}, vol.~6, p. e38, 2025.
-  [Online]. Available: \url{https://doi.org/10.1017/dce.2025.10017}
+  exploration for semantic indoor reconstruction using 3d gaussian splatting,''
+  \emph{Data-Centric Engineering}, vol.~6, p. e38, 2025. [Online]. Available:
+  \url{https://doi.org/10.1017/dce.2025.10017}
 \BIBentrySTDinterwordspacing
 
 \bibitem{edge_opt2024}
@@ -208,9 +208,8 @@ Z.~Zhu, Q.~Su, Y.~Ding, K.~Song, S.~Wang, and G.~Pekhimenko, ``{LoRAFusion}:
 \bibitem{vla_concepts_2024}
 \BIBentryALTinterwordspacing
 J.~Zhang, Y.~Hsieh, Z.~Wang, and M.~Zhang, ``{QuantVLA}: Scale-calibrated
-  post-training quantization for vision-language-action models,'' \emph{arXiv
-  preprint arXiv:2502.12345}, 2026. [Online]. Available:
-  \url{https://doi.org/10.48550/arXiv.2602.20309}
+  post-training quantization for vision-language-action models,'' 2026.
+  [Online]. Available: \url{https://doi.org/10.48550/arXiv.2602.20309}
 \BIBentrySTDinterwordspacing
 
 \bibitem{bvm2024jetson}
@@ -281,7 +280,7 @@ R.~Yin \emph{et~al.}, ``Semantic mapping in indoor embodied {AI}: A survey on
 S.~Zhang, Z.~Xu, P.~Liu, X.~Yu, Y.~Li, Q.~Gao, Z.~Fei, Z.~Yin, Z.~Wu, Y.-G.
   Jiang, and X.~Qiu, ``{VLABench}: A large-scale benchmark for
   language-conditioned robotics manipulation with long-horizon reasoning
-  tasks,'' \emph{arXiv preprint arXiv:2410.00425}, 2024. [Online]. Available:
+  tasks,'' 2024. [Online]. Available:
   \url{https://doi.org/10.48550/arXiv.2412.18194}
 \BIBentrySTDinterwordspacing
 
@@ -289,8 +288,8 @@ S.~Zhang, Z.~Xu, P.~Liu, X.~Yu, Y.~Li, Q.~Gao, Z.~Fei, Z.~Yin, Z.~Wu, Y.-G.
 \BIBentryALTinterwordspacing
 H.~Dhami, V.~D. Sharma, and P.~Tokekar, ``{MAP-NBV}: Multi-agent
   prediction-guided next-best-view planning for active {3D} object
-  reconstruction,'' \emph{arXiv preprint arXiv:2403.04781}, 2023. [Online].
-  Available: \url{https://doi.org/10.48550/arXiv.2307.04004}
+  reconstruction,'' 2023. [Online]. Available:
+  \url{https://doi.org/10.48550/arXiv.2307.04004}
 \BIBentrySTDinterwordspacing
 
 \bibitem{7139494}
