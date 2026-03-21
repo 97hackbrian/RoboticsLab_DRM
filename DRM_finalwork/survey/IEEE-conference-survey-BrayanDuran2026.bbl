@@ -220,6 +220,17 @@ J.~Zhang, Y.~Hsieh, Z.~Wang, and M.~Zhang, ``{QuantVLA}: Scale-calibrated
   \url{https://developer.nvidia.com/embedded/jetson-agx-orin}
 \BIBentrySTDinterwordspacing
 
+\bibitem{10938499}
+R.~Jayanth, N.~Gupta, and V.~Prasanna, ``Benchmarking edge ai platforms for
+  high-performance ml inference,'' in \emph{2024 IEEE High Performance Extreme
+  Computing Conference (HPEC)}, Sep. 2024, pp. 1--7.
+
+\bibitem{11321396}
+H.~Ou and Y.~Ji, ``A pose-free approach for 4d gaussian splatting to
+  reconstruct dynamic scenes,'' in \emph{2025 11th International Conference on
+  Control, Decision and Information Technologies (CoDIT)}, vol.~1, July 2025,
+  pp. 2934--2939.
+
 \bibitem{zhang2025safevla}
 \BIBentryALTinterwordspacing
 B.~Zhang, Y.~Zhang, J.~Ji, Y.~Lei, J.~Dai, Y.~Chen, and Y.~Yang, ``{SafeVLA}:
@@ -246,6 +257,17 @@ H.~Cheng, E.~Xiao, C.~Yu, Z.~Yao, J.~Cao, Q.~Zhang, J.~Wang, M.~Sun, K.~Xu, and
   \url{https://arxiv.org/abs/2409.13174}
 \BIBentrySTDinterwordspacing
 
+\bibitem{10120633}
+K.~Saleh, M.~Hossny, A.~Abobakr, M.~Attia, and J.~Iskander, ``Voxelscape: Large
+  scale simulated 3d point cloud dataset of urban traffic environments,''
+  \emph{IEEE Transactions on Intelligent Transportation Systems}, vol.~24,
+  no.~9, pp. 9435--9448, Sep. 2023.
+
+\bibitem{11208982}
+Y.~Liu, K.~Fan, B.~Lan, and H.~Liu, ``Dypho-slam : Real-time photorealistic
+  slam in dynamic environments,'' in \emph{2025 IEEE International Conference
+  on Multimedia and Expo (ICME)}, June 2025, pp. 1--6.
+
 \bibitem{semantic_survey2025}
 \BIBentryALTinterwordspacing
 R.~Yin \emph{et~al.}, ``Semantic mapping in indoor embodied {AI}: A survey on
@@ -270,5 +292,11 @@ H.~Dhami, V.~D. Sharma, and P.~Tokekar, ``{MAP-NBV}: Multi-agent
   reconstruction,'' \emph{arXiv preprint arXiv:2403.04781}, 2023. [Online].
   Available: \url{https://doi.org/10.48550/arXiv.2307.04004}
 \BIBentrySTDinterwordspacing
+
+\bibitem{7139494}
+K.~Cesare, R.~Skeele, S.-H. Yoo, Y.~Zhang, and G.~Hollinger, ``Multi-uav
+  exploration with limited communication and battery,'' in \emph{2015 IEEE
+  International Conference on Robotics and Automation (ICRA)}, May 2015, pp.
+  2230--2235.
 
 \end{thebibliography}

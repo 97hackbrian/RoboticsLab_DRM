@@ -17,7 +17,9 @@
 \hypersetup{hidelinks}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows.meta,positioning,shadows}
+\usetikzlibrary{shapes,arrows.meta,positioning,shadows,fit,backgrounds}
+
+
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -172,11 +174,66 @@ Alongside PEFT, numerical quantization is critical for accelerating inference. B
 
 These algorithmic optimizations synergize with modern edge hardware, most notably the NVIDIA Jetson ecosystem. Platforms such as the Jetson AGX Orin deliver up to 275 TOPS with up to 64GB of unified LPDDR5 memory~\cite{bvm2024jetson}. This unified memory architecture is a critical enabler, allowing the GPU and CPU to share the same physical pool of RAM. This eliminates expensive PCIe data transfers and permits the simultaneous, high-frequency execution of INT8-quantized VLA policies and 3D Gaussian Splatting (3DGS) mapping pipelines directly on-board~\cite{edge_opt2024}.
 
+Beyond GPU-centric optimizations, the landscape of edge inference is rapidly incorporating dedicated Neural Processing Units (NPUs) and heterogeneous System-on-Chips (SoCs). Recent evaluations demonstrate that offloading deterministic matrix multiplications to NPUs while reserving the GPU for differentiable rendering tasks can further reduce the power envelope by up to 40\% \cite{10938499}. This hardware-level partitioning is critical for extending the flight time of UAVs without sacrificing the semantic fidelity of the VLA outputs.
+
 % ==============================================================================
 % III. SEMANTIC-GUIDED AUTONOMOUS MAPPING
 % ==============================================================================
 \section{Semantic-Guided Autonomous Mapping}
 \label{sec:semantic_mapping}
+
+
+To establish a clear structural foundation before detailing the closed-loop mechanics, Fig. \ref{fig:comprehensive_topology} illustrates the holistic conceptual diagram of the proposed architecture. This diagram delineates the explicit data flow from multimodal sensory acquisition to edge-based control actuation.
+
+\begin{figure*}[htbp]
+	\centering
+	\begin{tikzpicture}[
+		>=Latex,
+		font=\sffamily\small,
+		box/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.4cm, align=center, fill=gray!10, drop shadow},
+		data/.style={draw=none, align=center, font=\footnotesize\itshape},
+		group/.style={draw, dashed, inner sep=14pt, rounded corners, fill=gray!5}
+		]
+		
+		% Row 1: Perception to Execution Pipeline
+		\node[box, fill=blue!15] (sensors) {\textbf{Multimodal Sensors} \\ (RGB-D, IMU, LiDAR)};
+		\node[box, fill=red!15, right=2cm of sensors] (slam) {\textbf{3DGS-SLAM Engine} \\ \scriptsize (Geometric \& Radiometric)};
+		\node[box, fill=purple!15, right=2cm of slam] (nbv) {\textbf{Pred-NBV Planner} \\ \scriptsize (Uncertainty Minimisation)};
+		\node[box, fill=orange!15, right=2cm of nbv] (control) {\textbf{Edge Control} \\ \scriptsize (Trajectory Tracking)};
+		
+		% Row 2: Cognitive Semantic Layer
+		\node[box, fill=green!15, below=1.8cm of slam] (vla) {\textbf{VLA Foundation Model} \\ \scriptsize (Semantic Grounding)};
+		\node[data, left=1cm of vla] (prompt) {Human Intent \\ (Natural Language)};
+		
+		% Background Group (Now perfectly isolates the cognitive core without swallowing 'control')
+		\begin{pgfonlayer}{background}
+			\node[group, fit=(slam)(nbv)(vla), label={[anchor=south, font=\bfseries]above:Cognitive Perception \& Planning Core}] {};
+		\end{pgfonlayer}
+		
+		% --- Cleaned Arrow Routing ---
+		
+		% Sensor streams
+		\draw[->, thick] (sensors.east) -- node[above] {Raw Streams} (slam.west);
+		\draw[->, thick] (sensors.south east) -- node[above right, xshift=-0.1cm, yshift=-0.1cm] {Visual Cues} (vla.north west);
+		\draw[->, thick] (prompt.east) -- (vla.west);
+		
+		% SLAM and VLA connections
+		\draw[->, thick] (slam.east) -- node[above] {Explicit Map} node[below] {($\mu, \Sigma, \alpha, SH$)} (nbv.west);
+		\draw[<->, thick] (vla.north) -- node[right, align=left] {Semantic\\ROI} node[left, align=right] {Depth\\Priors} (slam.south);
+		
+		% Control feeds
+		\draw[->, thick] (nbv.east) -- node[above] {Target Poses} (control.west);
+		
+		% VLA to Control (Routed elegantly below NBV)
+		\draw[->, thick] (vla.east) -| node[pos=0.25, above] {Task Constraints} (control.south);
+		
+		% Feedback Loop (Routed cleanly above the entire system as an overarching bracket)
+		\draw[->, thick, dashed] (control.north) -- ++(0,1.2) -| node[pos=0.25, above] {Proprioceptive \& Kinematic Feedback} (sensors.north);
+		
+	\end{tikzpicture}
+	\caption{Comprehensive topology of the semantic-guided autonomous exploration framework, illustrating the data flow, subsystem interactions, and feedback mechanisms.}
+	\label{fig:comprehensive_topology}
+\end{figure*}
 
 % ---- III-A -------------------------------------------------------------------
 \subsection{Closed-Loop Architecture}
@@ -356,6 +413,51 @@ Table~\ref{tab:vram_comparison} contrasts the computational overhead of traditio
 \end{table}
 
 By applying 8-bit quantization and LoRA, VLA VRAM footprints shrink to $8$--$12$\,GB, bringing inference latency down to sub-second levels natively on the edge. Concurrently, feed-forward 3DGS variants can process scene updates in $0.29$--$0.63$\,s~\cite{li2025drivingforward}. This multi-process orchestration proves that the semantic-guided mapping loop is computationally viable today on industrial drones.
+
+
+
+\subsection{State-of-the-Art Synthesis}
+\label{subsec:sota_synthesis}
+
+To consolidate the technological landscape evaluated throughout this section, Table \ref{tab:sota_mapping} and Table \ref{tab:sota_vla} provide extensive cross-sectional summaries of the current state of the art in scene representation methodologies and embodied cognitive models, respectively. These syntheses highlight the trade-offs that dictate deployment feasibility in energy-constrained and highly unstructured environments.
+
+\begin{table*}[htbp]
+	\caption{Synthesis of Scene Representation and Mapping Strategies for Autonomous Exploration}
+	\label{tab:sota_mapping}
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{@{}l l l l l l@{}}
+			\toprule
+			\textbf{Representation Type} & \textbf{Typical Sensors} & \textbf{Key Evaluation Metrics} & \textbf{Primary Advantages} & \textbf{Main Limitations} & \textbf{Edge Readiness} \\
+			\midrule
+			Voxel Grids / Octrees & LiDAR, RGB-D & Map Entropy, Memory Size & Highly deterministic, lightweight, fast & Discretisation artifacts, lacks visual texture & Very High \\
+			NeRF (Implicit) & RGB, Poses & PSNR, SSIM, LPIPS & Photorealistic, continuous resolution & Computationally heavy, slow rendering rates & Low \\
+			3DGS (Explicit) & RGB, IMU & CD, PSNR, FPS ($>100$) & Real-time synthesis, explicit geometry & Memory intensive scaling, scale conflicts & Medium-High \\
+			4DGS (Dynamic) & RGB-D, Event & Temporal Consistency & Handles moving objects natively & Requires complex temporal synchronization & Low-Medium \\
+			Semantic Meshes & LiDAR, Cameras & Intersection over Union (IoU) & Direct topology, standard collision checking & High latency in semantic segmentation fusion & Medium \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table*}
+
+\begin{table*}[htbp]
+	\caption{Comparative Analysis of Vision-Language-Action (VLA) Foundation Models in Robotics}
+	\label{tab:sota_vla}
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{@{}l l l l l@{}}
+			\toprule
+			\textbf{Model Paradigm} & \textbf{Input Modalities} & \textbf{Typical Action Space} & \textbf{Strengths in Exploration Tasks} & \textbf{Deployment Constraints} \\
+			\midrule
+			Generalist VLAs & Text, Images, Video & End-to-end continuous & Exceptional zero-shot generalisation & Requires massive VRAM ($>40$ GB) \\
+			Task-Specific VLAs & Point clouds, Text & Discrete waypoints & High spatial accuracy, domain-tuned & Poor adaptability to untrained scenarios \\
+			Edge-Optimised VLAs & RGB, Text & Primitive execution & Sub-second latency via INT8/LoRA & Degraded reasoning in highly complex queries \\
+			Hierarchical VLAs & Semantics, Metric Data & Safe constrained spaces & Compliant with industrial safety standards (CBF) & High orchestration and system complexity \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table*}
+
 % ==============================================================================
 % V. DISCUSSION
 % ==============================================================================
@@ -387,6 +489,8 @@ Despite these advances, standard 3DGS natively assumes static scenes. In active 
 % TODO: Discuss limitations of 3DGS maps with moving objects.
 % TODO: Review incremental Gaussian map update strategies for dynamic scenes.
 
+To systematically address these dynamic disturbances, the transition from 3DGS to 4D Gaussian Splatting (4D-GS) incorporates a deformation field that maps the canonical Gaussian attributes to temporal states. By utilizing a multi-resolution continuous neural representation to model the temporal evolution of the Gaussians, 4D-GS allows the SLAM backend to distinguish between the static infrastructure and transient agents \cite{11321396}. This spatio-temporal isolation ensures that the predictive planner calculates information gain exclusively on the static topography, drastically reducing the occurrence of hazardous trajectory generation towards moving heavy machinery.
+
 \subsection{Safety-Critical Certification}
 \label{subsec:disc_safety}
 
@@ -407,6 +511,8 @@ The gap between simulation and reality (sim-to-real transfer) remains a signific
 Furthermore, while domain randomization and synthetic data augmentation are critical for resilience~\cite{zhang2025purevla}, the explicit nature of 3DGS offers a distinct advantage: it allows for rapid, localized fine-tuning of the perception head directly on the target domain using parameter-efficient techniques like LoRA. This adaptability significantly reduces the domain shift compared to purely implicit neural representations (NeRFs) or traditional voxel grids, enabling resilient semantic exploration in dynamically changing industrial environments.
 
 
+Bridging the perception gap for autonomous exploration necessitates robust data infrastructure and algorithms capable of handling real-world disturbances. To overcome the scarcity of annotated 3D data, large-scale simulated point cloud datasets have been introduced to successfully validate the sim-to-real transferability of semantic segmentation and object detection models \cite{10120633}. However, transitioning these perception models to active, real-world operations requires mapping systems that can maintain geometric fidelity in the presence of moving obstacles. To address this, recent visual SLAM frameworks utilizing Gaussian Splatting have integrated adaptive feature extraction and prior image masking strategies to actively filter out dynamic objects, enabling real-time, photorealistic reconstruction even in highly dynamic scenes \cite{11208982}. Together, these advancements in simulated training environments and dynamic-aware SLAM ensure the reliable deployment of spatial policies in unpredictable operational settings.
+
 \subsection{Benchmark Standardisation}
 \label{subsec:disc_benchmarks}
 
@@ -425,6 +531,9 @@ Emerging frameworks such as MAP-NBV (Multi-Agent Prediction-guided Next-Best-Vie
 Simulations demonstrate that, by simultaneously optimising joint information gain and control effort, the collaborative method observes on average 22.75\% more unique surface points in its first iteration compared with single-agent predictive approaches.
 
 However, multi-UAV coordination is heavily bottlenecked by communication bandwidth. Transmitting dense 3DGS maps across a decentralized swarm is prohibitive in remote industrial sites. Consequently, map merging strategies must evolve to transmit only latent semantic embeddings or sparse Gaussian updates, enabling consensus and collaborative planning without saturating wireless links.
+
+
+To overcome the challenges of decentralized coordination under severe communication and resource constraints, alternative adaptive strategies must be employed. For instance, multi-UAV teams can utilize state-based coordination algorithms that dynamically switch between exploration, rendezvous, and relay behaviors to mitigate unreliable communication networks and limited battery life \cite{7139494}. Rather than relying on continuous data transmission or complex latent consensus, agents can take on specialized, heterogeneous roles—such as acting as stationary communication relays to bridge network gaps, or deliberately sacrificing their return-trip battery to maximize frontier coverage \cite{7139494}. This adaptive behavioral approach provides a highly practical framework for maximizing exploration efficiency in communication-denied environments without the bandwidth overhead of massive data sharing.
 
 % TODO: Discuss communication constraints and bandwidth in multi-UAV systems.
 % TODO: Review decentralised vs. centralised map merging strategies.
