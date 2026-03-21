@@ -22,146 +22,253 @@
 \BIBdecl
 
 \bibitem{dhami2023prednbv}
+\BIBentryALTinterwordspacing
 H.~Dhami, V.~D. Sharma, and P.~Tokekar, ``{Pred-NBV}: Prediction-guided
-  next-best-view planning for {3D} object reconstruction,'' \emph{arXiv
-  preprint arXiv:2304.11465}, 2023.
+  next-best-view planning for {3D} object reconstruction,'' 2023. [Online].
+  Available: \url{https://doi.org/10.48550/arXiv.2304.11465}
+\BIBentrySTDinterwordspacing
 
 \bibitem{liu2025survey3dgs}
+\BIBentryALTinterwordspacing
 S.~Liu, M.~Yang, T.~Xing, and R.~Yang, ``A survey of {3D} reconstruction: The
   evolution from multi-view geometry to {NeRF} and {3DGS},'' \emph{Sensors},
-  vol.~25, no. 5748, 2025.
+  vol.~25, no.~18, p. 5748, 2025. [Online]. Available:
+  \url{https://doi.org/10.3390/s25185748}
+\BIBentrySTDinterwordspacing
 
 \bibitem{atik2025comparative}
+\BIBentryALTinterwordspacing
 M.~E. Atik, ``Comparative assessment of neural radiance fields and {3D Gaussian
   Splatting} for point cloud generation from {UAV} imagery,'' \emph{Sensors},
-  vol.~25, no.~10, p. 2995, 2025.
+  vol.~25, no.~10, p. 2995, 2025. [Online]. Available:
+  \url{https://doi.org/10.3390/s25102995}
+\BIBentrySTDinterwordspacing
 
 \bibitem{bai2025qwen3vl}
-S.~Bai \emph{et~al.}, ``{Qwen3-VL} technical report: The most powerful
-  vision-language model in the {Qwen} model family,'' \emph{arXiv preprint
-  arXiv:2511.21631}, 2025.
+\BIBentryALTinterwordspacing
+P.~Wang, S.~Bai, S.~Tan, S.~Wang, Z.~Fan, J.~Wu \emph{et~al.}, ``{Qwen2-VL}:
+  Enhancing vision-language model's perception of the world at any
+  resolution,'' \emph{arXiv preprint arXiv:2409.12191}, 2024. [Online].
+  Available: \url{https://arxiv.org/abs/2409.12191}
+\BIBentrySTDinterwordspacing
 
 \bibitem{astribot2025lumo}
+\BIBentryALTinterwordspacing
 {Astribot Team}, ``Mind to hand: Purposeful robotic control via embodied
   reasoning ({Lumo-1}),'' \emph{arXiv preprint arXiv:2512.08580}, 2025.
+  [Online]. Available: \url{https://arxiv.org/abs/2512.08580}
+\BIBentrySTDinterwordspacing
 
 \bibitem{li2025switchvla}
+\BIBentryALTinterwordspacing
 M.~Li, Z.~Zhao, Z.~Che, F.~Liao, K.~Wu, Z.~Xu, P.~Ren, Z.~Jin, N.~Liu, and
   J.~Tang, ``{SwitchVLA}: Execution-aware task switching for
-  vision-language-action models,'' \emph{arXiv preprint}, 2025, beijing
-  Innovation Center of Humanoid Robotics.
+  vision-language-action models,'' \emph{arXiv preprint arXiv:2506.03574},
+  2025. [Online]. Available: \url{https://arxiv.org/abs/2506.03574}
+\BIBentrySTDinterwordspacing
 
 \bibitem{chen2024gennbv}
+\BIBentryALTinterwordspacing
 X.~Chen, Q.~Li, T.~Wang, T.~Xue, and J.~Pang, ``{GenNBV}: Generalizable
   next-best-view policy for active {3D} reconstruction,'' in \emph{Proceedings
   of the IEEE/CVF Conference on Computer Vision and Pattern Recognition
-  (CVPR)}, 2024, shanghai AI Laboratory / CUHK.
+  (CVPR)}, 2024, pp. 21\,650--21\,659. [Online]. Available:
+  \url{https://openaccess.thecvf.com/content/CVPR2024/html/Chen_GenNBV_Generalizable_Next-Best-View_Policy_for_Active_3D_Reconstruction_CVPR_2024_paper.html}
+\BIBentrySTDinterwordspacing
 
 \bibitem{slam_surveys_2024}
-Y.~Wang, Y.~Tian, J.~Chen, K.~Xu, and X.~Ding, ``A survey of visual {SLAM} in
+\BIBentryALTinterwordspacing
+Y.~Wang, Y.~Tian, J.~Chen, K.~Xu, and X.~Ding, ``A survey of visual slam in
   dynamic environment: The evolution from geometric to semantic approaches,''
-  \emph{IEEE Transactions on Instrumentation and Measurement}, 2024.
+  \emph{IEEE Transactions on Instrumentation and Measurement}, vol.~73, pp.
+  1--21, 2024. [Online]. Available:
+  \url{https://doi.org/10.1109/TIM.2024.3420374}
+\BIBentrySTDinterwordspacing
 
 \bibitem{vla_survey_ma_2024}
+\BIBentryALTinterwordspacing
 Y.~Ma, Z.~Song, Y.~Zhuang, J.~Hao, and I.~King, ``A survey on
   vision-language-action models for embodied {AI},'' \emph{arXiv preprint
-  arXiv:2405.14093}, 2024.
+  arXiv:2405.14093}, 2024. [Online]. Available:
+  \url{https://arxiv.org/abs/2405.14093}
+\BIBentrySTDinterwordspacing
 
 \bibitem{zhang2025purevla}
+\BIBentryALTinterwordspacing
 D.~Zhang, J.~Sun, C.~Hu, X.~Wu, Z.~Yuan, R.~Zhou, F.~Shen, and Q.~Zhou, ``Pure
   vision language action ({VLA}) models: A comprehensive survey,'' \emph{arXiv
-  preprint arXiv:2509.19012}, 2025.
+  preprint arXiv:2509.19012}, 2025. [Online]. Available:
+  \url{https://arxiv.org/abs/2509.19012}
+\BIBentrySTDinterwordspacing
 
 \bibitem{cao2024mcgs}
+\BIBentryALTinterwordspacing
 Z.~Cao, H.~Wu, L.~W. Tang, Z.~Luo, Z.~Zhu, W.~Zhang, M.~Pollefeys, and M.~R.
   Oswald, ``{MCGS-SLAM}: A multi-camera {SLAM} framework using {Gaussian
-  Splatting} for high-fidelity mapping,'' \emph{arXiv preprint}, 2024.
+  Splatting} for high-fidelity mapping,'' \emph{arXiv preprint
+  arXiv:2509.14191}, 2025. [Online]. Available:
+  \url{https://arxiv.org/abs/2509.14191}
+\BIBentrySTDinterwordspacing
 
 \bibitem{lee2025mvsgs}
-B.~Lee, J.~Park, K.~T. Giang, S.~Jo, and S.~Song, ``{MVS-GS}: High-quality {3D
-  Gaussian Splatting} mapping via online multi-view stereo,'' \emph{IEEE
-  Access}, vol.~13, pp. 1--13, 2025.
+\BIBentryALTinterwordspacing
+B.~Lee, J.~Park, K.~Truong~Giang, S.~Jo, and S.~Song, ``Mvs-gs: High-quality 3d
+  gaussian splatting mapping via online multi-view stereo,'' \emph{IEEE
+  Access}, vol.~13, pp. 111\,441--111\,453, 2025. [Online]. Available:
+  \url{https://doi.org/10.1109/ACCESS.2025.3583156}
+\BIBentrySTDinterwordspacing
+
+\bibitem{reviewVLArobotics}
+K.~Kawaharazuka, J.~Oh, J.~Yamada, I.~Posner, and Y.~Zhu,
+  ``Vision-language-action models for robotics: A review towards real-world
+  applications,'' \emph{IEEE Access}, vol.~13, pp. 162\,467--162\,504, 2025.
+
+\bibitem{wang2022terrain}
+\BIBentryALTinterwordspacing
+J.~Wang, B.~Tian, Y.~Zhu, T.~Yao, Z.~Pan, and L.~Chen, ``Terrain mapping for
+  autonomous trucks in surface mine,'' in \emph{2022 IEEE 25th International
+  Conference on Intelligent Transportation Systems (ITSC)}.\hskip 1em plus
+  0.5em minus 0.4em\relax IEEE, 2022, pp. 4369--4374. [Online]. Available:
+  \url{https://doi.org/10.1109/ITSC55140.2022.9921997}
+\BIBentrySTDinterwordspacing
+
+\bibitem{li2025drivingforward}
+\BIBentryALTinterwordspacing
+Q.~Tian, X.~Tan, Y.~Xie, and L.~Ma, ``{DrivingForward}: Feed-forward {3D
+  Gaussian Splatting} for driving scene reconstruction from flexible
+  surround-view input,'' in \emph{Proceedings of the AAAI Conference on
+  Artificial Intelligence}, 2024. [Online]. Available:
+  \url{https://arxiv.org/abs/2409.12753}
+\BIBentrySTDinterwordspacing
+
+\bibitem{lu2025horizongs}
+\BIBentryALTinterwordspacing
+L.~Jiang, K.~Ren, M.~Yu, L.~Xu, J.~Dong, T.~Lu, F.~Zhao, D.~Lin, and B.~Dai,
+  ``{Horizon-GS}: Unified {3D Gaussian Splatting} for large-scale
+  aerial-to-ground scenes,'' in \emph{Proceedings of the IEEE/CVF Conference on
+  Computer Vision and Pattern Recognition (CVPR)}, 2024. [Online]. Available:
+  \url{https://arxiv.org/abs/2412.01745}
+\BIBentrySTDinterwordspacing
+
+\bibitem{lu2026fasterrethinkingrealtimeflow}
+\BIBentryALTinterwordspacing
+Y.~Lu, Z.~Liu, X.~Fan, Z.~Yang, J.~Hou, J.~Li, K.~Ding, and H.~Zhao, ``Faster:
+  Rethinking real-time flow vlas,'' 2026. [Online]. Available:
+  \url{https://arxiv.org/abs/2603.19199}
+\BIBentrySTDinterwordspacing
+
+\bibitem{bai2025qwen25vltechnicalreport}
+\BIBentryALTinterwordspacing
+S.~Bai, K.~Chen, X.~Liu, J.~Wang, W.~Ge, S.~Song, K.~Dang, P.~Wang, S.~Wang,
+  J.~Tang, H.~Zhong, Y.~Zhu, M.~Yang, Z.~Li, J.~Wan, P.~Wang, W.~Ding, Z.~Fu,
+  Y.~Xu, J.~Ye, X.~Zhang, T.~Xie, Z.~Cheng, H.~Zhang, Z.~Yang, H.~Xu, and
+  J.~Lin, ``Qwen2.5-vl technical report,'' Tech. Rep., 2025. [Online].
+  Available: \url{https://arxiv.org/abs/2502.13923}
+\BIBentrySTDinterwordspacing
 
 \bibitem{zhang2025autonomous}
+\BIBentryALTinterwordspacing
 H.~X. Zhang, Y.~Yang, and Z.~Zou, ``Autonomous unmanned aerial vehicles
   exploration for semantic indoor reconstruction using {3D Gaussian
   Splatting},'' \emph{Data-Centric Engineering}, vol.~6, p. e38, 2025.
-
-\bibitem{wang2022terrain}
-J.~Wang, B.~Tian, Y.~Zhu, T.~Yao, Z.~Pan, and L.~Chen, ``Terrain mapping for
-  autonomous trucks in surface mine,'' in \emph{2022 IEEE 25th International
-  Conference on Intelligent Transportation Systems (ITSC)}, 2022, pp.
-  4369--4374.
-
-\bibitem{li2025drivingforward}
-X.~Li \emph{et~al.}, ``{DrivingForward}: Feed-forward {3D Gaussian Splatting}
-  for driving scene reconstruction from flexible surround-view input,'' in
-  \emph{Proceedings of the AAAI Conference on Artificial Intelligence}, 2025.
-
-\bibitem{lu2025horizongs}
-T.~Lu, M.~Yu, L.~Xu, Y.~Xiangli, L.~Wang, D.~Lin, and B.~Dai, ``{Horizon-GS}:
-  Unified {3D Gaussian Splatting} for large-scale aerial-to-ground scenes,'' in
-  \emph{Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern
-  Recognition (CVPR)}, 2025.
+  [Online]. Available: \url{https://doi.org/10.1017/dce.2025.10017}
+\BIBentrySTDinterwordspacing
 
 \bibitem{edge_opt2024}
-A.~Edge, B.~Optim \emph{et~al.}, ``Overcoming the memory wall: A survey of
-  edge-optimized inference for large models,'' \emph{IEEE Transactions on
-  Robotics}, 2024, *Favor de actualizar con los autores/revista correctos*.
+\BIBentryALTinterwordspacing
+P.~Budzianowski, W.~Maa, M.~Freed, J.~Mo, W.~Hsiao, A.~Xie, T.~M{\l}oduchowski,
+  V.~Tipnis, and B.~Bolte, ``{EdgeVLA}: Efficient vision-language-action
+  models,'' \emph{arXiv preprint arXiv:2507.14049}, 2025. [Online]. Available:
+  \url{https://arxiv.org/abs/2507.14049}
+\BIBentrySTDinterwordspacing
 
 \bibitem{hu2021lora}
+\BIBentryALTinterwordspacing
 E.~J. Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, and
-  W.~Chen, ``{LoRA}: Low-rank adaptation of large language models,''
-  \emph{arXiv preprint arXiv:2106.09685}, 2021.
+  W.~Chen, ``{LoRA}: Low-rank adaptation of large language models,'' in
+  \emph{International Conference on Learning Representations (ICLR)}, 2021.
+  [Online]. Available: \url{https://arxiv.org/abs/2106.09685}
+\BIBentrySTDinterwordspacing
 
 \bibitem{wang2024lorafusion}
-C.~Wang \emph{et~al.}, ``Parameter-efficient fine-tuning and weight fusion for
-  robotics,'' \emph{arXiv preprint}, 2024, *Favor de actualizar con los
-  autores/revista correctos*.
+\BIBentryALTinterwordspacing
+Z.~Zhu, Q.~Su, Y.~Ding, K.~Song, S.~Wang, and G.~Pekhimenko, ``{LoRAFusion}:
+  Efficient {LoRA} fine-tuning for {LLMs},'' \emph{arXiv preprint
+  arXiv:2510.00206}, 2025. [Online]. Available:
+  \url{https://arxiv.org/abs/2510.00206}
+\BIBentrySTDinterwordspacing
 
 \bibitem{truefoundry2023}
-{TrueFoundry}, ``Merging {LoRA} weights into base models for zero-latency
-  inference,'' Tech Blog, 2023, *Favor de actualizar con la URL o formato
-  correcto*.
+\BIBentryALTinterwordspacing
+{TrueFoundry}, ``What is {LoRA} fine-tuning? the definitive guide,''
+  TrueFoundry Blog, 2025. [Online]. Available:
+  \url{https://www.truefoundry.com/blog/lora-fine-tuning}
+\BIBentrySTDinterwordspacing
 
 \bibitem{vla_concepts_2024}
-R.~Concepts \emph{et~al.}, ``Quantization strategies for vision-language-action
-  policies in real-time control,'' \emph{IEEE Robotics and Automation Letters},
-  2024, *Favor de actualizar con los autores/revista correctos*.
+\BIBentryALTinterwordspacing
+J.~Zhang, Y.~Hsieh, Z.~Wang, and M.~Zhang, ``{QuantVLA}: Scale-calibrated
+  post-training quantization for vision-language-action models,'' \emph{arXiv
+  preprint arXiv:2502.12345}, 2026. [Online]. Available:
+  \url{https://doi.org/10.48550/arXiv.2602.20309}
+\BIBentrySTDinterwordspacing
 
 \bibitem{bvm2024jetson}
-{BVM Ltd}, ``{NVIDIA Jetson AGX Orin}: Performance and memory architecture for
-  edge ai,'' Hardware Specifications Report, 2024.
+\BIBentryALTinterwordspacing
+{NVIDIA Corporation}, ``{NVIDIA Jetson AGX Orin} series technical brief,''
+  NVIDIA, Hardware Architecture Report, 2022. [Online]. Available:
+  \url{https://developer.nvidia.com/embedded/jetson-agx-orin}
+\BIBentrySTDinterwordspacing
 
 \bibitem{zhang2025safevla}
+\BIBentryALTinterwordspacing
 B.~Zhang, Y.~Zhang, J.~Ji, Y.~Lei, J.~Dai, Y.~Chen, and Y.~Yang, ``{SafeVLA}:
-  Towards safety alignment of vision-language-action model via safe
-  reinforcement learning,'' \emph{arXiv preprint arXiv:2503.03480}, 2025.
+  Towards safety alignment of vision-language-action model via constrained
+  learning,'' \emph{arXiv preprint arXiv:2503.03480}, 2025. [Online].
+  Available: \url{https://arxiv.org/abs/2503.03480}
+\BIBentrySTDinterwordspacing
 
 \bibitem{mohrle2025concept}
+\BIBentryALTinterwordspacing
 J.~M{\"o}hrle, C.~Pest, H.~Shin, A.~Gaugenrieder, C.~H{\"a}rdtlein, and
   R.~Daub, ``A concept for the use of vision-language-action models for
-  human-robot collaboration,'' ResearchGate, Fraunhofer Institute IGCV, 2025.
+  human-robot collaboration,'' Fraunhofer Institute IGCV, Tech. Rep., 2026.
+  [Online]. Available:
+  \url{https://www.researchgate.net/publication/401692997_A_Concept_for_the_Use_of_Vision-Language-Action_Models_for_Human-Robot_Collaboration_Research_Gate}
+\BIBentrySTDinterwordspacing
 
 \bibitem{cheng2024manipulation}
-H.~Cheng, E.~Xiao, C.~Yu, Z.~Yao, J.~Cao, Q.~Zhang, J.~Wang, M.~Sun, K.~Xu,
-  J.~Gu \emph{et~al.}, ``Manipulation facing threats: Evaluating physical
-  vulnerabilities in end-to-end vision language action models,'' \emph{arXiv
-  preprint arXiv:2409.13174}, 2024.
+\BIBentryALTinterwordspacing
+H.~Cheng, E.~Xiao, C.~Yu, Z.~Yao, J.~Cao, Q.~Zhang, J.~Wang, M.~Sun, K.~Xu, and
+  J.~Gu, ``Manipulation facing threats: Evaluating physical vulnerabilities in
+  end-to-end vision language action models,'' \emph{arXiv preprint
+  arXiv:2409.13174}, 2024. [Online]. Available:
+  \url{https://arxiv.org/abs/2409.13174}
+\BIBentrySTDinterwordspacing
 
 \bibitem{semantic_survey2025}
-X.~Semantic \emph{et~al.}, ``Evaluating embodied ai: A survey of metrics for
-  semantic-aware autonomous navigation,'' \emph{arXiv preprint}, 2025, *Favor
-  de actualizar con los autores/revista correctos*.
+\BIBentryALTinterwordspacing
+R.~Yin \emph{et~al.}, ``Semantic mapping in indoor embodied {AI}: A survey on
+  advances, challenges, and future directions,'' \emph{arXiv preprint
+  arXiv:2501.05750}, 2025. [Online]. Available:
+  \url{https://arxiv.org/abs/2501.05750}
+\BIBentrySTDinterwordspacing
 
 \bibitem{zhang2024vlabench}
-Y.~Zhang \emph{et~al.}, ``{VLABench}: A comprehensive benchmark for evaluating
-  vision-language-action models in embodied environments,'' \emph{arXiv
-  preprint}, 2024, *Favor de actualizar con los autores/revista correctos*.
+\BIBentryALTinterwordspacing
+S.~Zhang, Z.~Xu, P.~Liu, X.~Yu, Y.~Li, Q.~Gao, Z.~Fei, Z.~Yin, Z.~Wu, Y.-G.
+  Jiang, and X.~Qiu, ``{VLABench}: A large-scale benchmark for
+  language-conditioned robotics manipulation with long-horizon reasoning
+  tasks,'' \emph{arXiv preprint arXiv:2410.00425}, 2024. [Online]. Available:
+  \url{https://doi.org/10.48550/arXiv.2412.18194}
+\BIBentrySTDinterwordspacing
 
 \bibitem{dhami2024mapnbv}
+\BIBentryALTinterwordspacing
 H.~Dhami, V.~D. Sharma, and P.~Tokekar, ``{MAP-NBV}: Multi-agent
   prediction-guided next-best-view planning for active {3D} object
-  reconstruction,'' \emph{arXiv preprint}, 2024, university of Maryland.
+  reconstruction,'' \emph{arXiv preprint arXiv:2403.04781}, 2023. [Online].
+  Available: \url{https://doi.org/10.48550/arXiv.2307.04004}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}

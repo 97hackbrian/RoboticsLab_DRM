@@ -1,3 +1,5 @@
+% !TeX spellcheck = en_US
+
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 
@@ -92,7 +94,7 @@ Over the past five years, numerous surveys have extensively reviewed either robo
 This paper fills the gap of a unified survey by:
 \begin{enumerate}
 	\item Providing a taxonomy of modern VLA models and their coupling with real-time 3DGS-based SLAM systems (e.g., MCGS-SLAM~\cite{cao2024mcgs}, MVS-GS~\cite{lee2025mvsgs}). Review in section \ref{sec:semantic_mapping}.
-	\item Analysing computational feasibility on embedded hardware through LoRA and quantisation~\cite{zhang2025autonomous}. Review in section \ref{sec:comparative}.
+	\item Analysing computational feasibility on embedded hardware through LoRA and quantisation~\cite{reviewVLArobotics}. Review in section \ref{sec:comparative}.
 	\item Proposing a closed-loop architecture unifying dense perception (3DGS), semantic cognition (VLA), and active exploration (Pred-NBV / GenNBV). Review in section \ref{sec:discussion}.
 \end{enumerate}
 
@@ -120,7 +122,7 @@ Key evaluation metrics include Absolute Trajectory Error (ATE) for localisation,
 In urban-scale scenes, 3DGS achieves PSNR values of up to 28.93\,dB, SSIM scores of 0.918, and LPIPS as low as 0.056, outperforming NeRF baselines~\cite{atik2025comparative, lu2025horizongs}.
 Liu~et~al.~\cite{liu2025survey3dgs} trace the evolution from classical multi-view geometry through NeRF to 3DGS.
 
-In contrast to the implicit coordinate-based representation of NeRF, 3DGS parameterizes the scene using a set of anisotropic 3D Gaussians. Each Gaussian is defined by a center position $\mu \in \mathbb{R}^3$, a covariance matrix $\Sigma$ (decomposed into scaling $S$ and rotation $R$ for optimization), an opacity $\alpha$, and color represented via Spherical Harmonics (SH). The rendering process utilizes a differentiable tile-based rasterizer that performs alpha-blending of sorted Gaussians, allowing for explicit geometry extraction and the incremental updates necessary for real-time robotic SLAM.
+In contrast to the implicit coordinate-based representation of NeRF, 3DGS parameterizes the scene using a set of anisotropic 3D Gaussians. Each Gaussian is defined by a center position $\mu \in \mathbb{R}^3$, a covariance matrix $\Sigma$ (decomposed into scaling $S$ and rotation $R$ for optimization), an opacity $\alpha$, and color represented via Spherical Harmonics (SH). The rendering process utilizes a differentiable tile-based rasterizer that performs alpha-blending of sorted Gaussians, allowing for explicit geometry extraction and the incremental updates necessary for real-time robotic SLAM~\cite{lu2026fasterrethinkingrealtimeflow}.
 
 Beyond the high rendering throughput, a critical challenge in infrastructure inspection is the drastic difference in scale and resolution between global aerial views (drone) and close-range terrestrial views (street-level or detailed inspection), which generates conflicts in geometric densification.
 Recent frameworks such as Horizon-GS~\cite{lu2025horizongs} address this limitation by unifying both perspectives through a coarse-to-fine training strategy coupled with Level-of-Detail (LOD) structures, achieving consistent photorealism regardless of the camera distance and perspective.
@@ -137,7 +139,7 @@ Recent frameworks such as Horizon-GS~\cite{lu2025horizongs} address this limitat
 \label{subsec:vla}
 
 VLA models extend large vision-language models by incorporating an action output head, mapping visual observations and language instructions to robot control commands.
-Qwen2.5-VL~\cite{bai2025qwen3vl} achieves spatial reasoning accuracies between 75.6\% and 86.3\% on the EmbSpatial benchmark.
+Qwen2.5-VL~\cite{bai2025qwen25vltechnicalreport} achieves spatial reasoning accuracies between 75.6\% and 86.3\% on the EmbSpatial benchmark.
 Lumo-1~\cite{astribot2025lumo} integrates purposeful robotic control with multi-modal perception via chain-of-thought reasoning.
 SwitchVLA~\cite{li2025switchvla} achieves task-switching success rates above 90\%.
 
@@ -321,7 +323,7 @@ Evaluating the "intelligence" of VLA models requires benchmarks that measure spa
 			\toprule
 			\textbf{Model} & \textbf{Backbone} & \textbf{Spatial Acc.} & \textbf{Switch Success} \\
 			\midrule
-			Qwen2.5-VL~\cite{bai2025qwen3vl} & Qwen-7B/14B & $75.6\%$--$86.3\%$ & N/A \\
+			Qwen2.5-VL~\cite{bai2025qwen25vltechnicalreport} & Qwen-7B/14B & $75.6\%$--$86.3\%$ & N/A \\
 			Lumo-1~\cite{astribot2025lumo}   & Multimodal  & Comparable & N/A \\
 			SwitchVLA~\cite{li2025switchvla} & Custom      & $\approx 82.1\%$ & $\mathbf{> 90\%}$ \\
 			\bottomrule
