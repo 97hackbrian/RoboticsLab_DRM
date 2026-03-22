@@ -1,0 +1,517 @@
+% !TeX program = lualatex
+% !TeX spellcheck = es
+\documentclass[aspectratio=169]{beamer}
+
+% ==== Paquetes ====
+\usepackage{iftex}
+
+\ifPDFTeX
+\usepackage[utf8]{inputenc} % Solo para pdfLaTeX
+\fi
+
+\ifXeTeX
+\usepackage{fontspec}       % Solo para XeLaTeX
+\fi
+
+\ifLuaTeX
+\usepackage{fontspec}       % Solo para LuaLaTeX
+\fi
+
+\usepackage[spanish]{babel}        % Idioma español
+\usepackage{graphicx}              % Insertar imágenes
+\usepackage{xcolor}                % Colores
+\usepackage{ragged2e}              % Justificar texto a la izquierda
+\usepackage{lipsum}                % Texto de prueba
+\usepackage{comment}
+\usepackage{subcaption}            % Para subfiguras numeradas
+\usepackage{tabularx}
+\usepackage{csquotes}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta,positioning,shadows,fit,backgrounds}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+
+\usepackage[backend=biber,style=ieee]{biblatex}
+\addbibresource{references_mephisto.bib}
+
+\usepackage{setspace}
+
+% ==== Configuración de fuentes ====
+\setsansfont{Nunito-Light}      % Fuente principal para texto y cabecera superior
+\newfontfamily\arial{Arial}        % Arial para títulos y subtítulos
+
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+% Aplicar Arial a títulos y subtítulos
+\setbeamerfont{frametitle}{family=\arial, size=\Large}
+\setbeamerfont{section title}{family=\arial, size=\large}
+\setbeamerfont{subsection title}{family=\arial, size=\normalsize}
+
+\setbeamerfont{bibliography}{size=\scriptsize}
+\setbeamerfont{bibliography entry author}{size=\scriptsize}
+\setbeamerfont{bibliography entry title}{size=\scriptsize}
+\setbeamerfont{bibliography entry journal}{size=\scriptsize}
+\setbeamerfont{bibliography entry note}{size=\scriptsize}
+
+\setbeamerfont{section in toc}{family=\arial, size=\small}
+\setbeamerfont{subsection in toc}{family=\arial, size=\tiny}
+
+\setbeamerfont{caption subcaption}{size=\Tiny}
+
+% Colores para ítems
+\setbeamercolor{itemize item}{fg=ucbCeleste}
+\setbeamercolor{frametitle}{fg=ucbCeleste}%Configura el color (foreground)
+
+\setbeamercolor{itemize subitem}{fg=ucbCeleste}
+\setbeamercolor{itemize subsubitem}{fg=ucbCeleste2}
+
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=ucbCeleste2}
+
+% ==== Tema base y configuración ====
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{} % Quitar íconos de navegación
+
+% ==== Colores personalizados ====
+\definecolor{ucbCeleste2}{RGB}{90,160,219}
+\definecolor{ucbCeleste}{RGB}{100,170,203}
+\definecolor{grisFondo}{RGB}{80,80,80}
+\definecolor{plomo}{gray}{0.55}  % Gris oscuro (0 negro, 1 blanco)
+
+% Color plomo para elementos de cabecera
+\setbeamercolor{section in head/foot}{fg=plomo,bg=white}
+\setbeamercolor{subsection in head/foot}{fg=plomo,bg=white}
+
+% ===== CONFIGURACIÓN DE CAPTIONS =====
+\usepackage{caption} % Paquete esencial
+\captionsetup[figure]{
+	font=scriptsize,       % Tamaño de fuente
+	labelfont=bf,          % "Figura X" en negrita
+	labelsep=space,        % Separación entre label y texto
+	justification=centering, % Alineación centrada
+	singlelinecheck=off
+}
+
+% Configuración específica para figuras
+\captionsetup[figure]{
+	name=Figura,
+	labelformat=simple,
+	labelsep=colon
+}
+
+% Configuración para subfiguras
+\captionsetup[subfigure]{
+	font=tiny,
+	labelfont=bf,
+	labelformat=simple,
+	labelsep=space,
+	justification=centering
+}
+
+\captionsetup[table]{
+	font=scriptsize,
+	labelfont=bf,
+	labelsep=colon,
+	justification=centering,
+	name=Tabla,  % Esto hace que aparezca "Tabla" en lugar de "Cuadro",
+	labelformat=simple
+}
+\setbeamertemplate{caption}[numbered] % Aplica a tablas también
+
+\setbeamertemplate{caption label}[numbered]
+\DeclareCaptionLabelFormat{beamernumber}{#2}
+\captionsetup{labelformat=beamernumber}
+
+% Estilo Beamer para captions
+\setbeamertemplate{caption}{%
+	\raggedright\insertcaption\par%
+}
+
+% Numeración de figuras
+\setbeamertemplate{caption label}[numbered] % Opcional: muestra "Figura 1:"
+
+% Ajuste de espacio
+\setlength{\abovecaptionskip}{6pt} % Espacio antes del caption
+\setlength{\belowcaptionskip}{0pt} % Espacio después del caption
+
+% Cabecera superior con texto en color plomo
+\setbeamertemplate{headline}{
+	\leavevmode
+	\vskip7ex
+	\hbox{%
+		\begin{beamercolorbox}[wd=0.4\paperwidth,ht=1ex,dp=0.1ex,left]{section in head/foot}
+			\hspace{2em} {\tiny \sffamily DIPLOMADO EN ROBÓTICA 2026}
+		\end{beamercolorbox}%
+		\begin{beamercolorbox}[wd=0.567\paperwidth,ht=0.5ex,dp=0.1ex,right]{subsection in head/foot}
+			{\tiny \sffamily DIPLOMANTE: Ing. BRAYAN GERSON DURAN TOCONAS}\newline
+			{\Tiny TUTOR: Ing. MIGUEL A. CLAVIJO QUISPE\newline}
+			
+		\end{beamercolorbox}%
+	}
+	\vspace{-1.5ex}
+	\begin{center}
+		{\color{ucbCeleste} \rule{0.94\textwidth}{0.5pt}}
+		\vspace{-3.7ex} %-2.4
+	\end{center}
+}
+
+% ==== Pie de página institucional con fondo gris oscuro ====
+\setbeamertemplate{footline}{
+	\leavevmode
+	
+	\hfill
+	
+	\raisebox{2pt}{\hspace{0.968\textwidth} \color{black}\scriptsize \arial \normalsize \color{plomo} \insertframenumber}%
+	%\hspace{90pt}%
+	\newline
+	\colorbox{grisFondo}{%
+		\parbox[c][0.55cm][c]{\paperwidth}{%
+			\hbox{%
+				\begin{minipage}[c][1.6cm][c]{0.33\paperwidth}
+					\raggedright
+					\vspace{1ex}
+					% Reemplazar imagen faltante por placeholder para compilación segura
+					\includegraphics[height=0.91cm]{04IMT-negativo.png}
+					
+				\end{minipage}%
+				\begin{minipage}[c][1.6cm][c]{0.33\paperwidth}
+					\begin{center}
+						\begin{minipage}[c]{0.45\textwidth}
+							\includegraphics[height=0.735cm]{cropped-logo-UCB.png}
+							
+						\end{minipage}%
+						\hspace{-15ex}%
+						\begin{minipage}[c]{0.45\textwidth}
+							\includegraphics[height=1.75cm]{asdsadsadasd.png}
+						\end{minipage}
+					\end{center}
+				\end{minipage}%
+				\begin{minipage}[c][1.6cm][c]{0.33\textwidth}
+					\raggedleft
+					\includegraphics[height=0.78cm]{cidimec_nombre.png}
+				
+				\end{minipage}%
+			}
+		}
+	}
+}
+
+\AtBeginSection[]{
+	\begin{frame}
+		\centering
+		\setstretch{2.5}
+		{ \arial\color{ucbCeleste}\Huge \insertsection}
+	\end{frame}
+}
+
+\addtobeamertemplate{frametitle}{}{% código que se ejecuta después del título de cada frame
+	\vspace{-1.00ex} %-1
+}
+
+% ==== Inicio del documento ====
+\begin{document}
+	
+	% ==== Diapositiva de portada ====
+	\begin{frame}[plain]
+		\vspace{-2ex}
+		\begin{minipage}[t]{0.5\textwidth}
+			% Placeholder si no tienes ucb_logo_full
+			\includegraphics[height=3cm]{ucb_logo_full.png}
+		\end{minipage}
+		\newline
+		
+		{\RaggedRight
+			
+			\vspace{-2.5ex}
+			{\arial \Large BRAYAN GERSON DURAN TOCONAS \\[0.3cm]
+				\tiny TUTOR: Ing. MIGUEL A. CLAVIJO QUISPE 
+				\newline
+				\vspace{2mm}
+				\arial Trabajo de revisión bibliográfica (survey paper) para la obtención del Diploma en Robótica.
+
+		}}
+		\vspace{-1ex}
+		{\color{plomo}\noindent\rule{\textwidth}{0.5pt}}
+		
+		\vspace{0.5cm}
+		{\justifying \arial\color{ucbCeleste} \huge Mapeo Autónomo Guiado por Semántica en Dispositivos Edge: Un Survey de VLA y Pred-NBV}
+	\end{frame}
+	
+	\setbeamertemplate{section in toc}[sections numbered]
+	\setbeamertemplate{subsection in toc}[subsections numbered]
+	
+	\addtobeamertemplate{section in toc}{\vspace{-3em}}{\vspace{-0.5em}}
+	\addtobeamertemplate{subsection in toc}{\vspace{-3em}}{\vspace{-0.5em}}
+	
+	\begin{frame}
+		\hspace{3ex}
+		{\centering \arial \Large \color{ucbCeleste} TABLA DE CONTENIDOS}
+		{	\hspace{3ex}
+			\renewcommand{\baselinestretch}{-3}\selectfont
+			\tableofcontents[hideallsubsections]
+		}
+	\end{frame}
+	
+	% =======================================================
+	\section{Introducción}
+	
+	\begin{frame}{Problema y Motivación}
+		\justifying
+		La inspección autónoma en entornos complejos (ej. minería a cielo abierto) carece de rutas definidas, requiriendo que los robots construyan mapas y decidan su próximo movimiento de forma inteligente.
+		
+		\vspace{1ex}
+		\textbf{Limitaciones Actuales:}
+		\begin{itemize}
+			\item \textbf{Desacoplamiento:} Los planificadores tradicionales buscan ganancia geométrica pero son "ciegos" al contexto semántico.
+			\item \textbf{Costo Computacional:} Dependencia de procesamiento en la nube (Cloud) para tareas complejas, impidiendo el uso en drones (UAVs) en tiempo real.
+			\item \textbf{Dependencia Humana:} Se requiere etiquetado manual para identificar áreas de interés.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Objetivo del Survey}
+		\justifying
+		Proponer y analizar la viabilidad de una \textbf{arquitectura de ciclo cerrado} unificando percepción y cognición en hardware Edge.
+		
+		\vspace{1ex}
+		\textbf{Pilares Tecnológicos:}
+		\begin{itemize}
+			\item \textbf{3DGS (3D Gaussian Splatting):} Reconstrucción fotorealista explícita y rápida en tiempo real.
+			\item \textbf{VLA (Vision-Language-Action):} Modelos de inteligencia semántica y ejecución de comandos.
+			\item \textbf{Pred-NBV (Predictive Next-Best-View):} Planificación predictiva para maximizar cobertura y minimizar esfuerzo de vuelo.
+		\end{itemize}
+	\end{frame}
+	
+	
+	% =======================================================
+	\section{Estado del Arte}
+	
+	\begin{frame}{Evolución de Tecnologías de Representación 3D}
+		\begin{table}[htbp]
+			\caption{Síntesis de representaciones de escena para exploración autónoma}
+			\label{tab:sota_mapping}
+			\centering
+			\resizebox{\textwidth}{!}{
+				\begin{tabular}{@{}l C{2.5cm} l l C{2cm}@{}}
+					\toprule
+					\textbf{Tipo de Representación} & \textbf{Sensores Típicos} & \textbf{Ventaja Principal} & \textbf{Limitación Principal} & \textbf{Preparación Edge} \\
+					\midrule
+					\textbf{Voxel Grids} & LiDAR, RGB-D & Determinístico, veloz & Faltan texturas & Muy Alta \\
+					\textbf{NeRF (Implícito)} & RGB, Poses & Fotorealista, continuo & Lento renderizado & Baja \\
+					\textbf{3DGS (Explícito)} & RGB, IMU & Geometría explícita, $>100$ fps & Alto uso de memoria & Media-Alta \\
+					\textbf{4DGS (Dinámico)} & RGB-D, Event & Maneja objetos dinámicos & Difícil sincronización temporal & Baja-Media \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+	\end{frame}
+	
+	\begin{frame}{Modelos Cognitivos (VLA Foundation Models)}
+		\begin{table}[htbp]
+			\caption{Comparación de Modelos VLA en Robótica}
+			\label{tab:sota_vla}
+			\centering
+			\resizebox{\textwidth}{!}{
+				\begin{tabular}{@{}l l l l@{}}
+					\toprule
+					\textbf{Paradigma} & \textbf{Modalidad de Entrada} & \textbf{Fortaleza en Exploración} & \textbf{Restricción de Despliegue} \\
+					\midrule
+					\textbf{VLA Generalistas} & Texto, Imágenes & Alta generalización (Zero-shot) & Requiere alto VRAM ($>40$ GB) \\
+					\textbf{VLA Específicos} & Point clouds, Texto & Precisión espacial (Domain-tuned) & Pobre adaptabilidad \\
+					\textbf{VLA Optimizados (Edge)} & RGB, Texto & Latencia sub-segundo (INT8/LoRA) & Razonamiento complejo degradado \\
+					\textbf{VLA Jerárquicos} & Semántica, Métrica & Cumple normas industriales (CBF) & Alta complejidad de sistema \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+	\end{frame}
+	
+	
+	% =======================================================
+	\section{Arquitectura: Semantic-Metric Loop}
+	
+	\begin{frame}{Ciclo Cerrado de Arquitectura Propuesta}
+		\centering
+		
+		\begin{figure}[h]
+			\centering
+			\resizebox{1.0\textwidth}{!}{%
+				\begin{tikzpicture}[
+					>=Latex,
+					font=\sffamily\small,
+					box/.style={draw, rounded corners, minimum width=3.2cm, minimum height=1.4cm, align=center, fill=gray!10, drop shadow},
+					data/.style={draw=none, align=center, font=\footnotesize\itshape},
+					group/.style={draw, dashed, inner sep=14pt, rounded corners, fill=gray!5}
+					]
+					
+					% Fila 1: Percepcion
+					\node[box, fill=blue!15] (sensors) {\textbf{Sensores Multimodales} \\ (RGB-D, IMU, LiDAR)};
+					\node[box, fill=red!15, right=3cm of sensors] (slam) {\textbf{Motor 3DGS-SLAM} \\ \scriptsize (Geométrico \& Radiométrico)};
+					\node[box, fill=purple!15, right=3cm of slam] (nbv) {\textbf{Planificador Pred-NBV} \\ \scriptsize (Minimización Incertidumbre)};
+					\node[box, fill=orange!15, right=3cm of nbv] (control) {\textbf{Control Edge} \\ \scriptsize (Seguimiento Trayectoria)};
+					
+					% Fila 2: Capa Cognitiva
+					\node[box, fill=green!15, below=1.8cm of slam] (vla) {\textbf{Modelo Base VLA} \\ \scriptsize (Conexión Semántica)};
+					\node[data, left=1cm of vla] (prompt) {Intención Humana \\ (Lenguaje Natural)};
+					
+					% Fondo
+					\begin{pgfonlayer}{background}
+						\node[group, fit=(slam)(nbv)(vla), label={[anchor=south, font=\bfseries]above:Núcleo Cognitivo de Percepción \& Planificación}] {};
+					\end{pgfonlayer}
+					
+					% Flechas
+					\draw[->, thick] (sensors.east) -- node[above, xshift=-0.19cm] {Flujos Crudos} (slam.west);
+					\draw[->, thick] (sensors.south east) -- node[above left, xshift=-0.19cm, yshift=-0.19cm] {Pistas Visuales} (vla.north west);
+					\draw[->, thick] (prompt.east) -- (vla.west);
+					
+					\draw[->, thick] (slam.east) -- node[above] {Mapa Explícito} node[below] {($\mu, \Sigma, \alpha, SH$)} (nbv.west);
+					\draw[<->, thick] (vla.north) -- node[right, align=left] {ROI\\Semántico} node[left, align=right] {Priors de\\Profundidad} (slam.south);
+					
+					\draw[->, thick] (nbv.east) -- node[above, xshift=0.2cm] {Poses Objetivo} (control.west);
+					\draw[->, thick] (vla.east) -| node[pos=0.25, above] {Restricciones de Tarea} (control.south);
+					\draw[->, thick, dashed] (control.north) -- ++(0,1.2) -| node[pos=0.25, above] {Retroalimentación Propioceptiva \& Cinemática} (sensors.north);
+					
+					
+				\end{tikzpicture}%
+				
+				
+			}
+			\caption{Topología integral del marco de exploración autónoma guiada por semántica, que ilustra el flujo de datos, las interacciones de los subsistemas y los mecanismos de retroalimentación.}	
+		\end{figure}
+		
+	\end{frame}
+	
+	\begin{frame}{Modulación de Incertidumbre Semántica}
+		\justifying
+		A diferencia de los enfoques geométricos tradicionales, la arquitectura usa el VLA para priorizar áreas críticas (ej. grietas en minería).
+		
+		\vspace{1ex}
+		\textbf{Campo de Incertidumbre Ponderado por Semántica ($U_s$):}
+		\begin{equation}
+			U_s(x) = \int_{p \in P} w_{\text{vla}}(p)\,\phi(g,r)\, dp
+		\end{equation}
+		
+		\vspace{1ex}
+		\begin{itemize}
+			\item $w_{\text{vla}}(p)$: Peso probabilístico dado por el VLA según la relevancia del objetivo.
+			\item Prioriza el re-escaneo de elementos de interés estructural.
+			\item Ignora activamente el fondo (alta entropía irrelevante como cielo o vegetación).
+		\end{itemize}
+	\end{frame}
+	
+	
+	% =======================================================
+	\section{Análisis y Comparación}
+	
+	\begin{frame}{Reconstrucción y Eficiencia de Exploración}
+		\begin{columns}
+			\begin{column}{0.48\textwidth}
+				\textbf{Calidad Fotorealista (Reconstrucción)}
+				\begin{table}[htbp]
+					\resizebox{\textwidth}{!}{
+						\begin{tabular}{l c c c}
+							\toprule
+							\textbf{Método} & \textbf{PSNR$\uparrow$} & \textbf{LPIPS$\downarrow$} & \textbf{FPS$\uparrow$} \\
+							\midrule
+							NeRF (Base) & $26.50$ & $0.250$ & $< 5$ \\
+							3DGS (Estándar) & $27.85$ & $0.110$ & $> 120$ \\
+							Horizon-GS & $\mathbf{28.93}$ & $\mathbf{0.056}$ & $\approx 100$ \\
+							\bottomrule
+						\end{tabular}
+					}
+				\end{table}
+				\scriptsize 3DGS desbloquea velocidades necesarias para tiempo real en UAVs.
+			\end{column}
+			
+			\begin{column}{0.48\textwidth}
+				\textbf{Eficiencia de Planificación (NBV)}
+				\begin{table}[htbp]
+					\resizebox{\textwidth}{!}{
+						\begin{tabular}{l c c}
+							\toprule
+							\textbf{Planificador} & \textbf{Estrategia Base} & \textbf{Ganancia Puntos} \\
+							\midrule
+							Frontera & Búsqueda geométrica & Base ($+0\%$) \\
+							Pred-NBV & Ray-casting aprendido & $+25.46\%$ \\
+							GenNBV & Política 5D espacio libre & $\mathbf{+31.20\%}$ \\
+							\bottomrule
+						\end{tabular}
+					}
+				\end{table}
+				\scriptsize Pred-NBV y GenNBV conservan batería al predecir la ganancia de información.
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}{Factibilidad en Hardware Edge (NVIDIA Jetson)}
+		\justifying
+		El principal reto de computación a bordo se conoce como \textit{"Memory Wall"}.
+		Se resuelve usando adaptación de bajo rango (\textbf{LoRA}) y cuantización (\textbf{INT8}).
+		
+		\vspace{2ex}
+		\begin{table}[htbp]
+			\caption{Comparación Teórica de Consumo VRAM y Latencia}
+			\centering
+			\resizebox{0.8\textwidth}{!}{
+				\begin{tabular}{l l c c}
+					\toprule
+					\textbf{Arquitectura VLA} & \textbf{Método de Optimización} & \textbf{Latencia (s)} & \textbf{VRAM (GB)} \\
+					\midrule
+					\textbf{Nube (Cloud)} & Full Fine-Tuning (Tradicional) & $> 2.50$ & $\approx 40 - 80$ \\
+					\textbf{Edge (Embebido)} & Cuantización 8-bit + LoRA & $0.60 - 0.85$ & $\approx \mathbf{8 - 12}$ \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+		\begin{itemize}
+			\item \textbf{LoRA:} Cero latencia adicional en inferencia al fusionarse los pesos linealmente.
+			\item Memoria Unificada elimina transferencias PCIe, ejecutando VLA y 3DGS simultáneamente.
+		\end{itemize}
+	\end{frame}
+	
+	
+	% =======================================================
+	\section{Discusión y Retos Abiertos}
+	
+	\begin{frame}{Desafíos en Entornos Dinámicos Reales}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\textbf{Dinámica de Escena y 4D-GS}
+				\begin{itemize}
+					\item \textbf{Problema:} Maquinaria pesada móvil arruina el mapa estático 3DGS.
+					\item \textbf{Solución:} Evolución a representaciones 4D-GS. Permite aislar temporalmente la infraestructura estática de los obstáculos dinámicos.
+				\end{itemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\textbf{Brecha "Sim-to-Real" y Datos}
+				\begin{itemize}
+					\item \textbf{Problema:} Políticas entrenadas en simulación fallan por iluminación extrema o polvo (minería).
+					\item \textbf{Solución:} Adaptación de dominio adversarial y \textit{fine-tuning} local rápido in situ.
+				\end{itemize}
+			\end{column}
+		\end{columns}
+		
+		\vspace{2ex}
+		\textbf{Certificación de Seguridad (Safety-Critical):} Los resultados de redes neuronales (VLA) son probabilísticos. Urge usar \textit{Control Barrier Functions (CBF)} para validar trayectorias antes de ser ejecutadas.
+	\end{frame}
+	
+	% =======================================================
+	\section{Conclusiones}
+	
+	\begin{frame}{Conclusiones}
+		\justifying
+		\begin{itemize}
+			\item \textbf{Viabilidad Edge:} Integrar VLA cuantizados a INT8 con optimizaciones LoRA y reconstrucción explícita (3DGS) es computacionalmente factible en ecosistemas de memoria unificada ($\approx 8-12$ GB, latencia $< 1$s).
+			\item \textbf{Cambio de Paradigma:} El \textit{Semantic-Metric Loop} cambia el enfoque de un mapeo geométrico pasivo a una exploración completamente autónoma guiada por intención.
+			\item \textbf{Próximos Pasos Industriales:} Madurar este sistema hacia activos industriales fiables (como en minería) exige obligatoriamente marcos de certificación de seguridad, modelado 4D dinámico y coordinación de enjambres bajo restricciones de red.
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+
+	\end{frame}
+	
+\end{document}
