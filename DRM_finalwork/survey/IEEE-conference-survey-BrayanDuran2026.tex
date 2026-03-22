@@ -134,7 +134,7 @@ Zhang~et~al.~\cite{zhang2025autonomous} demonstrate NBV-driven exploration with 
 \subsection{Edge-Optimised Inference for Robotics}
 \label{subsec:edge_inference}
 
-Deploying massive Vision-Language-Action (VLA) models and dense reconstruction pipelines on energy-constrained robotic platforms presents a profound computational challenge known as the ``memory wall''~\cite{edge_opt2024}. Traditional full-model fine-tuning is computationally prohibitive for edge devices. To mitigate this, Low-Rank Adaptation (LoRA) has emerged as the standard parameter-efficient fine-tuning (PEFT) method. LoRA freezes pre-trained model weights and injects trainable rank decomposition matrices into existing layers, effectively reducing the number of trainable parameters by up to 10,000 times and significantly decreasing VRAM overhead during adaptation~\cite{hu2021lora, wang2024lorafusion}. Furthermore, because the updates are linear, LoRA adapters can be mathematically merged into the base model weights prior to deployment, introducing zero additional inference latency~\cite{truefoundry2023}.
+Deploying massive Vision-Language-Action (VLA) models and dense reconstruction pipelines on energy-constrained robotic platforms presents a profound computational challenge known as the ``memory wall''~\cite{edge_opt2024}. Traditional full-model fine-tuning is computationally prohibitive for edge devices. To mitigate this, Low-Rank Adaptation (LoRA) has emerged as the standard parameter-efficient fine-tuning (PEFT) method. LoRA freezes pre-trained model weights and injects trainable rank decomposition matrices into existing layers, effectively reducing the number of trainable parameters by up to 10,000 times and significantly decreasing VRAM overhead during adaptation~\cite{hu2021lora, wang2024lorafusion}. Furthermore, because the updates are linear, LoRA adapters can be mathematically merged into the base model weights prior to deployment, introducing zero additional inference latency~\cite{11042839}.
 
 Alongside PEFT, numerical quantization is critical for accelerating inference. By mapping high-precision floating-point weights (FP16/BF16) to lower-bit representations, models can overcome memory bandwidth bottlenecks. Transitioning to 8-bit integers (INT8) can halve memory requirements while preserving approximately 97\% of full-precision task success on manipulation benchmarks, achieving real-time control loops around 30 Hz~\cite{vla_concepts_2024}. More aggressive 4-bit quantization (INT4/NF4) provides up to a 2.7x throughput increase over BF16 and expands the KV cache capacity by 12x, enabling the deployment of 30B+ parameter models on edge devices, albeit with slight trade-offs in reasoning accuracy~\cite{edge_opt2024}.
 
@@ -201,18 +201,26 @@ To establish a clear structural foundation before detailing the closed-loop mech
 \end{figure*}
 
 % ---- III-A -------------------------------------------------------------------
-\subsection{Closed-Loop Architecture}
+\subsection{The Semantic-Metric Closed-Loop Architecture}
 \label{subsec:closed_loop}
 
-True autonomy demands that perception and action operate synergistically.
-We propose a continuous five-stage cycle for active exploration:
+To consolidate the convergence of semantic cognition and metric perception on edge devices, we propose a unified, closed-loop architectural framework (illustrated in Fig.~\ref{fig:comprehensive_topology}). This architecture specifically addresses the operational demands of highly unstructured environments, such as open-pit mines, where predefined pathways are absent and dynamic topographies limit standard spatial policies~\cite{wang2022terrain}. The system operates through a continuous, five-stage cycle engineered for deployment on unified memory hardware, such as the NVIDIA Jetson ecosystem~\cite{bvm2024jetson, edge_opt2024}.
+
+The architectural flow resolves the traditional decoupling between perception and planning~\cite{dhami2023prednbv} through the following interconnected stages:
+
 \begin{enumerate}
-    \item \textbf{Semantics (VLA):} The model processes complex natural-language instructions (e.g., ``inspect the corrosion''), filters the background, and defines the Region of Interest (ROI)~\cite{astribot2025lumo}.
-    \item \textbf{Localisation (VISLAM):} A visual SLAM system (such as MCGS-SLAM~\cite{cao2024mcgs}) provides a robust estimate of the UAV pose together with an initial sparse point cloud.
-    \item \textbf{Reconstruction (3DGS):} Using the estimated pose, the explicit Gaussian map is densified and optimised in real time~\cite{liu2025survey3dgs}.
-    \item \textbf{Uncertainty (Pred-NBV):} The planner evaluates the partial 3DGS map to predict the next best view, maximising information gain while minimising flight effort~\cite{dhami2023prednbv}.
-    \item \textbf{Action (Control):} The VLA model validates the safety of the generated trajectory before issuing motor commands to the drone controller, thereby closing the loop~\cite{li2025switchvla}.
+	\item \textbf{VLA (Semantics):} The cycle initiates with an INT8-quantized Vision-Language-Action model processing natural-language instructions~\cite{vla_concepts_2024, astribot2025lumo}. This stage extracts high-level semantic intent and isolates Regions of Interest (ROI) with minimal VRAM overhead, filtering out irrelevant background data.
+	
+	\item \textbf{SLAM (Localisation):} A visual-inertial SLAM front-end generates high-frequency, robust 6-DoF pose estimates~\cite{cao2024mcgs}. This provides the critical metric backbone required to anchor the semantic features in physical space.
+	
+	\item \textbf{3DGS (Reconstruction):} Utilizing the continuous stream of SLAM poses, the system densifies an explicit 3D Gaussian map~\cite{liu2025survey3dgs}. The differentiable tile-based rasterizer enables rapid incremental updates, allowing the map's geometry to evolve dynamically as the UAV explores.
+	
+	\item \textbf{Pred-NBV (Uncertainty):} This stage tightly couples cognition and perception. It fuses the geometric and radiometric uncertainty of the 3DGS map with the semantic weights generated by the VLA~\cite{bai2025qwen3vl}. By evaluating this combined Semantic-Weighted Uncertainty Field, the predictive planner computes the optimal next viewpoint, maximizing information gain over the targeted ROI.
+	
+	\item \textbf{Control (Action):} Before execution, the generated trajectory waypoints pass through architectural safety nets utilizing Control Barrier Functions (CBF) to validate the action against the recovered metric geometry~\cite{mohrle2025concept}. Once validated, the policy issues motor commands and feeds the new spatial state back to the perception modules~\cite{li2025switchvla}.
 \end{enumerate}
+
+By maintaining all processes on-board via parameter-efficient fine-tuning (LoRA) and eliminating PCIe data transfers through shared physical RAM, this architecture achieves the simultaneous, high-frequency execution necessary to bring sub-second latency autonomy to industrial drones~\cite{edge_opt2024, zhang2025autonomous}.
 
 % ---- III-B -------------------------------------------------------------------
 \subsection{Edge Computing Deployment}
@@ -485,65 +493,17 @@ By introducing this short-term history and context, the system reliably discrimi
 
 Furthermore, energy-aware planning is critical. Pred-NBV planners must integrate battery discharge curves as hard constraints within their objective functions. This ensures the system can autonomously trigger return-to-base maneuvers or re-planning strategies when energy levels drop below critical safety thresholds, rather than abandoning the mission mid-flight.
 
-\subsection{Proposed Unified Architecture: The Semantic-Metric Loop}
-\label{subsec:disc_proposed_arch}
-
-To consolidate the convergence of semantic cognition and metric perception on edge devices, we propose a unified, closed-loop architectural framework (illustrated in Fig.~\ref{fig:proposed_architecture}). This architecture specifically addresses the operational demands of highly unstructured environments, such as open-pit mines, where predefined pathways are absent and dynamic topographies limit standard spatial policies~\cite{wang2022terrain}. The system operates through a continuous, five-stage cycle engineered for deployment on unified memory hardware, such as the NVIDIA Jetson ecosystem~\cite{bvm2024jetson, edge_opt2024}.
-
-\begin{figure}[htbp]
-	\centering
-	\resizebox{\columnwidth}{!}{%
-		\begin{tikzpicture}[
-			node distance=0.8cm and 0.5cm,
-			auto,
-			block/.style={rectangle, draw, text width=2.2cm, text centered, rounded corners, minimum height=1.0cm, drop shadow, font=\small},
-			line/.style={draw, -Latex, thick}
-			]
-			% Nodos
-			\node [block, fill=red!10] (init) {\textbf{1. VLA} \\ Semantics};
-			\node [block, fill=blue!10, below=of init] (slam) {\textbf{2. SLAM} \\ Localisation};
-			\node [block, fill=blue!10, right=of slam] (gs) {\textbf{3. 3DGS} \\ Reconstruction};
-			\node [block, fill=orange!10, right=of gs] (nbv) {\textbf{4. Pred-NBV} \\ Uncertainty};
-			\node [block, fill=green!10, above=of nbv] (ctrl) {\textbf{5. Control} \\ Action};
-			
-			% Conexiones
-			\path [line] (init) -- (slam);
-			\path [line] (slam) -- (gs);
-			\path [line] (gs) -- (nbv);
-			\path [line] (nbv) -- (ctrl);
-			\path [line] (ctrl) -- node[above, font=\scriptsize] {Feedback Loop} (init);
-		\end{tikzpicture}%
-	}
-	\vspace{0.2cm}
-	\caption{The proposed Semantic-Metric Loop. A closed-loop architecture integrating VLA cognitive reasoning, 3DGS metric reconstruction, and Pred-NBV active exploration for edge-deployed autonomous UAVs.}
-	\label{fig:proposed_architecture}
-\end{figure}
-
-The architectural flow resolves the traditional decoupling between perception and planning~\cite{dhami2023prednbv} through the following interconnected stages:
-
-\begin{enumerate}
-	\item \textbf{VLA (Semantics):} The cycle initiates with an INT8-quantized Vision-Language-Action model processing natural-language instructions~\cite{vla_concepts_2024, astribot2025lumo}. This stage extracts high-level semantic intent and isolates Regions of Interest (ROI) with minimal VRAM overhead, filtering out irrelevant background data.
-	
-	\item \textbf{SLAM (Localisation):} A visual-inertial SLAM front-end generates high-frequency, robust 6-DoF pose estimates~\cite{cao2024mcgs}. This provides the critical metric backbone required to anchor the semantic features in physical space.
-	
-	\item \textbf{3DGS (Reconstruction):} Utilizing the continuous stream of SLAM poses, the system densifies an explicit 3D Gaussian map~\cite{liu2025survey3dgs}. The differentiable tile-based rasterizer enables rapid incremental updates, allowing the map's geometry to evolve dynamically as the UAV explores.
-	
-	\item \textbf{Pred-NBV (Uncertainty):} This stage tightly couples cognition and perception. It fuses the geometric and radiometric uncertainty of the 3DGS map with the semantic weights generated by the VLA~\cite{bai2025qwen3vl}. By evaluating this combined Semantic-Weighted Uncertainty Field, the predictive planner computes the optimal next viewpoint, maximizing information gain over the targeted ROI.
-	
-	\item \textbf{Control (Action):} Before execution, the generated trajectory waypoints pass through architectural safety nets utilizing Control Barrier Functions (CBF) to validate the action against the recovered metric geometry~\cite{mohrle2025concept}. Once validated, the policy issues motor commands and feeds the new spatial state back to the perception modules~\cite{li2025switchvla}.
-\end{enumerate}
-
-By maintaining all processes on-board via parameter-efficient fine-tuning (LoRA) and eliminating PCIe data transfers through shared physical RAM, this architecture achieves the simultaneous, high-frequency execution necessary to bring sub-second latency autonomy to industrial drones~\cite{edge_opt2024, zhang2025autonomous}.
-
 % ==============================================================================
 % VI. CONCLUSION
 % ==============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 
-This survey has reviewed the convergence of 3D~Gaussian Splatting, Vision-Language-Action models, and predictive Next-Best-View planning toward a unified framework for semantic-guided autonomous mapping. The quantitative evidence consolidated from the literature demonstrates that the integration of VLA models optimised via LoRA with geometric systems such as 3DGS is not only computationally feasible on edge hardware (VRAM $\approx 8$--$12$\,GB, latency $< 1$\,s) but imperative for the next generation of mobile robots and UAVs in autonomous inspection missions.
+This survey has systematically reviewed the convergence of 3D~Gaussian Splatting, Vision-Language-Action models, and predictive Next-Best-View planning. By synthesizing these domains, we articulated the Semantic-Metric Loop, a unified architectural framework that tightly couples cognitive semantic reasoning with metric spatial perception. Quantitative evidence consolidated from the literature demonstrates that integrating VLA models---optimised via parameter-efficient techniques such as LoRA and INT8 quantisation---with explicit geometric systems like 3DGS is computationally viable on unified-memory edge hardware (VRAM $\approx 8$--$12$\,GB, latency $< 1$\,s). This integration facilitates a necessary paradigm shift from passive, purely geometric mapping to active, intent-driven autonomous exploration.
 
-However, realizing this vision requires overcoming several open challenges. The sim-to-real transfer gap for semantic policies remains substantial, and robust safety certification frameworks are urgently needed to validate non-deterministic VLA outputs. Furthermore, handling highly dynamic scenes with moving machinery requires the evolution of static 3DGS into 4D representations. Future work should prioritize decentralized multi-agent coordination under bandwidth constraints and energy-aware long-horizon planning. Solving these challenges will ensure that semantic-guided drones can operate persistently and safely in the world's most demanding industrial environments, such as open-pit mining.
+Despite these advancements, deploying such closed-loop architectures in safety-critical and unstructured environments introduces substantial challenges. The sim-to-real transfer gap for semantic spatial policies remains a primary bottleneck, requiring robust domain adaptation strategies. Furthermore, the inherent probabilism of VLA outputs demands rigorous safety certification frameworks, such as the integration of Control Barrier Functions, to validate non-deterministic trajectories prior to execution. In active industrial sites, the continuous presence of moving machinery also necessitates the evolution of static 3DGS representations into temporal 4D-GS models to actively filter out dynamic navigation hazards.
+
+Future research must address the scalability and persistence of these systems. Prioritizing decentralized multi-agent coordination under severe bandwidth constraints, alongside energy-aware, long-horizon mission planning, is essential for large-scale infrastructure inspection. Addressing these fundamental challenges represents a critical prerequisite for maturing semantic-guided UAVs from experimental frameworks into reliable, autonomous assets capable of operating safely in highly demanding domains, such as open-pit mining.
 % ==============================================================================
 % ACKNOWLEDGMENT
 % ==============================================================================

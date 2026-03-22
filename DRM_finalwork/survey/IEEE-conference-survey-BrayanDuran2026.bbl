@@ -198,12 +198,11 @@ Z.~Zhu, Q.~Su, Y.~Ding, K.~Song, S.~Wang, and G.~Pekhimenko, ``{LoRAFusion}:
   \url{https://arxiv.org/abs/2510.00206}
 \BIBentrySTDinterwordspacing
 
-\bibitem{truefoundry2023}
-\BIBentryALTinterwordspacing
-{TrueFoundry}, ``What is {LoRA} fine-tuning? the definitive guide,''
-  TrueFoundry Blog, 2025. [Online]. Available:
-  \url{https://www.truefoundry.com/blog/lora-fine-tuning}
-\BIBentrySTDinterwordspacing
+\bibitem{11042839}
+Z.~Feng, Y.~Xie, J.~Yang, W.~Hou, and Z.~Li, ``A survey of low-rank adaptation
+  techniques,'' in \emph{2025 8th International Conference on Advanced
+  Electronic Materials, Computers and Software Engineering (AEMCSE)}, May 2025,
+  pp. 215--224.
 
 \bibitem{vla_concepts_2024}
 \BIBentryALTinterwordspacing
@@ -224,6 +223,15 @@ R.~Jayanth, N.~Gupta, and V.~Prasanna, ``Benchmarking edge ai platforms for
   high-performance ml inference,'' in \emph{2024 IEEE High Performance Extreme
   Computing Conference (HPEC)}, Sep. 2024, pp. 1--7.
 
+\bibitem{mohrle2025concept}
+\BIBentryALTinterwordspacing
+J.~M{\"o}hrle, C.~Pest, H.~Shin, A.~Gaugenrieder, C.~H{\"a}rdtlein, and
+  R.~Daub, ``A concept for the use of vision-language-action models for
+  human-robot collaboration,'' Fraunhofer Institute IGCV, Tech. Rep., 2026.
+  [Online]. Available:
+  \url{https://www.researchgate.net/publication/401692997_A_Concept_for_the_Use_of_Vision-Language-Action_Models_for_Human-Robot_Collaboration_Research_Gate}
+\BIBentrySTDinterwordspacing
+
 \bibitem{11321396}
 H.~Ou and Y.~Ji, ``A pose-free approach for 4d gaussian splatting to
   reconstruct dynamic scenes,'' in \emph{2025 11th International Conference on
@@ -236,15 +244,6 @@ B.~Zhang, Y.~Zhang, J.~Ji, Y.~Lei, J.~Dai, Y.~Chen, and Y.~Yang, ``{SafeVLA}:
   Towards safety alignment of vision-language-action model via constrained
   learning,'' \emph{arXiv preprint arXiv:2503.03480}, 2025. [Online].
   Available: \url{https://arxiv.org/abs/2503.03480}
-\BIBentrySTDinterwordspacing
-
-\bibitem{mohrle2025concept}
-\BIBentryALTinterwordspacing
-J.~M{\"o}hrle, C.~Pest, H.~Shin, A.~Gaugenrieder, C.~H{\"a}rdtlein, and
-  R.~Daub, ``A concept for the use of vision-language-action models for
-  human-robot collaboration,'' Fraunhofer Institute IGCV, Tech. Rep., 2026.
-  [Online]. Available:
-  \url{https://www.researchgate.net/publication/401692997_A_Concept_for_the_Use_of_Vision-Language-Action_Models_for_Human-Robot_Collaboration_Research_Gate}
 \BIBentrySTDinterwordspacing
 
 \bibitem{cheng2024manipulation}
